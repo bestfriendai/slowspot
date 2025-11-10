@@ -72,13 +72,13 @@ export const QuotesScreen: React.FC = () => {
 
   return (
     <ScrollView>
-      <YStack flex={1} padding="$6" gap="$6" backgroundColor="$background">
-        <H2 size="$8" fontWeight="400" color="$color" paddingTop="$4">
+      <YStack flex={1} p="$6" gap="$6" background="$background">
+        <H2 size="$8" fontWeight="400" color="$color" pt="$4">
           {t('quotes.title')}
         </H2>
 
         {loading ? (
-          <YStack alignItems="center" padding="$8">
+          <YStack ai="center" p="$8">
             <Spinner size="large" color="$primary" />
           </YStack>
         ) : quotes.length > 0 ? (
@@ -86,10 +86,10 @@ export const QuotesScreen: React.FC = () => {
             <QuoteCard quote={quotes[currentIndex]} />
 
             {/* Navigation */}
-            <XStack gap="$3" justifyContent="center">
+            <XStack gap="$3" jc="center">
               <Button
                 size="$4"
-                backgroundColor="$backgroundPress"
+                background="$backgroundPress"
                 color="$color"
                 borderRadius="$round"
                 flex={1}
@@ -102,7 +102,7 @@ export const QuotesScreen: React.FC = () => {
 
               <Button
                 size="$4"
-                backgroundColor="$primary"
+                background="$primary"
                 color="$background"
                 borderRadius="$round"
                 flex={1}
@@ -114,7 +114,7 @@ export const QuotesScreen: React.FC = () => {
 
               <Button
                 size="$4"
-                backgroundColor="$backgroundPress"
+                background="$backgroundPress"
                 color="$color"
                 borderRadius="$round"
                 flex={1}

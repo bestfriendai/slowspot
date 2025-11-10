@@ -45,8 +45,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
                   i18n.language === lang.code ? '$primary' : '$backgroundPress'
                 }
                 color={i18n.language === lang.code ? '$background' : '$color'}
-                br="$md"
-                justifyContent="flex-start"
+                borderRadius="$4"
+                jc="flex-start"
                 onPress={() => handleLanguageChange(lang.code)}
                 borderWidth={1}
                 borderColor="$borderColor"
@@ -63,11 +63,11 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
             {t('settings.theme')}
           </H4>
           <XStack
-            justifyContent="space-between"
-            alignItems="center"
+            jc="space-between"
+            ai="center"
             p="$4"
             background="$backgroundPress"
-            br="$md"
+            borderRadius="$4"
             borderWidth={1}
             borderColor="$borderColor"
           >
@@ -92,7 +92,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
           <YStack
             p="$4"
             background="$backgroundPress"
-            br="$md"
+            borderRadius="$4"
             gap="$2"
             borderWidth={1}
             borderColor="$borderColor"
