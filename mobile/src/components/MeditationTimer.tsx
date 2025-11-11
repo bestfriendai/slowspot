@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, useColorScheme } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, useColorScheme, Animated, Easing } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import Svg, { Circle } from 'react-native-svg';
 
@@ -19,6 +19,59 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const [isRunning, setIsRunning] = useState(false);
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
+
+  // Breathing animation: 4 seconds inhale, 4 seconds exhale
+  const breathingScale = useRef(new Animated.Value(0.85)).current;
+  const breathingOpacity = useRef(new Animated.Value(0.3)).current;
+
+  // Start breathing animation loop
+  useEffect(() => {
+    if (!isRunning) return;
+
+    const breathe = () => {
+      Animated.loop(
+        Animated.sequence([
+          // Inhale: expand and fade in
+          Animated.parallel([
+            Animated.timing(breathingScale, {
+              toValue: 1.0,
+              duration: 4000,
+              easing: Easing.inOut(Easing.ease),
+              useNativeDriver: true,
+            }),
+            Animated.timing(breathingOpacity, {
+              toValue: 0.6,
+              duration: 4000,
+              easing: Easing.inOut(Easing.ease),
+              useNativeDriver: true,
+            }),
+          ]),
+          // Exhale: contract and fade out
+          Animated.parallel([
+            Animated.timing(breathingScale, {
+              toValue: 0.85,
+              duration: 4000,
+              easing: Easing.inOut(Easing.ease),
+              useNativeDriver: true,
+            }),
+            Animated.timing(breathingOpacity, {
+              toValue: 0.3,
+              duration: 4000,
+              easing: Easing.inOut(Easing.ease),
+              useNativeDriver: true,
+            }),
+          ]),
+        ])
+      ).start();
+    };
+
+    breathe();
+
+    return () => {
+      breathingScale.stopAnimation();
+      breathingOpacity.stopAnimation();
+    };
+  }, [isRunning, breathingScale, breathingOpacity]);
 
   useEffect(() => {
     if (!isRunning || remainingSeconds <= 0) return;
@@ -56,6 +109,26 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     <View style={styles.container}>
       {/* Circular Progress */}
       <View style={styles.circleContainer}>
+        {/* Breathing Circle Animation */}
+        <Animated.View
+          style={[
+            styles.breathingCircle,
+            {
+              opacity: breathingOpacity,
+              transform: [{ scale: breathingScale }],
+            },
+          ]}
+        >
+          <View
+            style={[
+              styles.breathingCircleInner,
+              {
+                backgroundColor: isDark ? 'rgba(10, 132, 255, 0.2)' : 'rgba(0, 122, 255, 0.2)',
+              },
+            ]}
+          />
+        </Animated.View>
+
         <Svg width={size} height={size} style={styles.svg}>
           {/* Background Circle */}
           <Circle
@@ -143,6 +216,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 280,
     height: 280,
+  },
+  breathingCircle: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 280,
+    height: 280,
+  },
+  breathingCircleInner: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 140,
   },
   svg: {
     transform: [{ rotate: '0deg' }],

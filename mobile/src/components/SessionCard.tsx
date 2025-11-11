@@ -13,6 +13,19 @@ const getLevelLabel = (level: number): string => {
   return levels[level - 1] || 'beginner';
 };
 
+const getGuidanceText = (level: number, t: any): string => {
+  // Beginners: Detailed step-by-step instructions
+  if (level === 1) {
+    return t('meditation.beginnerGuidance') || '1. Find a quiet space\n2. Sit comfortably\n3. Close your eyes\n4. Follow the voice guidance';
+  }
+  // Intermediate: Brief reminders
+  if (level === 2) {
+    return t('meditation.intermediateGuidance') || 'Find your comfortable position, breathe naturally';
+  }
+  // Advanced+: Minimal or no text (just ambient)
+  return t('meditation.advancedGuidance') || 'Settle into stillness';
+};
+
 const formatDuration = (seconds: number): string => {
   const minutes = Math.floor(seconds / 60);
   return `${minutes} min`;
@@ -38,6 +51,22 @@ export const SessionCard: React.FC<SessionCardProps> = ({ session, onPress }) =>
           {session.description && (
             <Text style={[styles.description, isDark ? styles.darkPlaceholder : styles.lightPlaceholder]}>
               {session.description}
+            </Text>
+          )}
+
+          {/* Guidance for beginners */}
+          {session.level === 1 && (
+            <View style={[styles.guidanceBox, isDark ? styles.darkGuidanceBox : styles.lightGuidanceBox]}>
+              <Text style={[styles.guidanceText, isDark ? styles.darkPlaceholder : styles.lightPlaceholder]}>
+                {getGuidanceText(session.level, t)}
+              </Text>
+            </View>
+          )}
+
+          {/* Minimal guidance for intermediate+ */}
+          {session.level > 1 && (
+            <Text style={[styles.minimalGuidance, isDark ? styles.darkPlaceholder : styles.lightPlaceholder]}>
+              {getGuidanceText(session.level, t)}
             </Text>
           )}
         </View>
@@ -158,5 +187,25 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '500',
+  },
+  guidanceBox: {
+    marginTop: 12,
+    padding: 12,
+    borderRadius: 8,
+  },
+  lightGuidanceBox: {
+    backgroundColor: '#F9F9F9',
+  },
+  darkGuidanceBox: {
+    backgroundColor: '#1C1C1E',
+  },
+  guidanceText: {
+    fontSize: 13,
+    lineHeight: 20,
+  },
+  minimalGuidance: {
+    marginTop: 8,
+    fontSize: 13,
+    fontStyle: 'italic',
   },
 });

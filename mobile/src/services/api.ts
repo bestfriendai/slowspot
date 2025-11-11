@@ -24,6 +24,9 @@ export interface MeditationSession {
   level: number;
   description?: string;
   createdAt: string;
+  // Healing frequency metadata (432Hz for ambient, 528Hz for chimes)
+  ambientFrequency?: number; // Default: 432Hz (natural harmonic)
+  chimeFrequency?: number; // Default: 528Hz (love/healing frequency)
 }
 
 // Offline-first architecture: Try cache first, then API

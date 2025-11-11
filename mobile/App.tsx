@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Feather, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import './src/i18n';
 
 import { HomeScreen } from './src/screens/HomeScreen';
@@ -52,8 +52,8 @@ export default function App() {
             ]}
             onPress={() => setCurrentScreen('home')}
           >
-            <Feather
-              name="home"
+            <Ionicons
+              name={currentScreen === 'home' ? 'home' : 'home-outline'}
               size={24}
               color={
                 currentScreen === 'home'
@@ -72,7 +72,7 @@ export default function App() {
             onPress={() => setCurrentScreen('meditation')}
           >
             <Ionicons
-              name="flower-outline"
+              name={currentScreen === 'meditation' ? 'radio-button-on' : 'radio-button-off'}
               size={24}
               color={
                 currentScreen === 'meditation'
@@ -90,8 +90,8 @@ export default function App() {
             ]}
             onPress={() => setCurrentScreen('quotes')}
           >
-            <Feather
-              name="book-open"
+            <Ionicons
+              name={currentScreen === 'quotes' ? 'book' : 'book-outline'}
               size={24}
               color={
                 currentScreen === 'quotes'
@@ -109,8 +109,8 @@ export default function App() {
             ]}
             onPress={() => setCurrentScreen('settings')}
           >
-            <Feather
-              name="settings"
+            <Ionicons
+              name={currentScreen === 'settings' ? 'settings' : 'settings-outline'}
               size={24}
               color={
                 currentScreen === 'settings'

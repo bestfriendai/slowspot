@@ -119,29 +119,35 @@ export const MeditationScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView style={[styles.container, isDark ? styles.darkBg : styles.lightBg]}>
-      <View style={styles.content}>
-        <Text style={[styles.title, isDark ? styles.darkText : styles.lightText]}>
-          {t('meditation.title')}
-        </Text>
+    <View style={[styles.container, isDark ? styles.darkBg : styles.lightBg]}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.content}>
+          <Text style={[styles.title, isDark ? styles.darkText : styles.lightText]}>
+            {t('meditation.title')}
+          </Text>
 
-        {loading ? (
-          <View style={styles.loader}>
-            <ActivityIndicator size="large" color={isDark ? '#0A84FF' : '#007AFF'} />
-          </View>
-        ) : (
-          <View style={styles.sessionsList}>
-            {sessions.map((session) => (
-              <SessionCard
-                key={session.id}
-                session={session}
-                onPress={() => handleStartSession(session)}
-              />
-            ))}
-          </View>
-        )}
-      </View>
-    </ScrollView>
+          {loading ? (
+            <View style={styles.loader}>
+              <ActivityIndicator size="large" color={isDark ? '#0A84FF' : '#007AFF'} />
+            </View>
+          ) : (
+            <View style={styles.sessionsList}>
+              {sessions.map((session) => (
+                <SessionCard
+                  key={session.id}
+                  session={session}
+                  onPress={() => handleStartSession(session)}
+                />
+              ))}
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -154,6 +160,13 @@ const styles = StyleSheet.create({
   },
   darkBg: {
     backgroundColor: '#1A1A1A',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 24,
   },
   content: {
     padding: 24,
