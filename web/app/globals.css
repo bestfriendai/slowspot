@@ -1,0 +1,167 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero p {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  opacity: 0.9;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #667eea;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.features {
+  padding: 100px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.features h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-card p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.footer {
+  padding: 60px 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.footer p {
+  opacity: 0.7;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

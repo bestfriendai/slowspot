@@ -26,8 +26,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
 
   return (
     <ScrollView>
-      <YStack flex={1} padding="$6" gap="$6" background="$background">
-        <H2 size="$8" fontWeight="400" color="$color" paddingTop="$4">
+      <YStack flex={1} p="$6" gap="$6" background="$background">
+        <H2 size="$8" fontWeight="400" color="$color" pt="$4">
           {t('settings.title')}
         </H2>
 
@@ -45,11 +45,10 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
                   i18n.language === lang.code ? '$primary' : '$backgroundPress'
                 }
                 color={i18n.language === lang.code ? '$background' : '$color'}
-                borderRadius="$md"
-                jc="flex-start"
                 onPress={() => handleLanguageChange(lang.code)}
                 borderWidth={1}
                 borderColor="$borderColor"
+                style={{ justifyContent: 'flex-start' }}
               >
                 {lang.name}
               </Button>
@@ -63,13 +62,11 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
             {t('settings.theme')}
           </H4>
           <XStack
-            jc="space-between"
-            ai="center"
-            padding="$4"
+            p="$4"
             background="$backgroundPress"
-            borderRadius="$md"
             borderWidth={1}
             borderColor="$borderColor"
+            style={{ justifyContent: 'space-between', alignItems: 'center' }}
           >
             <Text fontSize="$4" color="$color">
               {isDark ? t('settings.dark') : t('settings.light')}
@@ -90,9 +87,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
             {t('settings.about')}
           </H4>
           <YStack
-            padding="$4"
+            p="$4"
             background="$backgroundPress"
-            borderRadius="$md"
             gap="$2"
             borderWidth={1}
             borderColor="$borderColor"

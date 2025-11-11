@@ -51,8 +51,8 @@ export default function App() {
               borderTopWidth={1}
               borderColor="$borderColor"
               background="$background"
-              paddingVertical="$3"
-              paddingHorizontal="$4"
+              py="$3"
+              px="$4"
               gap="$2"
             >
               <Button
@@ -62,7 +62,6 @@ export default function App() {
                   currentScreen === 'home' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'home' ? '$background' : '$color'}
-                borderRadius="$md"
                 onPress={() => setCurrentScreen('home')}
               >
                 🏠
@@ -74,7 +73,6 @@ export default function App() {
                   currentScreen === 'meditation' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'meditation' ? '$background' : '$color'}
-                borderRadius="$md"
                 onPress={() => setCurrentScreen('meditation')}
               >
                 🧘
@@ -86,7 +84,6 @@ export default function App() {
                   currentScreen === 'quotes' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'quotes' ? '$background' : '$color'}
-                borderRadius="$md"
                 onPress={() => setCurrentScreen('quotes')}
               >
                 💭
@@ -98,7 +95,6 @@ export default function App() {
                   currentScreen === 'settings' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'settings' ? '$background' : '$color'}
-                borderRadius="$md"
                 onPress={() => setCurrentScreen('settings')}
               >
                 ⚙️
