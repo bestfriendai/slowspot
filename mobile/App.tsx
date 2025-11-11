@@ -62,7 +62,6 @@ export default function App() {
                   currentScreen === 'home' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'home' ? '$background' : '$color'}
-                borderRadius="$4"
                 onPress={() => setCurrentScreen('home')}
               >
                 🏠
@@ -74,7 +73,6 @@ export default function App() {
                   currentScreen === 'meditation' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'meditation' ? '$background' : '$color'}
-                borderRadius="$4"
                 onPress={() => setCurrentScreen('meditation')}
               >
                 🧘
@@ -86,7 +84,6 @@ export default function App() {
                   currentScreen === 'quotes' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'quotes' ? '$background' : '$color'}
-                borderRadius="$4"
                 onPress={() => setCurrentScreen('quotes')}
               >
                 💭
@@ -98,7 +95,6 @@ export default function App() {
                   currentScreen === 'settings' ? '$primary' : '$backgroundPress'
                 }
                 color={currentScreen === 'settings' ? '$background' : '$color'}
-                borderRadius="$4"
                 onPress={() => setCurrentScreen('settings')}
               >
                 ⚙️

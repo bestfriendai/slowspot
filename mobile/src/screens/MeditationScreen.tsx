@@ -124,8 +124,8 @@ export const MeditationScreen: React.FC = () => {
         </H2>
 
         {loading ? (
-          <YStack ai="center" p="$8">
-            <Spinner size="large" color="$primary" />
+          <YStack p="$8" style={{ alignItems: 'center' }}>
+            <Spinner size="large" color={"$primary" as any} />
           </YStack>
         ) : (
           <YStack gap="$4">

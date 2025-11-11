@@ -22,7 +22,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({ quote }) => {
       borderRadius="$4"
     >
       <Card.Header padded>
-        <YStack gap="$2" ai="center">
+        <YStack gap="$2" style={{ alignItems: 'center' }}>
           <H3 size="$7" fontWeight="300" color="$color">
             "{quote.text}"
           </H3>
@@ -40,7 +40,7 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({ quote }) => {
 
       {(quote.category || quote.cultureTag) && (
         <Card.Footer padded>
-          <YStack gap="$1" ai="center">
+          <YStack gap="$1" style={{ alignItems: 'center' }}>
             {quote.category && (
               <Text fontSize="$2" color="$color">
                 {quote.category}

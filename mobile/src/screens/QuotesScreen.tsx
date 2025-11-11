@@ -78,22 +78,21 @@ export const QuotesScreen: React.FC = () => {
         </H2>
 
         {loading ? (
-          <YStack ai="center" p="$8">
-            <Spinner size="large" color="$primary" />
+          <YStack p="$8" style={{ alignItems: 'center' }}>
+            <Spinner size="large" color={"$primary" as any} />
           </YStack>
         ) : quotes.length > 0 ? (
           <>
             <QuoteCard quote={quotes[currentIndex]} />
 
             {/* Navigation */}
-            <XStack gap="$3" jc="center">
+            <XStack gap="$3" style={{ justifyContent: 'center' }}>
               <Button
                 size="$4"
                 background="$backgroundPress"
                 color="$color"
-                borderRadius="$round"
                 flex={1}
-                maxWidth={120}
+                width={120}
                 onPress={handlePrevious}
                 disabled={quotes.length <= 1}
               >
@@ -104,9 +103,8 @@ export const QuotesScreen: React.FC = () => {
                 size="$4"
                 background="$primary"
                 color="$background"
-                borderRadius="$round"
                 flex={1}
-                maxWidth={120}
+                width={120}
                 onPress={loadRandomQuote}
               >
                 {t('quotes.random')}
@@ -116,9 +114,8 @@ export const QuotesScreen: React.FC = () => {
                 size="$4"
                 background="$backgroundPress"
                 color="$color"
-                borderRadius="$round"
                 flex={1}
-                maxWidth={120}
+                width={120}
                 onPress={handleNext}
                 disabled={quotes.length <= 1}
               >
