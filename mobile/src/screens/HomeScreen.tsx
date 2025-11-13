@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { QuoteCard } from '../components/QuoteCard';
 import { GradientBackground } from '../components/GradientBackground';
 import { GradientCard } from '../components/GradientCard';
@@ -78,21 +79,39 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             </Text>
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
+                <Ionicons
+                  name="flame"
+                  size={32}
+                  color={theme.colors.semantic.warning.default}
+                  style={styles.statIcon}
+                />
                 <Text style={styles.statValue}>{stats.currentStreak}</Text>
                 <Text style={styles.statLabel}>
-                  🔥 {t('home.dayStreak') || 'day streak'}
+                  {t('home.dayStreak') || 'day streak'}
                 </Text>
               </View>
               <View style={styles.statItem}>
+                <Ionicons
+                  name="time-outline"
+                  size={32}
+                  color={theme.colors.accent.blue[500]}
+                  style={styles.statIcon}
+                />
                 <Text style={styles.statValue}>{stats.totalMinutes}</Text>
                 <Text style={styles.statLabel}>
-                  ⏱️ {t('home.totalMinutes') || 'total min'}
+                  {t('home.totalMinutes') || 'total min'}
                 </Text>
               </View>
               <View style={styles.statItem}>
+                <Ionicons
+                  name="checkmark-circle"
+                  size={32}
+                  color={theme.colors.semantic.success.default}
+                  style={styles.statIcon}
+                />
                 <Text style={styles.statValue}>{stats.totalSessions}</Text>
                 <Text style={styles.statLabel}>
-                  ✅ {t('home.sessions') || 'sessions'}
+                  {t('home.sessions') || 'sessions'}
                 </Text>
               </View>
             </View>
@@ -173,6 +192,9 @@ const styles = StyleSheet.create({
   },
   statItem: {
     alignItems: 'center',
+  },
+  statIcon: {
+    marginBottom: theme.spacing.xs,
   },
   statValue: {
     fontSize: theme.typography.fontSizes.xxxl,

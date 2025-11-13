@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Platform } from 'react-native';
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Platform, useColorScheme } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -10,13 +10,19 @@ import './src/i18n';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { MeditationScreen } from './src/screens/MeditationScreen';
 import { QuotesScreen } from './src/screens/QuotesScreen';
-import { SettingsScreen, THEME_STORAGE_KEY } from './src/screens/SettingsScreen';
+import { SettingsScreen, THEME_STORAGE_KEY, ThemeMode } from './src/screens/SettingsScreen';
 
 type Screen = 'home' | 'meditation' | 'quotes' | 'settings';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
-  const [isDark, setIsDark] = useState(false);
+  const [themeMode, setThemeMode] = useState<ThemeMode>('system');
+  const systemColorScheme = useColorScheme();
+
+  // Calculate actual dark mode based on theme mode and system preference
+  const isDark = themeMode === 'system'
+    ? systemColorScheme === 'dark'
+    : themeMode === 'dark';
 
   // Load saved theme preference on mount
   useEffect(() => {
@@ -24,7 +30,8 @@ export default function App() {
       try {
         const savedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
         if (savedTheme !== null) {
-          setIsDark(JSON.parse(savedTheme));
+          const parsedTheme = JSON.parse(savedTheme) as ThemeMode;
+          setThemeMode(parsedTheme);
         }
       } catch (error) {
         console.error('Failed to load theme preference:', error);
@@ -34,11 +41,10 @@ export default function App() {
     loadThemePreference();
   }, []);
 
-  const handleToggleDark = async () => {
+  const handleThemeChange = async (mode: ThemeMode) => {
     try {
-      const newValue = !isDark;
-      setIsDark(newValue);
-      await AsyncStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(newValue));
+      setThemeMode(mode);
+      await AsyncStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(mode));
     } catch (error) {
       console.error('Failed to save theme preference:', error);
     }
@@ -63,7 +69,7 @@ export default function App() {
       case 'quotes':
         return <QuotesScreen />;
       case 'settings':
-        return <SettingsScreen isDark={isDark} onToggleDark={handleToggleDark} />;
+        return <SettingsScreen isDark={isDark} themeMode={themeMode} onThemeChange={handleThemeChange} />;
       default:
         return null;
     }

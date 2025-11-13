@@ -76,7 +76,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
               {t('meditation.duration')}:
             </Text>
             <Text style={styles.statValue}>
-              {durationMinutes} {t('meditation.minutes')}
+              {t('meditation.minutes', { count: durationMinutes })}
             </Text>
           </View>
         </GradientCard>

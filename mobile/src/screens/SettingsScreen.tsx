@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   Switch,
   StyleSheet,
-  useColorScheme,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const LANGUAGE_STORAGE_KEY = 'user_language_preference';
 export const THEME_STORAGE_KEY = 'user_theme_preference';
+
+export type ThemeMode = 'light' | 'dark' | 'system';
 
 const LANGUAGES = [
   { code: 'en', name: 'English' },
@@ -25,13 +26,12 @@ const LANGUAGES = [
 
 interface SettingsScreenProps {
   isDark: boolean;
-  onToggleDark: () => void;
+  themeMode: ThemeMode;
+  onThemeChange: (mode: ThemeMode) => void;
 }
 
-export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggleDark }) => {
+export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, themeMode, onThemeChange }) => {
   const { t, i18n } = useTranslation();
-  const systemColorScheme = useColorScheme();
-  const isDarkMode = systemColorScheme === 'dark';
 
   const handleLanguageChange = async (languageCode: string) => {
     try {
@@ -42,7 +42,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
     }
   };
 
-  const styles = createStyles(isDarkMode);
+  const styles = createStyles(isDark);
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -79,22 +79,60 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({ isDark, onToggle
           </View>
         </View>
 
-        {/* Theme Toggle */}
+        {/* Theme Selection */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>
             {t('settings.theme')}
           </Text>
-          <View style={styles.themeToggleContainer}>
-            <Text style={styles.themeText}>
-              {isDark ? t('settings.dark') : t('settings.light')}
-            </Text>
-            <Switch
-              value={isDark}
-              onValueChange={onToggleDark}
-              trackColor={{ false: '#767577', true: '#0A84FF' }}
-              thumbColor={isDark ? '#FFFFFF' : '#F4F3F4'}
-              ios_backgroundColor="#3E3E3E"
-            />
+          <View style={styles.themeButtons}>
+            <TouchableOpacity
+              style={[
+                styles.themeButton,
+                themeMode === 'light' && styles.themeButtonActive,
+              ]}
+              onPress={() => onThemeChange('light')}
+            >
+              <Text
+                style={[
+                  styles.themeButtonText,
+                  themeMode === 'light' && styles.themeButtonTextActive,
+                ]}
+              >
+                {t('settings.light') || 'Light'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.themeButton,
+                themeMode === 'dark' && styles.themeButtonActive,
+              ]}
+              onPress={() => onThemeChange('dark')}
+            >
+              <Text
+                style={[
+                  styles.themeButtonText,
+                  themeMode === 'dark' && styles.themeButtonTextActive,
+                ]}
+              >
+                {t('settings.dark') || 'Dark'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.themeButton,
+                themeMode === 'system' && styles.themeButtonActive,
+              ]}
+              onPress={() => onThemeChange('system')}
+            >
+              <Text
+                style={[
+                  styles.themeButtonText,
+                  themeMode === 'system' && styles.themeButtonTextActive,
+                ]}
+              >
+                {t('settings.system') || 'System'}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -168,19 +206,28 @@ const createStyles = (isDarkMode: boolean) =>
     languageButtonTextActive: {
       color: '#FFFFFF',
     },
-    themeToggleContainer: {
-      flexDirection: 'row',
+    themeButtons: {
+      gap: 8,
+    },
+    themeButton: {
       padding: 16,
       backgroundColor: isDarkMode ? '#2C2C2E' : '#F2F2F7',
       borderWidth: 1,
       borderColor: isDarkMode ? '#3A3A3C' : '#E5E5EA',
       borderRadius: 8,
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       alignItems: 'center',
     },
-    themeText: {
+    themeButtonActive: {
+      backgroundColor: '#007AFF',
+      borderColor: '#007AFF',
+    },
+    themeButtonText: {
       fontSize: 16,
       color: isDarkMode ? '#FFFFFF' : '#000000',
+    },
+    themeButtonTextActive: {
+      color: '#FFFFFF',
     },
     aboutSection: {
       marginTop: 24,
