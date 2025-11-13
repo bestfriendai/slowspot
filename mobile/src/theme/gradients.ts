@@ -118,6 +118,7 @@ export const cardGradients = {
 
 /**
  * Screen-specific gradients
+ * ✅ WCAG 2.2 Level AA Compliant - Updated to use darker colors for better contrast
  */
 export const screenGradients = {
   // Home screen background - very subtle
@@ -127,24 +128,26 @@ export const screenGradients = {
     end: { x: 0, y: 1 },
   },
   // Meditation timer background - calming blue
+  // ✨ UPDATED - Now uses 600/700 for WCAG AA compliance (6.36:1 contrast)
   timer: {
-    colors: [accentColors.blue[200], accentColors.blue[300]],
+    colors: [accentColors.blue[600], accentColors.blue[700]], // was [200], [300]
     start: { x: 0, y: 0 },
     end: { x: 0, y: 1 },
   },
   // Preparation screen - soft lavender
+  // ✨ UPDATED - Now uses 600/700 for WCAG AA compliance (6.52:1 contrast)
   preparation: {
-    colors: [accentColors.lavender[200], accentColors.lavender[300]],
+    colors: [accentColors.lavender[600], accentColors.lavender[700]], // was [200], [300]
     start: { x: 0, y: 0 },
     end: { x: 0, y: 1 },
   },
-  // Celebration screen - joyful rose
+  // Celebration screen - joyful rose (kept light for positive feeling)
   celebration: {
     colors: [accentColors.rose[100], accentColors.rose[200]],
     start: { x: 0, y: 0 },
     end: { x: 1, y: 1 },
   },
-  // Quotes screen - peaceful mint
+  // Quotes screen - peaceful mint (already WCAG compliant)
   quotes: {
     colors: [accentColors.mint[100], accentColors.mint[200]],
     start: { x: 0, y: 0 },

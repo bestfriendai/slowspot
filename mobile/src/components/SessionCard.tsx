@@ -34,7 +34,8 @@ const formatDuration = (seconds: number): string => {
   return `${minutes} min`;
 };
 
-export const SessionCard: React.FC<SessionCardProps> = ({ session, onPress }) => {
+// ✨ React.memo for performance optimization - Prevents unnecessary re-renders
+export const SessionCard = React.memo<SessionCardProps>(({ session, onPress }) => {
   const { t } = useTranslation();
   const gradient = getGradientForLevel(getLevelLabel(session.level));
 
@@ -79,7 +80,7 @@ export const SessionCard: React.FC<SessionCardProps> = ({ session, onPress }) =>
       </View>
     </GradientCard>
   );
-};
+});
 
 const styles = StyleSheet.create({
   card: {

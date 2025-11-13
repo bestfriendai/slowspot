@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, View, TouchableOpacity, Platform } from 'react-native';
+import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Haptics from 'expo-haptics';
 import './src/i18n';
 
 import { HomeScreen } from './src/screens/HomeScreen';
@@ -42,6 +44,11 @@ export default function App() {
     }
   };
 
+  const handleNavigate = (screen: Screen) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setCurrentScreen(screen);
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'home':
@@ -70,14 +77,22 @@ export default function App() {
         {/* Main Content */}
         <View style={styles.screenContainer}>{renderScreen()}</View>
 
-        {/* Bottom Navigation */}
-        <View style={[styles.bottomNav, isDark ? styles.darkNav : styles.lightNav]}>
-          <TouchableOpacity
+        {/* Bottom Navigation - Glassmorphism Effect */}
+        <BlurView
+          intensity={isDark ? 80 : 60}
+          tint={isDark ? 'dark' : 'light'}
+          style={[styles.bottomNav, styles.glassmorphNav]}
+        >
+          <View style={styles.navContent}>
+            <TouchableOpacity
             style={[
               styles.navButton,
               currentScreen === 'home' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
             ]}
-            onPress={() => setCurrentScreen('home')}
+            onPress={() => handleNavigate('home')}
+            accessibilityLabel="Home"
+            accessibilityHint="Navigate to home screen"
+            accessibilityRole="button"
           >
             <Ionicons
               name={currentScreen === 'home' ? 'home' : 'home-outline'}
@@ -96,7 +111,10 @@ export default function App() {
               styles.navButton,
               currentScreen === 'meditation' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
             ]}
-            onPress={() => setCurrentScreen('meditation')}
+            onPress={() => handleNavigate('meditation')}
+            accessibilityLabel="Meditation"
+            accessibilityHint="Navigate to meditation screen"
+            accessibilityRole="button"
           >
             <Ionicons
               name={currentScreen === 'meditation' ? 'radio-button-on' : 'radio-button-off'}
@@ -115,7 +133,10 @@ export default function App() {
               styles.navButton,
               currentScreen === 'quotes' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
             ]}
-            onPress={() => setCurrentScreen('quotes')}
+            onPress={() => handleNavigate('quotes')}
+            accessibilityLabel="Quotes"
+            accessibilityHint="Navigate to quotes screen"
+            accessibilityRole="button"
           >
             <Ionicons
               name={currentScreen === 'quotes' ? 'book' : 'book-outline'}
@@ -134,7 +155,10 @@ export default function App() {
               styles.navButton,
               currentScreen === 'settings' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
             ]}
-            onPress={() => setCurrentScreen('settings')}
+            onPress={() => handleNavigate('settings')}
+            accessibilityLabel="Settings"
+            accessibilityHint="Navigate to settings screen"
+            accessibilityRole="button"
           >
             <Ionicons
               name={currentScreen === 'settings' ? 'settings' : 'settings-outline'}
@@ -148,7 +172,8 @@ export default function App() {
               }
             />
           </TouchableOpacity>
-        </View>
+          </View>
+        </BlurView>
       </View>
     </SafeAreaView>
   );
@@ -171,19 +196,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   bottomNav: {
-    flexDirection: 'row',
     borderTopWidth: 0.5,
+    borderTopColor: 'rgba(0, 0, 0, 0.08)',
+    overflow: 'hidden',
+  },
+  glassmorphNav: {
+    backgroundColor: 'transparent',
+  },
+  navContent: {
+    flexDirection: 'row',
     paddingVertical: 8,
     paddingHorizontal: 12,
     gap: 6,
-  },
-  lightNav: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    borderTopColor: 'rgba(0, 0, 0, 0.08)',
-  },
-  darkNav: {
-    backgroundColor: 'rgba(26, 26, 26, 0.95)',
-    borderTopColor: 'rgba(255, 255, 255, 0.08)',
   },
   navButton: {
     flex: 1,

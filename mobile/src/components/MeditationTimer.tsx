@@ -1,6 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Easing } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withRepeat,
+  withTiming,
+  Easing,
+  withSequence,
+  cancelAnimation,
+} from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 import theme from '../theme';
 
@@ -19,58 +28,61 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
   const [isRunning, setIsRunning] = useState(true); // Auto-start enabled
 
-  // Breathing animation: 4 seconds inhale, 4 seconds exhale
-  const breathingScale = useRef(new Animated.Value(0.85)).current;
-  const breathingOpacity = useRef(new Animated.Value(0.3)).current;
+  // ✨ Reanimated 4 - Smooth 60fps breathing animation
+  // 4 seconds inhale, 4 seconds exhale
+  const breathingScale = useSharedValue(0.85);
+  const breathingOpacity = useSharedValue(0.3);
 
   // Start breathing animation loop
   useEffect(() => {
-    if (!isRunning) return;
+    if (isRunning) {
+      // Inhale and exhale sequence with infinite repeat
+      breathingScale.value = withRepeat(
+        withSequence(
+          withTiming(1.0, {
+            duration: 4000,
+            easing: Easing.inOut(Easing.ease),
+          }),
+          withTiming(0.85, {
+            duration: 4000,
+            easing: Easing.inOut(Easing.ease),
+          })
+        ),
+        -1, // infinite repeat
+        false
+      );
 
-    const breathe = () => {
-      Animated.loop(
-        Animated.sequence([
-          // Inhale: expand and fade in
-          Animated.parallel([
-            Animated.timing(breathingScale, {
-              toValue: 1.0,
-              duration: 4000,
-              easing: Easing.inOut(Easing.ease),
-              useNativeDriver: true,
-            }),
-            Animated.timing(breathingOpacity, {
-              toValue: 0.6,
-              duration: 4000,
-              easing: Easing.inOut(Easing.ease),
-              useNativeDriver: true,
-            }),
-          ]),
-          // Exhale: contract and fade out
-          Animated.parallel([
-            Animated.timing(breathingScale, {
-              toValue: 0.85,
-              duration: 4000,
-              easing: Easing.inOut(Easing.ease),
-              useNativeDriver: true,
-            }),
-            Animated.timing(breathingOpacity, {
-              toValue: 0.3,
-              duration: 4000,
-              easing: Easing.inOut(Easing.ease),
-              useNativeDriver: true,
-            }),
-          ]),
-        ])
-      ).start();
-    };
-
-    breathe();
+      breathingOpacity.value = withRepeat(
+        withSequence(
+          withTiming(0.6, {
+            duration: 4000,
+            easing: Easing.inOut(Easing.ease),
+          }),
+          withTiming(0.3, {
+            duration: 4000,
+            easing: Easing.inOut(Easing.ease),
+          })
+        ),
+        -1, // infinite repeat
+        false
+      );
+    } else {
+      // Cancel animations when paused
+      cancelAnimation(breathingScale);
+      cancelAnimation(breathingOpacity);
+    }
 
     return () => {
-      breathingScale.stopAnimation();
-      breathingOpacity.stopAnimation();
+      cancelAnimation(breathingScale);
+      cancelAnimation(breathingOpacity);
     };
   }, [isRunning, breathingScale, breathingOpacity]);
+
+  // Animated style for breathing circle
+  const breathingAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: breathingOpacity.value,
+    transform: [{ scale: breathingScale.value }],
+  }));
 
   useEffect(() => {
     if (!isRunning || remainingSeconds <= 0) return;
@@ -108,16 +120,8 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     <View style={styles.container}>
       {/* Circular Progress */}
       <View style={styles.circleContainer}>
-        {/* Breathing Circle Animation */}
-        <Animated.View
-          style={[
-            styles.breathingCircle,
-            {
-              opacity: breathingOpacity,
-              transform: [{ scale: breathingScale }],
-            },
-          ]}
-        >
+        {/* Breathing Circle Animation - Powered by Reanimated 4 */}
+        <Animated.View style={[styles.breathingCircle, breathingAnimatedStyle]}>
           <View style={styles.breathingCircleInner} />
         </Animated.View>
 

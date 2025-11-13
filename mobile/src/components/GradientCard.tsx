@@ -21,6 +21,7 @@ interface GradientCardProps {
 
 /**
  * GradientCard - Beautiful gradient cards with press interaction
+ * ✨ Optimized with React.memo for performance
  *
  * @example
  * ```tsx
@@ -34,7 +35,7 @@ interface GradientCardProps {
  * </GradientCard>
  * ```
  */
-export const GradientCard: React.FC<GradientCardProps> = ({
+export const GradientCard = React.memo<GradientCardProps>(({
   gradient,
   style,
   children,
@@ -67,7 +68,7 @@ export const GradientCard: React.FC<GradientCardProps> = ({
   }
 
   return cardContent;
-};
+});
 
 const styles = StyleSheet.create({
   touchable: {

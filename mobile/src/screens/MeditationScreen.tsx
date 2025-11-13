@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, Text, ActivityIndicator, FlatList, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { SessionCard } from '../components/SessionCard';
 import { MeditationTimer } from '../components/MeditationTimer';
@@ -124,6 +124,35 @@ export const MeditationScreen: React.FC = () => {
     }
   };
 
+  // ✨ FlatList optimization - Memoized render functions
+  const renderItem = useCallback(
+    ({ item }: { item: MeditationSession }) => (
+      <SessionCard session={item} onPress={() => handleStartSession(item)} />
+    ),
+    []
+  );
+
+  const keyExtractor = useCallback((item: MeditationSession) => item.id, []);
+
+  const renderListHeader = useCallback(
+    () => (
+      <View style={styles.header}>
+        <Text style={styles.title}>{t('meditation.title')}</Text>
+        <Text style={styles.subtitle}>{t('meditation.subtitle')}</Text>
+      </View>
+    ),
+    [t]
+  );
+
+  const renderListEmpty = useCallback(
+    () => (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color={theme.colors.accent.blue[500]} />
+      </View>
+    ),
+    []
+  );
+
   // Show preparation screen
   if (flowState === 'preparation' && selectedSession) {
     return <PreparationScreen onReady={handleReadyToStart} />;
@@ -156,32 +185,20 @@ export const MeditationScreen: React.FC = () => {
   // Default: show session list
   return (
     <GradientBackground gradient={gradients.screen.home} style={styles.container}>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
+      <FlatList
+        data={loading ? [] : sessions}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        ListHeaderComponent={renderListHeader}
+        ListEmptyComponent={loading ? renderListEmpty : null}
+        contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.header}>
-          <Text style={styles.title}>{t('meditation.title')}</Text>
-          <Text style={styles.subtitle}>{t('meditation.subtitle')}</Text>
-        </View>
-
-        {loading ? (
-          <View style={styles.loader}>
-            <ActivityIndicator size="large" color={theme.colors.accent.blue[500]} />
-          </View>
-        ) : (
-          <View style={styles.sessionsList}>
-            {sessions.map((session) => (
-              <SessionCard
-                key={session.id}
-                session={session}
-                onPress={() => handleStartSession(session)}
-              />
-            ))}
-          </View>
-        )}
-      </ScrollView>
+        initialNumToRender={5}
+        maxToRenderPerBatch={3}
+        windowSize={5}
+        removeClippedSubviews={true}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </GradientBackground>
   );
 };
@@ -190,17 +207,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  scrollView: {
-    // Removed flex: 1 to allow proper scrolling
-  },
-  scrollContent: {
+  listContent: {
     padding: theme.layout.screenPadding,
     paddingBottom: theme.spacing.xxxl,
     flexGrow: 1,
   },
   header: {
     marginTop: theme.spacing.xl,
-    marginBottom: theme.spacing.xxl,
+    marginBottom: theme.spacing.md,
   },
   title: {
     fontSize: theme.typography.fontSizes.hero,
@@ -217,7 +231,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.spacing.xxl,
     alignItems: 'center',
   },
-  sessionsList: {
-    gap: theme.spacing.md,
+  separator: {
+    height: theme.spacing.md,
   },
 });
