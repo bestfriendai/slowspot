@@ -308,7 +308,7 @@ export const PRE_SESSION_INSTRUCTIONS: Record<string, PreSessionInstruction> = {
         description: 'Try meditating with eyes slightly open, gaze soft and unfocused.',
         isOptional: true,
       },
-    },
+    ],
 
     mentalPreparation: {
       intention: 'Allow experience to flow without grasping or pushing away',

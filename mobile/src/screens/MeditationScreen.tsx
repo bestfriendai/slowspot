@@ -24,6 +24,7 @@ export const MeditationScreen: React.FC = () => {
   const [selectedSession, setSelectedSession] = useState<MeditationSession | null>(null);
   const [flowState, setFlowState] = useState<FlowState>('list');
   const [userIntention, setUserIntention] = useState('');
+  const [sessionMood, setSessionMood] = useState<1 | 2 | 3 | 4 | 5 | undefined>();
 
   useEffect(() => {
     loadSessions();
@@ -179,16 +180,6 @@ export const MeditationScreen: React.FC = () => {
 
   const handleComplete = async () => {
     try {
-      // Save session completion for progress tracking
-      if (selectedSession) {
-        await saveSessionCompletion(
-          selectedSession.id,
-          selectedSession.title,
-          selectedSession.durationSeconds,
-          selectedSession.languageCode
-        );
-      }
-
       // Play ending chime
       if (selectedSession?.chimeUrl) {
         await audioEngine.play('chime');
@@ -218,12 +209,24 @@ export const MeditationScreen: React.FC = () => {
     }
   };
 
-  const handleCelebrationContinue = async () => {
+  const handleCelebrationContinue = async (mood?: 1 | 2 | 3 | 4 | 5) => {
     try {
+      // Save session completion with mood for progress tracking
+      if (selectedSession) {
+        await saveSessionCompletion(
+          selectedSession.id,
+          selectedSession.title,
+          selectedSession.durationSeconds,
+          selectedSession.languageCode,
+          mood
+        );
+      }
+
       await audioEngine.cleanup();
       setFlowState('list');
       setSelectedSession(null);
       setUserIntention('');
+      setSessionMood(undefined);
     } catch (error) {
       console.error('Failed to cleanup after celebration:', error);
     }

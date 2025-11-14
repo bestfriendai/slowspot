@@ -40,7 +40,8 @@
     "wellDone": "Well Done!",
     "completedSession": "You completed your meditation session",
     "session": "Session",
-    "continue": "Continue"
+    "continue": "Continue",
+    "howDoYouFeel": "How do you feel?"
   },
   "instructions": {
     "timeOfDay": {

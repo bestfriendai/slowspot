@@ -40,7 +40,8 @@
     "wellDone": "Świetna robota!",
     "completedSession": "Ukończyłeś sesję medytacji",
     "session": "Sesja",
-    "continue": "Kontynuuj"
+    "continue": "Kontynuuj",
+    "howDoYouFeel": "Jak się czujesz?"
   },
   "instructions": {
     "timeOfDay": {
