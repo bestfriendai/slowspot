@@ -34,6 +34,8 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const [isRunning, setIsRunning] = useState(true); // Auto-start enabled
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'exhale'>('inhale');
+  const [adjustableChimes, setAdjustableChimes] = useState<ChimePoint[]>(chimePoints);
+  const [showChimeControls, setShowChimeControls] = useState(false);
   const playedChimes = useRef<Set<number>>(new Set());
   const chimeSound = useRef<Audio.Sound | null>(null);
 
@@ -154,7 +156,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   useEffect(() => {
     const elapsedSeconds = totalSeconds - remainingSeconds;
 
-    for (const chime of chimePoints) {
+    for (const chime of adjustableChimes) {
       if (
         elapsedSeconds >= chime.timeInSeconds &&
         !playedChimes.current.has(chime.timeInSeconds)
@@ -163,7 +165,21 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         playChime();
       }
     }
-  }, [remainingSeconds, chimePoints, totalSeconds]);
+  }, [remainingSeconds, adjustableChimes, totalSeconds]);
+
+  // Adjust chime time (±30 seconds)
+  const adjustChimeTime = (index: number, delta: number) => {
+    const newChimes = [...adjustableChimes];
+    const newTime = Math.max(30, Math.min(totalSeconds - 30, newChimes[index].timeInSeconds + delta));
+    newChimes[index] = {
+      ...newChimes[index],
+      timeInSeconds: newTime,
+      label: `${Math.floor(newTime / 60)} min ${newTime % 60}s`,
+    };
+    setAdjustableChimes(newChimes);
+    // Clear played chimes so adjusted ones can play again if needed
+    playedChimes.current.clear();
+  };
 
   useEffect(() => {
     if (!isRunning || remainingSeconds <= 0) return;
@@ -272,6 +288,24 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
       {/* Progress Bar with Chime Markers */}
       <View style={styles.progressBarContainer}>
+        {adjustableChimes.length > 0 && !isRunning && (
+          <TouchableOpacity
+            style={styles.adjustButton}
+            onPress={() => setShowChimeControls(!showChimeControls)}
+            accessibilityLabel="Toggle chime adjustment controls"
+            accessibilityRole="button"
+          >
+            <Ionicons
+              name={showChimeControls ? 'lock-closed' : 'lock-open'}
+              size={16}
+              color="rgba(255, 255, 255, 0.8)"
+            />
+            <Text style={styles.adjustButtonText}>
+              {showChimeControls ? 'Lock' : 'Adjust'}
+            </Text>
+          </TouchableOpacity>
+        )}
+
         <View style={styles.progressBar}>
           <View
             style={[
@@ -281,7 +315,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           />
 
           {/* Chime markers - larger and more visible */}
-          {chimePoints.map((chime, index) => {
+          {adjustableChimes.map((chime, index) => {
             const position = (chime.timeInSeconds / totalSeconds) * 100;
             const isPassed = (totalSeconds - remainingSeconds) >= chime.timeInSeconds;
 
@@ -310,6 +344,28 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
                   ]}>
                     {chime.label}
                   </Text>
+                )}
+
+                {/* Adjustment controls - shown when paused and controls enabled */}
+                {!isRunning && showChimeControls && (
+                  <View style={styles.chimeAdjustControls}>
+                    <TouchableOpacity
+                      style={styles.chimeAdjustButton}
+                      onPress={() => adjustChimeTime(index, -30)}
+                      accessibilityLabel="Move chime earlier by 30 seconds"
+                      accessibilityRole="button"
+                    >
+                      <Ionicons name="remove-circle" size={20} color={theme.colors.accent.mint[400]} />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.chimeAdjustButton}
+                      onPress={() => adjustChimeTime(index, 30)}
+                      accessibilityLabel="Move chime later by 30 seconds"
+                      accessibilityRole="button"
+                    >
+                      <Ionicons name="add-circle" size={20} color={theme.colors.accent.mint[400]} />
+                    </TouchableOpacity>
+                  </View>
                 )}
               </View>
             );
@@ -508,5 +564,34 @@ const styles = StyleSheet.create({
   },
   chimeLabelPassed: {
     color: theme.colors.accent.mint[200],
+  },
+  adjustButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    gap: theme.spacing.xs,
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: theme.spacing.xs,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: theme.borderRadius.md,
+    marginBottom: theme.spacing.xs,
+  },
+  adjustButtonText: {
+    fontSize: theme.typography.fontSizes.xs,
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontWeight: theme.typography.fontWeights.medium,
+  },
+  chimeAdjustControls: {
+    position: 'absolute',
+    top: 30,
+    flexDirection: 'row',
+    gap: theme.spacing.xs,
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.xs,
+  },
+  chimeAdjustButton: {
+    padding: theme.spacing.xs,
   },
 });

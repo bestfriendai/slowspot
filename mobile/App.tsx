@@ -20,6 +20,8 @@ type Screen = 'home' | 'meditation' | 'quotes' | 'settings' | 'custom' | 'profil
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [themeMode, setThemeMode] = useState<ThemeMode>('system');
+  const [editSessionId, setEditSessionId] = useState<string | undefined>();
+  const [editSessionConfig, setEditSessionConfig] = useState<CustomSessionConfig | undefined>();
   const systemColorScheme = useColorScheme();
 
   // Calculate actual dark mode based on theme mode and system preference
@@ -65,6 +67,18 @@ export default function App() {
     setCurrentScreen('meditation');
   };
 
+  const handleEditSession = (sessionId: string, sessionConfig: CustomSessionConfig) => {
+    setEditSessionId(sessionId);
+    setEditSessionConfig(sessionConfig);
+    setCurrentScreen('custom');
+  };
+
+  const handleBackFromCustomBuilder = () => {
+    setEditSessionId(undefined);
+    setEditSessionConfig(undefined);
+    setCurrentScreen('home');
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'home':
@@ -76,7 +90,7 @@ export default function App() {
           />
         );
       case 'meditation':
-        return <MeditationScreen />;
+        return <MeditationScreen onEditSession={handleEditSession} />;
       case 'quotes':
         return <QuotesScreen />;
       case 'settings':
@@ -94,7 +108,9 @@ export default function App() {
         return (
           <CustomSessionBuilderScreen
             onStartSession={handleStartCustomSession}
-            onBack={() => setCurrentScreen('home')}
+            onBack={handleBackFromCustomBuilder}
+            editSessionId={editSessionId}
+            initialConfig={editSessionConfig}
           />
         );
       default:

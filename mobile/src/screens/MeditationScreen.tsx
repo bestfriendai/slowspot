@@ -13,10 +13,15 @@ import { saveSessionCompletion } from '../services/progressTracker';
 import { getInstructionForSession } from '../data/instructions';
 import { getAllCustomSessions, deleteCustomSession, SavedCustomSession } from '../services/customSessionStorage';
 import { ChimePoint } from '../types/customSession';
+import { CustomSessionConfig } from './CustomSessionBuilderScreen';
 import theme, { gradients } from '../theme';
 import * as Haptics from 'expo-haptics';
 
 type FlowState = 'list' | 'instructions' | 'meditation' | 'celebration';
+
+interface MeditationScreenProps {
+  onEditSession?: (sessionId: string, sessionConfig: CustomSessionConfig) => void;
+}
 
 // Helper function to generate chime points from custom session config
 const getChimePointsFromSession = (session: MeditationSession): ChimePoint[] => {
@@ -41,7 +46,7 @@ const getChimePointsFromSession = (session: MeditationSession): ChimePoint[] => 
   return chimePoints;
 };
 
-export const MeditationScreen: React.FC = () => {
+export const MeditationScreen: React.FC<MeditationScreenProps> = ({ onEditSession }) => {
   const { t, i18n } = useTranslation();
   const [sessions, setSessions] = useState<MeditationSession[]>([]);
   const [loading, setLoading] = useState(true);
@@ -111,14 +116,23 @@ export const MeditationScreen: React.FC = () => {
   };
 
   const handleEditSession = (session: SavedCustomSession) => {
-    // TODO: Navigate to CustomSessionBuilderScreen with edit mode
-    // This will be implemented when the navigation is set up
-    console.log('Edit session:', session.id);
-    Alert.alert(
-      t('custom.editSession') || 'Edit Session',
-      t('custom.editNotImplemented') || 'Edit functionality will be available when connected to the builder screen.',
-      [{ text: t('common.ok') || 'OK' }]
-    );
+    if (!onEditSession) {
+      console.warn('onEditSession prop not provided');
+      return;
+    }
+
+    // Convert SavedCustomSession to CustomSessionConfig
+    const config: CustomSessionConfig = {
+      durationMinutes: session.durationMinutes,
+      ambientSound: session.ambientSound,
+      intervalBellEnabled: session.intervalBellEnabled,
+      intervalBellMinutes: session.intervalBellMinutes,
+      wakeUpChimeEnabled: session.wakeUpChimeEnabled,
+      voiceGuidanceEnabled: session.voiceGuidanceEnabled,
+      name: session.title,
+    };
+
+    onEditSession(session.id, config);
   };
 
   const handleDeleteSession = async (session: SavedCustomSession) => {
