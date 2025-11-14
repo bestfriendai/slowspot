@@ -61,8 +61,15 @@ export const cardGradients = {
     end: { x: 1, y: 1 },
   },
   // Soft blue card
+  // ✨ UPDATED - Now uses 500/600 for WCAG AA compliance with white text
   blueCard: {
-    colors: [accentColors.blue[100], accentColors.blue[200]],
+    colors: [accentColors.blue[500], accentColors.blue[600]],
+    start: { x: 0, y: 0 },
+    end: { x: 1, y: 1 },
+  },
+  // Purple card (for feature tiles)
+  purpleCard: {
+    colors: [accentColors.lavender[500], accentColors.lavender[600]],
     start: { x: 0, y: 0 },
     end: { x: 1, y: 1 },
   },

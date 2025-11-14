@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { MeditationSession } from '../services/api';
 import { GradientCard } from './GradientCard';
 import { getGradientForLevel } from '../theme/gradients';
@@ -9,6 +10,8 @@ import theme from '../theme';
 interface SessionCardProps {
   session: MeditationSession;
   onPress: () => void;
+  onLongPress?: () => void;
+  isCustom?: boolean;
 }
 
 const getLevelLabel = (level: number): string => {
@@ -35,15 +38,22 @@ const formatDuration = (seconds: number): string => {
 };
 
 // ✨ React.memo for performance optimization - Prevents unnecessary re-renders
-export const SessionCard = React.memo<SessionCardProps>(({ session, onPress }) => {
+export const SessionCard = React.memo<SessionCardProps>(({ session, onPress, onLongPress, isCustom }) => {
   const { t } = useTranslation();
   const gradient = getGradientForLevel(getLevelLabel(session.level));
 
   return (
-    <GradientCard gradient={gradient} onPress={onPress} style={styles.card}>
+    <GradientCard gradient={gradient} onPress={onPress} onLongPress={onLongPress} style={styles.card}>
       {/* Card Header */}
       <View style={styles.header}>
-        <Text style={styles.title}>{session.title}</Text>
+        <View style={styles.titleRow}>
+          <Text style={styles.title}>{session.title}</Text>
+          {isCustom && (
+            <View style={styles.customBadge}>
+              <Ionicons name="star" size={16} color={theme.colors.accent.blue[600]} />
+            </View>
+          )}
+        </View>
         {session.description && (
           <Text style={styles.description}>{session.description}</Text>
         )}
@@ -89,11 +99,22 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: theme.spacing.md,
   },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+    marginBottom: theme.spacing.xs,
+  },
   title: {
     fontSize: theme.typography.fontSizes.xl,
     fontWeight: theme.typography.fontWeights.semiBold,
     color: theme.colors.text.primary,
-    marginBottom: theme.spacing.xs,
+    flex: 1,
+  },
+  customBadge: {
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    borderRadius: theme.borderRadius.full,
+    padding: theme.spacing.xs,
   },
   description: {
     fontSize: theme.typography.fontSizes.sm,

@@ -14,7 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.slowspot.app"
+      "bundleIdentifier": "com.slowspot.app",
+      "infoPlist": {
+        "UIBackgroundModes": ["audio"]
+      }
     },
     "android": {
       "package": "com.slowspot.app",
@@ -35,7 +38,8 @@
     },
     "owner": "leszekszpunar",
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "expo-av"
     ]
   }
 }

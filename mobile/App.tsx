@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, View, TouchableOpacity, Platform, useColorScheme } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Platform, useColorScheme } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -11,8 +12,9 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { MeditationScreen } from './src/screens/MeditationScreen';
 import { QuotesScreen } from './src/screens/QuotesScreen';
 import { SettingsScreen, THEME_STORAGE_KEY, ThemeMode } from './src/screens/SettingsScreen';
+import { CustomSessionBuilderScreen, CustomSessionConfig } from './src/screens/CustomSessionBuilderScreen';
 
-type Screen = 'home' | 'meditation' | 'quotes' | 'settings';
+type Screen = 'home' | 'meditation' | 'quotes' | 'settings' | 'custom';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
@@ -55,6 +57,13 @@ export default function App() {
     setCurrentScreen(screen);
   };
 
+  const handleStartCustomSession = (config: CustomSessionConfig) => {
+    // TODO: Implement custom session playback with the configured settings
+    // For now, just navigate to meditation screen
+    console.log('Starting custom session with config:', config);
+    setCurrentScreen('meditation');
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'home':
@@ -62,6 +71,7 @@ export default function App() {
           <HomeScreen
             onNavigateToMeditation={() => setCurrentScreen('meditation')}
             onNavigateToQuotes={() => setCurrentScreen('quotes')}
+            onNavigateToCustom={() => setCurrentScreen('custom')}
           />
         );
       case 'meditation':
@@ -70,16 +80,24 @@ export default function App() {
         return <QuotesScreen />;
       case 'settings':
         return <SettingsScreen isDark={isDark} themeMode={themeMode} onThemeChange={handleThemeChange} />;
+      case 'custom':
+        return (
+          <CustomSessionBuilderScreen
+            onStartSession={handleStartCustomSession}
+            onBack={() => setCurrentScreen('home')}
+          />
+        );
       default:
         return null;
     }
   };
 
   return (
-    <SafeAreaView style={[styles.container, isDark ? styles.darkContainer : styles.lightContainer]}>
-      <StatusBar style={isDark ? 'light' : 'dark'} />
+    <SafeAreaProvider>
+      <SafeAreaView style={[styles.container, isDark ? styles.darkContainer : styles.lightContainer]}>
+        <StatusBar style={isDark ? 'light' : 'dark'} />
 
-      <View style={styles.mainContent}>
+        <View style={styles.mainContent}>
         {/* Main Content */}
         <View style={styles.screenContainer}>{renderScreen()}</View>
 
@@ -182,6 +200,7 @@ export default function App() {
         </BlurView>
       </View>
     </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

@@ -9,7 +9,7 @@ const STORAGE_KEY = 'meditation_progress';
 const SESSIONS_KEY = 'completed_sessions';
 
 export interface CompletedSession {
-  id: number;
+  id: number | string; // number for preset sessions, string for custom sessions
   title: string;
   date: string; // ISO string
   durationSeconds: number;
@@ -28,7 +28,7 @@ export interface ProgressStats {
  * Save a completed meditation session
  */
 export const saveSessionCompletion = async (
-  sessionId: number,
+  sessionId: number | string,
   title: string,
   durationSeconds: number,
   languageCode: string

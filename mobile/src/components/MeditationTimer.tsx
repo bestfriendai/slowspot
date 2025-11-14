@@ -37,30 +37,38 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const playedChimes = useRef<Set<number>>(new Set());
   const chimeSound = useRef<Audio.Sound | null>(null);
 
-  // ✨ Reanimated 4 - Smooth 60fps breathing animation
+  // Reanimated 4 - Smooth 60fps breathing animation
   // 4 seconds inhale, 4 seconds exhale
   const breathingScale = useSharedValue(0.85);
   const breathingOpacity = useSharedValue(0.3);
 
-  // Load chime sound
+  // Load chime sound on mount
   useEffect(() => {
-    const loadSound = async () => {
+    let isMounted = true;
+
+    const loadChimeSound = async () => {
       try {
         const { sound } = await Audio.Sound.createAsync(
-          require('../../assets/sounds/meditation-bell.mp3')
+          require('../../assets/sounds/meditation-bell.mp3'),
+          { shouldPlay: false }
         );
-        chimeSound.current = sound;
-        console.log('Meditation bell sound loaded successfully');
+        if (isMounted) {
+          chimeSound.current = sound;
+          console.log('Chime sound loaded successfully');
+        }
       } catch (error) {
         console.error('Error loading chime sound:', error);
       }
     };
 
-    loadSound();
+    loadChimeSound();
 
     return () => {
+      isMounted = false;
       if (chimeSound.current) {
-        chimeSound.current.unloadAsync();
+        chimeSound.current.unloadAsync().catch((error) => {
+          console.error('Error unloading chime sound:', error);
+        });
       }
     };
   }, []);
@@ -129,22 +137,15 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
   // Play chime at designated time
   const playChime = async () => {
-    if (chimeSound.current && audioEnabled) {
+    if (audioEnabled && chimeSound.current) {
       try {
-        await chimeSound.current.replayAsync();
+        const status = await chimeSound.current.getStatusAsync();
+        if (status.isLoaded) {
+          await chimeSound.current.setPositionAsync(0); // Reset to start
+          await chimeSound.current.playAsync();
+        }
       } catch (error) {
         console.error('Error playing chime:', error);
-      }
-    } else if (audioEnabled) {
-      // Fallback: Generate a simple beep tone programmatically
-      try {
-        const { sound } = await Audio.Sound.createAsync(
-          { uri: 'data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIGGa77OmdSgwPUKrj77RgGgU7k9bxz34rBSh+zO/aizsKElyx6OyrWBUIR5/h8sFuIQUpgM3y2okyBxdjuuvnnUsMD06p4u+2Yh0FO5TW8dB+KwUofMzv24s9CxFbsOjsrV0YCEef4PKCbyEFKX/N8tuKNQcWY7rp6Z1LDA5OqeLvtmIdBTuU1vHQfiwFKHzM8N2LPQsQWq/o7K5fGQlIn+DyvnAiBSl+zfLciTQHFWK56OmdTA0OTang8LdjHQU7k9bx0H4sBSh7zPDdiz4LEFqu6OyuYBoJSZ/h88BwIgUrfs3y3Ik0BxViuejpnUwNDk6p4PC3Yx0FO5PW8dB+LAUoe8vw3Ys9Cw9arOjrrmAaB0me4fPBcCIFK37N8tyJNAcVYrnn6Z1MDQ5PqeDwt2MdBTuT1vHQfiwFKHvL8N2LPQsPWqzp7K9hGghJn+H0wXAiBSt+zfLciTQHFWO65umeSw0OT6ng8LdjHQU7k9bx0H4sBSh7y/DdizwLEFqu6euuYBoJSp/h8sFwIgUrfs3y3Ik0BxVjuejpnkwNDk+p4PC3Yx0FO5TW8c9+LAUoe8vw3Ys9Cw9arOnsrmAaCUqf4fTBcCIFK37N8tyJNAcWY7rp6Z5MDQ5PqODvt2IcBTuU1vHQfiwFKHzM8NyLPQsQWq3p7K5gGglKn+H0wXAiBSt+zfPciTQHFmO65umeSw0OT6jg8LdjHQU7lNbx0H4sBCh7zPDdiz0LEFqt6eyvYRsJSp/h9MFwIgUrfs303Ik1CBVjuujpnUsNDk+o4PG3ZBwFPJTW8c9+LAQoe8zw3ow9CxBbrOnsr2EbCEqf4vTBciIFK3/N8tqJNQgVY7ro6J1LDQ5Op+DxuGQcBTyT1/DPfywFJ3vL7+CKOwsQWq3o66xfGQhKn+L0xG8iBSt/zvLaiTYIF2O76OieTA0NTqjg8bhlHAQ8lNbwz34sBCh7y+/gijsLEVqt6OutXxkJSp/i9MNvIgUpfs7y2ok1CBZjuunoHkwNC06p4PCy' },
-          { shouldPlay: true }
-        );
-        setTimeout(() => sound.unloadAsync(), 100);
-      } catch (error) {
-        console.error('Error generating beep:', error);
       }
     }
   };

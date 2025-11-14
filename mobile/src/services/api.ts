@@ -15,7 +15,7 @@ export interface Quote {
 }
 
 export interface MeditationSession {
-  id: number;
+  id: number | string; // number for preset sessions, string for custom sessions
   title: string;
   languageCode: string;
   durationSeconds: number;
@@ -113,6 +113,11 @@ export const api = {
         let filtered = MOCK_SESSIONS;
         if (lang) {
           filtered = filtered.filter((s) => s.languageCode === lang);
+          // Fallback to English if no sessions found for requested language
+          if (filtered.length === 0) {
+            console.log(`[API] No sessions found for language '${lang}', falling back to English`);
+            filtered = MOCK_SESSIONS.filter((s) => s.languageCode === 'en');
+          }
         }
         if (level !== undefined) {
           filtered = filtered.filter((s) => s.level === level);
