@@ -139,7 +139,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
             ]}
           >
             <LinearGradient
-              colors={['#6EE7B7', '#34D399', '#10B981']}
+              colors={[theme.colors.accent.mint[300], theme.colors.accent.mint[500], theme.colors.accent.mint[600]]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.checkmarkGradient}
@@ -147,7 +147,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
               <Ionicons
                 name="checkmark"
                 size={56}
-                color="#FFFFFF"
+                color={theme.colors.neutral.white}
                 style={styles.checkmarkIcon}
               />
             </LinearGradient>
@@ -273,14 +273,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    backgroundColor: '#10B981',
+    backgroundColor: theme.colors.accent.mint[600],
   },
   haloMiddle: {
     position: 'absolute',
     width: 160,
     height: 160,
     borderRadius: 80,
-    backgroundColor: '#10B981',
+    backgroundColor: theme.colors.accent.mint[600],
   },
   iconContainer: {
     ...theme.shadows.xl,
@@ -383,8 +383,8 @@ const styles = StyleSheet.create({
     ...theme.shadows.sm,
   },
   moodCircleSelected: {
-    backgroundColor: 'rgba(16, 185, 129, 0.15)',
-    borderColor: '#10B981',
+    backgroundColor: `${theme.colors.accent.mint[600]}26`,
+    borderColor: theme.colors.accent.mint[600],
     borderWidth: 3,
     ...theme.shadows.md,
   },
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   moodLabelSelected: {
-    color: '#10B981',
+    color: theme.colors.accent.mint[600],
     fontWeight: '600',
     opacity: 1,
   },

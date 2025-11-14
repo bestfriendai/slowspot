@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, useColorScheme } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Quote } from '../services/api';
+import theme from '../theme';
 
 interface QuoteCardProps {
   quote: Quote;
@@ -85,28 +86,21 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({ quote }) => {
 
 const styles = StyleSheet.create({
   card: {
-    padding: 16,
-    borderRadius: 12,
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.md,
     borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    ...theme.shadows.card,
   },
   lightCard: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#E5E5E5',
+    backgroundColor: theme.colors.neutral.white,
+    borderColor: theme.colors.neutral.lightGray[200],
   },
   darkCard: {
-    backgroundColor: '#2C2C2E',
-    borderColor: '#3A3A3C',
+    backgroundColor: theme.colors.neutral.darkGray[800],
+    borderColor: theme.colors.neutral.darkGray[700],
   },
   header: {
-    padding: 16,
+    padding: theme.spacing.md,
   },
   headerContent: {
     gap: 12,
@@ -138,52 +132,52 @@ const styles = StyleSheet.create({
   },
   quoteText: {
     fontSize: 22,
-    fontWeight: '300',
+    fontWeight: theme.typography.fontWeights.light,
     textAlign: 'center',
     lineHeight: 32,
   },
   authorText: {
-    fontSize: 16,
+    fontSize: theme.typography.fontSizes.md,
     fontStyle: 'italic',
     textAlign: 'center',
     marginTop: 8,
   },
   lightText: {
-    color: '#000000',
+    color: theme.colors.text.primary,
   },
   darkText: {
-    color: '#FFFFFF',
+    color: theme.colors.neutral.white,
   },
   lightPlaceholder: {
-    color: '#8E8E93',
+    color: theme.colors.text.secondary,
   },
   darkPlaceholder: {
-    color: '#8E8E93',
+    color: theme.colors.text.secondary,
   },
   footer: {
-    padding: 16,
+    padding: theme.spacing.md,
     paddingTop: 0,
   },
   footerContent: {
     flexDirection: 'row',
-    gap: 8,
+    gap: theme.spacing.sm,
     justifyContent: 'center',
     flexWrap: 'wrap',
   },
   badge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: theme.spacing.xs,
+    borderRadius: theme.borderRadius.md,
   },
   lightBadge: {
-    backgroundColor: '#F2F2F7',
+    backgroundColor: theme.colors.neutral.lightGray[100],
   },
   darkBadge: {
-    backgroundColor: '#3A3A3C',
+    backgroundColor: theme.colors.neutral.darkGray[700],
   },
   badgeText: {
-    fontSize: 12,
-    fontWeight: '500',
+    fontSize: theme.typography.fontSizes.xs,
+    fontWeight: theme.typography.fontWeights.medium,
     textTransform: 'capitalize',
   },
 });
