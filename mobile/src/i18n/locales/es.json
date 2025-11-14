@@ -7,13 +7,19 @@
     "welcome": "Bienvenido",
     "dailyQuote": "Cita Diaria",
     "startMeditation": "Comenzar Meditación",
-    "exploreSessions": "Explorar Sesiones"
+    "exploreSessions": "Explorar Sesiones",
+    "progress": "Tu Progreso",
+    "dayStreak": "días seguidos",
+    "totalMinutes": "min totales",
+    "sessions": "sesiones"
   },
   "meditation": {
     "title": "Meditación",
+    "subtitle": "Elige tu práctica",
     "duration": "Duración",
     "level": "Nivel",
     "beginner": "Principiante",
+    "beginnerGuidance": "Meditación guiada para principiantes",
     "intermediate": "Intermedio",
     "advanced": "Avanzado",
     "expert": "Experto",
@@ -37,6 +43,203 @@
     "next": "Siguiente Cita",
     "previous": "Cita Anterior",
     "random": "Cita Aleatoria"
+  },
+  "instructions": {
+    "timeOfDay": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas tardes",
+      "night": "Buenas noches",
+      "morningRecommendation": "Las meditaciones matutinas establecen el tono de tu día. Prueba el conteo de respiraciones o visualización.",
+      "afternoonRecommendation": "La práctica de la tarde refresca tu mente. Considera la bondad amorosa o una meditación caminando.",
+      "eveningRecommendation": "Las sesiones nocturnas te ayudan a relajarte. El escaneo corporal o la conciencia suave de la respiración funcionan maravillosamente.",
+      "nightRecommendation": "La meditación nocturna puede prepararte para un sueño reparador. El escaneo corporal es muy recomendado."
+    },
+    "preparation": {
+      "prepareMySpace": "Preparar Mi Espacio",
+      "skip": "Omitir",
+      "continue": "Continuar",
+      "beginMeditation": "Comenzar Meditación",
+      "stepProgress": "Paso {{current}} de {{total}}"
+    },
+    "level1_breath": {
+      "title": "Bienvenido a Tu Primera Meditación",
+      "subtitle": "Construyamos los cimientos juntos",
+      "intention": "Simplemente observa tu respiración sin intentar cambiarla",
+      "focusPoint": "El ritmo natural de inhalar y exhalar",
+      "challenges": {
+        "1": "Que la mente divague es completamente normal",
+        "2": "No necesitas vaciar tu mente",
+        "3": "No existe una meditación 'perfecta'"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Encuentra Tu Asiento",
+          "description": "Siéntate en una silla, cojín o con las piernas cruzadas en el suelo. Tu comodidad es lo más importante.",
+          "icon": "🪑"
+        },
+        "2": {
+          "title": "Revisa Tu Postura",
+          "description": "Mantén tu columna recta pero no rígida. Imagina un hilo tirando suavemente de tu cabeza hacia el cielo.",
+          "icon": "🧘"
+        },
+        "3": {
+          "title": "Colocación de las Manos",
+          "description": "Descansa tus manos en tus rodillas o en tu regazo. Deja que tus hombros se relajen hacia abajo y atrás.",
+          "icon": "🙏",
+          "optional": true
+        },
+        "4": {
+          "title": "Ojos",
+          "description": "Puedes cerrar los ojos o mantenerlos suavemente enfocados en un punto frente a ti.",
+          "icon": "👀",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Comienza simplemente notando cuándo inhalas y cuándo exhalas",
+        "2": "Cuando tu mente divague, trae suavemente la atención de vuelta a tu respiración",
+        "3": "Sé paciente y amable contigo mismo—esto es una práctica",
+        "4": "Cada momento de conciencia cuenta, sin importar cuán breve sea"
+      },
+      "breathingPrep": {
+        "instruction": "Toma 5 respiraciones lentas y profundas para asentarte. Inhala durante 4 cuentas, exhala durante 4 cuentas.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 120,
+          "message": "Nota la sensación de la respiración en tus fosas nasales o abdomen",
+          "type": "gentle"
+        },
+        "2": {
+          "time": 300,
+          "message": "¿La mente divagó? Eso es perfectamente normal. Vuelve suavemente a la respiración.",
+          "type": "encouragement"
+        }
+      }
+    },
+    "level1_body_scan": {
+      "title": "Relájate con Conciencia Corporal",
+      "subtitle": "Libera la tensión de la cabeza a los pies",
+      "intention": "Relaja sistemáticamente cada parte de tu cuerpo",
+      "focusPoint": "Sensaciones en diferentes partes del cuerpo mientras las escaneas",
+      "challenges": {
+        "1": "Quedarse dormido está bien—tu cuerpo necesita descanso",
+        "2": "Puede que no sientas mucho en algunas áreas, y eso es normal",
+        "3": "La tensión puede aumentar antes de liberarse"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Acuéstate Cómodamente",
+          "description": "Acuéstate boca arriba con los brazos a los lados, palmas hacia arriba. Usa una almohada si es necesario.",
+          "icon": "🛏️"
+        },
+        "2": {
+          "title": "Piernas Sin Cruzar",
+          "description": "Deja que tus pies caigan naturalmente a los lados. No necesitas mantener ninguna posición.",
+          "icon": "🦶"
+        },
+        "3": {
+          "title": "Temperatura",
+          "description": "Cúbrete con una manta si tiendes a sentir frío durante el descanso.",
+          "icon": "🌡️",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "No intentes forzar la relajación—simplemente observa lo que sientes",
+        "2": "Nota calor, frío, hormigueo o nada en absoluto",
+        "3": "Si te duermes, considéralo una relajación exitosa",
+        "4": "No necesitas recordar el orden exacto—la voz te guiará"
+      },
+      "breathingPrep": {
+        "instruction": "Toma 3 suspiros profundos. Inhala por la nariz, suspira fuerte por la boca.",
+        "pattern": "calm"
+      },
+      "reminders": {
+        "1": {
+          "time": 180,
+          "message": "Permite que cada parte del cuerpo se vuelva pesada y relajada",
+          "type": "gentle"
+        }
+      }
+    },
+    "level5_vipassana": {
+      "title": "Intuición a Través de la Observación Directa",
+      "subtitle": "Ve las tres características: impermanencia, insatisfacción, no-yo",
+      "intention": "Investiga la naturaleza de la experiencia con precisión y ecuanimidad",
+      "focusPoint": "Surgimiento y desaparición de sensaciones, pensamientos y estados mentales",
+      "challenges": {
+        "1": "Surgirán sensaciones fuertes (dolor, calor, hormigueo)",
+        "2": "No reacciones—observa con ecuanimidad",
+        "3": "Las intuiciones pueden ser desestabilizadoras; toma descansos si es necesario"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Postura Tradicional",
+          "description": "Siéntate en tu postura de meditación establecida. La quietud apoya la intuición.",
+          "icon": "🪷"
+        },
+        "2": {
+          "title": "Como una Montaña",
+          "description": "Encarna estabilidad y presencia, inmóvil ante fenómenos pasajeros.",
+          "icon": "⛰️"
+        }
+      },
+      "sessionTips": {
+        "1": "Escanea el cuerpo sistemáticamente, notando sensaciones: 'hormigueo', 'calor', 'presión'",
+        "2": "Observa cómo todo surge, cambia y desaparece",
+        "3": "Cuando surja el dolor, investiga sus bordes, calidad e impermanencia",
+        "4": "Mantén ecuanimidad—no busques lo placentero ni evites lo desagradable"
+      },
+      "breathingPrep": {
+        "instruction": "Cálmate con 10 minutos de conciencia de la respiración antes de comenzar el escaneo.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 300,
+          "message": "Nota: surgir, persistir, desaparecer. Todo está en flujo.",
+          "type": "technique"
+        },
+        "2": {
+          "time": 600,
+          "message": "Las sensaciones fuertes son oportunidades de intuición, no obstáculos.",
+          "type": "technique"
+        },
+        "3": {
+          "time": 900,
+          "message": "La ecuanimidad es la clave. Observa, no reacciones.",
+          "type": "gentle"
+        }
+      }
+    }
+  },
+  "sessions": {
+    "categories": {
+      "traditional": "Tradicional",
+      "occasion": "Ocasión",
+      "cultural": "Cultural"
+    },
+    "occasions": {
+      "morning": "Energía Matutina",
+      "stress": "Alivio del Estrés",
+      "sleep": "Preparación para Dormir",
+      "focus": "Enfoque Profundo",
+      "anxiety": "Liberación de Ansiedad",
+      "grief": "Duelo y Pérdida",
+      "gratitude": "Práctica de Gratitud",
+      "creativity": "Inspiración Creativa"
+    },
+    "cultures": {
+      "zen": "Zen (Japonesa)",
+      "vipassana": "Vipassana (Budista)",
+      "vedic": "Védica (Hindú)",
+      "taoist": "Taoísta (China)",
+      "sufi": "Sufí (Islámica)",
+      "christian": "Contemplativa Cristiana"
+    }
   },
   "settings": {
     "title": "Configuración",

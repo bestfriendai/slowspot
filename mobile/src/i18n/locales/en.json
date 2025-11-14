@@ -37,6 +37,203 @@
     "session": "Session",
     "continue": "Continue"
   },
+  "instructions": {
+    "timeOfDay": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night",
+      "morningRecommendation": "Morning meditations set the tone for your day. Try breath counting or visualization.",
+      "afternoonRecommendation": "Afternoon practice refreshes your mind. Consider loving-kindness or a walking meditation.",
+      "eveningRecommendation": "Evening sessions help you unwind. Body scan or gentle breath awareness work beautifully.",
+      "nightRecommendation": "Late night meditation can prepare you for restful sleep. Body scan is highly recommended."
+    },
+    "preparation": {
+      "prepareMySpace": "Prepare My Space",
+      "skip": "Skip",
+      "continue": "Continue",
+      "beginMeditation": "Begin Meditation",
+      "stepProgress": "Step {{current}} of {{total}}"
+    },
+    "level1_breath": {
+      "title": "Welcome to Your First Meditation",
+      "subtitle": "Let's build the foundation together",
+      "intention": "Simply notice your breath without trying to change it",
+      "focusPoint": "The natural rhythm of breathing in and out",
+      "challenges": {
+        "1": "Mind wandering is completely normal",
+        "2": "You don't need to empty your mind",
+        "3": "There's no 'perfect' meditation"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Find Your Seat",
+          "description": "Sit on a chair, cushion, or cross-legged on the floor. Your comfort matters most.",
+          "icon": "🪑"
+        },
+        "2": {
+          "title": "Posture Check",
+          "description": "Keep your spine straight but not rigid. Imagine a string gently pulling your head toward the sky.",
+          "icon": "🧘"
+        },
+        "3": {
+          "title": "Hand Placement",
+          "description": "Rest your hands on your knees or in your lap. Let your shoulders relax down and back.",
+          "icon": "🙏",
+          "optional": true
+        },
+        "4": {
+          "title": "Eyes",
+          "description": "You can close your eyes or keep them softly focused on a point in front of you.",
+          "icon": "👀",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Start with just noticing when you breathe in and when you breathe out",
+        "2": "When your mind wanders, gently bring attention back to your breath",
+        "3": "Be patient and kind with yourself—this is a practice",
+        "4": "Every moment of awareness counts, no matter how brief"
+      },
+      "breathingPrep": {
+        "instruction": "Take 5 slow, deep breaths to settle in. Breathe in for 4 counts, out for 4 counts.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 120,
+          "message": "Notice the sensation of breath at your nostrils or belly",
+          "type": "gentle"
+        },
+        "2": {
+          "time": 300,
+          "message": "Mind wandered? That's perfectly normal. Gently return to the breath.",
+          "type": "encouragement"
+        }
+      }
+    },
+    "level1_body_scan": {
+      "title": "Relax with Body Awareness",
+      "subtitle": "Release tension from head to toe",
+      "intention": "Systematically relax each part of your body",
+      "focusPoint": "Sensations in different body parts as you scan through them",
+      "challenges": {
+        "1": "Falling asleep is okay—your body needs rest",
+        "2": "You might not feel much in some areas, and that's normal",
+        "3": "Tension might increase before it releases"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Lie Down Comfortably",
+          "description": "Lie on your back with arms at your sides, palms facing up. Use a pillow if needed.",
+          "icon": "🛏️"
+        },
+        "2": {
+          "title": "Legs Uncrossed",
+          "description": "Let your feet fall naturally to the sides. No need to hold any position.",
+          "icon": "🦶"
+        },
+        "3": {
+          "title": "Temperature",
+          "description": "Cover yourself with a blanket if you tend to feel cold during rest.",
+          "icon": "🌡️",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Don't try to force relaxation—just observe what you feel",
+        "2": "Notice warmth, coolness, tingling, or nothing at all",
+        "3": "If you fall asleep, consider this a successful relaxation",
+        "4": "There's no need to remember the exact order—the voice will guide you"
+      },
+      "breathingPrep": {
+        "instruction": "Take 3 deep sighs. Breathe in through your nose, sigh out loudly through your mouth.",
+        "pattern": "calm"
+      },
+      "reminders": {
+        "1": {
+          "time": 180,
+          "message": "Allow each body part to become heavy and relaxed",
+          "type": "gentle"
+        }
+      }
+    },
+    "level5_vipassana": {
+      "title": "Insight Through Direct Observation",
+      "subtitle": "See the three characteristics: impermanence, unsatisfactoriness, non-self",
+      "intention": "Investigate the nature of experience with precision and equanimity",
+      "focusPoint": "Arising and passing of sensations, thoughts, and mental states",
+      "challenges": {
+        "1": "Strong sensations (pain, heat, tingling) will arise",
+        "2": "Don't react—observe with equanimity",
+        "3": "Insights can be destabilizing; take breaks if needed"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Traditional Posture",
+          "description": "Sit in your established meditation posture. Stillness supports insight.",
+          "icon": "🪷"
+        },
+        "2": {
+          "title": "Mountain-Like",
+          "description": "Embody stability and presence, unmoved by passing phenomena.",
+          "icon": "⛰️"
+        }
+      },
+      "sessionTips": {
+        "1": "Scan body systematically, noting sensations: 'tingling', 'warmth', 'pressure'",
+        "2": "Observe how everything arises, changes, and passes away",
+        "3": "When pain arises, investigate its edges, quality, and impermanence",
+        "4": "Maintain equanimity—not seeking pleasant or avoiding unpleasant"
+      },
+      "breathingPrep": {
+        "instruction": "Settle with 10 minutes of breath awareness before beginning the scan.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 300,
+          "message": "Notice: arising, persisting, passing away. Everything is in flux.",
+          "type": "technique"
+        },
+        "2": {
+          "time": 600,
+          "message": "Strong sensations are opportunities for insight, not obstacles.",
+          "type": "technique"
+        },
+        "3": {
+          "time": 900,
+          "message": "Equanimity is the key. Observe, don't react.",
+          "type": "gentle"
+        }
+      }
+    }
+  },
+  "sessions": {
+    "categories": {
+      "traditional": "Traditional",
+      "occasion": "Occasion",
+      "cultural": "Cultural"
+    },
+    "occasions": {
+      "morning": "Morning Energy",
+      "stress": "Stress Relief",
+      "sleep": "Sleep Preparation",
+      "focus": "Deep Focus",
+      "anxiety": "Anxiety Release",
+      "grief": "Grief & Loss",
+      "gratitude": "Gratitude Practice",
+      "creativity": "Creative Inspiration"
+    },
+    "cultures": {
+      "zen": "Zen (Japanese)",
+      "vipassana": "Vipassana (Buddhist)",
+      "vedic": "Vedic (Hindu)",
+      "taoist": "Taoist (Chinese)",
+      "sufi": "Sufi (Islamic)",
+      "christian": "Christian Contemplative"
+    }
+  },
   "quotes": {
     "title": "Inspirational Quotes",
     "author": "by {{author}}",

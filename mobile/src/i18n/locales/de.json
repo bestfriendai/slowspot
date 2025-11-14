@@ -7,13 +7,19 @@
     "welcome": "Willkommen",
     "dailyQuote": "Tägliches Zitat",
     "startMeditation": "Meditation Beginnen",
-    "exploreSessions": "Sitzungen Erkunden"
+    "exploreSessions": "Sitzungen Erkunden",
+    "progress": "Dein Fortschritt",
+    "dayStreak": "Tage-Serie",
+    "totalMinutes": "Gesamt Min",
+    "sessions": "Sitzungen"
   },
   "meditation": {
     "title": "Meditation",
+    "subtitle": "Wähle deine Praxis",
     "duration": "Dauer",
     "level": "Level",
     "beginner": "Anfänger",
+    "beginnerGuidance": "Geführte Meditation für Anfänger",
     "intermediate": "Fortgeschritten",
     "advanced": "Erweitert",
     "expert": "Experte",
@@ -37,6 +43,203 @@
     "next": "Nächstes Zitat",
     "previous": "Vorheriges Zitat",
     "random": "Zufälliges Zitat"
+  },
+  "instructions": {
+    "timeOfDay": {
+      "morning": "Guten Morgen",
+      "afternoon": "Guten Tag",
+      "evening": "Guten Abend",
+      "night": "Gute Nacht",
+      "morningRecommendation": "Morgenmeditationen geben den Ton für deinen Tag an. Versuche Atemzählen oder Visualisierung.",
+      "afternoonRecommendation": "Nachmittagspraxis erfrischt deinen Geist. Erwäge liebende Güte oder Gehmeditation.",
+      "eveningRecommendation": "Abendsitzungen helfen dir zu entspannen. Body-Scan oder sanfte Atemwahrnehmung funktionieren wunderbar.",
+      "nightRecommendation": "Spätabendmeditation kann dich auf erholsamen Schlaf vorbereiten. Body-Scan wird sehr empfohlen."
+    },
+    "preparation": {
+      "prepareMySpace": "Bereite meinen Raum vor",
+      "skip": "Überspringen",
+      "continue": "Weiter",
+      "beginMeditation": "Meditation Beginnen",
+      "stepProgress": "Schritt {{current}} von {{total}}"
+    },
+    "level1_breath": {
+      "title": "Willkommen zu deiner ersten Meditation",
+      "subtitle": "Lass uns gemeinsam die Grundlagen schaffen",
+      "intention": "Nimm einfach deinen Atem wahr, ohne zu versuchen, ihn zu verändern",
+      "focusPoint": "Der natürliche Rhythmus des Ein- und Ausatmens",
+      "challenges": {
+        "1": "Gedankenwandern ist völlig normal",
+        "2": "Du musst deinen Geist nicht leeren",
+        "3": "Es gibt keine 'perfekte' Meditation"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Finde deinen Sitz",
+          "description": "Sitze auf einem Stuhl, Kissen oder im Schneidersitz auf dem Boden. Dein Komfort ist am wichtigsten.",
+          "icon": "🪑"
+        },
+        "2": {
+          "title": "Haltungsprüfung",
+          "description": "Halte deine Wirbelsäule gerade, aber nicht starr. Stelle dir einen Faden vor, der deinen Kopf sanft zum Himmel zieht.",
+          "icon": "🧘"
+        },
+        "3": {
+          "title": "Handplatzierung",
+          "description": "Lege deine Hände auf deine Knie oder in deinen Schoß. Lass deine Schultern nach unten und hinten fallen.",
+          "icon": "🙏",
+          "optional": true
+        },
+        "4": {
+          "title": "Augen",
+          "description": "Du kannst deine Augen schließen oder sie sanft auf einen Punkt vor dir fokussiert halten.",
+          "icon": "👀",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Beginne damit, einfach zu bemerken, wann du einatmest und wann du ausatmest",
+        "2": "Wenn deine Gedanken wandern, bringe die Aufmerksamkeit sanft zurück zu deinem Atem",
+        "3": "Sei geduldig und freundlich mit dir selbst—das ist eine Übung",
+        "4": "Jeder Moment der Bewusstheit zählt, egal wie kurz"
+      },
+      "breathingPrep": {
+        "instruction": "Nimm 5 langsame, tiefe Atemzüge, um dich einzufinden. 4 Zählzeiten einatmen, 4 Zählzeiten ausatmen.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 120,
+          "message": "Nimm die Empfindung des Atems an deinen Nasenlöchern oder deinem Bauch wahr",
+          "type": "gentle"
+        },
+        "2": {
+          "time": 300,
+          "message": "Gedanken gewandert? Das ist völlig normal. Kehre sanft zum Atem zurück.",
+          "type": "encouragement"
+        }
+      }
+    },
+    "level1_body_scan": {
+      "title": "Entspanne mit Körperbewusstsein",
+      "subtitle": "Löse Spannungen von Kopf bis Fuß",
+      "intention": "Entspanne systematisch jeden Teil deines Körpers",
+      "focusPoint": "Empfindungen in verschiedenen Körperteilen während des Scannens",
+      "challenges": {
+        "1": "Einschlafen ist okay—dein Körper braucht Ruhe",
+        "2": "Du fühlst vielleicht in manchen Bereichen nicht viel, und das ist normal",
+        "3": "Spannung kann zunehmen, bevor sie sich löst"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Lege dich bequem hin",
+          "description": "Liege auf deinem Rücken mit Armen an deinen Seiten, Handflächen nach oben. Verwende ein Kissen, wenn nötig.",
+          "icon": "🛏️"
+        },
+        "2": {
+          "title": "Beine nicht gekreuzt",
+          "description": "Lass deine Füße natürlich zu den Seiten fallen. Keine Notwendigkeit, eine Position zu halten.",
+          "icon": "🦶"
+        },
+        "3": {
+          "title": "Temperatur",
+          "description": "Decke dich mit einer Decke zu, wenn du dazu neigst, während der Ruhe zu frieren.",
+          "icon": "🌡️",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Versuche nicht, Entspannung zu erzwingen—beobachte einfach, was du fühlst",
+        "2": "Nimm Wärme, Kälte, Kribbeln oder gar nichts wahr",
+        "3": "Wenn du einschläfst, betrachte dies als erfolgreiche Entspannung",
+        "4": "Du musst dir die genaue Reihenfolge nicht merken—die Stimme wird dich führen"
+      },
+      "breathingPrep": {
+        "instruction": "Nimm 3 tiefe Seufzer. Atme durch die Nase ein, seufze laut durch den Mund aus.",
+        "pattern": "calm"
+      },
+      "reminders": {
+        "1": {
+          "time": 180,
+          "message": "Erlaube jedem Körperteil, schwer und entspannt zu werden",
+          "type": "gentle"
+        }
+      }
+    },
+    "level5_vipassana": {
+      "title": "Einsicht durch direkte Beobachtung",
+      "subtitle": "Erkenne die drei Merkmale: Vergänglichkeit, Unzulänglichkeit, Nicht-Selbst",
+      "intention": "Untersuche die Natur der Erfahrung mit Präzision und Gleichmut",
+      "focusPoint": "Entstehen und Vergehen von Empfindungen, Gedanken und geistigen Zuständen",
+      "challenges": {
+        "1": "Starke Empfindungen (Schmerz, Hitze, Kribbeln) werden auftreten",
+        "2": "Reagiere nicht—beobachte mit Gleichmut",
+        "3": "Einsichten können destabilisierend sein; mache Pausen, wenn nötig"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Traditionelle Haltung",
+          "description": "Sitze in deiner etablierten Meditationshaltung. Stille unterstützt Einsicht.",
+          "icon": "🪷"
+        },
+        "2": {
+          "title": "Wie ein Berg",
+          "description": "Verkörpere Stabilität und Präsenz, unbewegt von vorübergehenden Phänomenen.",
+          "icon": "⛰️"
+        }
+      },
+      "sessionTips": {
+        "1": "Scanne den Körper systematisch, notiere Empfindungen: 'Kribbeln', 'Wärme', 'Druck'",
+        "2": "Beobachte, wie alles entsteht, sich verändert und vergeht",
+        "3": "Wenn Schmerz entsteht, untersuche seine Ränder, Qualität und Vergänglichkeit",
+        "4": "Bewahre Gleichmut—suche nicht das Angenehme und vermeide nicht das Unangenehme"
+      },
+      "breathingPrep": {
+        "instruction": "Beruhige dich mit 10 Minuten Atembewusstheit, bevor du den Scan beginnst.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 300,
+          "message": "Bemerke: Entstehen, Bestehen, Vergehen. Alles ist in Bewegung.",
+          "type": "technique"
+        },
+        "2": {
+          "time": 600,
+          "message": "Starke Empfindungen sind Gelegenheiten für Einsicht, keine Hindernisse.",
+          "type": "technique"
+        },
+        "3": {
+          "time": 900,
+          "message": "Gleichmut ist der Schlüssel. Beobachte, reagiere nicht.",
+          "type": "gentle"
+        }
+      }
+    }
+  },
+  "sessions": {
+    "categories": {
+      "traditional": "Traditionell",
+      "occasion": "Anlass",
+      "cultural": "Kulturell"
+    },
+    "occasions": {
+      "morning": "Morgenenergie",
+      "stress": "Stressabbau",
+      "sleep": "Schlafvorbereitung",
+      "focus": "Tiefe Konzentration",
+      "anxiety": "Angstlösung",
+      "grief": "Trauer & Verlust",
+      "gratitude": "Dankbarkeitspraxis",
+      "creativity": "Kreative Inspiration"
+    },
+    "cultures": {
+      "zen": "Zen (Japanisch)",
+      "vipassana": "Vipassana (Buddhistisch)",
+      "vedic": "Vedisch (Hindu)",
+      "taoist": "Taoistisch (Chinesisch)",
+      "sufi": "Sufi (Islamisch)",
+      "christian": "Christliche Kontemplation"
+    }
   },
   "settings": {
     "title": "Einstellungen",
