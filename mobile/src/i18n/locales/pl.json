@@ -37,6 +37,203 @@
     "session": "Sesja",
     "continue": "Kontynuuj"
   },
+  "instructions": {
+    "timeOfDay": {
+      "morning": "Dzień dobry",
+      "afternoon": "Dobre popołudnie",
+      "evening": "Dobry wieczór",
+      "night": "Dobranoc",
+      "morningRecommendation": "Poranne medytacje nadają ton całemu dniowi. Spróbuj liczenia oddechów lub wizualizacji.",
+      "afternoonRecommendation": "Popołudniowa praktyka odświeża umysł. Rozważ medytację metta lub spacer w uważności.",
+      "eveningRecommendation": "Wieczorne sesje pomagają się odprężyć. Skanowanie ciała lub łagodna świadomość oddechu działają świetnie.",
+      "nightRecommendation": "Nocna medytacja przygotowuje do spokojnego snu. Skanowanie ciała jest bardzo polecane."
+    },
+    "preparation": {
+      "prepareMySpace": "Przygotuj Przestrzeń",
+      "skip": "Pomiń",
+      "continue": "Kontynuuj",
+      "beginMeditation": "Rozpocznij Medytację",
+      "stepProgress": "Krok {{current}} z {{total}}"
+    },
+    "level1_breath": {
+      "title": "Witaj w Twojej Pierwszej Medytacji",
+      "subtitle": "Zbudujmy razem fundamenty",
+      "intention": "Po prostu zauważ swój oddech, nie próbując go zmieniać",
+      "focusPoint": "Naturalny rytm wdechu i wydechu",
+      "challenges": {
+        "1": "Błądzenie umysłu jest całkowicie normalne",
+        "2": "Nie musisz opróżniać umysłu",
+        "3": "Nie istnieje 'idealna' medytacja"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Znajdź Swoje Miejsce",
+          "description": "Usiądź na krześle, poduszce lub skrzyżuj nogi na podłodze. Twój komfort jest najważniejszy.",
+          "icon": "🪑"
+        },
+        "2": {
+          "title": "Sprawdź Postawę",
+          "description": "Utrzymuj kręgosłup prosty, ale nie sztywny. Wyobraź sobie nitkę delikatnie pociągającą głowę w kierunku nieba.",
+          "icon": "🧘"
+        },
+        "3": {
+          "title": "Ułożenie Dłoni",
+          "description": "Połóż dłonie na kolanach lub w okolicy brzucha. Pozwól ramionom opaść i rozluźnić się.",
+          "icon": "🙏",
+          "optional": true
+        },
+        "4": {
+          "title": "Oczy",
+          "description": "Możesz zamknąć oczy lub utrzymać je lekko skupione na punkcie przed sobą.",
+          "icon": "👀",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Zacznij od zauważania, kiedy wdychasz i kiedy wydychasz",
+        "2": "Gdy twój umysł zabłądzi, delikatnie przenieś uwagę z powrotem na oddech",
+        "3": "Bądź cierpliwy i życzliwy dla siebie—to jest praktyka",
+        "4": "Każda chwila świadomości się liczy, bez względu na to, jak krótka"
+      },
+      "breathingPrep": {
+        "instruction": "Weź 5 powolnych, głębokich oddechów, aby się uspokoić. Wdech na 4 liczy, wydech na 4 liczy.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 120,
+          "message": "Zauważ uczucie oddechu w nozdrzach lub brzuchu",
+          "type": "gentle"
+        },
+        "2": {
+          "time": 300,
+          "message": "Umysł zabłądził? To całkowicie normalne. Delikatnie wróć do oddechu.",
+          "type": "encouragement"
+        }
+      }
+    },
+    "level1_body_scan": {
+      "title": "Zrelaksuj się ze Świadomością Ciała",
+      "subtitle": "Uwolnij napięcie od głowy do stóp",
+      "intention": "Systematycznie zrelaksuj każdą część ciała",
+      "focusPoint": "Odczucia w różnych częściach ciała podczas skanowania",
+      "challenges": {
+        "1": "Zaśnięcie jest w porządku—twoje ciało potrzebuje odpoczynku",
+        "2": "Możesz nie czuć wiele w niektórych obszarach i to jest normalne",
+        "3": "Napięcie może wzrosnąć zanim się uwolni"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Połóż się Wygodnie",
+          "description": "Leż na plecach z rękami po bokach, dłonie skierowane do góry. Użyj poduszki, jeśli potrzebujesz.",
+          "icon": "🛏️"
+        },
+        "2": {
+          "title": "Nogi Nieskrzyżowane",
+          "description": "Pozwól stopom opaść naturalnie na boki. Nie musisz utrzymywać żadnej pozycji.",
+          "icon": "🦶"
+        },
+        "3": {
+          "title": "Temperatura",
+          "description": "Przykryj się kocem, jeśli masz tendencję do odczuwania zimna podczas odpoczynku.",
+          "icon": "🌡️",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Nie próbuj wymuszać relaksacji—po prostu obserwuj, co czujesz",
+        "2": "Zauważ ciepło, chłód, mrowienie lub nic konkretnego",
+        "3": "Jeśli zaśniesz, uznaj to za udany relaks",
+        "4": "Nie musisz pamiętać dokładnej kolejności—głos cię poprowadzi"
+      },
+      "breathingPrep": {
+        "instruction": "Weź 3 głębokie westchnienia. Wdech przez nos, głośne westchnienie przez usta.",
+        "pattern": "calm"
+      },
+      "reminders": {
+        "1": {
+          "time": 180,
+          "message": "Pozwól każdej części ciała stać się ciężką i zrelaksowaną",
+          "type": "gentle"
+        }
+      }
+    },
+    "level5_vipassana": {
+      "title": "Wgląd Poprzez Bezpośrednią Obserwację",
+      "subtitle": "Zobacz trzy cechy: nietrwałość, niezadowalanie, bez-jaźń",
+      "intention": "Badaj naturę doświadczenia z precyzją i równowagą",
+      "focusPoint": "Powstawanie i przemijanie odczuć, myśli i stanów umysłu",
+      "challenges": {
+        "1": "Silne odczucia (ból, ciepło, mrowienie) się pojawią",
+        "2": "Nie reaguj—obserwuj z równowagą",
+        "3": "Wglądy mogą destabilizować; rób przerwy, jeśli potrzebujesz"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Tradycyjna Postawa",
+          "description": "Usiądź w ustalonej postawie medytacyjnej. Nieruchomość wspiera wgląd.",
+          "icon": "🪷"
+        },
+        "2": {
+          "title": "Jak Góra",
+          "description": "Ucieleśnij stabilność i obecność, nieporuszony przemijającymi zjawiskami.",
+          "icon": "⛰️"
+        }
+      },
+      "sessionTips": {
+        "1": "Skanuj ciało systematycznie, zauważając: 'mrowienie', 'ciepło', 'ucisk'",
+        "2": "Obserwuj, jak wszystko powstaje, zmienia się i przemija",
+        "3": "Gdy pojawi się ból, zbadaj jego krawędzie, jakość i nietrwałość",
+        "4": "Utrzymuj równowagę—nie szukaj przyjemnego ani nie unikaj nieprzyjemnego"
+      },
+      "breathingPrep": {
+        "instruction": "Uspokój się 10 minutami świadomości oddechu przed rozpoczęciem skanowania.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 300,
+          "message": "Zauważ: powstawanie, trwanie, przemijanie. Wszystko jest w ruchu.",
+          "type": "technique"
+        },
+        "2": {
+          "time": 600,
+          "message": "Silne odczucia to możliwości wglądu, nie przeszkody.",
+          "type": "technique"
+        },
+        "3": {
+          "time": 900,
+          "message": "Równowaga jest kluczem. Obserwuj, nie reaguj.",
+          "type": "gentle"
+        }
+      }
+    }
+  },
+  "sessions": {
+    "categories": {
+      "traditional": "Tradycyjne",
+      "occasion": "Okolicznościowe",
+      "cultural": "Kulturowe"
+    },
+    "occasions": {
+      "morning": "Poranna Energia",
+      "stress": "Uwolnienie od Stresu",
+      "sleep": "Przygotowanie do Snu",
+      "focus": "Głębokie Skupienie",
+      "anxiety": "Uwolnienie od Lęku",
+      "grief": "Żałoba i Strata",
+      "gratitude": "Praktyka Wdzięczności",
+      "creativity": "Twórcza Inspiracja"
+    },
+    "cultures": {
+      "zen": "Zen (Japońska)",
+      "vipassana": "Vipassana (Buddyjska)",
+      "vedic": "Wedyjska (Hinduska)",
+      "taoist": "Taoistyczna (Chińska)",
+      "sufi": "Sufi (Islamska)",
+      "christian": "Kontemplacja Chrześcijańska"
+    }
+  },
   "quotes": {
     "title": "Inspirujące Cytaty",
     "author": "autor: {{author}}",

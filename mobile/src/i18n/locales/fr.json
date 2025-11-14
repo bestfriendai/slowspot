@@ -7,13 +7,19 @@
     "welcome": "Bienvenue",
     "dailyQuote": "Citation du Jour",
     "startMeditation": "Commencer la Méditation",
-    "exploreSessions": "Explorer les Sessions"
+    "exploreSessions": "Explorer les Sessions",
+    "progress": "Votre Progrès",
+    "dayStreak": "jours consécutifs",
+    "totalMinutes": "min totales",
+    "sessions": "sessions"
   },
   "meditation": {
     "title": "Méditation",
+    "subtitle": "Choisissez votre pratique",
     "duration": "Durée",
     "level": "Niveau",
     "beginner": "Débutant",
+    "beginnerGuidance": "Méditation guidée pour débutants",
     "intermediate": "Intermédiaire",
     "advanced": "Avancé",
     "expert": "Expert",
@@ -37,6 +43,203 @@
     "next": "Citation Suivante",
     "previous": "Citation Précédente",
     "random": "Citation Aléatoire"
+  },
+  "instructions": {
+    "timeOfDay": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir",
+      "night": "Bonne nuit",
+      "morningRecommendation": "Les méditations matinales donnent le ton de votre journée. Essayez le comptage des respirations ou la visualisation.",
+      "afternoonRecommendation": "La pratique de l'après-midi rafraîchit votre esprit. Envisagez la bienveillance ou une méditation en marchant.",
+      "eveningRecommendation": "Les sessions du soir vous aident à vous détendre. Le scan corporel ou la conscience douce de la respiration fonctionnent merveilleusement.",
+      "nightRecommendation": "La méditation nocturne peut vous préparer à un sommeil réparateur. Le scan corporel est fortement recommandé."
+    },
+    "preparation": {
+      "prepareMySpace": "Préparer Mon Espace",
+      "skip": "Passer",
+      "continue": "Continuer",
+      "beginMeditation": "Commencer la Méditation",
+      "stepProgress": "Étape {{current}} sur {{total}}"
+    },
+    "level1_breath": {
+      "title": "Bienvenue à Votre Première Méditation",
+      "subtitle": "Construisons les fondations ensemble",
+      "intention": "Remarquez simplement votre respiration sans essayer de la changer",
+      "focusPoint": "Le rythme naturel de l'inspiration et de l'expiration",
+      "challenges": {
+        "1": "L'errance de l'esprit est complètement normale",
+        "2": "Vous n'avez pas besoin de vider votre esprit",
+        "3": "Il n'y a pas de méditation 'parfaite'"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Trouvez Votre Siège",
+          "description": "Asseyez-vous sur une chaise, un coussin ou en tailleur sur le sol. Votre confort est primordial.",
+          "icon": "🪑"
+        },
+        "2": {
+          "title": "Vérification de la Posture",
+          "description": "Gardez votre colonne vertébrale droite mais pas rigide. Imaginez un fil tirant doucement votre tête vers le ciel.",
+          "icon": "🧘"
+        },
+        "3": {
+          "title": "Placement des Mains",
+          "description": "Posez vos mains sur vos genoux ou dans votre giron. Laissez vos épaules se détendre vers le bas et l'arrière.",
+          "icon": "🙏",
+          "optional": true
+        },
+        "4": {
+          "title": "Yeux",
+          "description": "Vous pouvez fermer les yeux ou les garder doucement focalisés sur un point devant vous.",
+          "icon": "👀",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "Commencez par simplement remarquer quand vous inspirez et quand vous expirez",
+        "2": "Quand votre esprit erre, ramenez doucement l'attention vers votre respiration",
+        "3": "Soyez patient et bienveillant envers vous-même—c'est une pratique",
+        "4": "Chaque moment de conscience compte, peu importe sa brièveté"
+      },
+      "breathingPrep": {
+        "instruction": "Prenez 5 respirations lentes et profondes pour vous installer. Inspirez pendant 4 temps, expirez pendant 4 temps.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 120,
+          "message": "Remarquez la sensation de la respiration à vos narines ou votre ventre",
+          "type": "gentle"
+        },
+        "2": {
+          "time": 300,
+          "message": "L'esprit a erré ? C'est parfaitement normal. Revenez doucement à la respiration.",
+          "type": "encouragement"
+        }
+      }
+    },
+    "level1_body_scan": {
+      "title": "Détendez-vous avec la Conscience Corporelle",
+      "subtitle": "Libérez les tensions de la tête aux pieds",
+      "intention": "Détendez systématiquement chaque partie de votre corps",
+      "focusPoint": "Sensations dans différentes parties du corps pendant que vous les scannez",
+      "challenges": {
+        "1": "S'endormir est acceptable—votre corps a besoin de repos",
+        "2": "Vous ne ressentirez peut-être pas grand-chose dans certaines zones, et c'est normal",
+        "3": "La tension peut augmenter avant de se relâcher"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Allongez-vous Confortablement",
+          "description": "Allongez-vous sur le dos avec les bras sur les côtés, paumes vers le haut. Utilisez un oreiller si nécessaire.",
+          "icon": "🛏️"
+        },
+        "2": {
+          "title": "Jambes Non Croisées",
+          "description": "Laissez vos pieds tomber naturellement sur les côtés. Pas besoin de maintenir une position.",
+          "icon": "🦶"
+        },
+        "3": {
+          "title": "Température",
+          "description": "Couvrez-vous avec une couverture si vous avez tendance à avoir froid pendant le repos.",
+          "icon": "🌡️",
+          "optional": true
+        }
+      },
+      "sessionTips": {
+        "1": "N'essayez pas de forcer la relaxation—observez simplement ce que vous ressentez",
+        "2": "Remarquez la chaleur, la fraîcheur, les picotements ou rien du tout",
+        "3": "Si vous vous endormez, considérez cela comme une relaxation réussie",
+        "4": "Pas besoin de mémoriser l'ordre exact—la voix vous guidera"
+      },
+      "breathingPrep": {
+        "instruction": "Prenez 3 soupirs profonds. Inspirez par le nez, soupirez fort par la bouche.",
+        "pattern": "calm"
+      },
+      "reminders": {
+        "1": {
+          "time": 180,
+          "message": "Permettez à chaque partie du corps de devenir lourde et détendue",
+          "type": "gentle"
+        }
+      }
+    },
+    "level5_vipassana": {
+      "title": "Perspicacité par l'Observation Directe",
+      "subtitle": "Voyez les trois caractéristiques : impermanence, insatisfaction, non-soi",
+      "intention": "Explorez la nature de l'expérience avec précision et équanimité",
+      "focusPoint": "Apparition et disparition des sensations, pensées et états mentaux",
+      "challenges": {
+        "1": "Des sensations fortes (douleur, chaleur, picotements) apparaîtront",
+        "2": "Ne réagissez pas—observez avec équanimité",
+        "3": "Les insights peuvent être déstabilisants ; faites des pauses si nécessaire"
+      },
+      "physicalSetup": {
+        "1": {
+          "title": "Posture Traditionnelle",
+          "description": "Asseyez-vous dans votre posture de méditation établie. L'immobilité soutient la perspicacité.",
+          "icon": "🪷"
+        },
+        "2": {
+          "title": "Comme une Montagne",
+          "description": "Incarnez la stabilité et la présence, non affecté par les phénomènes passagers.",
+          "icon": "⛰️"
+        }
+      },
+      "sessionTips": {
+        "1": "Scannez le corps systématiquement, notant les sensations : 'picotements', 'chaleur', 'pression'",
+        "2": "Observez comment tout apparaît, change et disparaît",
+        "3": "Quand la douleur apparaît, explorez ses bords, sa qualité et son impermanence",
+        "4": "Maintenez l'équanimité—ne cherchez pas le plaisant ni n'évitez le déplaisant"
+      },
+      "breathingPrep": {
+        "instruction": "Calmez-vous avec 10 minutes de conscience de la respiration avant de commencer le scan.",
+        "pattern": "equal"
+      },
+      "reminders": {
+        "1": {
+          "time": 300,
+          "message": "Remarquez : apparition, persistance, disparition. Tout est en flux.",
+          "type": "technique"
+        },
+        "2": {
+          "time": 600,
+          "message": "Les sensations fortes sont des opportunités de perspicacité, pas des obstacles.",
+          "type": "technique"
+        },
+        "3": {
+          "time": 900,
+          "message": "L'équanimité est la clé. Observez, ne réagissez pas.",
+          "type": "gentle"
+        }
+      }
+    }
+  },
+  "sessions": {
+    "categories": {
+      "traditional": "Traditionnel",
+      "occasion": "Occasion",
+      "cultural": "Culturel"
+    },
+    "occasions": {
+      "morning": "Énergie Matinale",
+      "stress": "Soulagement du Stress",
+      "sleep": "Préparation au Sommeil",
+      "focus": "Concentration Profonde",
+      "anxiety": "Libération de l'Anxiété",
+      "grief": "Deuil et Perte",
+      "gratitude": "Pratique de Gratitude",
+      "creativity": "Inspiration Créative"
+    },
+    "cultures": {
+      "zen": "Zen (Japonais)",
+      "vipassana": "Vipassana (Bouddhiste)",
+      "vedic": "Védique (Hindou)",
+      "taoist": "Taoïste (Chinois)",
+      "sufi": "Soufi (Islamique)",
+      "christian": "Contemplative Chrétienne"
+    }
   },
   "settings": {
     "title": "Paramètres",
