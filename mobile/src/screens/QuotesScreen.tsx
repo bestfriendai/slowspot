@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, ScrollView, StyleSheet, useColorScheme } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { QuoteCard } from '../components/QuoteCard';
+import { GradientButton } from '../components/GradientButton';
 import { api, Quote } from '../services/api';
 import { getUniqueRandomQuote, markQuoteAsShown } from '../services/quoteHistory';
 import { GradientBackground } from '../components/GradientBackground';
@@ -111,14 +112,13 @@ export const QuotesScreen: React.FC = () => {
                 </Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.randomButton}
+              <GradientButton
+                title={t('quotes.random')}
+                gradient={gradients.button.primary}
                 onPress={loadRandomQuote}
-              >
-                <Text style={styles.primaryButtonText}>
-                  {t('quotes.random')}
-                </Text>
-              </TouchableOpacity>
+                style={styles.randomButton}
+                size="md"
+              />
 
               <TouchableOpacity
                 style={[
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: theme.spacing.md,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   navButton: {
     flex: 1,
@@ -182,16 +183,6 @@ const styles = StyleSheet.create({
   },
   randomButton: {
     flex: 1,
-    width: 120,
-    padding: theme.spacing.md,
-    borderRadius: theme.borderRadius.md,
-    alignItems: 'center',
-    backgroundColor: theme.colors.accent.blue[600],
-  },
-  primaryButtonText: {
-    color: theme.colors.neutral.white,
-    fontSize: theme.typography.fontSizes.md,
-    fontWeight: theme.typography.fontWeights.medium,
   },
   disabledButton: {
     opacity: theme.opacity.disabled,
