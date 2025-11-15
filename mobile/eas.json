@@ -6,33 +6,56 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "channel": "development",
       "ios": {
-        "simulator": true
+        "simulator": true,
+        "bundleIdentifier": "com.slowspot.app.dev"
+      },
+      "android": {
+        "buildType": "apk",
+        "applicationId": "com.slowspot.app.dev"
       }
     },
     "preview": {
       "distribution": "internal",
       "channel": "preview",
+      "env": {
+        "APP_ENV": "preview"
+      },
       "ios": {
         "simulator": false,
-        "resourceClass": "m-medium"
+        "resourceClass": "m-medium",
+        "bundleIdentifier": "com.slowspot.app.preview"
       },
       "android": {
         "buildType": "apk",
-        "gradleCommand": ":app:assembleRelease"
+        "gradleCommand": ":app:assembleRelease",
+        "applicationId": "com.slowspot.app.preview"
       }
     },
     "production": {
       "channel": "production",
+      "env": {
+        "APP_ENV": "production"
+      },
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-medium",
+        "bundleIdentifier": "com.slowspot.app"
       },
       "android": {
-        "buildType": "apk"
+        "buildType": "aab",
+        "applicationId": "com.slowspot.app"
       }
     }
   },
   "submit": {
+    "preview": {
+      "ios": {
+        "appleId": "your-apple-id@example.com",
+        "ascAppId": "placeholder",
+        "appleTeamId": "placeholder"
+      }
+    },
     "production": {
       "ios": {
         "appleId": "your-apple-id@example.com",
