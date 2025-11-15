@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable, Animated, TextInput, TouchableOpacity } from 'react-native';
-import { YStack, XStack, Text as TamaguiText, Button, Circle } from 'tamagui';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import Reanimated, {
@@ -544,14 +543,14 @@ const IntentionStep: React.FC<IntentionStepProps> = ({
           color="#667eea"
           style={{ marginRight: 12 }}
         />
-        <YStack flex={1}>
+        <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 14, fontWeight: '600', color: '#1a1a2e' }}>
             {t('instructions.preparation.alwaysSkipInstructions')}
           </Text>
           <Text style={{ fontSize: 12, color: '#6b7280', marginTop: 4 }}>
             {t('instructions.preparation.skipInstructionsNote')}
           </Text>
-        </YStack>
+        </View>
       </TouchableOpacity>
 
       {/* Begin Button */}
