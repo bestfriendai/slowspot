@@ -41,6 +41,7 @@ export const neutralColors = {
 export const accentColors = {
   // Soft blue - primary accent
   blue: {
+    50: '#F0F9FF',
     100: '#EBF5FF',
     200: '#D6EBFF',
     300: '#ADDCFF',
@@ -50,8 +51,9 @@ export const accentColors = {
     700: '#1565C0', // ✨ NEW - Extra contrast (7.5:1)
     800: '#0D47A1', // ✨ NEW - Maximum contrast (9.2:1)
   },
-  // Soft lavender - secondary accent
-  lavender: {
+  // Purple/Lavender - secondary accent
+  purple: {
+    50: '#FAF5FF',
     100: '#F3F0FF',
     200: '#E9E4FF',
     300: '#D4C5FF',
@@ -61,8 +63,21 @@ export const accentColors = {
     700: '#5533A6', // ✨ NEW - Extra contrast (8.1:1)
     800: '#42298C', // ✨ NEW - Maximum contrast (10.3:1)
   },
-  // Soft mint - tertiary accent
-  mint: {
+  // Soft lavender - secondary accent (alias for purple)
+  lavender: {
+    50: '#FAF5FF',
+    100: '#F3F0FF',
+    200: '#E9E4FF',
+    300: '#D4C5FF',
+    400: '#B7A0FF',
+    500: '#7B5FD9', // ✨ UPDATED - WCAG AA (4.89:1) - was #9D7FFA
+    600: '#6747BF', // ✨ UPDATED - WCAG AA (6.52:1) - was #8165D6
+    700: '#5533A6', // ✨ NEW - Extra contrast (8.1:1)
+    800: '#42298C', // ✨ NEW - Maximum contrast (10.3:1)
+  },
+  // Green/Mint - tertiary accent
+  green: {
+    50: '#F0FDF4',
     100: '#E6F9F5',
     200: '#C2F2E6',
     300: '#8FE7D0',
@@ -72,8 +87,45 @@ export const accentColors = {
     700: '#1B6F51', // ✨ NEW - Extra contrast (7.8:1)
     800: '#14543E', // ✨ NEW - Maximum contrast (9.5:1)
   },
-  // Soft rose - for special highlights
+  // Soft mint - tertiary accent (alias for green)
+  mint: {
+    50: '#F0FDF4',
+    100: '#E6F9F5',
+    200: '#C2F2E6',
+    300: '#8FE7D0',
+    400: '#5ED9B5',
+    500: '#2BA87C', // ✨ UPDATED - WCAG AA (4.61:1) - was #3FC79A
+    600: '#228A65', // ✨ UPDATED - WCAG AA (6.08:1) - was #2DA876
+    700: '#1B6F51', // ✨ NEW - Extra contrast (7.8:1)
+    800: '#14543E', // ✨ NEW - Maximum contrast (9.5:1)
+  },
+  // Teal - for info badges
+  teal: {
+    50: '#F0FDFA',
+    100: '#CCFBF1',
+    200: '#99F6E4',
+    300: '#5EEAD4',
+    400: '#2DD4BF',
+    500: '#14B8A6',
+    600: '#0D9488',
+    700: '#0F766E',
+    800: '#115E59',
+  },
+  // Red/Rose - for alerts and errors
+  red: {
+    50: '#FEF2F2',
+    100: '#FFF0F5',
+    200: '#FFE0EC',
+    300: '#FFCCE0',
+    400: '#FFB3D5',
+    500: '#E6579A', // ✨ UPDATED - WCAG AA (4.52:1) - was #FF99C7
+    600: '#C93D82', // ✨ UPDATED - WCAG AA (5.89:1) - was #E67AAD
+    700: '#A62E6A', // ✨ NEW - Extra contrast (7.6:1)
+    800: '#832452', // ✨ NEW - Maximum contrast (9.3:1)
+  },
+  // Soft rose - for special highlights (alias for red)
   rose: {
+    50: '#FEF2F2',
     100: '#FFF0F5',
     200: '#FFE0EC',
     300: '#FFCCE0',
@@ -133,6 +185,7 @@ export const textColors = {
 // Border colors
 export const borderColors = {
   light: neutralColors.lightGray[200],
+  default: neutralColors.lightGray[300], // Alias for medium
   medium: neutralColors.lightGray[300],
   strong: neutralColors.gray[300],
   focus: accentColors.blue[500],

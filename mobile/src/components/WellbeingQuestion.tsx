@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.md,
     padding: theme.spacing.md,
     fontSize: theme.typography.fontSizes.md,
-    color: theme.colors.neutral.charcoal,
+    color: theme.colors.text.primary,
     minHeight: 100,
   },
 });

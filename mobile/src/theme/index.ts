@@ -34,6 +34,7 @@ export const borderRadius = {
   xl: 20,
   xxl: 24,
   round: 999,
+  full: 9999, // Alias for round, compatible with component library
   circle: '50%',
 };
 
@@ -274,6 +275,9 @@ export type Theme = typeof theme;
 
 // Export individual modules
 export { colors, gradients };
+
+// Export types from gradients
+export type { GradientDefinition } from './gradients';
 
 // Export default theme
 export default theme;

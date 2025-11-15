@@ -379,7 +379,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
     const chimePoints = getChimePointsFromSession(selectedSession);
 
     return (
-      <GradientBackground gradient={gradients.screen.timer} style={styles.container}>
+      <GradientBackground gradient={gradients.primary.subtleBlue} style={styles.container}>
         <MeditationTimer
           totalSeconds={selectedSession.durationSeconds}
           onComplete={handleComplete}

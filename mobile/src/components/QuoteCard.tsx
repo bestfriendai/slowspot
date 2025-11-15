@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.neutral.lightGray[200],
   },
   darkCard: {
-    backgroundColor: theme.colors.neutral.darkGray[800],
-    borderColor: theme.colors.neutral.darkGray[700],
+    backgroundColor: theme.colors.neutral.charcoal[200],
+    borderColor: theme.colors.neutral.charcoal[100],
   },
   header: {
     padding: theme.spacing.md,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.neutral.lightGray[100],
   },
   darkBadge: {
-    backgroundColor: theme.colors.neutral.darkGray[700],
+    backgroundColor: theme.colors.neutral.charcoal[100],
   },
   badgeText: {
     fontSize: theme.typography.fontSizes.xs,

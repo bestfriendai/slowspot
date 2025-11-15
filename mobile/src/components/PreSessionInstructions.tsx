@@ -127,7 +127,7 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
   };
 
   return (
-    <GradientBackground gradient={gradients.screen.celebration} style={styles.container}>
+    <GradientBackground gradient={gradients.primary.subtleBlue} style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -373,7 +373,9 @@ const BreathingPrepStep: React.FC<BreathingPrepStepProps> = ({
 }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(breathingPrep.duration);
+  const [isCompleted, setIsCompleted] = useState(false);
 
+  // Handle timer countdown
   useEffect(() => {
     if (!isRunning) return;
 
@@ -381,7 +383,7 @@ const BreathingPrepStep: React.FC<BreathingPrepStepProps> = ({
       setTimeRemaining((prev) => {
         if (prev <= 1) {
           setIsRunning(false);
-          onComplete();
+          setIsCompleted(true);
           return 0;
         }
         return prev - 1;
@@ -389,7 +391,14 @@ const BreathingPrepStep: React.FC<BreathingPrepStepProps> = ({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isRunning, onComplete]);
+  }, [isRunning]);
+
+  // Call onComplete when timer finishes (separate effect to avoid setState during render)
+  useEffect(() => {
+    if (isCompleted) {
+      onComplete();
+    }
+  }, [isCompleted, onComplete]);
 
   const handleStart = () => {
     setIsRunning(true);
@@ -619,6 +628,7 @@ const AnimatedBreathingCircle: React.FC<{
   t: any;
 }> = ({ isRunning, pattern, t }) => {
   const scale = useSharedValue(1);
+  const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
 
   useEffect(() => {
     if (isRunning) {
@@ -628,14 +638,43 @@ const AnimatedBreathingCircle: React.FC<{
         -1,
         true
       );
+
+      // Cycle through breathing phases
+      const phases: Array<'inhale' | 'hold' | 'exhale' | 'rest'> = pattern === 'box'
+        ? ['inhale', 'hold', 'exhale', 'rest']
+        : ['inhale', 'exhale'];
+
+      let phaseIndex = 0;
+      const phaseInterval = setInterval(() => {
+        phaseIndex = (phaseIndex + 1) % phases.length;
+        setBreathingPhase(phases[phaseIndex]);
+      }, duration / phases.length);
+
+      return () => clearInterval(phaseInterval);
     } else {
       scale.value = withTiming(1, { duration: 500 });
+      setBreathingPhase('inhale');
     }
   }, [isRunning, pattern]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
+
+  const getPhaseText = () => {
+    switch (breathingPhase) {
+      case 'inhale':
+        return 'Wdech';
+      case 'hold':
+        return 'Zatrzymaj';
+      case 'exhale':
+        return 'Wydech';
+      case 'rest':
+        return 'Zatrzymaj';
+      default:
+        return 'Oddychaj';
+    }
+  };
 
   return (
     <View style={styles.breathingContainer}>
@@ -644,7 +683,7 @@ const AnimatedBreathingCircle: React.FC<{
       </Reanimated.View>
       {isRunning && (
         <Text style={styles.breathingText}>
-          {t('instructions.preparation.breathe') || 'Breathe'}
+          {getPhaseText()}
         </Text>
       )}
     </View>

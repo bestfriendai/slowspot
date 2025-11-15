@@ -433,16 +433,22 @@ const styles = StyleSheet.create({
   },
   instructionText: {
     fontSize: theme.typography.fontSizes.sm,
-    color: 'rgba(255, 255, 255, 0.85)',
-    fontWeight: theme.typography.fontWeights.medium,
+    color: theme.colors.accent.blue[700],
+    fontWeight: theme.typography.fontWeights.semiBold,
     letterSpacing: 1,
     textTransform: 'uppercase',
+    textShadowColor: 'rgba(255, 255, 255, 0.3)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   breathingText: {
     fontSize: theme.typography.fontSizes.xxxl,
-    fontWeight: theme.typography.fontWeights.light,
-    color: theme.colors.text.inverse,
+    fontWeight: theme.typography.fontWeights.semiBold,
+    color: theme.colors.accent.blue[600],
     letterSpacing: 2,
+    textShadowColor: 'rgba(255, 255, 255, 0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   circleContainer: {
     position: 'relative',
@@ -477,14 +483,18 @@ const styles = StyleSheet.create({
   progressText: {
     fontSize: 64,
     fontWeight: theme.typography.fontWeights.light,
-    color: theme.colors.text.inverse,
+    color: theme.colors.accent.blue[600],
+    textShadowColor: 'rgba(255, 255, 255, 0.5)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   minutesText: {
     fontSize: theme.typography.fontSizes.sm,
     marginTop: theme.spacing.xs,
-    color: 'rgba(255, 255, 255, 0.85)',
+    color: theme.colors.accent.blue[700],
     textTransform: 'uppercase',
     letterSpacing: 1,
+    fontWeight: theme.typography.fontWeights.medium,
   },
   progressBarContainer: {
     width: '80%',
@@ -520,9 +530,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.accent.mint[500],
   },
   secondaryButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.4)',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    borderWidth: 1.5,
+    borderColor: theme.colors.accent.blue[300],
   },
   primaryButtonText: {
     color: theme.colors.text.primary,
@@ -533,7 +543,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: theme.typography.fontSizes.md,
     fontWeight: theme.typography.fontWeights.semiBold,
-    color: theme.colors.text.inverse,
+    color: theme.colors.accent.blue[600],
     letterSpacing: 0.5,
   },
   chimeMarkerContainer: {
