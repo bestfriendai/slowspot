@@ -41,9 +41,9 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const chimeSound = useRef<Audio.Sound | null>(null);
 
   // Reanimated 4 - Smooth 60fps breathing animation
-  // 4 seconds inhale, 4 seconds exhale
-  const breathingScale = useSharedValue(0.85);
-  const breathingOpacity = useSharedValue(0.3);
+  // 4 seconds inhale, 4 seconds exhale - more visible animation
+  const breathingScale = useSharedValue(0.7);
+  const breathingOpacity = useSharedValue(0.4);
 
   // Load chime sound on mount
   useEffect(() => {
@@ -79,14 +79,14 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   // Start breathing animation loop
   useEffect(() => {
     if (isRunning) {
-      // Inhale and exhale sequence with infinite repeat
+      // Inhale and exhale sequence with infinite repeat - more visible
       breathingScale.value = withRepeat(
         withSequence(
-          withTiming(1.0, {
+          withTiming(1.3, {
             duration: 4000,
             easing: Easing.inOut(Easing.ease),
           }),
-          withTiming(0.85, {
+          withTiming(0.7, {
             duration: 4000,
             easing: Easing.inOut(Easing.ease),
           })
@@ -97,11 +97,11 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
       breathingOpacity.value = withRepeat(
         withSequence(
-          withTiming(0.6, {
+          withTiming(0.8, {
             duration: 4000,
             easing: Easing.inOut(Easing.ease),
           }),
-          withTiming(0.3, {
+          withTiming(0.4, {
             duration: 4000,
             easing: Easing.inOut(Easing.ease),
           })
@@ -280,13 +280,10 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           />
         </Svg>
 
-        {/* Progress Indicator - No exact time shown */}
+        {/* Simple indicator - Focus on breathing, not time */}
         <View style={styles.timerOverlay}>
-          <Text style={styles.progressText}>
-            {Math.round(progress)}%
-          </Text>
           <Text style={styles.minutesText}>
-            {t('meditation.inProgress', 'In Progress')}
+            {t('meditation.inProgress', 'W TRAKCIE')}
           </Text>
         </View>
       </View>

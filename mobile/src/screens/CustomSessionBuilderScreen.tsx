@@ -350,7 +350,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
                       <View style={styles.savedSessionMetaRow}>
                         <Ionicons name="time-outline" size={14} color={theme.colors.neutral.white} />
                         <Text style={styles.savedSessionMetaText}>
-                          {session.durationMinutes} {t('custom.min')}
+                          {t('custom.minutes', { count: session.durationMinutes })}
                         </Text>
                       </View>
                       <View style={styles.savedSessionMetaRow}>

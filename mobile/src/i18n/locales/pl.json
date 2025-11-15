@@ -546,5 +546,37 @@
       "title": "Modlitwa Oddechowa",
       "description": "Rytmiczna modlitwa zsynchronizowana z oddychaniem."
     }
+  },
+  "custom": {
+    "title": "Własna Sesja",
+    "subtitle": "Stwórz medytację dopasowaną do swoich potrzeb",
+    "mySavedSessions": "custom.mySavedSessions",
+    "sessionName": "Nazwa Sesji (opcjonalnie)",
+    "sessionNamePlaceholder": "Np. Poranna medytacja",
+    "duration": "Czas Trwania",
+    "durationSubtitle": "Wybierz długość swojej sesji medytacji",
+    "minutes": "{{count}} min",
+    "backgroundSound": "Dźwięk Tła",
+    "backgroundSoundSubtitle": "Wybierz uspokajający dźwięk",
+    "intervalChime": "Dzwonek Interwałowy",
+    "intervalChimeSubtitle": "Delikatne przypomnienie podczas sesji",
+    "awakeningChime": "Dzwonek Przebudzenia",
+    "awakeningChimeSubtitle": "Delikatny dzwonek na zakończenie sesji",
+    "guidingVoice": "Głos Prowadzący",
+    "guidingVoiceSubtitle": "Prowadzenie głosowe podczas medytacji",
+    "saveSession": "Zapisz Sesję",
+    "saveAndStart": "Zapisz i Rozpocznij",
+    "startWithoutSaving": "Rozpocznij bez Zapisywania",
+    "start": "Rozpocznij",
+    "longPressToEdit": "Przytrzymaj, aby edytować",
+    "editSession": "Edytuj Sesję",
+    "deleteSession": "Usuń Sesję",
+    "sounds": {
+      "nature": "Natura",
+      "rain": "Deszcz",
+      "ocean": "Ocean",
+      "forest": "Las",
+      "silence": "Cisza"
+    }
   }
 }

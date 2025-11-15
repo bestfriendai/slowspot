@@ -212,24 +212,54 @@ marginBottom: theme.spacing.xxl   // 48px
 
 ## 🎨 Kolory
 
+**WAŻNE**: ZAWSZE używaj kolorów z `theme.colors` - NIGDY hardcoded hex!
+
 ```tsx
 import theme from '../theme';
 
-// Accent colors
-theme.colors.accent.blue[600]     // Primary blue
-theme.colors.accent.purple[600]   // Secondary purple
-theme.colors.accent.green[600]    // Success green
-theme.colors.accent.red[600]      // Error red
+// ✅ Accent colors - WCAG AA compliant
+theme.colors.accent.blue[50]      // #F0F9FF - Very light
+theme.colors.accent.blue[100]     // #EBF5FF - Light backgrounds
+theme.colors.accent.blue[200]     // #D6EBFF - Borders
+theme.colors.accent.blue[500]     // #2B8FE8 - Interactive
+theme.colors.accent.blue[600]     // #1976D2 - Primary (UŻYJ DO TEKSTU)
+theme.colors.accent.blue[700]     // #1565C0 - Dark text
 
-// Neutrals
-theme.colors.neutral.white
-theme.colors.neutral.gray[100]
-theme.colors.neutral.gray[500]
+theme.colors.accent.purple[...]   // Fioletowy (warianty jak blue)
+theme.colors.accent.green[...]    // Zielony (success)
+theme.colors.accent.red[...]      // Czerwony (error)
+theme.colors.accent.teal[...]     // Turkusowy (info)
 
-// Text
-theme.colors.text.primary         // Główny tekst
-theme.colors.text.secondary       // Drugorzędny tekst
-theme.colors.text.tertiary        // Trzecioplanowy tekst
+// ✅ Neutrals
+theme.colors.neutral.white        // #FFFFFF
+theme.colors.neutral.gray[100]    // #F2F2F7 - Jasne tła
+theme.colors.neutral.gray[300]    // #D1D1D6 - Borders
+theme.colors.neutral.gray[500]    // #8E8E93 - Disabled text
+theme.colors.neutral.gray[700]    // #48484A - Ciemny tekst
+theme.colors.neutral.charcoal[200]// #1C1C1E - Bardzo ciemny
+
+// ✅ Text colors - używaj ZAWSZE
+theme.colors.text.primary         // Główny tekst (dark)
+theme.colors.text.secondary       // Drugorzędny tekst (gray)
+theme.colors.text.tertiary        // Trzecioplanowy (lighter gray)
+theme.colors.text.disabled        // Wyłączony (very light)
+theme.colors.text.inverse         // Biały (na ciemnym tle)
+
+// ✅ Border colors
+theme.colors.border.light         // Jasny border
+theme.colors.border.default       // Standardowy border
+theme.colors.border.dark          // Ciemny border
+```
+
+### Paleta kolorów dla ekranów
+
+```tsx
+// Delikatny błękitny - główny kolor aplikacji
+gradients.primary.subtleBlue      // Od #EBF5FF do white - spokojny, uniwersalny
+
+// Dla różnych sekcji (jeśli potrzebne)
+gradients.primary.calmMint        // Miętowy - relaksacja
+gradients.primary.softLavender    // Lawendowy - spokój
 ```
 
 ---
@@ -351,5 +381,238 @@ const Form = () => (
 
 ---
 
+## 🎨 Ilustracje i grafiki (Opensource)
+
+**Zasada**: Używaj spójnych, profesjonalnych ilustracji z darmowych źródeł.
+
+### Rekomendowane źródła:
+
+1. **unDraw** (https://undraw.co/)
+   - Najlepsze do medytacji/wellness
+   - Customizable colors - ustaw na #1976D2 (theme.colors.accent.blue[600])
+   - SVG - łatwe skalowanie
+   - ```bash
+     # Przykładowe ilustracje:
+     - Meditation illustration
+     - Mindfulness illustration
+     - Breathing exercise
+     - Yoga poses
+     ```
+
+2. **Humaaans** (https://www.humaaans.com/)
+   - Ilustracje ludzi w różnych pozycjach
+   - Mix & match części ciała
+   - Świetne do onboardingu
+
+3. **Storyset** (https://storyset.com/)
+   - Animowane i statyczne ilustracje
+   - Kategoria "Health & Wellness"
+   - Edytowalne kolory
+
+4. **Illustrations.co** (https://illlustrations.co/)
+   - 100 darmowych ilustracji
+   - Minimalistyczny styl
+   - Pasują do spokojnego designu
+
+5. **Lukasz Adam Free Illustrations** (https://lukaszadam.com/illustrations)
+   - Darmowe ilustracje o medytacji
+   - PNG i SVG
+
+### Jak używać ilustracji:
+
+```tsx
+import { Image } from 'react-native';
+
+// SVG (preferowane)
+import MeditationSvg from '../assets/illustrations/meditation.svg';
+
+<MeditationSvg width={200} height={200} />
+
+// PNG fallback
+<Image
+  source={require('../assets/illustrations/meditation.png')}
+  style={{ width: 200, height: 200 }}
+  resizeMode="contain"
+/>
+```
+
+### Wytyczne dla ilustracji:
+
+- ✅ Ustaw kolor główny na #1976D2 (theme.colors.accent.blue[600])
+- ✅ Użyj SVG gdy możliwe (lepsze skalowanie)
+- ✅ Spójny styl we całej aplikacji (wybierz JEDEN zestaw)
+- ✅ Umieść w `assets/illustrations/`
+- ❌ Nie mieszaj różnych stylów ilustracji
+- ❌ Nie używaj zbyt wielu ilustracji (minimalizm!)
+
+---
+
+## 🎯 Typography System
+
+**ZAWSZE używaj z theme.typography**
+
+```tsx
+import theme from '../theme';
+
+// ✅ Font sizes
+theme.typography.fontSizes.xs      // 12px - małe etykiety
+theme.typography.fontSizes.sm      // 14px - body text small
+theme.typography.fontSizes.md      // 16px - body text (DEFAULT)
+theme.typography.fontSizes.lg      // 18px - subheadings
+theme.typography.fontSizes.xl      // 20px - headings
+theme.typography.fontSizes.xxl     // 24px - big headings
+theme.typography.fontSizes.xxxl    // 32px - hero text
+theme.typography.fontSizes.display // 40px - display text
+theme.typography.fontSizes.hero    // 48px - hero sections
+
+// ✅ Font weights
+theme.typography.fontWeights.light      // '300'
+theme.typography.fontWeights.regular    // '400' (DEFAULT)
+theme.typography.fontWeights.medium     // '500' - labels
+theme.typography.fontWeights.semiBold   // '600' - headings
+theme.typography.fontWeights.bold       // '700' - emphasis
+theme.typography.fontWeights.extraBold  // '800' - hero
+
+// ✅ Line heights
+theme.typography.lineHeights.tight    // 1.2 - headings
+theme.typography.lineHeights.normal   // 1.5 - body (DEFAULT)
+theme.typography.lineHeights.relaxed  // 1.75 - comfortable reading
+theme.typography.lineHeights.loose    // 2 - very spacious
+```
+
+---
+
+## ⚡ Animations & Transitions
+
+**ZAWSZE używaj z theme.durations i theme.easings**
+
+```tsx
+import theme from '../theme';
+import { Animated } from 'react-native';
+
+// ✅ Durations
+theme.durations.fast      // 150ms - micro-interactions
+theme.durations.normal    // 300ms - standard (DEFAULT)
+theme.durations.slow      // 500ms - emphasis
+theme.durations.verySlow  // 1000ms - meditation, breathing
+
+// ✅ Example breathing animation
+const breathingDuration = theme.durations.verySlow * 4; // 4 seconds
+
+// ✅ Opacity scale
+theme.opacity.disabled    // 0.4
+theme.opacity.muted       // 0.6
+theme.opacity.subtle      // 0.7
+theme.opacity.normal      // 1.0
+```
+
+---
+
+## 🧘 Meditation Screen Guidelines
+
+### Animacja oddychania
+
+```tsx
+// ✅ ZAWSZE widoczna, płynna animacja
+// ✅ 4 sekundy wdech, 4 sekundy wydech
+// ✅ Scale: 0.7 → 1.3 (60% różnicy)
+// ✅ Opacity: 0.4 → 0.8 (40% różnicy)
+
+const breathingScale = useSharedValue(0.7);
+const breathingOpacity = useSharedValue(0.4);
+
+breathingScale.value = withRepeat(
+  withSequence(
+    withTiming(1.3, { duration: 4000 }),  // Inhale
+    withTiming(0.7, { duration: 4000 })   // Exhale
+  ),
+  -1 // infinite
+);
+```
+
+### Co pokazywać na ekranie medytacji:
+
+- ✅ Instrukcje oddychania: "Wdech" / "Wydech"
+- ✅ Tekst "W TRAKCIE" (nie pokazuj %)
+- ✅ Duże, widoczne koło oddechowe
+- ✅ Przyciski: "Pauza" i "Zakończ"
+- ❌ NIE pokazuj % postępu (stresuje użytkownika!)
+- ❌ NIE pokazuj dokładnego czasu pozostałego
+- ❌ NIE używaj jasnych kolorów tekstu na jasnym tle
+
+---
+
+## 🎨 Spójność designu - REGUŁY
+
+### 1. Gradienty tła
+
+```tsx
+// ✅ ZAWSZE używaj tych samych gradientów
+import { gradients } from '../theme';
+
+// Ekran przygotowania & medytacji
+<GradientBackground gradient={gradients.primary.subtleBlue} />
+
+// Tylko jeśli NAPRAWDĘ potrzebne:
+<GradientBackground gradient={gradients.primary.calmMint} />   // Relaksacja
+<GradientBackground gradient={gradients.primary.softLavender} /> // Spokój
+```
+
+### 2. Przyciski
+
+```tsx
+// ✅ Główny CTA (jeden na ekran!)
+<GradientButton
+  title="Rozpocznij"
+  gradient={gradients.button.primary}
+/>
+
+// ✅ Drugorzędne akcje
+<Button title="Wstecz" variant="outline" />
+<Button title="Anuluj" variant="secondary" />
+
+// ❌ NIGDY nie używaj random kolorów!
+```
+
+### 3. Spacing
+
+```tsx
+// ✅ ZAWSZE używaj theme.spacing
+padding: theme.spacing.md        // 16px
+marginBottom: theme.spacing.lg   // 24px
+gap: theme.spacing.sm            // 8px
+
+// ❌ NIGDY hardcoded
+padding: 16  // ❌ ZŁE!
+```
+
+---
+
+## ✅ Checklist przed mergem
+
+- [ ] Używam `theme.colors` zamiast hex
+- [ ] Używam `theme.spacing` zamiast px
+- [ ] Używam `theme.typography` dla czcionek
+- [ ] Używam `gradients` dla tła
+- [ ] Ilustracje z opensource (unDraw/Humaaans)
+- [ ] Ilustracje mają kolor #1976D2
+- [ ] Tylko JEDEN GradientButton na ekran
+- [ ] Animacja oddychania widoczna (scale 0.7-1.3)
+- [ ] Brak % na ekranie medytacji
+- [ ] Dobry kontrast tekstu (WCAG AA)
+- [ ] Spójny styl z resztą app
+
+---
+
+## 📚 Dodatkowe zasoby
+
+- [unDraw](https://undraw.co/) - Illustrations
+- [Humaaans](https://www.humaaans.com/) - People illustrations
+- [Coolors](https://coolors.co/) - Paleta kolorów
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/) - Test kontrastu
+
+---
+
 Utworzono: 2025-01-15
 Ostatnia aktualizacja: 2025-01-15
+Wersja: 2.0 - Kompletny system projektowy
