@@ -10,13 +10,11 @@ on:
   workflow_dispatch:
     inputs:
       platform:
-        description: 'Platform to build (all, ios, android)'
+        description: 'Platform to build (android only - iOS requires Apple Developer account)'
         required: true
-        default: 'all'
+        default: 'android'
         type: choice
         options:
-          - all
-          - ios
           - android
 
 jobs:
@@ -45,17 +43,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build for iOS (Preview)
-        if: |
-          github.event_name == 'push' ||
-          github.event.inputs.platform == 'ios' ||
-          github.event.inputs.platform == 'all'
-        run: |
-          eas build --platform ios \
-            --profile preview \
-            --non-interactive \
-            --no-wait
-
       - name: Build for Android (Preview)
         if: |
           github.event_name == 'push' ||
@@ -70,10 +57,11 @@ jobs:
       - name: Build summary
         if: always()
         run: |
-          echo "## 🚀 EAS Preview Build Started" >> $GITHUB_STEP_SUMMARY
+          echo "## 🚀 EAS Preview Build Started (Android)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Check build status: [Expo Dashboard](https://expo.dev/accounts/leszekszpunar/projects/slow-spot/builds)" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Platform:** Android (iOS requires Apple Developer account)" >> $GITHUB_STEP_SUMMARY
           echo "**Branch:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
           echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
 
