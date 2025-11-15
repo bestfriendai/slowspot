@@ -40,8 +40,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: ./mobile/package-lock.json
 
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
@@ -53,7 +51,10 @@ jobs:
         run: npm ci
 
       - name: Build for iOS (Production)
-        if: github.event.inputs.platform == 'ios' || github.event.inputs.platform == 'all' || github.event_name == 'push'
+        if: |
+          startsWith(github.ref, 'refs/tags/') ||
+          github.event.inputs.platform == 'ios' ||
+          github.event.inputs.platform == 'all'
         run: |
           eas build --platform ios \
             --profile production \
@@ -61,7 +62,10 @@ jobs:
             --auto-submit=${{ github.event.inputs.submit || 'false' }}
 
       - name: Build for Android (Production)
-        if: github.event.inputs.platform == 'android' || github.event.inputs.platform == 'all' || github.event_name == 'push'
+        if: |
+          startsWith(github.ref, 'refs/tags/') ||
+          github.event.inputs.platform == 'android' ||
+          github.event.inputs.platform == 'all'
         run: |
           eas build --platform android \
             --profile production \
