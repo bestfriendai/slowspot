@@ -38,18 +38,24 @@ const generateUUID = (): string => {
 };
 
 /**
- * Map ambient sound to audio file path
+ * Reference to meditation bell asset
+ * Using a single require at module level for better bundler compatibility
  */
-const getAmbientUrl = (sound: CustomSessionConfig['ambientSound']): string | undefined => {
-  const ambientMap: Record<string, string> = {
-    nature: require('../../assets/sounds/meditation-bell.mp3'), // Placeholder - replace with actual nature sounds
-    ocean: require('../../assets/sounds/meditation-bell.mp3'), // Placeholder
-    forest: require('../../assets/sounds/meditation-bell.mp3'), // Placeholder
-    '432hz': require('../../assets/sounds/meditation-bell.mp3'), // Placeholder - 432Hz tone
-    '528hz': require('../../assets/sounds/meditation-bell.mp3'), // Placeholder - 528Hz tone
-    silence: undefined,
-  };
-  return ambientMap[sound];
+const MEDITATION_BELL = require('../../assets/sounds/meditation-bell.mp3');
+
+/**
+ * Map ambient sound to audio file path
+ * Note: Currently using meditation bell as placeholder for all ambient sounds
+ * TODO: Add actual ambient sound files to assets/sounds/ambient/
+ */
+const getAmbientUrl = (sound: CustomSessionConfig['ambientSound']): number | undefined => {
+  if (sound === 'silence') {
+    return undefined;
+  }
+
+  // For now, all ambient sounds use the meditation bell as placeholder
+  // When actual ambient files are added, update this mapping
+  return MEDITATION_BELL;
 };
 
 /**
@@ -72,7 +78,7 @@ const configToMeditationSession = (
     voiceUrl: undefined, // Custom sessions don't have voice guidance by default
     ambientUrl: getAmbientUrl(config.ambientSound),
     chimeUrl: config.wakeUpChimeEnabled || config.intervalBellEnabled
-      ? require('../../assets/sounds/meditation-bell.mp3')
+      ? MEDITATION_BELL
       : undefined,
     ambientFrequency: config.ambientSound === '432hz' ? 432 : config.ambientSound === '528hz' ? 528 : 432,
     chimeFrequency: 528,
