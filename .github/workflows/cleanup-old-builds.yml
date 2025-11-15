@@ -93,6 +93,7 @@ jobs:
         with:
           age: '7 days'
           skip-recent: 5
+          GITHUB_TOKEN: ${{ github.token }}
 
   cleanup-cache:
     name: Cleanup Old Cache

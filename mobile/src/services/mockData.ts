@@ -1153,6 +1153,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 300, // 5 minutes
     level: 1,
     cultureTag: 'traditional',
+    instructionId: 'morning_energy', // Morning energizing instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1167,6 +1168,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 1,
     cultureTag: 'traditional',
+    instructionId: 'level1_breath', // Pre-session breathing instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1181,6 +1183,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'traditional',
+    instructionId: 'level1_body_scan', // Pre-session body scan instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1195,6 +1198,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 720, // 12 minutes
     level: 2,
     cultureTag: 'traditional',
+    instructionId: 'level3_loving_kindness', // Loving-kindness meditation instruction
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1209,6 +1213,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'traditional',
+    instructionId: 'level3_mindfulness', // Deep meditation instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1226,6 +1231,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 480, // 8 minutes
     level: 1,
     cultureTag: 'occasion_morning',
+    instructionId: 'morning_energy', // Morning energizing instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1240,6 +1246,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 2,
     cultureTag: 'occasion_morning',
+    instructionId: 'gratitude_practice', // Morning gratitude and intention
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1256,6 +1263,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 300, // 5 minutes
     level: 1,
     cultureTag: 'occasion_stress',
+    instructionId: 'stress_relief', // Stress relief instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1270,6 +1278,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'occasion_stress',
+    instructionId: 'stress_relief', // Stress relief instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1286,6 +1295,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 480, // 8 minutes
     level: 1,
     cultureTag: 'occasion_sleep',
+    instructionId: 'sleep_preparation', // Sleep preparation instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1300,6 +1310,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 2,
     cultureTag: 'occasion_sleep',
+    instructionId: 'sleep_preparation', // Sleep preparation instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1316,6 +1327,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 2,
     cultureTag: 'occasion_focus',
+    instructionId: 'level2_breath_counting', // Focus through breath counting
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1330,6 +1342,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 3,
     cultureTag: 'occasion_focus',
+    instructionId: 'level4_open_awareness', // Flow state through open awareness
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1346,6 +1359,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 420, // 7 minutes
     level: 1,
     cultureTag: 'occasion_anxiety',
+    instructionId: 'anxiety_calm', // Anxiety calming instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1360,6 +1374,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 720, // 12 minutes
     level: 2,
     cultureTag: 'occasion_anxiety',
+    instructionId: 'anxiety_calm', // Anxiety calming instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1376,6 +1391,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'occasion_grief',
+    instructionId: 'level3_loving_kindness', // Compassionate meditation for grief
     ambientFrequency: 528, // Healing frequency
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1390,6 +1406,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'occasion_grief',
+    instructionId: 'level3_loving_kindness', // Compassionate meditation for grief
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1406,6 +1423,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 480, // 8 minutes
     level: 1,
     cultureTag: 'occasion_gratitude',
+    instructionId: 'gratitude_practice', // Gratitude meditation instruction
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1420,6 +1438,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'occasion_gratitude',
+    instructionId: 'gratitude_practice', // Gratitude meditation instruction
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1436,6 +1455,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 2,
     cultureTag: 'occasion_creativity',
+    instructionId: 'level4_open_awareness', // Open awareness for creativity
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1450,6 +1470,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 3,
     cultureTag: 'occasion_creativity',
+    instructionId: 'level4_open_awareness', // Open awareness for creativity
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1467,6 +1488,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'zen',
+    instructionId: 'zen_zazen', // Zen sitting meditation instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1481,6 +1503,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 2,
     cultureTag: 'zen',
+    instructionId: 'zen_zazen', // Zen walking meditation instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1495,6 +1518,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 1,
     cultureTag: 'zen',
+    instructionId: 'zen_zazen', // Zen sitting meditation instruction (beginner-friendly)
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1511,6 +1535,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1800, // 30 minutes
     level: 4,
     cultureTag: 'vipassana',
+    instructionId: 'level4_vipassana_scan', // Advanced Vipassana body scanning instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1525,6 +1550,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'vipassana',
+    instructionId: 'level3_mindfulness', // Intermediate mindfulness/insight instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1539,6 +1565,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'vipassana',
+    instructionId: 'level2_breath_counting', // Intermediate breath awareness instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1555,6 +1582,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 720, // 12 minutes
     level: 2,
     cultureTag: 'vedic',
+    instructionId: 'level2_breath_counting', // Mantra-based focus instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1569,6 +1597,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'vedic',
+    instructionId: 'level3_mindfulness', // Deep meditation instruction
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1583,6 +1612,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'vedic',
+    instructionId: 'level1_body_scan', // Body scanning for chakras
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1599,6 +1629,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'taoist',
+    instructionId: 'level2_breath_counting', // Breath and energy cultivation
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1613,6 +1644,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 720, // 12 minutes
     level: 2,
     cultureTag: 'taoist',
+    instructionId: 'level3_loving_kindness', // Heart-centered practice
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1627,6 +1659,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'taoist',
+    instructionId: 'level4_open_awareness', // Effortless awareness
     ambientFrequency: 432,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1643,6 +1676,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'sufi',
+    instructionId: 'level2_breath_counting', // Rhythmic repetition practice
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1657,6 +1691,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 3,
     cultureTag: 'sufi',
+    instructionId: 'level3_loving_kindness', // Heart-centered meditation
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1671,6 +1706,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 720, // 12 minutes
     level: 2,
     cultureTag: 'sufi',
+    instructionId: 'level3_loving_kindness', // Compassionate breathing
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1687,6 +1723,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1200, // 20 minutes
     level: 2,
     cultureTag: 'christian',
+    instructionId: 'level3_mindfulness', // Contemplative silence
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1701,6 +1738,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 900, // 15 minutes
     level: 2,
     cultureTag: 'christian',
+    instructionId: 'level2_breath_counting', // Contemplative reading instruction
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1715,6 +1753,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 1500, // 25 minutes
     level: 3,
     cultureTag: 'christian',
+    instructionId: 'level3_mindfulness', // Silent contemplation instruction
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),
@@ -1729,6 +1768,7 @@ export const MOCK_SESSIONS: MeditationSession[] = [
     durationSeconds: 600, // 10 minutes
     level: 1,
     cultureTag: 'christian',
+    instructionId: 'level1_breath', // Breath prayer instruction
     ambientFrequency: 528,
     chimeFrequency: 528,
     createdAt: new Date().toISOString(),

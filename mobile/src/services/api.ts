@@ -38,6 +38,8 @@ export interface MeditationSession {
   // Healing frequency metadata (432Hz for ambient, 528Hz for chimes)
   ambientFrequency?: number; // Default: 432Hz (natural harmonic)
   chimeFrequency?: number; // Default: 528Hz (love/healing frequency)
+  // Pre-session instruction reference
+  instructionId?: string; // Reference to PreSessionInstruction (e.g., 'level1_breath', 'zen_zazen')
 }
 
 // Offline-first architecture: Try cache first, then API
