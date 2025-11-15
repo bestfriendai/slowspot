@@ -1,0 +1,61 @@
+name: Cleanup Old Builds
+
+on:
+  # Run automatically after each successful build
+  workflow_run:
+    workflows: ["EAS Preview Build (Test Deployment)", "EAS Production Build", "EAS Update (OTA - Expo Go)"]
+    types:
+      - completed
+
+  # Run weekly to clean up old builds
+  schedule:
+    - cron: '0 0 * * 0' # Every Sunday at midnight
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      keep_count:
+        description: 'Number of recent workflow runs to keep'
+        required: true
+        default: '5'
+        type: string
+
+jobs:
+  cleanup:
+    name: Cleanup Old Workflow Runs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 7
+          keep_minimum_runs: ${{ github.event.inputs.keep_count || '5' }}
+
+  cleanup-artifacts:
+    name: Cleanup Old Artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Delete old artifacts
+        uses: c-hive/gha-remove-artifacts@v1
+        with:
+          age: '7 days'
+          skip-recent: 5
+
+  cleanup-cache:
+    name: Cleanup Old Cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cleanup old cache entries
+        run: |
+          echo "Cleaning up old cache entries..."
+          # GitHub automatically removes cache entries older than 7 days
+          # or when total cache size exceeds 10GB
+          # This step serves as documentation
+          echo "✅ Cache cleanup is handled automatically by GitHub"
+          echo "   - Removes entries older than 7 days"
+          echo "   - Maintains max 10GB total cache size"
