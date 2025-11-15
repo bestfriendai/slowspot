@@ -2,26 +2,44 @@
 
 **Unikatowa aplikacja do medytacji z naciskiem na prostotę, wielojęzyczność i prywatność.**
 
-## 🚀 Try It Now
+## 🚀 Try It Now - Test on Your Phone!
 
 <div align="center">
 
-### Testuj aplikację na swoim telefonie
+### 📱 Scan QR Code to Test
 
-**Krok 1:** Zainstaluj Expo Go
+<table>
+<tr>
+<td align="center">
+<b>Direct Link (Expo Go)</b><br/>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=exp://u.expo.dev/2b3ebb2e-60e7-4355-922a-db729c41792d?channel-name=preview" alt="QR Code Direct" width="200"/>
+<br/>
+<sup>Scan in Expo Go app</sup>
+</td>
+<td align="center">
+<b>Web Link</b><br/>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://expo.dev/@leszekszpunar/slow-spot" alt="QR Code Web" width="200"/>
+<br/>
+<sup>Scan with camera</sup>
+</td>
+</tr>
+</table>
+
+### Quick Start
+
+**Step 1:** Install Expo Go
 - [📱 iOS (App Store)](https://apps.apple.com/app/expo-go/id982107779)
 - [🤖 Android (Google Play)](https://play.google.com/store/apps/details?id=host.exp.exponent)
 
-**Krok 2:** Uruchom lokalnie
+**Step 2:** Scan QR code above OR open link:
+- 🔗 **Web**: [https://expo.dev/@leszekszpunar/slow-spot](https://expo.dev/@leszekszpunar/slow-spot)
+- 📱 **Direct**: `exp://u.expo.dev/2b3ebb2e-60e7-4355-922a-db729c41792d?channel-name=preview`
 
-```bash
-cd mobile
-./start-expo-go.sh
-```
+**Step 3:** App opens automatically! ✨
 
-Lub zeskanuj QR kod wygenerowany w terminalu!
+---
 
-📖 **[Pełna instrukcja testowania](./mobile/EXPO_GO_TESTING.md)**
+📖 **Documentation**: [Testing Guide](./TESTING_GUIDE.md) | [QR Codes](./QR_CODE.md)
 
 </div>
 

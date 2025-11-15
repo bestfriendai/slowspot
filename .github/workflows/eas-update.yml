@@ -63,13 +63,31 @@ jobs:
       - name: Generate QR Code for Expo Go
         id: qr
         run: |
-          echo "📱 **Expo Go Testing**" >> $GITHUB_STEP_SUMMARY
+          # Get project URL
+          PROJECT_URL="exp://u.expo.dev/2b3ebb2e-60e7-4355-922a-db729c41792d?channel-name=preview"
+          WEB_URL="https://expo.dev/@leszekszpunar/slow-spot"
+
+          # Generate QR codes using API
+          QR_DIRECT="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${PROJECT_URL}"
+          QR_WEB="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${WEB_URL}"
+
+          # Add to summary
+          echo "## 📱 Expo Go Testing" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Scan this QR code in Expo Go app:" >> $GITHUB_STEP_SUMMARY
+          echo "### QR Code (Direct Link)" >> $GITHUB_STEP_SUMMARY
+          echo "![QR Code](${QR_DIRECT})" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "exp://u.expo.dev/update/$(eas update:view --json | jq -r '.id')" >> $GITHUB_STEP_SUMMARY
+          echo "### QR Code (Web Link)" >> $GITHUB_STEP_SUMMARY
+          echo "![QR Code](${QR_WEB})" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Or open: https://expo.dev/@leszekszpunar/slow-spot" >> $GITHUB_STEP_SUMMARY
+          echo "### Direct Links" >> $GITHUB_STEP_SUMMARY
+          echo "- **Expo Go**: ${PROJECT_URL}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Web**: ${WEB_URL}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Instructions" >> $GITHUB_STEP_SUMMARY
+          echo "1. Install Expo Go on your phone" >> $GITHUB_STEP_SUMMARY
+          echo "2. Scan QR code or open link" >> $GITHUB_STEP_SUMMARY
+          echo "3. App loads automatically!" >> $GITHUB_STEP_SUMMARY
 
       - name: Notify success
         run: |
