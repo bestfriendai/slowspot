@@ -38,13 +38,15 @@ eas update --branch preview --message "Nowe zmiany"
 **Czas: ~15-20 minut | Koszt: DARMOWE (30 builds/miesiąc)**
 
 ✅ Idealna do:
-- Testowania na prawdziwych urządzeniach
+- Testowania na prawdziwych urządzeniach Android
 - Sprawdzania native features (push notifications, in-app purchases)
 - Udostępniania zewnętrznym testerom
 
+⚠️ **Uwaga:** Preview builds generują tylko **Android APK**. Dla iOS potrzebne jest Apple Developer account ($99/rok).
+
 **Jak działa:**
 - Push na branch `develop`, `test`, `feature/*`, `claude/*` → automatyczny build
-- Generuje APK (Android) i IPA (iOS)
+- Generuje APK (Android)
 - Link do pobrania dostępny w ~15 minut
 
 **Automatycznie:**
@@ -57,19 +59,16 @@ eas update --branch preview --message "Nowe zmiany"
 ```bash
 cd mobile
 
-# Tylko Android APK (szybsze)
+# Android APK (darmowe, bez płatnego konta)
 eas build --platform android --profile preview
 
-# Tylko iOS
-eas build --platform ios --profile preview
-
-# Oba
-eas build --platform all --profile preview
+# iOS (wymaga Apple Developer account $99/rok)
+# eas build --platform ios --profile preview
 ```
 
 **Udostępnianie testerom:**
-- **Android**: Wyślij link do APK (bezpośrednia instalacja)
-- **iOS**: Użyj TestFlight lub AdHoc distribution
+- **Android**: Wyślij link do APK (bezpośrednia instalacja - działa od razu!)
+- **iOS**: Wymaga Apple Developer account + TestFlight/AdHoc distribution
 
 ---
 
