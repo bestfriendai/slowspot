@@ -9,8 +9,39 @@ import * as Haptics from 'expo-haptics';
 import * as SplashScreen from 'expo-splash-screen';
 import './src/i18n';
 
+// Analytics imports
+import vexo from 'vexo-analytics';
+import LogRocket from 'logrocket-react-native';
+
 // Keep the splash screen visible while we load resources
 SplashScreen.preventAutoHideAsync();
+
+// Initialize Analytics (only in production)
+if (process.env.APP_ENV === 'production') {
+  // Initialize Vexo Analytics
+  if (process.env.VEXO_API_KEY) {
+    try {
+      vexo(process.env.VEXO_API_KEY);
+      console.log('✓ Vexo Analytics initialized');
+    } catch (error) {
+      console.warn('Failed to initialize Vexo Analytics:', error);
+    }
+  } else {
+    console.warn('VEXO_API_KEY not found in environment variables');
+  }
+
+  // Initialize LogRocket
+  if (process.env.LOGROCKET_APP_ID) {
+    try {
+      LogRocket.init(process.env.LOGROCKET_APP_ID);
+      console.log('✓ LogRocket initialized');
+    } catch (error) {
+      console.warn('Failed to initialize LogRocket:', error);
+    }
+  } else {
+    console.warn('LOGROCKET_APP_ID not found in environment variables');
+  }
+}
 
 import { HomeScreen } from './src/screens/HomeScreen';
 import { MeditationScreen } from './src/screens/MeditationScreen';
