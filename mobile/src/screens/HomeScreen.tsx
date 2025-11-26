@@ -115,7 +115,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       <View style={styles.content}>
         {/* Header - Centered and elegant */}
         <View style={styles.header}>
-          <Text style={[styles.title, dynamicStyles.title]}>{t('app.name')}</Text>
+          <View style={styles.titleContainer}>
+            <Text style={[styles.titleLight, dynamicStyles.title]}>Slow</Text>
+            <Text style={[styles.titleBold, { color: colors.accent.mint[500] }]}>Spot</Text>
+          </View>
           <Text style={[styles.tagline, dynamicStyles.tagline]}>{t('app.tagline')}</Text>
         </View>
 
@@ -229,11 +232,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: theme.spacing.lg,
   },
-  title: {
-    fontSize: 42,
-    fontWeight: '600',
-    letterSpacing: 1,
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    gap: 8,
     marginBottom: theme.spacing.xs,
+  },
+  titleLight: {
+    fontSize: 42,
+    fontWeight: '200',
+    letterSpacing: 1,
+  },
+  titleBold: {
+    fontSize: 42,
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
   tagline: {
     fontSize: theme.typography.fontSizes.md,

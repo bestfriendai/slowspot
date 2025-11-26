@@ -46,13 +46,11 @@
       "ios": {
         "resourceClass": "m-medium",
         "buildConfiguration": "Release",
-        "autoIncrement": "buildNumber",
-        "submitProfile": "production"
+        "autoIncrement": "buildNumber"
       },
       "android": {
         "buildType": "app-bundle",
-        "autoIncrement": "versionCode",
-        "submitProfile": "production"
+        "autoIncrement": "versionCode"
       },
       "cache": {
         "disabled": false,
