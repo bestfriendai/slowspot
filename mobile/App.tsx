@@ -254,7 +254,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'home'
-                  ? '#FFFFFF'
+                  ? '#10B981'
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -276,7 +276,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'meditation'
-                  ? '#FFFFFF'
+                  ? '#10B981'
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -298,7 +298,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'quotes'
-                  ? '#FFFFFF'
+                  ? '#10B981'
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -320,7 +320,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'settings'
-                  ? '#FFFFFF'
+                  ? '#10B981'
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -374,9 +374,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   activeButtonLight: {
-    backgroundColor: '#3A3A3C', // Charcoal - minimal, professional
+    backgroundColor: 'rgba(16, 185, 129, 0.15)', // Subtle mint tint - consistent with app
   },
   activeButtonDark: {
-    backgroundColor: '#48484A', // Lighter charcoal for dark mode
+    backgroundColor: 'rgba(16, 185, 129, 0.25)', // Subtle mint tint for dark mode
   },
 });

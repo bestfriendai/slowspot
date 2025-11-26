@@ -231,8 +231,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 42,
-    fontWeight: '200',
-    letterSpacing: 2,
+    fontWeight: '600',
+    letterSpacing: 1,
     marginBottom: theme.spacing.xs,
   },
   tagline: {

@@ -102,8 +102,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     optionBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.lightGray[50],
     optionBorder: isDark ? colors.neutral.charcoal[100] : colors.neutral.lightGray[200],
     optionText: { color: colors.text.primary },
-    optionSelectedBg: colors.accent.mint[500],
-    optionSelectedText: { color: colors.neutral.white },
+    optionSelectedBg: isDark ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.15)',
+    optionSelectedBorder: isDark ? 'rgba(16, 185, 129, 0.4)' : 'rgba(16, 185, 129, 0.3)',
+    optionSelectedText: { color: colors.accent.mint[500] },
     switchTrackFalse: isDark ? colors.neutral.charcoal[100] : colors.neutral.lightGray[300],
     switchTrackTrue: colors.accent.mint[400],
     switchThumbFalse: isDark ? colors.neutral.gray[400] : colors.neutral.white,
@@ -239,7 +240,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                     styles.optionButton,
                     {
                       backgroundColor: isSelected ? dynamicStyles.optionSelectedBg : dynamicStyles.optionBg,
-                      borderColor: isSelected ? colors.accent.mint[500] : dynamicStyles.optionBorder,
+                      borderColor: isSelected ? dynamicStyles.optionSelectedBorder : dynamicStyles.optionBorder,
                     },
                   ]}
                   onPress={() => handleLanguageChange(lang.code)}
@@ -255,7 +256,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                     {lang.name}
                   </Text>
                   {isSelected && (
-                    <Ionicons name="checkmark-circle" size={18} color={colors.neutral.white} />
+                    <Ionicons name="checkmark-circle" size={18} color={colors.accent.mint[500]} />
                   )}
                 </TouchableOpacity>
               );
@@ -292,7 +293,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                     styles.themeOption,
                     {
                       backgroundColor: isSelected ? dynamicStyles.optionSelectedBg : dynamicStyles.optionBg,
-                      borderColor: isSelected ? colors.accent.mint[500] : dynamicStyles.optionBorder,
+                      borderColor: isSelected ? dynamicStyles.optionSelectedBorder : dynamicStyles.optionBorder,
                     },
                   ]}
                   onPress={() => onThemeChange(option.mode)}
@@ -301,7 +302,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                   <Ionicons
                     name={option.icon}
                     size={24}
-                    color={isSelected ? colors.neutral.white : colors.text.secondary}
+                    color={isSelected ? colors.accent.mint[500] : colors.text.secondary}
                   />
                   <Text
                     style={[
