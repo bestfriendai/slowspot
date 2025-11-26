@@ -76,16 +76,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     // Main button shadow
     mainButtonShadow: isDark ? {
       shadowColor: colors.accent.mint[500],
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.5,
-      shadowRadius: 24,
-      elevation: 12,
+      shadowOffset: { width: 0, height: 6 },
+      shadowOpacity: 0.4,
+      shadowRadius: 16,
+      elevation: 10,
     } : {
       shadowColor: colors.accent.mint[600],
-      shadowOffset: { width: 0, height: 12 },
-      shadowOpacity: 0.4,
-      shadowRadius: 32,
-      elevation: 16,
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.3,
+      shadowRadius: 20,
+      elevation: 12,
     },
     // Secondary button shadow
     secondaryButtonShadow: isDark ? {
@@ -121,30 +121,39 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
         {/* Main CTA - MEDYTUJ */}
         <View style={styles.mainButtonContainer}>
-          {/* Glow effect behind button */}
-          <Animated.View style={[styles.mainButtonGlow, glowStyle, { backgroundColor: isDark ? colors.accent.mint[500] : colors.accent.mint[400] }]} />
-
-          <Animated.View style={[breatheStyle]}>
+          <Animated.View style={[styles.mainButtonWrapper, breatheStyle]}>
             <TouchableOpacity
               style={[styles.mainButton, dynamicStyles.mainButtonShadow]}
               onPress={onNavigateToMeditation}
               activeOpacity={0.9}
             >
               <LinearGradient
-                colors={[colors.accent.mint[500], colors.accent.mint[600]]}
+                colors={['#0D9488', '#0F766E', '#115E59']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.mainButtonGradient}
               >
-                <View style={styles.mainButtonIcon}>
-                  <Ionicons name="leaf" size={48} color={colors.neutral.white} />
+                {/* Decorative circles */}
+                <View style={styles.decorativeCircle1} />
+                <View style={styles.decorativeCircle2} />
+
+                {/* Content */}
+                <View style={styles.mainButtonContent}>
+                  <View style={styles.mainButtonIcon}>
+                    <Ionicons name="leaf" size={32} color={colors.neutral.white} />
+                  </View>
+                  <View style={styles.mainButtonTextContainer}>
+                    <Text style={styles.mainButtonTitle}>
+                      {t('home.meditate') || 'Medytuj'}
+                    </Text>
+                    <Text style={styles.mainButtonSubtitle}>
+                      {t('home.meditateDesc') || 'Rozpocznij swoją praktykę'}
+                    </Text>
+                  </View>
+                  <View style={styles.mainButtonArrow}>
+                    <Ionicons name="arrow-forward" size={24} color="rgba(255,255,255,0.9)" />
+                  </View>
                 </View>
-                <Text style={styles.mainButtonTitle}>
-                  {t('home.meditate') || 'Medytuj'}
-                </Text>
-                <Text style={styles.mainButtonSubtitle}>
-                  {t('home.meditateDesc') || 'Rozpocznij swoją praktykę'}
-                </Text>
               </LinearGradient>
             </TouchableOpacity>
           </Animated.View>
@@ -234,51 +243,75 @@ const styles = StyleSheet.create({
 
   // Main button
   mainButtonContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
     flex: 1,
-    marginVertical: theme.spacing.xl,
+    justifyContent: 'center',
+    marginVertical: theme.spacing.lg,
   },
-  mainButtonGlow: {
-    position: 'absolute',
-    width: SCREEN_WIDTH * 0.7,
-    height: SCREEN_WIDTH * 0.7,
-    borderRadius: SCREEN_WIDTH * 0.35,
-    transform: [{ scale: 1.2 }],
+  mainButtonWrapper: {
+    width: '100%',
   },
   mainButton: {
-    borderRadius: SCREEN_WIDTH * 0.35,
+    borderRadius: theme.borderRadius.xxl,
     overflow: 'hidden',
   },
   mainButtonGradient: {
-    width: SCREEN_WIDTH * 0.6,
-    height: SCREEN_WIDTH * 0.6,
-    borderRadius: SCREEN_WIDTH * 0.3,
+    paddingVertical: theme.spacing.xl * 1.5,
+    paddingHorizontal: theme.spacing.xl,
+    borderRadius: theme.borderRadius.xxl,
+    overflow: 'hidden',
+  },
+  decorativeCircle1: {
+    position: 'absolute',
+    top: -40,
+    right: -40,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  decorativeCircle2: {
+    position: 'absolute',
+    bottom: -30,
+    left: -30,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+  },
+  mainButtonContent: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing.xl,
+    gap: theme.spacing.lg,
   },
   mainButtonIcon: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    width: 64,
+    height: 64,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: theme.spacing.md,
+  },
+  mainButtonTextContainer: {
+    flex: 1,
   },
   mainButtonTitle: {
-    fontSize: 28,
-    fontWeight: '600',
+    fontSize: 24,
+    fontWeight: '700',
     color: theme.colors.neutral.white,
-    letterSpacing: 1,
-    marginBottom: theme.spacing.xs,
+    letterSpacing: 0.5,
+    marginBottom: 4,
   },
   mainButtonSubtitle: {
-    fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.neutral.white,
-    opacity: 0.9,
-    textAlign: 'center',
+    fontSize: theme.typography.fontSizes.md,
+    color: 'rgba(255, 255, 255, 0.85)',
+  },
+  mainButtonArrow: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   // Secondary buttons
