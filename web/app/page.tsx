@@ -265,24 +265,21 @@ export default function Home() {
                 <h4>Product</h4>
                 <a href="#features">Features</a>
                 <a href="#download">Download</a>
-                <a href="#">Pricing</a>
               </div>
               <div className="footer-column">
                 <h4>Support</h4>
-                <a href="#">Help Center</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Privacy Policy</a>
+                <a href="/support">Help & Support</a>
+                <a href="mailto:support@slowspot.app">Contact Us</a>
               </div>
               <div className="footer-column">
-                <h4>Company</h4>
-                <a href="#">About Us</a>
-                <a href="#">Blog</a>
-                <a href="#">Careers</a>
+                <h4>Legal</h4>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2025 Slow Spot. All rights reserved.</p>
+            <p>© 2024 Slow Spot. All rights reserved.</p>
             <p>Built with mindfulness for a better world.</p>
           </div>
         </div>
