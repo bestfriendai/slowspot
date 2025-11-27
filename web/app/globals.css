@@ -1021,7 +1021,7 @@ html.light .hover\:bg-white\/10:hover {
 }
 
 /* Dropdown - clean with soft shadow */
-html.light .bg-\[#1a1a2e\]\/95 {
+html.light .nav-dropdown {
   background: #FFFFFF;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--slate-200);
