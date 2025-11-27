@@ -742,14 +742,19 @@ html:not(.light) .text-indigo-600 {
 }
 
 .animate-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
   animation: fade-up 0.8s ease-out forwards;
 }
 
 .animate-fade-in {
+  opacity: 0;
   animation: fade-in 1s ease-out forwards;
 }
 
 .animate-slide-right {
+  opacity: 0;
+  transform: translateX(50px);
   animation: slide-in-right 0.8s ease-out forwards;
 }
 
@@ -758,6 +763,17 @@ html:not(.light) .text-indigo-600 {
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* Fallback for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-in,
+  .animate-slide-right {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
 
 /* Scrollbar */
 ::-webkit-scrollbar {
