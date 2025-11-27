@@ -1,109 +1,86 @@
 {
   "hero": {
-    "badge": "🧘 您的内心平静之旅",
-    "title": "在喧嚣中发现宁静",
-    "subtitle": "重新定义冥想体验。无需账户，无需障碍——只有您与内心的宁静。",
-    "ctaPrimary": "免费开始冥想",
-    "ctaSecondary": "探索功能",
-    "stats": {
-      "users": {
-        "number": "50K+",
-        "label": "活跃用户"
-      },
-      "sessions": {
-        "number": "1M+",
-        "label": "完成课程"
-      },
-      "rating": {
-        "number": "4.8★",
-        "label": "应用评分"
-      }
-    }
+    "badge": "冥想变得简单",
+    "title": "找到你的内心平静",
+    "subtitle": "一款注重隐私的冥想应用。无需账户，无需追踪，无需障碍。只有你和你的练习。",
+    "ctaPrimary": "免费下载",
+    "ctaSecondary": "查看功能"
   },
   "appPreview": {
-    "title": "冥想变得简单",
-    "subtitle": "体验为真实生活设计的冥想应用。追踪进度，培养持久习惯，无论身在何处都能找到内心的平静。",
+    "title": "你的个人冥想伴侣",
+    "subtitle": "为真实生活而设计。随时随地，用你的语言练习。一切都保存在你的设备上。",
     "features": {
       "instant": {
         "title": "即刻开始",
-        "description": "无需注册，打开即可呼吸。"
+        "description": "无需注册。打开应用开始你的练习。"
       },
       "language": {
-        "title": "母语支持",
-        "description": "支持全球6种语言。"
+        "title": "你的语言",
+        "description": "支持7种语言的完整语音引导。"
       },
       "offline": {
-        "title": "随时随地",
-        "description": "完整离线模式，随处冥想。"
+        "title": "离线使用",
+        "description": "无需网络。随处冥想。"
       }
     },
-    "demoText": "深呼吸..."
+    "demoText": "深呼吸...",
+    "breathingTexts": {
+      "in": "吸气...",
+      "hold": "屏住...",
+      "out": "呼气..."
+    }
   },
   "features": {
-    "sectionTitle": "应有尽有",
-    "sectionSubtitle": "专为支持您的冥想之旅而设计的强大功能",
+    "sectionTitle": "你需要的一切",
+    "sectionSubtitle": "精心设计的功能支持你的冥想之旅",
     "cards": {
       "progressive": {
         "title": "循序渐进",
-        "description": "从初学到精通的5个等级。陪伴您成长的引导课程。"
+        "description": "从初学者到进阶的5个等级。根据你的经验调整的引导课程。"
       },
       "audio": {
-        "title": "沉浸音效",
-        "description": "3层声景：语音引导、环境音效和冥想钟声。"
+        "title": "沉浸式音频",
+        "description": "多层声景包含语音引导、环境音效和冥想钟声。"
       },
       "tracking": {
-        "title": "追踪成长",
-        "description": "监测连续天数、课程数和时长。见证您的修行绽放。"
+        "title": "追踪你的进步",
+        "description": "随时间监控你的课程、连续天数和冥想分钟数。"
       },
       "wisdom": {
-        "title": "每日智慧",
-        "description": "独特的启迪语录，每天不重复，使用您的语言。"
+        "title": "每日灵感",
+        "description": "每天新鲜的励志名言，以你的语言呈现。"
       },
       "cultural": {
-        "title": "文化传统",
-        "description": "探索禅宗、正念、内观以及来自世界各地的冥想传统。"
+        "title": "多元传统",
+        "description": "探索禅宗、正念、内观以及来自世界各地的练习。"
       },
       "theme": {
-        "title": "昼夜模式",
-        "description": "优美的深色模式，适应您的冥想时间。"
+        "title": "明暗模式",
+        "description": "舒适的显示，根据你的偏好和时间自动调整。"
       }
     }
   },
-  "testimonials": {
-    "sectionTitle": "深受全球冥想者喜爱",
+  "whySlowSpot": {
+    "sectionTitle": "为什么选择Slow Spot?",
+    "sectionSubtitle": "我们相信冥想应用应该尊重你的隐私和时间",
     "items": [
       {
-        "stars": "★★★★★",
-        "text": "终于找到一款尊重隐私的冥想应用。无需账户，离线也能完美运行。改变人生！",
-        "author": {
-          "name": "Sarah M.",
-          "location": "美国",
-          "avatar": "S"
-        }
+        "title": "100%隐私",
+        "description": "你的数据留在你的设备上。我们不收集、追踪或出售你的信息。"
       },
       {
-        "stars": "★★★★★",
-        "text": "循序渐进的学习结构帮助我养成了真正的冥想习惯。我已经连续冥想3个月了。",
-        "author": {
-          "name": "Michael K.",
-          "location": "德国",
-          "avatar": "M"
-        }
+        "title": "无需账户",
+        "description": "立即开始冥想。无需邮箱，无需密码，无需验证。"
       },
       {
-        "stars": "★★★★★",
-        "text": "精美的设计，多语言支持非常完美。我可以用母语波兰语冥想。太棒了！",
-        "author": {
-          "name": "Anna W.",
-          "location": "波兰",
-          "avatar": "A"
-        }
+        "title": "完全免费",
+        "description": "所有功能包含。无订阅，无应用内购买，无广告。"
       }
     ]
   },
   "download": {
-    "sectionTitle": "今日开启您的旅程",
-    "sectionSubtitle": "加入数千人通过冥想寻找内心平静的行列。支持iOS和Android。",
+    "sectionTitle": "今天开始你的练习",
+    "sectionSubtitle": "iOS和Android免费下载。无需账户。",
     "appStore": {
       "label": "下载于",
       "name": "App Store"
@@ -112,12 +89,12 @@
       "label": "获取于",
       "name": "Google Play"
     },
-    "note": "✨ 免费下载 • 无需信用卡"
+    "note": "免费下载包含所有功能"
   },
   "footer": {
     "brand": {
       "name": "Slow Spot",
-      "tagline": "寻找内心的平静，一次呼吸，一份宁静。"
+      "tagline": "找到你的内心平静，一次呼吸。"
     },
     "columns": {
       "product": {
@@ -130,20 +107,20 @@
       "support": {
         "title": "支持",
         "links": {
-          "help": "帮助与支持",
-          "contact": "联系我们"
+          "help": "帮助",
+          "contact": "联系"
         }
       },
       "legal": {
         "title": "法律",
         "links": {
-          "privacy": "隐私政策",
-          "terms": "服务条款"
+          "privacy": "隐私",
+          "terms": "条款"
         }
       }
     },
     "bottom": {
-      "copyright": "© 2024 Slow Spot。保留所有权利。",
+      "copyright": "{year} Slow Spot。保留所有权利。",
       "tagline": "用心打造，为了更美好的世界。"
     }
   },
@@ -153,10 +130,10 @@
       "en": "English",
       "pl": "Polski",
       "de": "Deutsch",
-      "es": "Español",
-      "fr": "Français",
-      "hi": "हिन्दी",
-      "zh": "中文"
+      "es": "Espanol",
+      "fr": "Francais",
+      "hi": "Hindi",
+      "zh": "Chinese"
     }
   }
 }

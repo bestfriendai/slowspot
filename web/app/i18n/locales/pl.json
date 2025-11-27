@@ -1,123 +1,100 @@
 {
   "hero": {
-    "badge": "🧘 Twoja Droga do Wewnętrznego Spokoju",
-    "title": "Odkryj Spokój w Chaosie",
-    "subtitle": "Doświadcz medytacji na nowo. Bez kont, bez barier—tylko Ty i wewnętrzny spokój.",
-    "ctaPrimary": "Rozpocznij Medytację Za Darmo",
-    "ctaSecondary": "Poznaj Funkcje",
-    "stats": {
-      "users": {
-        "number": "50K+",
-        "label": "Aktywnych Użytkowników"
-      },
-      "sessions": {
-        "number": "1M+",
-        "label": "Ukończonych Sesji"
-      },
-      "rating": {
-        "number": "4.8★",
-        "label": "Ocena Aplikacji"
-      }
-    }
+    "badge": "Medytacja bez komplikacji",
+    "title": "Odnajdz wewnetrzny spokoj",
+    "subtitle": "Aplikacja do medytacji zaprojektowana z mysla o prywatnosci. Bez kont, bez sledzenia, bez przeszkod. Tylko Ty i Twoja praktyka.",
+    "ctaPrimary": "Pobierz za darmo",
+    "ctaSecondary": "Zobacz funkcje"
   },
   "appPreview": {
-    "title": "Medytacja Prosta jak Oddech",
-    "subtitle": "Poznaj aplikację do medytacji stworzoną dla prawdziwego życia. Śledź swój rozwój, buduj trwałe nawyki i odnajduj spokój—bez względu na to, gdzie jesteś.",
+    "title": "Twoj osobisty przewodnik medytacji",
+    "subtitle": "Stworzona z mysla o codziennym zyciu. Cwicz gdziekolwiek i kiedykolwiek, w swoim jezyku. Wszystko pozostaje prywatne na Twoim urzadzeniu.",
     "features": {
       "instant": {
-        "title": "Zacznij Natychmiast",
-        "description": "Bez rejestracji. Po prostu otwórz i oddychaj."
+        "title": "Zacznij od razu",
+        "description": "Bez rejestracji. Otworz aplikacje i rozpocznij praktyke."
       },
       "language": {
-        "title": "W Twoim Języku",
-        "description": "Dostępna w 6 językach na całym świecie."
+        "title": "W Twoim jezyku",
+        "description": "Dostepna w 7 jezykach z pelnym prowadzeniem glosowym."
       },
       "offline": {
-        "title": "Zawsze Dostępna",
-        "description": "Pełny tryb offline do medytacji w każdym miejscu."
+        "title": "Dziala offline",
+        "description": "Internet nie jest wymagany. Medytuj gdziekolwiek."
       }
     },
-    "demoText": "Wdech..."
+    "demoText": "Wdech...",
+    "breathingTexts": {
+      "in": "Wdech...",
+      "hold": "Zatrzymaj...",
+      "out": "Wydech..."
+    }
   },
   "features": {
-    "sectionTitle": "Wszystko, Czego Potrzebujesz",
-    "sectionSubtitle": "Zaawansowane funkcje wspierające Twoją praktykę medytacji",
+    "sectionTitle": "Wszystko, czego potrzebujesz",
+    "sectionSubtitle": "Przemyslane funkcje wspierajace Twoja praktyke medytacji",
     "cards": {
       "progressive": {
-        "title": "Progresywna Nauka",
-        "description": "5 poziomów od początkującego do mistrza. Prowadzone sesje, które rosną razem z Tobą."
+        "title": "Progresywna nauka",
+        "description": "5 poziomow od poczatkujacego do zaawansowanego. Prowadzone sesje dostosowane do Twojego doswiadczenia."
       },
       "audio": {
-        "title": "Immersyjny Dźwięk",
-        "description": "3-warstwowe pejzaże dźwiękowe: głos przewodnika, dźwięki otoczenia i dzwonki medytacyjne."
+        "title": "Immersyjny dzwiek",
+        "description": "Warstwowe pejzaze dzwiekowe z prowadzeniem glosowym, dzwiekami otoczenia i dzwonkami medytacyjnymi."
       },
       "tracking": {
-        "title": "Śledź Swój Rozwój",
-        "description": "Monitoruj serie, sesje i minuty. Obserwuj, jak rozkwita Twoja praktyka."
+        "title": "Sledz swoje postepy",
+        "description": "Monitoruj sesje, serie i minuty medytacji w czasie."
       },
       "wisdom": {
-        "title": "Codzienna Mądrość",
-        "description": "Unikalne inspirujące cytaty, które się nie powtarzają, w Twoim języku."
+        "title": "Codzienna inspiracja",
+        "description": "Swieze inspirujace cytaty kazdego dnia, dostepne w Twoim jezyku."
       },
       "cultural": {
-        "title": "Tradycje Kulturowe",
-        "description": "Odkrywaj Zen, Mindfulness, Vipassana i medytację z różnych stron świata."
+        "title": "Roznorodne tradycje",
+        "description": "Odkrywaj Zen, Mindfulness, Vipassana i praktyki z calego swiata."
       },
       "theme": {
-        "title": "Dzień i Noc",
-        "description": "Piękny tryb ciemny, który dostosowuje się do Twojego czasu medytacji."
+        "title": "Tryb jasny i ciemny",
+        "description": "Komfortowe wyswietlanie dostosowane do Twoich preferencji i pory dnia."
       }
     }
   },
-  "testimonials": {
-    "sectionTitle": "Ceniona przez Medytujących na Całym Świecie",
+  "whySlowSpot": {
+    "sectionTitle": "Dlaczego Slow Spot?",
+    "sectionSubtitle": "Wierzymy, ze aplikacje do medytacji powinny szanowac Twoja prywatnosc i czas",
     "items": [
       {
-        "stars": "★★★★★",
-        "text": "W końcu aplikacja do medytacji, która szanuje moją prywatność. Bez konta, działa offline. Zmienia życie!",
-        "author": {
-          "name": "Sarah M.",
-          "location": "Stany Zjednoczone",
-          "avatar": "S"
-        }
+        "title": "100% prywatna",
+        "description": "Twoje dane pozostaja na Twoim urzadzeniu. Nie zbieramy, nie sledzimy ani nie sprzedajemy Twoich informacji."
       },
       {
-        "stars": "★★★★★",
-        "text": "Struktura progresywnej nauki pomogła mi zbudować prawdziwy nawyk medytacji. Medytuję codziennie już od 3 miesięcy.",
-        "author": {
-          "name": "Michael K.",
-          "location": "Niemcy",
-          "avatar": "M"
-        }
+        "title": "Bez konta",
+        "description": "Zacznij medytowac natychmiast. Bez e-maila, bez hasla, bez weryfikacji."
       },
       {
-        "stars": "★★★★★",
-        "text": "Piękny design i wsparcie wielu języków jest idealne. Mogę medytować w moim ojczystym polskim. Absolutnie wspaniałe!",
-        "author": {
-          "name": "Anna W.",
-          "location": "Polska",
-          "avatar": "A"
-        }
+        "title": "Calkowicie darmowa",
+        "description": "Wszystkie funkcje w zestawie. Bez subskrypcji, bez zakupow w aplikacji, bez reklam."
       }
     ]
   },
   "download": {
-    "sectionTitle": "Rozpocznij Swoją Podróż Już Dziś",
-    "sectionSubtitle": "Dołącz do tysięcy osób odnajdujących spokój przez medytację. Dostępne na iOS i Android.",
+    "sectionTitle": "Zacznij praktyke juz dzis",
+    "sectionSubtitle": "Dostepna za darmo na iOS i Android. Bez wymaganego konta.",
     "appStore": {
       "label": "Pobierz z",
       "name": "App Store"
     },
     "googlePlay": {
-      "label": "Dostępne w",
+      "label": "Pobierz z",
       "name": "Google Play"
     },
-    "note": "✨ Darmowe pobieranie • Nie wymaga karty kredytowej"
+    "note": "Darmowe pobieranie ze wszystkimi funkcjami"
   },
   "footer": {
     "brand": {
       "name": "Slow Spot",
-      "tagline": "Odnajdź swój wewnętrzny spokój, jeden oddech na raz."
+      "tagline": "Odnajdz wewnetrzny spokoj, jeden oddech na raz."
     },
     "columns": {
       "product": {
@@ -130,33 +107,33 @@
       "support": {
         "title": "Wsparcie",
         "links": {
-          "help": "Pomoc i Wsparcie",
-          "contact": "Skontaktuj się z Nami"
+          "help": "Pomoc",
+          "contact": "Kontakt"
         }
       },
       "legal": {
         "title": "Prawne",
         "links": {
-          "privacy": "Polityka Prywatności",
-          "terms": "Warunki Korzystania z Usługi"
+          "privacy": "Polityka prywatnosci",
+          "terms": "Regulamin"
         }
       }
     },
     "bottom": {
-      "copyright": "© 2024 Slow Spot. Wszelkie prawa zastrzeżone.",
-      "tagline": "Stworzone z uważnością dla lepszego świata."
+      "copyright": "{year} Slow Spot. Wszelkie prawa zastrzezone.",
+      "tagline": "Stworzone z uwaznoscia dla lepszego swiata."
     }
   },
   "languageSwitcher": {
-    "label": "Język",
+    "label": "Jezyk",
     "languages": {
       "en": "English",
       "pl": "Polski",
       "de": "Deutsch",
-      "es": "Español",
-      "fr": "Français",
-      "hi": "हिन्दी",
-      "zh": "中文"
+      "es": "Espanol",
+      "fr": "Francais",
+      "hi": "Hindi",
+      "zh": "Chinese"
     }
   }
 }

@@ -1,54 +1,55 @@
-import Link from 'next/link';
+'use client';
 
-export const metadata = {
-  title: 'Privacy Policy - Slow Spot',
-  description: 'Privacy Policy for Slow Spot meditation app. Your data stays on your device.',
-};
+import Link from 'next/link';
+import LanguageSwitcher from '../i18n/LanguageSwitcher';
 
 export default function PrivacyPolicy() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <main className="subpage">
+      {/* Language/Theme Controls */}
+      <LanguageSwitcher />
+
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-semibold text-slate-800 hover:text-teal-600 transition-colors">
-            <span className="font-light">Slow</span> <span className="text-teal-600">Spot</span>
+      <header className="subpage-header">
+        <div className="subpage-header-inner">
+          <Link href="/" className="subpage-brand">
+            <span className="font-light">Slow</span> <span className="subpage-brand-accent">Spot</span>
           </Link>
-          <nav className="flex gap-6 text-sm">
-            <Link href="/terms" className="text-slate-600 hover:text-teal-600 transition-colors">Terms</Link>
-            <Link href="/support" className="text-slate-600 hover:text-teal-600 transition-colors">Support</Link>
+          <nav className="subpage-nav">
+            <Link href="/terms" className="subpage-nav-link">Terms</Link>
+            <Link href="/support" className="subpage-nav-link">Support</Link>
           </nav>
         </div>
       </header>
 
       {/* Content */}
-      <article className="max-w-4xl mx-auto px-6 py-12">
-        <h1 className="text-4xl font-light text-slate-800 mb-2">Privacy Policy</h1>
-        <p className="text-slate-500 mb-8">Last Updated: November 27, 2024</p>
+      <article className="subpage-content">
+        <h1 className="subpage-title">Privacy Policy</h1>
+        <p className="subpage-subtitle">Last Updated: November 27, 2024</p>
 
         {/* Summary Box */}
-        <div className="bg-teal-50 border border-teal-100 rounded-2xl p-6 mb-10">
-          <h2 className="text-lg font-semibold text-teal-800 mb-3">Summary (TL;DR)</h2>
-          <ul className="space-y-2 text-teal-700">
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Your data stays on your device</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> No accounts, no sign-in, no tracking</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> No analytics, no ads, no third-party services</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Optional calendar permission for reminders only</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Delete anytime by uninstalling the app</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> 100% offline compatible</li>
+        <div className="subpage-highlight-box">
+          <h2 className="subpage-highlight-title">Summary (TL;DR)</h2>
+          <ul className="subpage-highlight-list">
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Your data stays on your device</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> No accounts, no sign-in, no tracking</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> No analytics, no ads, no third-party services</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Optional calendar permission for reminders only</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Delete anytime by uninstalling the app</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> 100% offline compatible</li>
           </ul>
         </div>
 
-        <div className="prose prose-slate max-w-none">
+        <div className="subpage-prose">
           <h2>Introduction</h2>
           <p>
-            Slow Spot ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy
+            Slow Spot (&quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy
             explains how our mobile meditation application handles your information.
           </p>
 
           <h2>Our Privacy Philosophy</h2>
-          <p className="text-lg font-medium text-slate-800">
-            Simple Truth: Your data stays on your device. We don't collect, transmit, or store any of
+          <p>
+            <strong>Simple Truth:</strong> Your data stays on your device. We don&apos;t collect, transmit, or store any of
             your personal information on external servers.
           </p>
           <p>
@@ -57,7 +58,7 @@ export default function PrivacyPolicy() {
           </p>
 
           <h2>Information We Do NOT Collect</h2>
-          <p>We want to be crystal clear about what we DON'T do:</p>
+          <p>We want to be crystal clear about what we DON&apos;T do:</p>
           <ul>
             <li>We do NOT collect your name, email, or any personal identifiers</li>
             <li>We do NOT track your location</li>
@@ -92,14 +93,14 @@ export default function PrivacyPolicy() {
             <li><strong>Total sessions completed</strong></li>
             <li><strong>Total minutes meditated</strong></li>
             <li><strong>Current and longest meditation streaks</strong></li>
-            <li><strong>Achievement progress</strong> (e.g., "10 sessions completed" badge)</li>
+            <li><strong>Achievement progress</strong> (e.g., &quot;10 sessions completed&quot; badge)</li>
             <li><strong>Purpose:</strong> To motivate and celebrate your meditation journey</li>
           </ul>
 
           <h3>4. Calendar Events (Optional)</h3>
           <ul>
             <li><strong>Meditation reminders</strong> (if you enable calendar integration)</li>
-            <li><strong>Stored in:</strong> Your device's native calendar app</li>
+            <li><strong>Stored in:</strong> Your device&apos;s native calendar app</li>
             <li><strong>Purpose:</strong> To help you maintain a consistent meditation practice</li>
           </ul>
 
@@ -113,8 +114,8 @@ export default function PrivacyPolicy() {
 
           <h4>Calendar Access</h4>
           <ul>
-            <li><strong>Why:</strong> To schedule meditation reminders in your device's calendar</li>
-            <li><strong>When:</strong> Only when you tap "Schedule Reminder" in the Profile screen</li>
+            <li><strong>Why:</strong> To schedule meditation reminders in your device&apos;s calendar</li>
+            <li><strong>When:</strong> Only when you tap &quot;Schedule Reminder&quot; in the Profile screen</li>
             <li><strong>What:</strong> Creates recurring meditation reminders at your chosen time</li>
             <li><strong>You can:</strong> Disable this anytime by deleting the calendar events or denying permission</li>
           </ul>
@@ -122,15 +123,15 @@ export default function PrivacyPolicy() {
           <h2>How Your Data is Protected</h2>
 
           <h3>Local Storage Only</h3>
-          <p>All data is stored using your device's secure local storage.</p>
+          <p>All data is stored using your device&apos;s secure local storage.</p>
 
           <h3>No Network Transmission</h3>
           <p>The app operates in <strong>airplane mode compatible</strong> fashion. Your meditation data never leaves your device.</p>
 
           <h3>No Account Required</h3>
-          <p>You don't need to create an account, provide an email, or sign in. Start meditating immediately.</p>
+          <p>You don&apos;t need to create an account, provide an email, or sign in. Start meditating immediately.</p>
 
-          <h2>Children's Privacy</h2>
+          <h2>Children&apos;s Privacy</h2>
           <p>
             Slow Spot does not collect any data from anyone, including children under 13 (or 16 in the EU).
             The app is family-friendly and suitable for all ages.
@@ -149,10 +150,10 @@ export default function PrivacyPolicy() {
           <h3>Right to Delete</h3>
           <p>You can delete your data at any time:</p>
           <ul>
-            <li><strong>Individual sessions:</strong> Long-press a custom session and select "Delete"</li>
-            <li><strong>All app data:</strong> Use "Clear Data" in Settings or uninstall the app</li>
+            <li><strong>Individual sessions:</strong> Long-press a custom session and select &quot;Delete&quot;</li>
+            <li><strong>All app data:</strong> Use &quot;Clear Data&quot; in Settings or uninstall the app</li>
           </ul>
-          <p>There is no "account" to delete because we don't store your data anywhere except your device.</p>
+          <p>There is no &quot;account&quot; to delete because we don&apos;t store your data anywhere except your device.</p>
 
           <h2>Third-Party Services</h2>
 
@@ -177,7 +178,7 @@ export default function PrivacyPolicy() {
           <ul>
             <li><strong>GDPR</strong> (General Data Protection Regulation - EU)</li>
             <li><strong>CCPA</strong> (California Consumer Privacy Act - USA)</li>
-            <li><strong>COPPA</strong> (Children's Online Privacy Protection Act - USA)</li>
+            <li><strong>COPPA</strong> (Children&apos;s Online Privacy Protection Act - USA)</li>
             <li><strong>Apple App Store Review Guidelines</strong></li>
             <li><strong>Google Play Store Developer Policy</strong></li>
           </ul>
@@ -185,8 +186,8 @@ export default function PrivacyPolicy() {
           <h2>Changes to This Privacy Policy</h2>
           <p>We may update this Privacy Policy from time to time. When we do:</p>
           <ul>
-            <li>We'll update the "Last Updated" date at the top</li>
-            <li>We'll notify you via an in-app message for major changes</li>
+            <li>We&apos;ll update the &quot;Last Updated&quot; date at the top</li>
+            <li>We&apos;ll notify you via an in-app message for major changes</li>
           </ul>
 
           <h2>Contact Us</h2>
@@ -202,18 +203,18 @@ export default function PrivacyPolicy() {
             We built Slow Spot with privacy as a core principle, not an afterthought. Your meditation
             practice is personal and sacred. We will never compromise your privacy for profit or analytics.
           </p>
-          <p className="text-lg font-medium text-teal-700">
-            Thank you for trusting Slow Spot with your meditation journey.
+          <p>
+            <strong>Thank you for trusting Slow Spot with your meditation journey.</strong>
           </p>
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-slate-200 text-center text-slate-500">
-          <p className="font-light text-lg mb-1">
-            <span className="font-light">Slow</span> <span className="text-teal-600 font-semibold">Spot</span>
+        <div className="subpage-footer">
+          <p className="subpage-footer-brand">
+            <span className="font-light">Slow</span> <span className="subpage-brand-accent font-semibold">Spot</span>
           </p>
-          <p className="text-sm">Mindfulness. Simplicity. Privacy.</p>
-          <p className="text-sm mt-2">Version 1.0.0</p>
+          <p className="subpage-footer-tagline">Mindfulness. Simplicity. Privacy.</p>
+          <p className="subpage-footer-tagline mt-2">Version 1.0.0</p>
         </div>
       </article>
     </main>

@@ -1,48 +1,49 @@
-import Link from 'next/link';
+'use client';
 
-export const metadata = {
-  title: 'Terms of Service - Slow Spot',
-  description: 'Terms of Service for Slow Spot meditation app.',
-};
+import Link from 'next/link';
+import LanguageSwitcher from '../i18n/LanguageSwitcher';
 
 export default function TermsOfService() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <main className="subpage">
+      {/* Language/Theme Controls */}
+      <LanguageSwitcher />
+
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-slate-100 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="text-xl font-semibold text-slate-800 hover:text-teal-600 transition-colors">
-            <span className="font-light">Slow</span> <span className="text-teal-600">Spot</span>
+      <header className="subpage-header">
+        <div className="subpage-header-inner">
+          <Link href="/" className="subpage-brand">
+            <span className="font-light">Slow</span> <span className="subpage-brand-accent">Spot</span>
           </Link>
-          <nav className="flex gap-6 text-sm">
-            <Link href="/privacy" className="text-slate-600 hover:text-teal-600 transition-colors">Privacy</Link>
-            <Link href="/support" className="text-slate-600 hover:text-teal-600 transition-colors">Support</Link>
+          <nav className="subpage-nav">
+            <Link href="/privacy" className="subpage-nav-link">Privacy</Link>
+            <Link href="/support" className="subpage-nav-link">Support</Link>
           </nav>
         </div>
       </header>
 
       {/* Content */}
-      <article className="max-w-4xl mx-auto px-6 py-12">
-        <h1 className="text-4xl font-light text-slate-800 mb-2">Terms of Service</h1>
-        <p className="text-slate-500 mb-8">Last Updated: November 27, 2024</p>
+      <article className="subpage-content">
+        <h1 className="subpage-title">Terms of Service</h1>
+        <p className="subpage-subtitle">Last Updated: November 27, 2024</p>
 
         {/* Summary Box */}
-        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-10">
-          <h2 className="text-lg font-semibold text-slate-800 mb-3">Quick Summary</h2>
-          <ul className="space-y-2 text-slate-600">
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Free to use for personal meditation practice</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> No account required</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Your content stays on your device</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Use responsibly and at your own discretion</li>
-            <li className="flex items-center gap-2"><span className="text-teal-500">✓</span> Not a substitute for professional medical advice</li>
+        <div className="subpage-highlight-box">
+          <h2 className="subpage-highlight-title">Quick Summary</h2>
+          <ul className="subpage-highlight-list">
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Free to use for personal meditation practice</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> No account required</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Your content stays on your device</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Use responsibly and at your own discretion</li>
+            <li className="subpage-highlight-item"><span className="subpage-check">✓</span> Not a substitute for professional medical advice</li>
           </ul>
         </div>
 
-        <div className="prose prose-slate max-w-none">
+        <div className="subpage-prose">
           <h2>1. Acceptance of Terms</h2>
           <p>
-            By downloading, installing, or using the Slow Spot mobile application ("App"), you agree
-            to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms,
+            By downloading, installing, or using the Slow Spot mobile application (&quot;App&quot;), you agree
+            to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms,
             please do not use the App.
           </p>
 
@@ -84,13 +85,13 @@ export default function TermsOfService() {
           </p>
 
           <h2>5. Health Disclaimer</h2>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 my-4">
-            <p className="text-amber-800 font-medium mb-2">Important Health Information</p>
-            <p className="text-amber-700 text-sm">
+          <div className="subpage-warning-box">
+            <p className="subpage-warning-title">Important Health Information</p>
+            <p className="subpage-warning-text">
               Slow Spot is designed for general wellness and relaxation purposes only. The App is
               NOT intended to:
             </p>
-            <ul className="text-amber-700 text-sm mt-2">
+            <ul className="subpage-warning-list">
               <li>Diagnose, treat, cure, or prevent any disease or health condition</li>
               <li>Replace professional medical advice, diagnosis, or treatment</li>
               <li>Substitute for therapy, counseling, or mental health treatment</li>
@@ -118,7 +119,7 @@ export default function TermsOfService() {
 
           <h2>7. Disclaimer of Warranties</h2>
           <p>
-            THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER
+            THE APP IS PROVIDED &quot;AS IS&quot; AND &quot;AS AVAILABLE&quot; WITHOUT WARRANTIES OF ANY KIND, EITHER
             EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO:
           </p>
           <ul>
@@ -207,12 +208,12 @@ export default function TermsOfService() {
         </div>
 
         {/* Footer */}
-        <div className="mt-12 pt-8 border-t border-slate-200 text-center text-slate-500">
-          <p className="font-light text-lg mb-1">
-            <span className="font-light">Slow</span> <span className="text-teal-600 font-semibold">Spot</span>
+        <div className="subpage-footer">
+          <p className="subpage-footer-brand">
+            <span className="font-light">Slow</span> <span className="subpage-brand-accent font-semibold">Spot</span>
           </p>
-          <p className="text-sm">Mindfulness. Simplicity. Privacy.</p>
-          <p className="text-sm mt-2">Version 1.0.0</p>
+          <p className="subpage-footer-tagline">Mindfulness. Simplicity. Privacy.</p>
+          <p className="subpage-footer-tagline mt-2">Version 1.0.0</p>
         </div>
       </article>
     </main>
