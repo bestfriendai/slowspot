@@ -136,7 +136,7 @@ export default function Home() {
             {/* Left Content */}
             <div className="space-y-8 text-center lg:text-left">
               {/* Badge */}
-              <div className="animate-fade-up opacity-0 flex justify-center lg:justify-start">
+              <div className="animate-fade-up flex justify-center lg:justify-start">
                 <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-violet-300">
                   <span className="w-2 h-2 rounded-full bg-violet-400 animate-pulse" />
                   {t.hero.badge}
@@ -144,18 +144,18 @@ export default function Home() {
               </div>
 
               {/* Title */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] animate-fade-up opacity-0 delay-100">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] animate-fade-up delay-100">
                 <span className="text-white">{t.hero.title.split(' ').slice(0, -1).join(' ')} </span>
                 <span className="text-gradient">{t.hero.title.split(' ').slice(-1)}</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-lg md:text-xl text-gray-400 max-w-lg leading-relaxed animate-fade-up opacity-0 delay-200 mx-auto lg:mx-0">
+              <p className="text-lg md:text-xl text-gray-400 max-w-lg leading-relaxed animate-fade-up delay-200 mx-auto lg:mx-0">
                 {t.hero.subtitle}
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-4 animate-fade-up opacity-0 delay-300 justify-center lg:justify-start">
+              <div className="flex flex-wrap gap-4 animate-fade-up delay-300 justify-center lg:justify-start">
                 <a
                   href="#download"
                   className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/30 hover:-translate-y-0.5"
@@ -175,7 +175,7 @@ export default function Home() {
             </div>
 
             {/* Right - Phone Mockup with Breathing Circle */}
-            <div className="flex justify-center lg:justify-end animate-slide-right opacity-0 delay-200 order-first lg:order-last">
+            <div className="flex justify-center lg:justify-end animate-slide-right delay-200 order-first lg:order-last">
               <div className="phone-mockup-container">
                 <div className="phone-mockup">
                   <div className="phone-screen">
