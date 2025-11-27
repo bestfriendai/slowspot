@@ -1,0 +1,162 @@
+{
+  "hero": {
+    "badge": "🧘 Your Journey to Inner Peace",
+    "title": "Discover Calm in the Chaos",
+    "subtitle": "Experience meditation reimagined. No accounts, no barriers—just you and tranquility.",
+    "ctaPrimary": "Start Meditating Free",
+    "ctaSecondary": "Explore Features",
+    "stats": {
+      "users": {
+        "number": "50K+",
+        "label": "Active Users"
+      },
+      "sessions": {
+        "number": "1M+",
+        "label": "Sessions Completed"
+      },
+      "rating": {
+        "number": "4.8★",
+        "label": "App Rating"
+      }
+    }
+  },
+  "appPreview": {
+    "title": "Meditation Made Simple",
+    "subtitle": "Experience a meditation app designed for real life. Track your progress, build lasting habits, and find peace—no matter where you are.",
+    "features": {
+      "instant": {
+        "title": "Start Instantly",
+        "description": "No registration. Just open and breathe."
+      },
+      "language": {
+        "title": "Speak Your Language",
+        "description": "Available in 6 languages worldwide."
+      },
+      "offline": {
+        "title": "Always Available",
+        "description": "Full offline mode for meditation anywhere."
+      }
+    },
+    "demoText": "Breathe In..."
+  },
+  "features": {
+    "sectionTitle": "Everything You Need",
+    "sectionSubtitle": "Powerful features designed to support your meditation journey",
+    "cards": {
+      "progressive": {
+        "title": "Progressive Learning",
+        "description": "5 levels from beginner to master. Guided sessions that grow with you."
+      },
+      "audio": {
+        "title": "Immersive Audio",
+        "description": "3-layer soundscapes: voice guidance, ambient sounds, and meditation chimes."
+      },
+      "tracking": {
+        "title": "Track Your Growth",
+        "description": "Monitor streaks, sessions, and minutes. Watch your practice flourish."
+      },
+      "wisdom": {
+        "title": "Daily Wisdom",
+        "description": "Unique inspirational quotes that never repeat, in your language."
+      },
+      "cultural": {
+        "title": "Cultural Traditions",
+        "description": "Explore Zen, Mindfulness, Vipassana, and meditation from around the world."
+      },
+      "theme": {
+        "title": "Day & Night",
+        "description": "Beautiful dark mode that adapts to your meditation time."
+      }
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "Loved by Meditators Worldwide",
+    "items": [
+      {
+        "stars": "★★★★★",
+        "text": "Finally, a meditation app that respects my privacy. No account needed, and it works perfectly offline. Life-changing!",
+        "author": {
+          "name": "Sarah M.",
+          "location": "United States",
+          "avatar": "S"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "The progressive learning structure helped me build a real meditation habit. I've meditated every day for 3 months now.",
+        "author": {
+          "name": "Michael K.",
+          "location": "Germany",
+          "avatar": "M"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "Beautiful design and the multi-language support is perfect. I can meditate in my native Polish. Absolutely wonderful!",
+        "author": {
+          "name": "Anna W.",
+          "location": "Poland",
+          "avatar": "A"
+        }
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Begin Your Journey Today",
+    "sectionSubtitle": "Join thousands finding peace through meditation. Available on iOS and Android.",
+    "appStore": {
+      "label": "Download on the",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Get it on",
+      "name": "Google Play"
+    },
+    "note": "✨ Free to download • No credit card required"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Find your inner peace, one breath at a time."
+    },
+    "columns": {
+      "product": {
+        "title": "Product",
+        "links": {
+          "features": "Features",
+          "download": "Download"
+        }
+      },
+      "support": {
+        "title": "Support",
+        "links": {
+          "help": "Help & Support",
+          "contact": "Contact Us"
+        }
+      },
+      "legal": {
+        "title": "Legal",
+        "links": {
+          "privacy": "Privacy Policy",
+          "terms": "Terms of Service"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "© 2024 Slow Spot. All rights reserved.",
+      "tagline": "Built with mindfulness for a better world."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  }
+}

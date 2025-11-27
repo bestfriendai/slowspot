@@ -1,37 +1,45 @@
+'use client';
+
+import { useLanguage, LanguageSwitcher } from './i18n';
+
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <>
+      <LanguageSwitcher />
+
       {/* Hero Section with Breathing Animation */}
       <section className="hero">
         <div className="breathing-circle"></div>
         <div className="hero-content">
-          <div className="hero-badge">🧘 Your Journey to Inner Peace</div>
-          <h1>Discover Calm in the Chaos</h1>
+          <div className="hero-badge">{t.hero.badge}</div>
+          <h1>{t.hero.title}</h1>
           <p className="hero-subtitle">
-            Experience meditation reimagined. No accounts, no barriers—just you and tranquility.
+            {t.hero.subtitle}
           </p>
           <div className="cta-buttons">
             <a href="#download" className="btn btn-primary">
               <span className="btn-icon">📱</span>
-              Start Meditating Free
+              {t.hero.ctaPrimary}
             </a>
             <a href="#features" className="btn btn-secondary">
               <span className="btn-icon">✨</span>
-              Explore Features
+              {t.hero.ctaSecondary}
             </a>
           </div>
           <div className="hero-stats">
             <div className="stat">
-              <div className="stat-number">50K+</div>
-              <div className="stat-label">Active Users</div>
+              <div className="stat-number">{t.hero.stats.users.number}</div>
+              <div className="stat-label">{t.hero.stats.users.label}</div>
             </div>
             <div className="stat">
-              <div className="stat-number">1M+</div>
-              <div className="stat-label">Sessions Completed</div>
+              <div className="stat-number">{t.hero.stats.sessions.number}</div>
+              <div className="stat-label">{t.hero.stats.sessions.label}</div>
             </div>
             <div className="stat">
-              <div className="stat-number">4.8★</div>
-              <div className="stat-label">App Rating</div>
+              <div className="stat-number">{t.hero.stats.rating.number}</div>
+              <div className="stat-label">{t.hero.stats.rating.label}</div>
             </div>
           </div>
         </div>
@@ -42,31 +50,30 @@ export default function Home() {
         <div className="container">
           <div className="preview-content">
             <div className="preview-text">
-              <h2 className="section-title">Meditation Made Simple</h2>
+              <h2 className="section-title">{t.appPreview.title}</h2>
               <p className="section-subtitle">
-                Experience a meditation app designed for real life. Track your progress,
-                build lasting habits, and find peace—no matter where you are.
+                {t.appPreview.subtitle}
               </p>
               <div className="preview-features">
                 <div className="preview-feature">
                   <span className="preview-icon">⚡</span>
                   <div>
-                    <h4>Start Instantly</h4>
-                    <p>No registration. Just open and breathe.</p>
+                    <h4>{t.appPreview.features.instant.title}</h4>
+                    <p>{t.appPreview.features.instant.description}</p>
                   </div>
                 </div>
                 <div className="preview-feature">
                   <span className="preview-icon">🌐</span>
                   <div>
-                    <h4>Speak Your Language</h4>
-                    <p>Available in 6 languages worldwide.</p>
+                    <h4>{t.appPreview.features.language.title}</h4>
+                    <p>{t.appPreview.features.language.description}</p>
                   </div>
                 </div>
                 <div className="preview-feature">
                   <span className="preview-icon">📴</span>
                   <div>
-                    <h4>Always Available</h4>
-                    <p>Full offline mode for meditation anywhere.</p>
+                    <h4>{t.appPreview.features.offline.title}</h4>
+                    <p>{t.appPreview.features.offline.description}</p>
                   </div>
                 </div>
               </div>
@@ -76,7 +83,7 @@ export default function Home() {
                 <div className="phone-screen">
                   <div className="app-demo">
                     <div className="demo-circle"></div>
-                    <p className="demo-text">Breathe In...</p>
+                    <p className="demo-text">{t.appPreview.demoText}</p>
                   </div>
                 </div>
               </div>
@@ -89,9 +96,9 @@ export default function Home() {
       <section id="features" className="features">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">Everything You Need</h2>
+            <h2 className="section-title">{t.features.sectionTitle}</h2>
             <p className="section-subtitle">
-              Powerful features designed to support your meditation journey
+              {t.features.sectionSubtitle}
             </p>
           </div>
           <div className="features-grid">
@@ -99,9 +106,9 @@ export default function Home() {
               <div className="feature-icon-wrapper">
                 <span className="feature-icon">🎯</span>
               </div>
-              <h3>Progressive Learning</h3>
+              <h3>{t.features.cards.progressive.title}</h3>
               <p>
-                5 levels from beginner to master. Guided sessions that grow with you.
+                {t.features.cards.progressive.description}
               </p>
             </div>
 
@@ -109,9 +116,9 @@ export default function Home() {
               <div className="feature-icon-wrapper">
                 <span className="feature-icon">🎵</span>
               </div>
-              <h3>Immersive Audio</h3>
+              <h3>{t.features.cards.audio.title}</h3>
               <p>
-                3-layer soundscapes: voice guidance, ambient sounds, and meditation chimes.
+                {t.features.cards.audio.description}
               </p>
             </div>
 
@@ -119,9 +126,9 @@ export default function Home() {
               <div className="feature-icon-wrapper">
                 <span className="feature-icon">📈</span>
               </div>
-              <h3>Track Your Growth</h3>
+              <h3>{t.features.cards.tracking.title}</h3>
               <p>
-                Monitor streaks, sessions, and minutes. Watch your practice flourish.
+                {t.features.cards.tracking.description}
               </p>
             </div>
 
@@ -129,9 +136,9 @@ export default function Home() {
               <div className="feature-icon-wrapper">
                 <span className="feature-icon">💭</span>
               </div>
-              <h3>Daily Wisdom</h3>
+              <h3>{t.features.cards.wisdom.title}</h3>
               <p>
-                Unique inspirational quotes that never repeat, in your language.
+                {t.features.cards.wisdom.description}
               </p>
             </div>
 
@@ -139,9 +146,9 @@ export default function Home() {
               <div className="feature-icon-wrapper">
                 <span className="feature-icon">🎨</span>
               </div>
-              <h3>Cultural Traditions</h3>
+              <h3>{t.features.cards.cultural.title}</h3>
               <p>
-                Explore Zen, Mindfulness, Vipassana, and meditation from around the world.
+                {t.features.cards.cultural.description}
               </p>
             </div>
 
@@ -149,9 +156,9 @@ export default function Home() {
               <div className="feature-icon-wrapper">
                 <span className="feature-icon">🌙</span>
               </div>
-              <h3>Day & Night</h3>
+              <h3>{t.features.cards.theme.title}</h3>
               <p>
-                Beautiful dark mode that adapts to your meditation time.
+                {t.features.cards.theme.description}
               </p>
             </div>
           </div>
@@ -161,52 +168,23 @@ export default function Home() {
       {/* Testimonials Section */}
       <section className="testimonials">
         <div className="container">
-          <h2 className="section-title">Loved by Meditators Worldwide</h2>
+          <h2 className="section-title">{t.testimonials.sectionTitle}</h2>
           <div className="testimonials-grid">
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                "Finally, a meditation app that respects my privacy. No account needed,
-                and it works perfectly offline. Life-changing!"
-              </p>
-              <div className="testimonial-author">
-                <div className="author-avatar">S</div>
-                <div>
-                  <div className="author-name">Sarah M.</div>
-                  <div className="author-location">United States</div>
+            {t.testimonials.items.map((testimonial, index) => (
+              <div key={index} className="testimonial-card">
+                <div className="testimonial-stars">{testimonial.stars}</div>
+                <p className="testimonial-text">
+                  {testimonial.text}
+                </p>
+                <div className="testimonial-author">
+                  <div className="author-avatar">{testimonial.author.avatar}</div>
+                  <div>
+                    <div className="author-name">{testimonial.author.name}</div>
+                    <div className="author-location">{testimonial.author.location}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                "The progressive learning structure helped me build a real meditation habit.
-                I've meditated every day for 3 months now."
-              </p>
-              <div className="testimonial-author">
-                <div className="author-avatar">M</div>
-                <div>
-                  <div className="author-name">Michael K.</div>
-                  <div className="author-location">Germany</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="testimonial-card">
-              <div className="testimonial-stars">★★★★★</div>
-              <p className="testimonial-text">
-                "Beautiful design and the multi-language support is perfect.
-                I can meditate in my native Polish. Absolutely wonderful!"
-              </p>
-              <div className="testimonial-author">
-                <div className="author-avatar">A</div>
-                <div>
-                  <div className="author-name">Anna W.</div>
-                  <div className="author-location">Poland</div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -215,9 +193,9 @@ export default function Home() {
       <section id="download" className="download-section">
         <div className="container">
           <div className="download-content">
-            <h2 className="section-title">Begin Your Journey Today</h2>
+            <h2 className="section-title">{t.download.sectionTitle}</h2>
             <p className="section-subtitle">
-              Join thousands finding peace through meditation. Available on iOS and Android.
+              {t.download.sectionSubtitle}
             </p>
             <div className="download-buttons">
               <a href="#" className="store-button">
@@ -228,8 +206,8 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="store-text">
-                  <div className="store-label">Download on the</div>
-                  <div className="store-name">App Store</div>
+                  <div className="store-label">{t.download.appStore.label}</div>
+                  <div className="store-name">{t.download.appStore.name}</div>
                 </div>
               </a>
               <a href="#" className="store-button">
@@ -242,12 +220,12 @@ export default function Home() {
                   </svg>
                 </div>
                 <div className="store-text">
-                  <div className="store-label">Get it on</div>
-                  <div className="store-name">Google Play</div>
+                  <div className="store-label">{t.download.googlePlay.label}</div>
+                  <div className="store-name">{t.download.googlePlay.name}</div>
                 </div>
               </a>
             </div>
-            <p className="download-note">✨ Free to download • No credit card required</p>
+            <p className="download-note">{t.download.note}</p>
           </div>
         </div>
       </section>
@@ -257,30 +235,30 @@ export default function Home() {
         <div className="container">
           <div className="footer-content">
             <div className="footer-brand">
-              <h3>Slow Spot</h3>
-              <p>Find your inner peace, one breath at a time.</p>
+              <h3>{t.footer.brand.name}</h3>
+              <p>{t.footer.brand.tagline}</p>
             </div>
             <div className="footer-links">
               <div className="footer-column">
-                <h4>Product</h4>
-                <a href="#features">Features</a>
-                <a href="#download">Download</a>
+                <h4>{t.footer.columns.product.title}</h4>
+                <a href="#features">{t.footer.columns.product.links.features}</a>
+                <a href="#download">{t.footer.columns.product.links.download}</a>
               </div>
               <div className="footer-column">
-                <h4>Support</h4>
-                <a href="/support">Help & Support</a>
-                <a href="mailto:support@slowspot.app">Contact Us</a>
+                <h4>{t.footer.columns.support.title}</h4>
+                <a href="/support">{t.footer.columns.support.links.help}</a>
+                <a href="mailto:support@slowspot.app">{t.footer.columns.support.links.contact}</a>
               </div>
               <div className="footer-column">
-                <h4>Legal</h4>
-                <a href="/privacy">Privacy Policy</a>
-                <a href="/terms">Terms of Service</a>
+                <h4>{t.footer.columns.legal.title}</h4>
+                <a href="/privacy">{t.footer.columns.legal.links.privacy}</a>
+                <a href="/terms">{t.footer.columns.legal.links.terms}</a>
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© 2024 Slow Spot. All rights reserved.</p>
-            <p>Built with mindfulness for a better world.</p>
+            <p>{t.footer.bottom.copyright}</p>
+            <p>{t.footer.bottom.tagline}</p>
           </div>
         </div>
       </footer>

@@ -1,0 +1,162 @@
+{
+  "hero": {
+    "badge": "🧘 Ihre Reise zum inneren Frieden",
+    "title": "Entdecken Sie Ruhe im Chaos",
+    "subtitle": "Erleben Sie Meditation neu gedacht. Keine Konten, keine Barrieren – nur Sie und Ihre Gelassenheit.",
+    "ctaPrimary": "Kostenlos Meditieren",
+    "ctaSecondary": "Funktionen Entdecken",
+    "stats": {
+      "users": {
+        "number": "50K+",
+        "label": "Aktive Nutzer"
+      },
+      "sessions": {
+        "number": "1M+",
+        "label": "Abgeschlossene Sitzungen"
+      },
+      "rating": {
+        "number": "4.8★",
+        "label": "App-Bewertung"
+      }
+    }
+  },
+  "appPreview": {
+    "title": "Meditation Einfach Gemacht",
+    "subtitle": "Erleben Sie eine Meditations-App für das echte Leben. Verfolgen Sie Ihren Fortschritt, entwickeln Sie dauerhafte Gewohnheiten und finden Sie Frieden – egal wo Sie sind.",
+    "features": {
+      "instant": {
+        "title": "Sofort Beginnen",
+        "description": "Keine Registrierung. Einfach öffnen und atmen."
+      },
+      "language": {
+        "title": "In Ihrer Sprache",
+        "description": "Verfügbar in 6 Sprachen weltweit."
+      },
+      "offline": {
+        "title": "Immer Verfügbar",
+        "description": "Vollständiger Offline-Modus für Meditation überall."
+      }
+    },
+    "demoText": "Einatmen..."
+  },
+  "features": {
+    "sectionTitle": "Alles, Was Sie Brauchen",
+    "sectionSubtitle": "Leistungsstarke Funktionen zur Unterstützung Ihrer Meditationsreise",
+    "cards": {
+      "progressive": {
+        "title": "Progressives Lernen",
+        "description": "5 Stufen vom Anfänger bis zum Meister. Geführte Sitzungen, die mit Ihnen wachsen."
+      },
+      "audio": {
+        "title": "Immersiver Klang",
+        "description": "3-lagige Klanglandschaften: Sprachführung, Umgebungsgeräusche und Meditationsglocken."
+      },
+      "tracking": {
+        "title": "Verfolgen Sie Ihr Wachstum",
+        "description": "Überwachen Sie Serien, Sitzungen und Minuten. Sehen Sie Ihre Praxis gedeihen."
+      },
+      "wisdom": {
+        "title": "Tägliche Weisheit",
+        "description": "Einzigartige inspirierende Zitate, die sich nie wiederholen, in Ihrer Sprache."
+      },
+      "cultural": {
+        "title": "Kulturelle Traditionen",
+        "description": "Erkunden Sie Zen, Achtsamkeit, Vipassana und Meditation aus aller Welt."
+      },
+      "theme": {
+        "title": "Tag & Nacht",
+        "description": "Wunderschöner Dunkelmodus, der sich Ihrer Meditationszeit anpasst."
+      }
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "Geliebt von Meditierenden Weltweit",
+    "items": [
+      {
+        "stars": "★★★★★",
+        "text": "Endlich eine Meditations-App, die meine Privatsphäre respektiert. Kein Konto erforderlich und funktioniert perfekt offline. Lebensverändernd!",
+        "author": {
+          "name": "Sarah M.",
+          "location": "Vereinigte Staaten",
+          "avatar": "S"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "Die progressive Lernstruktur hat mir geholfen, eine echte Meditationsgewohnheit aufzubauen. Ich meditiere jetzt seit 3 Monaten jeden Tag.",
+        "author": {
+          "name": "Michael K.",
+          "location": "Deutschland",
+          "avatar": "M"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "Wunderschönes Design und die mehrsprachige Unterstützung ist perfekt. Ich kann in meinem Polnisch meditieren. Absolut wunderbar!",
+        "author": {
+          "name": "Anna W.",
+          "location": "Polen",
+          "avatar": "A"
+        }
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Beginnen Sie Ihre Reise Heute",
+    "sectionSubtitle": "Schließen Sie sich Tausenden an, die durch Meditation Frieden finden. Verfügbar für iOS und Android.",
+    "appStore": {
+      "label": "Laden im",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Jetzt bei",
+      "name": "Google Play"
+    },
+    "note": "✨ Kostenloser Download • Keine Kreditkarte erforderlich"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Finden Sie Ihren inneren Frieden, Atemzug für Atemzug."
+    },
+    "columns": {
+      "product": {
+        "title": "Produkt",
+        "links": {
+          "features": "Funktionen",
+          "download": "Herunterladen"
+        }
+      },
+      "support": {
+        "title": "Support",
+        "links": {
+          "help": "Hilfe & Support",
+          "contact": "Kontakt"
+        }
+      },
+      "legal": {
+        "title": "Rechtliches",
+        "links": {
+          "privacy": "Datenschutzerklärung",
+          "terms": "Nutzungsbedingungen"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "© 2024 Slow Spot. Alle Rechte vorbehalten.",
+      "tagline": "Mit Achtsamkeit gebaut für eine bessere Welt."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  }
+}

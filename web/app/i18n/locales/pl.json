@@ -1,0 +1,162 @@
+{
+  "hero": {
+    "badge": "🧘 Twoja Droga do Wewnętrznego Spokoju",
+    "title": "Odkryj Spokój w Chaosie",
+    "subtitle": "Doświadcz medytacji na nowo. Bez kont, bez barier—tylko Ty i wewnętrzny spokój.",
+    "ctaPrimary": "Rozpocznij Medytację Za Darmo",
+    "ctaSecondary": "Poznaj Funkcje",
+    "stats": {
+      "users": {
+        "number": "50K+",
+        "label": "Aktywnych Użytkowników"
+      },
+      "sessions": {
+        "number": "1M+",
+        "label": "Ukończonych Sesji"
+      },
+      "rating": {
+        "number": "4.8★",
+        "label": "Ocena Aplikacji"
+      }
+    }
+  },
+  "appPreview": {
+    "title": "Medytacja Prosta jak Oddech",
+    "subtitle": "Poznaj aplikację do medytacji stworzoną dla prawdziwego życia. Śledź swój rozwój, buduj trwałe nawyki i odnajduj spokój—bez względu na to, gdzie jesteś.",
+    "features": {
+      "instant": {
+        "title": "Zacznij Natychmiast",
+        "description": "Bez rejestracji. Po prostu otwórz i oddychaj."
+      },
+      "language": {
+        "title": "W Twoim Języku",
+        "description": "Dostępna w 6 językach na całym świecie."
+      },
+      "offline": {
+        "title": "Zawsze Dostępna",
+        "description": "Pełny tryb offline do medytacji w każdym miejscu."
+      }
+    },
+    "demoText": "Wdech..."
+  },
+  "features": {
+    "sectionTitle": "Wszystko, Czego Potrzebujesz",
+    "sectionSubtitle": "Zaawansowane funkcje wspierające Twoją praktykę medytacji",
+    "cards": {
+      "progressive": {
+        "title": "Progresywna Nauka",
+        "description": "5 poziomów od początkującego do mistrza. Prowadzone sesje, które rosną razem z Tobą."
+      },
+      "audio": {
+        "title": "Immersyjny Dźwięk",
+        "description": "3-warstwowe pejzaże dźwiękowe: głos przewodnika, dźwięki otoczenia i dzwonki medytacyjne."
+      },
+      "tracking": {
+        "title": "Śledź Swój Rozwój",
+        "description": "Monitoruj serie, sesje i minuty. Obserwuj, jak rozkwita Twoja praktyka."
+      },
+      "wisdom": {
+        "title": "Codzienna Mądrość",
+        "description": "Unikalne inspirujące cytaty, które się nie powtarzają, w Twoim języku."
+      },
+      "cultural": {
+        "title": "Tradycje Kulturowe",
+        "description": "Odkrywaj Zen, Mindfulness, Vipassana i medytację z różnych stron świata."
+      },
+      "theme": {
+        "title": "Dzień i Noc",
+        "description": "Piękny tryb ciemny, który dostosowuje się do Twojego czasu medytacji."
+      }
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "Ceniona przez Medytujących na Całym Świecie",
+    "items": [
+      {
+        "stars": "★★★★★",
+        "text": "W końcu aplikacja do medytacji, która szanuje moją prywatność. Bez konta, działa offline. Zmienia życie!",
+        "author": {
+          "name": "Sarah M.",
+          "location": "Stany Zjednoczone",
+          "avatar": "S"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "Struktura progresywnej nauki pomogła mi zbudować prawdziwy nawyk medytacji. Medytuję codziennie już od 3 miesięcy.",
+        "author": {
+          "name": "Michael K.",
+          "location": "Niemcy",
+          "avatar": "M"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "Piękny design i wsparcie wielu języków jest idealne. Mogę medytować w moim ojczystym polskim. Absolutnie wspaniałe!",
+        "author": {
+          "name": "Anna W.",
+          "location": "Polska",
+          "avatar": "A"
+        }
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Rozpocznij Swoją Podróż Już Dziś",
+    "sectionSubtitle": "Dołącz do tysięcy osób odnajdujących spokój przez medytację. Dostępne na iOS i Android.",
+    "appStore": {
+      "label": "Pobierz z",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Dostępne w",
+      "name": "Google Play"
+    },
+    "note": "✨ Darmowe pobieranie • Nie wymaga karty kredytowej"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Odnajdź swój wewnętrzny spokój, jeden oddech na raz."
+    },
+    "columns": {
+      "product": {
+        "title": "Produkt",
+        "links": {
+          "features": "Funkcje",
+          "download": "Pobierz"
+        }
+      },
+      "support": {
+        "title": "Wsparcie",
+        "links": {
+          "help": "Pomoc i Wsparcie",
+          "contact": "Skontaktuj się z Nami"
+        }
+      },
+      "legal": {
+        "title": "Prawne",
+        "links": {
+          "privacy": "Polityka Prywatności",
+          "terms": "Warunki Korzystania z Usługi"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "© 2024 Slow Spot. Wszelkie prawa zastrzeżone.",
+      "tagline": "Stworzone z uważnością dla lepszego świata."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Język",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  }
+}

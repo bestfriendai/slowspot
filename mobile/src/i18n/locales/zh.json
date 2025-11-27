@@ -1,13 +1,24 @@
 {
   "app": {
     "name": "慢时光",
+    "tagline": "每天5分钟，改变一切 ✨"
+  },
+  "splash": {
+    "appName": "慢时光",
     "tagline": "找到属于你的宁静时刻"
   },
   "home": {
     "welcome": "欢迎",
     "dailyQuote": "每日禅语",
+    "quickStart": "快速开始",
+    "quickStartDesc": "立即开始5分钟冥想",
     "startMeditation": "开始冥想",
     "exploreSessions": "探索冥想课程",
+    "exploreFeatures": "探索功能",
+    "customSessions": "自定义课程",
+    "customSessionsDesc": "三步创建你的理想冥想",
+    "instructionsTile": "指南",
+    "instructionsTileDesc": "学习技巧并准备冥想",
     "progress": "你的进步",
     "dayStreak": "天连续打卡",
     "totalMinutes": "总分钟数",
@@ -46,7 +57,23 @@
     "wellDone": "做得好！",
     "completedSession": "你已完成本次冥想",
     "session": "课程",
-    "continue": "继续"
+    "continue": "继续",
+    "howDoYouFeel": "你现在感觉如何？",
+    "moodDescription": "评价你的课程后感受",
+    "sessionDetails": "课程详情",
+    "sessionNotes": "课程笔记",
+    "notesOptional": "记录你的想法（可选）",
+    "notesPlaceholder": "你感觉如何？有什么想法？",
+    "inspiration": "启发",
+    "focusOnBreath": "专注于呼吸",
+    "breatheIn": "吸气",
+    "breatheOut": "呼气",
+    "hold": "屏住",
+    "inProgress": "进行中",
+    "endSessionTitle": "结束课程？",
+    "endSessionMessage": "你的进度将被保存。确定要结束冥想吗？",
+    "endSessionConfirm": "结束",
+    "endSessionCancel": "继续"
   },
   "instructions": {
     "timeOfDay": {
@@ -59,6 +86,10 @@
       "eveningRecommendation": "晚间练习帮助你放松身心。身体扫描或温和的呼吸觉察效果很好。",
       "nightRecommendation": "深夜冥想能让你为安稳的睡眠做好准备。强烈推荐身体扫描。"
     },
+    "breathingPrep": {
+      "hold": "屏住",
+      "breathe": "呼吸"
+    },
     "preparation": {
       "prepareMySpace": "准备我的空间",
       "skip": "跳过",
@@ -66,7 +97,25 @@
       "beginMeditation": "开始冥想",
       "stepProgress": "第 {{current}} 步，共 {{total}} 步",
       "alwaysSkipInstructions": "始终跳过说明（适合有经验的冥想者）",
-      "skipInstructionsNote": "您可以稍后在设置中更改此选项"
+      "skipInstructionsNote": "您可以稍后在设置中更改此选项",
+      "greeting": "你即将练习{{technique}}。让我们用心准备。",
+      "focusToday": "你今天的重点",
+      "remember": "请记住",
+      "reminders": "需要记住的几点：",
+      "physicalSetup": "身体准备",
+      "checkOffItems": "在准备冥想空间时勾选这些项目：",
+      "optional": "（可选）",
+      "completeRequired": "完成必需步骤",
+      "breathingExercise": "简短呼吸练习",
+      "startBreathing": "开始呼吸准备",
+      "finishEarly": "提前结束",
+      "breathe": "呼吸",
+      "setIntention": "设定你的意图",
+      "intentionPrompt": "你想在这次课程中培养什么？",
+      "yourIntention": "你的意图（可选）",
+      "intentionPlaceholder": "例如 \"与我的呼吸保持同在\"",
+      "duringSession": "在你的课程中",
+      "keepInMind": "记住这些提示："
     },
     "level1_breath": {
       "title": "欢迎来到你的第一次冥想",
@@ -109,8 +158,8 @@
         "4": "每一刻的觉察都很重要，无论多么短暂"
       },
       "breathingPrep": {
-        "instruction": "慢慢深呼吸5次来安定下来。吸气数4下，呼气数4下。",
-        "pattern": "equal"
+        "instruction": "通过方形呼吸法进行几次平静的呼吸。吸气4秒 → 屏住4秒 → 呼气4秒 → 屏住4秒",
+        "pattern": "box"
       },
       "reminders": {
         "1": {
@@ -160,8 +209,8 @@
         "4": "不需要记住确切的顺序——声音会引导你"
       },
       "breathingPrep": {
-        "instruction": "深深叹气3次。用鼻子吸气，用嘴大声叹气呼出。",
-        "pattern": "calm"
+        "instruction": "通过方形呼吸法平静下来。这将帮助你在身体扫描前放松。",
+        "pattern": "box"
       },
       "reminders": {
         "1": {
@@ -200,8 +249,8 @@
         "4": "保持平等心——不追求愉悦也不逃避不适"
       },
       "breathingPrep": {
-        "instruction": "在开始扫描之前，先以10分钟的呼吸觉察来安定。",
-        "pattern": "equal"
+        "instruction": "用方形呼吸法平静呼吸。吸气4秒 → 屏住4秒 → 呼气4秒 → 屏住4秒",
+        "pattern": "box"
       },
       "reminders": {
         "1": {
@@ -223,6 +272,11 @@
     }
   },
   "sessions": {
+    "filters": {
+      "all": "所有课程",
+      "showFilters": "显示筛选",
+      "hideFilters": "隐藏筛选"
+    },
     "categories": {
       "traditional": "传统冥想",
       "occasion": "情境冥想",
@@ -245,11 +299,6 @@
       "taoist": "道家（中国）",
       "sufi": "苏菲（伊斯兰）",
       "christian": "基督教默观"
-    },
-    "filters": {
-      "all": "所有冥想",
-      "showFilters": "显示筛选",
-      "hideFilters": "隐藏筛选"
     }
   },
   "sessionsList": {
@@ -424,18 +473,305 @@
   "settings": {
     "title": "设置",
     "language": "语言",
+    "languageDescription": "选择应用语言",
     "theme": "主题",
+    "themeDescription": "自定义应用外观",
     "light": "浅色",
     "dark": "深色",
     "system": "跟随系统",
     "notifications": "通知",
     "reminderTime": "提醒时间",
-    "about": "关于"
+    "about": "关于",
+    "viewProfile": "查看个人资料",
+    "viewProfileDescription": "查看你的进度和统计数据",
+    "meditation": "冥想",
+    "meditationDescription": "冥想课程偏好设置",
+    "skipInstructions": "跳过说明",
+    "skipInstructionsDescription": "适合有经验的冥想者",
+    "dataPrivacy": "数据与隐私",
+    "dataPrivacyDescription": "所有数据都保存在此设备上",
+    "exportData": "导出数据",
+    "clearData": "清除数据",
+    "clearDataTitle": "清除本地数据？",
+    "clearDataBody": "这将从此设备删除你的课程、进度、提醒和偏好设置。",
+    "dataCleared": "本地数据已清除",
+    "dataClearedBody": "你可以随时重建偏好设置和课程。数据不会离开此设备。",
+    "featureOffline": "离线工作",
+    "featurePrivacy": "无广告和追踪",
+    "featureLocal": "设备本地数据"
   },
   "navigation": {
     "home": "首页",
     "meditate": "冥想",
     "quotes": "语录",
     "settings": "设置"
+  },
+  "common": {
+    "ok": "确定",
+    "cancel": "取消"
+  },
+  "profile": {
+    "title": "你的个人资料",
+    "statistics": "统计数据",
+    "totalSessions": "总课程数",
+    "totalMinutes": "总分钟数",
+    "currentStreak": "当前连续",
+    "longestStreak": "最长连续",
+    "days": "天",
+    "recentSessions": "最近的课程",
+    "customSessions": "我的自定义课程",
+    "noSessionsYet": "还没有完成课程",
+    "startMeditating": "开始你的第一次冥想！",
+    "today": "今天",
+    "yesterday": "昨天",
+    "thisWeek": "本周",
+    "earlier": "更早",
+    "manageCustomSessions": "管理自定义课程",
+    "custom": "自定义",
+    "saved": "已保存",
+    "justNow": "刚刚",
+    "minutesAgo": "{{count}}分钟前",
+    "hoursAgo": "{{count}}小时前",
+    "daysAgo": "{{count}}天前",
+    "sessionDetails": "课程详情",
+    "duration": "时长",
+    "moodAfterSession": "课程后心情",
+    "reflections": "反思",
+    "noMoodRecorded": "未记录心情",
+    "noNotesRecorded": "未记录笔记",
+    "mood1": "很不好",
+    "mood2": "不好",
+    "mood3": "一般",
+    "mood4": "好",
+    "mood5": "很好",
+    "showMore": "显示更多"
+  },
+  "calendar": {
+    "title": "日历集成",
+    "scheduleReminder": "安排每日冥想",
+    "selectTime": "选择时间",
+    "daily": "每天",
+    "cancel": "取消",
+    "save": "保存提醒",
+    "permissionDenied": "无日历访问权限",
+    "permissionMessage": "请在设置中启用日历访问",
+    "reminderSet": "提醒已设置！",
+    "reminderCanceled": "提醒已取消",
+    "currentReminder": "活动提醒",
+    "noReminder": "无活动提醒",
+    "at": "在"
+  },
+  "custom": {
+    "title": "自定义课程",
+    "subtitle": "创建符合你需求的冥想",
+    "mySavedSessions": "我的保存课程",
+    "sessionName": "课程名称（可选）",
+    "sessionNamePlaceholder": "例如 晨间冥想",
+    "duration": "时长",
+    "durationDescription": "你想练习多长时间？",
+    "minutes": "分钟",
+    "minutesWithCount": "{{count}} 分钟",
+    "customInterval": "自定义值：",
+    "customDuration": "自定义时长：",
+    "selected": "已选择",
+    "ambientSound": "环境音",
+    "ambientDescription": "选择一个平静的声音帮助你专注",
+    "intervalBell": "间隔钟声",
+    "intervalBellDescription": "课程期间的温柔提醒",
+    "intervalEvery": "钟声间隔：",
+    "min": "分钟",
+    "awakeningChime": "唤醒钟声",
+    "awakeningChimeSubtitle": "标志练习结束的温柔声音",
+    "guidingVoice": "引导语音",
+    "guidingVoiceSubtitle": "练习期间的温柔语音指导",
+    "ambientSilence": "静默",
+    "ambientNature": "自然",
+    "ambientOcean": "海洋",
+    "ambientForest": "森林",
+    "ambient432hz": "432 Hz",
+    "ambient528hz": "528 Hz",
+    "saveSession": "保存课程",
+    "updateSession": "更新课程",
+    "saveAndStart": "保存并开始",
+    "startWithoutSaving": "不保存直接开始",
+    "start": "开始",
+    "longPressToEdit": "长按以编辑",
+    "editSession": "编辑课程",
+    "deleteSession": "删除课程",
+    "startSession": "开始课程",
+    "saveError": "错误",
+    "sessionNameRequired": "保存前请输入课程名称",
+    "saveSuccess": "成功",
+    "sessionUpdated": "你的课程已成功更新！",
+    "sessionSaved": "你的课程已成功保存！",
+    "startNow": "立即开始",
+    "backToList": "返回列表",
+    "saveFailed": "无法保存课程。请重试",
+    "sessionOptions": "你想做什么？",
+    "editNotImplemented": "编辑功能将在连接到课程构建屏幕后可用",
+    "deleteConfirmTitle": "删除课程",
+    "deleteConfirmMessage": "确定要删除这个课程吗？",
+    "delete": "删除",
+    "deleteError": "错误",
+    "deleteFailed": "无法删除课程。请重试",
+    "sessionDescription": "{{minutes}} 分钟冥想，配音：{{ambientSound}}",
+    "customSession": "自定义课程",
+    "customSessions": "自定义课程",
+    "sounds": {
+      "nature": "自然",
+      "rain": "雨声",
+      "ocean": "海洋",
+      "forest": "森林",
+      "silence": "静默"
+    }
+  },
+  "achievements": {
+    "title": "成就",
+    "level": "等级",
+    "levelProgress": "等级进度",
+    "toNextLevel": "到下一等级",
+    "unlocked": "已解锁",
+    "almostThere": "就快了",
+    "hidden": "隐藏成就",
+    "firstSession": {
+      "title": "第一步",
+      "description": "完成你的第一次冥想课程"
+    },
+    "tenSessions": {
+      "title": "敬业练习者",
+      "description": "完成10次冥想课程"
+    },
+    "fiftySessions": {
+      "title": "专注冥想者",
+      "description": "完成50次冥想课程"
+    },
+    "hundredSessions": {
+      "title": "百次俱乐部",
+      "description": "完成100次冥想课程"
+    },
+    "thousandSessions": {
+      "title": "冥想大师",
+      "description": "完成1000次冥想课程"
+    },
+    "streak3": {
+      "title": "良好开始",
+      "description": "连续冥想3天"
+    },
+    "streak7": {
+      "title": "一周之力",
+      "description": "保持7天冥想连续"
+    },
+    "streak14": {
+      "title": "两周战士",
+      "description": "保持14天冥想连续"
+    },
+    "streak30": {
+      "title": "月度承诺",
+      "description": "保持30天冥想连续"
+    },
+    "streak100": {
+      "title": "百日禅",
+      "description": "保持100天冥想连续"
+    },
+    "streak365": {
+      "title": "正念之年",
+      "description": "一整年每天冥想"
+    },
+    "zenExplorer": {
+      "title": "禅宗探索者",
+      "description": "完成5次禅宗冥想课程"
+    },
+    "vipassanaPractitioner": {
+      "title": "内观练习者",
+      "description": "完成5次内观冥想课程"
+    },
+    "vedicMaster": {
+      "title": "吠陀大师",
+      "description": "完成10次吠陀冥想课程"
+    },
+    "taoistSage": {
+      "title": "道家贤者",
+      "description": "完成10次道家冥想课程"
+    },
+    "sufiMystic": {
+      "title": "苏菲神秘主义者",
+      "description": "完成10次苏菲冥想课程"
+    },
+    "christianContemplative": {
+      "title": "基督教默观者",
+      "description": "完成10次基督教冥想课程"
+    },
+    "worldTraveler": {
+      "title": "世界旅行者",
+      "description": "体验所有6种冥想传统"
+    },
+    "levelUp": {
+      "title": "升级",
+      "description": "达到等级2"
+    },
+    "intermediate": {
+      "title": "中级冥想者",
+      "description": "达到等级3"
+    },
+    "advanced": {
+      "title": "高级练习者",
+      "description": "达到等级4"
+    },
+    "master": {
+      "title": "冥想大师",
+      "description": "达到等级5"
+    },
+    "timeDedication100": {
+      "title": "100分钟",
+      "description": "总共冥想100分钟"
+    },
+    "timeDedication1000": {
+      "title": "1000分钟",
+      "description": "总共冥想1000分钟"
+    },
+    "timeDedication10000": {
+      "title": "10000分钟",
+      "description": "总共冥想10000分钟"
+    },
+    "earlyBird": {
+      "title": "早起的鸟儿",
+      "description": "在早上7点前完成5次冥想课程"
+    },
+    "nightOwl": {
+      "title": "夜猫子",
+      "description": "在晚上10点后完成5次冥想课程"
+    },
+    "weekendWarrior": {
+      "title": "周末战士",
+      "description": "在周末完成10次冥想课程"
+    },
+    "middayRefresh": {
+      "title": "午间焕新",
+      "description": "在上午11点到下午2点之间完成10次冥想课程"
+    },
+    "perfectionist": {
+      "title": "完美主义者",
+      "description": "完整完成10次课程，中途不暂停"
+    },
+    "moodImprover": {
+      "title": "心情改善者",
+      "description": "通过冥想改善心情20次"
+    },
+    "marathonMeditator": {
+      "title": "冥想马拉松选手",
+      "description": "完成10次持续20分钟以上的课程"
+    },
+    "explorer": {
+      "title": "探索者",
+      "description": "尝试20种不同的冥想课程"
+    },
+    "completionist": {
+      "title": "完美主义者",
+      "description": "体验所有40种冥想课程"
+    },
+    "reflectionMaster": {
+      "title": "反思大师",
+      "description": "为25次冥想课程添加笔记"
+    }
   }
 }

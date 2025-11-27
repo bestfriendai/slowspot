@@ -1,0 +1,162 @@
+{
+  "hero": {
+    "badge": "🧘 Tu Viaje hacia la Paz Interior",
+    "title": "Descubre la Calma en el Caos",
+    "subtitle": "Experimenta la meditación reimaginada. Sin cuentas, sin barreras—solo tú y la tranquilidad.",
+    "ctaPrimary": "Comienza a Meditar Gratis",
+    "ctaSecondary": "Explorar Funciones",
+    "stats": {
+      "users": {
+        "number": "50K+",
+        "label": "Usuarios Activos"
+      },
+      "sessions": {
+        "number": "1M+",
+        "label": "Sesiones Completadas"
+      },
+      "rating": {
+        "number": "4.8★",
+        "label": "Valoración de la App"
+      }
+    }
+  },
+  "appPreview": {
+    "title": "Meditación Simplificada",
+    "subtitle": "Experimenta una app de meditación diseñada para la vida real. Sigue tu progreso, crea hábitos duraderos y encuentra paz—sin importar dónde estés.",
+    "features": {
+      "instant": {
+        "title": "Comienza al Instante",
+        "description": "Sin registro. Solo abre y respira."
+      },
+      "language": {
+        "title": "Habla tu Idioma",
+        "description": "Disponible en 6 idiomas alrededor del mundo."
+      },
+      "offline": {
+        "title": "Siempre Disponible",
+        "description": "Modo offline completo para meditar en cualquier lugar."
+      }
+    },
+    "demoText": "Inhala..."
+  },
+  "features": {
+    "sectionTitle": "Todo lo que Necesitas",
+    "sectionSubtitle": "Funciones potentes diseñadas para apoyar tu camino de meditación",
+    "cards": {
+      "progressive": {
+        "title": "Aprendizaje Progresivo",
+        "description": "5 niveles desde principiante hasta maestro. Sesiones guiadas que crecen contigo."
+      },
+      "audio": {
+        "title": "Audio Inmersivo",
+        "description": "Paisajes sonoros de 3 capas: guía de voz, sonidos ambientales y campanillas de meditación."
+      },
+      "tracking": {
+        "title": "Rastrea tu Crecimiento",
+        "description": "Monitorea rachas, sesiones y minutos. Observa cómo florece tu práctica."
+      },
+      "wisdom": {
+        "title": "Sabiduría Diaria",
+        "description": "Citas inspiradoras únicas que nunca se repiten, en tu idioma."
+      },
+      "cultural": {
+        "title": "Tradiciones Culturales",
+        "description": "Explora Zen, Mindfulness, Vipassana y meditación de todo el mundo."
+      },
+      "theme": {
+        "title": "Día y Noche",
+        "description": "Hermoso modo oscuro que se adapta a tu momento de meditación."
+      }
+    }
+  },
+  "testimonials": {
+    "sectionTitle": "Amado por Meditadores de Todo el Mundo",
+    "items": [
+      {
+        "stars": "★★★★★",
+        "text": "Finalmente, una app de meditación que respeta mi privacidad. No necesita cuenta y funciona perfectamente sin conexión. ¡Transformadora!",
+        "author": {
+          "name": "Sarah M.",
+          "location": "Estados Unidos",
+          "avatar": "S"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "La estructura de aprendizaje progresivo me ayudó a crear un verdadero hábito de meditación. He meditado todos los días durante 3 meses.",
+        "author": {
+          "name": "Michael K.",
+          "location": "Alemania",
+          "avatar": "M"
+        }
+      },
+      {
+        "stars": "★★★★★",
+        "text": "Diseño hermoso y el soporte multiidioma es perfecto. Puedo meditar en mi polaco nativo. ¡Absolutamente maravilloso!",
+        "author": {
+          "name": "Anna W.",
+          "location": "Polonia",
+          "avatar": "A"
+        }
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Comienza tu Viaje Hoy",
+    "sectionSubtitle": "Únete a miles de personas que encuentran paz a través de la meditación. Disponible en iOS y Android.",
+    "appStore": {
+      "label": "Descárgala en el",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Disponible en",
+      "name": "Google Play"
+    },
+    "note": "✨ Descarga gratuita • No se requiere tarjeta de crédito"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Encuentra tu paz interior, una respiración a la vez."
+    },
+    "columns": {
+      "product": {
+        "title": "Producto",
+        "links": {
+          "features": "Funciones",
+          "download": "Descargar"
+        }
+      },
+      "support": {
+        "title": "Soporte",
+        "links": {
+          "help": "Ayuda y Soporte",
+          "contact": "Contáctanos"
+        }
+      },
+      "legal": {
+        "title": "Legal",
+        "links": {
+          "privacy": "Política de Privacidad",
+          "terms": "Términos de Servicio"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "© 2024 Slow Spot. Todos los derechos reservados.",
+      "tagline": "Construido con atención plena para un mundo mejor."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  }
+}
