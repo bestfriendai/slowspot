@@ -36,7 +36,7 @@
     "cards": {
       "progressive": {
         "title": "Progressive Learning",
-        "description": "5 levels from beginner to advanced. Guided sessions that adapt to your experience."
+        "description": "5 levels from beginner to advanced. Sessions that adapt to your experience level."
       },
       "audio": {
         "title": "Immersive Audio",
@@ -273,7 +273,7 @@
       },
       "service": {
         "title": "What We Offer",
-        "content": "Slow Spot is a free meditation app that works entirely offline. It includes guided sessions, ambient sounds, progress tracking, and customizable timers. No account or internet required."
+        "content": "Slow Spot is a free meditation app that works entirely offline. It includes meditation sessions, ambient sounds, progress tracking, and customizable timers. No account or internet required."
       },
       "license": {
         "title": "Your License",

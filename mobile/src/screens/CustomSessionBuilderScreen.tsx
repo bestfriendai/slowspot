@@ -3,9 +3,9 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { View, Text, ScrollView, StyleSheet, Switch, TextInput, Pressable, Animated, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import LinearGradient from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
-import { Audio } from 'expo-av';
+import { createAudioPlayer, AudioPlayer } from 'expo-audio';
 import { GradientBackground } from '../components/GradientBackground';
 import { GradientCard } from '../components/GradientCard';
 import { GradientButton } from '../components/GradientButton';
@@ -114,7 +114,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
   const [loadingSessions, setLoadingSessions] = useState(true);
 
   // Audio preview
-  const [chimeSound, setChimeSound] = useState<Audio.Sound | null>(null);
+  const [chimeSound, setChimeSound] = useState<AudioPlayer | null>(null);
 
   // Load audio on mount
   useEffect(() => {
@@ -124,17 +124,17 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
     return () => {
       // Cleanup audio on unmount
       if (chimeSound) {
-        chimeSound.unloadAsync();
+        chimeSound.release();
       }
     };
   }, []);
 
   const loadAudio = async () => {
     try {
-      const { sound } = await Audio.Sound.createAsync(
+      const player = createAudioPlayer(
         require('../../assets/sounds/meditation-bell.mp3')
       );
-      setChimeSound(sound);
+      setChimeSound(player);
     } catch (error) {
       logger.error('Error loading audio:', error);
     }
@@ -306,7 +306,8 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
   const playPreviewSound = async () => {
     if (chimeSound) {
       try {
-        await chimeSound.replayAsync();
+        chimeSound.seekTo(0);
+        chimeSound.play();
       } catch (error) {
         logger.error('Error playing preview sound:', error);
       }

@@ -1,10 +1,10 @@
-import { Audio } from 'expo-av';
+import { createAudioPlayer, setAudioModeAsync, AudioPlayer } from 'expo-audio';
 import { logger } from '../utils/logger';
 
 export type AudioLayer = 'voice' | 'ambient' | 'chime';
 
 export interface AudioTrack {
-  sound: Audio.Sound;
+  player: AudioPlayer;
   layer: AudioLayer;
   volume: number;
 }
@@ -25,19 +25,20 @@ export interface AudioTrack {
  *
  * Note: Audio files must be pre-tuned to these frequencies during production.
  * See docs/AUDIO_FREQUENCIES.md for detailed guidelines.
+ *
+ * Migrated from expo-av to expo-audio for SDK 54+ compatibility.
  */
 class AudioEngine {
-  private tracks: Map<AudioLayer, Audio.Sound> = new Map();
+  private tracks: Map<AudioLayer, AudioPlayer> = new Map();
   private isInitialized = false;
 
   async initialize() {
     if (this.isInitialized) return;
 
     try {
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: false,
-        playsInSilentModeIOS: true,
-        staysActiveInBackground: true,
+      await setAudioModeAsync({
+        playsInSilentMode: true,
+        shouldPlayInBackground: true,
       });
       this.isInitialized = true;
       logger.log('Audio engine initialized successfully');
@@ -71,17 +72,14 @@ class AudioEngine {
         return;
       }
 
-      // Create sound from source
-      const { sound } = await Audio.Sound.createAsync(
-        source,
-        {
-          shouldPlay: false,
-          isLooping: layer === 'ambient', // Only ambient loops
-          volume: Math.max(0, Math.min(1, volume)),
-        }
-      );
+      // Create player from source using expo-audio
+      const player = createAudioPlayer(source);
 
-      this.tracks.set(layer, sound);
+      // Configure player settings
+      player.volume = Math.max(0, Math.min(1, volume));
+      player.loop = layer === 'ambient'; // Only ambient loops
+
+      this.tracks.set(layer, player);
       logger.log(`Successfully loaded ${layer} track`);
     } catch (error) {
       logger.error(`Failed to load ${layer} track:`, error);
@@ -91,16 +89,15 @@ class AudioEngine {
   }
 
   async play(layer: AudioLayer) {
-    const sound = this.tracks.get(layer);
-    if (!sound) {
+    const player = this.tracks.get(layer);
+    if (!player) {
       logger.warn(`No track loaded for ${layer}`);
       return;
     }
 
     try {
-      const status = await sound.getStatusAsync();
-      if (status.isLoaded && !status.isPlaying) {
-        await sound.playAsync();
+      if (!player.playing) {
+        player.play();
         logger.log(`Playing ${layer} track`);
       }
     } catch (error) {
@@ -109,13 +106,12 @@ class AudioEngine {
   }
 
   async pause(layer: AudioLayer) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return;
+    const player = this.tracks.get(layer);
+    if (!player) return;
 
     try {
-      const status = await sound.getStatusAsync();
-      if (status.isLoaded && status.isPlaying) {
-        await sound.pauseAsync();
+      if (player.playing) {
+        player.pause();
         logger.log(`Paused ${layer} track`);
       }
     } catch (error) {
@@ -124,51 +120,38 @@ class AudioEngine {
   }
 
   async stop(layer: AudioLayer) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return;
+    const player = this.tracks.get(layer);
+    if (!player) return;
 
     try {
-      const status = await sound.getStatusAsync();
-      if (status.isLoaded) {
-        await sound.stopAsync();
-        await sound.setPositionAsync(0);
-        logger.log(`Stopped ${layer} track`);
-      }
+      player.pause();
+      player.seekTo(0);
+      logger.log(`Stopped ${layer} track`);
     } catch (error) {
       logger.error(`Failed to stop ${layer}:`, error);
     }
   }
 
   async setVolume(layer: AudioLayer, volume: number) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return;
+    const player = this.tracks.get(layer);
+    if (!player) return;
 
     try {
-      const status = await sound.getStatusAsync();
-      if (!status.isLoaded) return;
-
       const normalizedVolume = Math.max(0, Math.min(1, volume));
-      await sound.setVolumeAsync(normalizedVolume);
+      player.volume = normalizedVolume;
     } catch (error) {
       logger.error(`Failed to set volume for ${layer}:`, error);
     }
   }
 
   async fadeIn(layer: AudioLayer, duration: number = 2000, targetVolume: number = 1.0) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return;
+    const player = this.tracks.get(layer);
+    if (!player) return;
 
     const steps = 20;
     const stepDuration = duration / steps;
 
     try {
-      // Check if sound is loaded before fading
-      const status = await sound.getStatusAsync();
-      if (!status.isLoaded) {
-        logger.warn(`Cannot fade in ${layer}: sound not loaded`);
-        return;
-      }
-
       // Start at volume 0
       await this.setVolume(layer, 0);
       await this.play(layer);
@@ -186,21 +169,15 @@ class AudioEngine {
   }
 
   async fadeOut(layer: AudioLayer, duration: number = 2000) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return;
+    const player = this.tracks.get(layer);
+    if (!player) return;
 
     const steps = 20;
     const stepDuration = duration / steps;
 
     try {
       // Get current volume
-      const status = await sound.getStatusAsync();
-      if (!status.isLoaded) {
-        logger.warn(`Cannot fade out ${layer}: sound not loaded`);
-        return;
-      }
-
-      const currentVolume = status.volume || 1.0;
+      const currentVolume = player.volume || 1.0;
 
       // Gradually decrease volume
       for (let i = steps; i >= 0; i--) {
@@ -238,14 +215,12 @@ class AudioEngine {
   }
 
   async unloadTrack(layer: AudioLayer) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return;
+    const player = this.tracks.get(layer);
+    if (!player) return;
 
     try {
-      const status = await sound.getStatusAsync();
-      if (status.isLoaded) {
-        await sound.unloadAsync();
-      }
+      // Release the player to free resources
+      player.release();
       this.tracks.delete(layer);
       logger.log(`Unloaded ${layer} track`);
     } catch (error) {
@@ -264,19 +239,16 @@ class AudioEngine {
   }
 
   async getStatus(layer: AudioLayer) {
-    const sound = this.tracks.get(layer);
-    if (!sound) return null;
+    const player = this.tracks.get(layer);
+    if (!player) return null;
 
     try {
-      const status = await sound.getStatusAsync();
-      if (!status.isLoaded) return null;
-
       return {
-        isPlaying: status.isPlaying,
-        currentTime: status.positionMillis / 1000, // Convert to seconds
-        duration: status.durationMillis ? status.durationMillis / 1000 : 0,
-        volume: status.volume || 0,
-        isLooping: status.isLooping,
+        isPlaying: player.playing,
+        currentTime: player.currentTime, // Already in seconds
+        duration: player.duration, // Already in seconds
+        volume: player.volume || 0,
+        isLooping: player.loop,
       };
     } catch (error) {
       logger.error(`Failed to get status for ${layer}:`, error);

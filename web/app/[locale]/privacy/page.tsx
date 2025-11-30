@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import HeaderWithControls from '../components/HeaderWithControls';
+import SubpageFooter from '../components/SubpageFooter';
 
 export default function PrivacyPolicy() {
   const t = useTranslations('privacyPage');
@@ -84,16 +85,9 @@ export default function PrivacyPolicy() {
             </li>
           </ul>
         </div>
-
-        {/* Footer */}
-        <div className="subpage-footer">
-          <p className="subpage-footer-brand">
-            <span className="font-light">Slow</span>{' '}
-            <span className="subpage-brand-accent font-semibold">Spot</span>
-          </p>
-          <p className="subpage-footer-tagline">Mindfulness. Simplicity. Privacy.</p>
-        </div>
       </article>
+
+      <SubpageFooter />
     </main>
   );
 }

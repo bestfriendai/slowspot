@@ -164,17 +164,238 @@ body {
   }
 
   html:not(.dark) .hero-bg {
-    background: linear-gradient(180deg, #FFFFFF 0%, #f8fafc 100%);
+    background:
+      linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+      linear-gradient(225deg, rgba(167, 139, 250, 0.04) 0%, transparent 50%),
+      linear-gradient(180deg, #FFFFFF 0%, #FAFAFF 30%, #F5F3FF 60%, #EDE9FE 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative gradient orbs for light mode hero - ENHANCED */
+  html:not(.dark) .hero-bg::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -15%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-slow 20s ease-in-out infinite;
+    filter: blur(40px);
+  }
+
+  html:not(.dark) .hero-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -20%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.10) 0%, rgba(196, 181, 253, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-slow 25s ease-in-out infinite reverse;
+    filter: blur(50px);
+  }
+
+  /* Hero title - ensure dark text in light mode (mobile) */
+  html:not(.dark) .hero-bg h1 .text-white,
+  html:not(.dark) .hero-bg .text-white {
+    color: #1e293b !important;
+  }
+
+  /* Hero subtitle - readable gray */
+  html:not(.dark) .hero-bg .text-gray-400 {
+    color: #475569 !important;
+  }
+
+  /* Hero secondary button (glass) - WHITE CARD STYLE */
+  html:not(.dark) .hero-bg a.glass {
+    color: #334155 !important;
+    background: #FFFFFF !important;
+    border: 1px solid rgba(139, 92, 246, 0.12) !important;
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 4px 12px rgba(139, 92, 246, 0.08) !important;
+  }
+
+  html:not(.dark) .hero-bg a.glass svg {
+    color: #334155 !important;
+  }
+
+  /* App Preview Section - Light Mode (Mobile) */
+  html:not(.dark) section:has(.grid-pattern) {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFF 100%);
+  }
+
+  html:not(.dark) section:has(.grid-pattern) h2 .text-white,
+  html:not(.dark) section:has(.grid-pattern) h2 span.text-white {
+    color: #1e293b !important;
+  }
+
+  html:not(.dark) section:has(.grid-pattern) .text-gray-400 {
+    color: #64748b !important;
+  }
+
+  html:not(.dark) section:has(.grid-pattern) h4.text-white {
+    color: #1e293b !important;
+  }
+
+  html:not(.dark) section:has(.grid-pattern) .text-gray-500 {
+    color: #64748b !important;
+  }
+
+  html:not(.dark) section:has(.grid-pattern) .space-y-8 {
+    background: #FFFFFF;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.08);
+  }
+
+  /* Hero badge text */
+  html:not(.dark) .hero-bg .text-violet-300 {
+    color: #7c3aed !important;
   }
 
   html:not(.dark) .glass {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.1);
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.05);
   }
 
   html:not(.dark) .bento-card {
     background: #FFFFFF;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(139, 92, 246, 0.08);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.04),
+      0 4px 12px rgba(139, 92, 246, 0.06);
+    transition: all 0.3s ease;
+  }
+
+  html:not(.dark) .bento-card:hover {
+    border-color: rgba(139, 92, 246, 0.15);
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, 0.04),
+      0 8px 24px rgba(139, 92, 246, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Enhanced section backgrounds */
+  html:not(.dark) section {
+    position: relative;
+  }
+
+  /* Subtle gradient dividers between sections */
+  html:not(.dark) .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.2) 50%, transparent 100%);
+  }
+
+  /* Feature cards icons glow */
+  html:not(.dark) .feature-icon-wrapper {
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.15);
+  }
+
+  /* Download section styling */
+  html:not(.dark) #download {
+    background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+    position: relative;
+  }
+
+  html:not(.dark) #download::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+  }
+
+  /* Download/CTA section - light mode background */
+  html:not(.dark) .cta-section {
+    background: linear-gradient(180deg, #e2e8f0 0%, #f1f5f9 50%, #f8fafc 100%) !important;
+  }
+
+  html:not(.dark) .cta-section::before {
+    opacity: 0 !important;
+  }
+
+  /* CTA Section Text Colors - Light Mode */
+  html:not(.dark) .cta-title {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+  }
+
+  html:not(.dark) .cta-subtitle {
+    color: #475569 !important;
+    -webkit-text-fill-color: #475569 !important;
+  }
+
+  html:not(.dark) .cta-note {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+  }
+
+  html:not(.dark) .cta-label {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+  }
+
+  html:not(.dark) .cta-store-btn {
+    color: #1e293b !important;
+    -webkit-text-fill-color: #1e293b !important;
+    background: rgba(139, 92, 246, 0.1) !important;
+    border: 1px solid rgba(139, 92, 246, 0.2) !important;
+  }
+
+  html:not(.dark) .cta-store-btn:hover {
+    background: rgba(139, 92, 246, 0.15) !important;
+    border-color: rgba(139, 92, 246, 0.3) !important;
+  }
+
+  html:not(.dark) .cta-store-btn svg {
+    color: #7c3aed !important;
+  }
+
+  /* Footer light mode */
+  html:not(.dark) footer {
+    background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
+  }
+
+  /* Badge/pill styling in light mode */
+  html:not(.dark) .badge-pill {
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+  }
+
+  /* Primary buttons hover glow */
+  html:not(.dark) .btn-primary:hover,
+  html:not(.dark) a.bg-gradient-to-r:hover {
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+  }
+}
+
+/* Float animation for decorative orbs */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(2%, 3%) scale(1.02);
+  }
+  50% {
+    transform: translate(-1%, 5%) scale(0.98);
+  }
+  75% {
+    transform: translate(3%, 1%) scale(1.01);
   }
 }
 
@@ -761,6 +982,27 @@ html:not(.light) .text-indigo-600 {
     radial-gradient(circle at 80% 50%, rgba(0,0,0,0.1) 0%, transparent 50%);
 }
 
+/* CTA Section Text Colors - Default (dark mode): white */
+.cta-title {
+  color: #ffffff;
+}
+
+.cta-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cta-note {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cta-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.cta-store-btn {
+  color: #ffffff;
+}
+
 /* Store Buttons */
 .store-btn {
   display: flex;
@@ -957,16 +1199,44 @@ html.light .glass {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Clean white hero with soft lavender accents */
+/* Clean white hero with soft lavender accents - ENHANCED */
 html.light .hero-bg {
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--slate-50) 100%);
+  background:
+    linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
+    linear-gradient(225deg, rgba(167, 139, 250, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #FFFFFF 0%, #FAFAFF 30%, #F5F3FF 60%, #EDE9FE 100%);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Large decorative orb - top right */
 html.light .hero-bg::before {
-  background:
-    radial-gradient(ellipse 600px 600px at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 500px 500px at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse 400px 400px at 50% 50%, rgba(167, 139, 250, 0.04) 0%, transparent 50%);
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -15%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.05) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-slow 20s ease-in-out infinite;
+  filter: blur(40px);
+}
+
+/* Second decorative orb - bottom left */
+html.light .hero-bg::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.10) 0%, rgba(196, 181, 253, 0.05) 40%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-slow 25s ease-in-out infinite reverse;
+  filter: blur(50px);
 }
 
 /* Subtle animated orbs */
@@ -988,79 +1258,252 @@ html.light .orb-3 {
 /* Minimal grid pattern */
 html.light .grid-pattern {
   background-image:
-    linear-gradient(var(--slate-100) 1px, transparent 1px),
-    linear-gradient(90deg, var(--slate-100) 1px, transparent 1px);
+    linear-gradient(var(--slate-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--slate-200) 1px, transparent 1px);
+  opacity: 0.5;
+}
+
+/* ========================================
+   APP PREVIEW SECTION - Light Mode
+   ======================================== */
+
+/* Section background - bright white with subtle gradient */
+html.light section:has(.grid-pattern) {
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFF 100%);
+}
+
+/* Override dark mode gradient overlay */
+html.light section:has(.grid-pattern) > div.bg-gradient-to-b {
+  background: linear-gradient(to bottom, transparent, rgba(139, 92, 246, 0.03), transparent) !important;
+}
+
+/* Section content container - add white card effect */
+html.light section:has(.grid-pattern) .container {
+  position: relative;
+}
+
+/* Left side text content - wrap in white card */
+html.light section:has(.grid-pattern) .space-y-8 {
+  background: #FFFFFF;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  box-shadow:
+    0 4px 20px rgba(139, 92, 246, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Title text - dark in light mode */
+html.light section:has(.grid-pattern) h2 .text-white,
+html.light section:has(.grid-pattern) h2 span.text-white {
+  color: #1e293b !important;
+}
+
+/* Subtitle text - readable gray */
+html.light section:has(.grid-pattern) .text-gray-400 {
+  color: #64748b !important;
+}
+
+/* Feature items hover background */
+html.light section:has(.grid-pattern) .hover\\:bg-white\\/5:hover {
+  background: rgba(139, 92, 246, 0.05) !important;
+}
+
+/* Feature item title */
+html.light section:has(.grid-pattern) h4.text-white {
+  color: #1e293b !important;
+}
+
+/* Feature item description */
+html.light section:has(.grid-pattern) .text-gray-500 {
+  color: #64748b !important;
+}
+
+/* Phone mockup container - white card effect */
+html.light section:has(.grid-pattern) .phone-mockup-container {
+  background: #FFFFFF;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  box-shadow:
+    0 8px 32px rgba(139, 92, 246, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Modern card design - clean with hover lift */
 html.light .bento-card {
   background: #FFFFFF;
-  border: 1px solid var(--slate-200);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(139, 92, 246, 0.08);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(139, 92, 246, 0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html.light .bento-card:hover {
-  border-color: var(--lavender-soft);
+  border-color: rgba(139, 92, 246, 0.15);
   box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.08),
-    0 8px 10px -6px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(139, 92, 246, 0.1);
+    0 4px 8px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(139, 92, 246, 0.12),
+    0 0 0 1px rgba(139, 92, 246, 0.08);
   transform: translateY(-4px);
 }
 
 html.light .bento-card::before {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.03), transparent 60%);
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.4), rgba(168, 85, 247, 0.4));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 1rem 1rem 0 0;
 }
 
-/* Phone mockup - softer gray frame for light theme */
+html.light .bento-card:hover::before {
+  opacity: 1;
+}
+
+/* Phone mockup - ELEGANT SILVER frame for light theme */
 html.light .phone-mockup {
-  background: linear-gradient(145deg, #4a4a5e 0%, #3d3d52 100%);
+  background: linear-gradient(145deg, #E8E8EC 0%, #D4D4DC 50%, #C8C8D4 100%);
   box-shadow:
-    0 30px 60px -15px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 30px 60px -15px rgba(139, 92, 246, 0.25),
+    0 15px 30px -10px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(139, 92, 246, 0.1),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html.light .phone-mockup:hover {
+  transform: translateY(-8px) scale(1.02);
   box-shadow:
-    0 40px 80px -15px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 40px 80px -15px rgba(139, 92, 246, 0.35),
+    0 25px 50px -15px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(139, 92, 246, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.05);
 }
 
-/* Light mode phone screen - lavender gradient */
+/* Light mode phone screen - richer lavender gradient */
 html.light .phone-screen {
-  background: linear-gradient(180deg, #F5F3FF 0%, #EDE9FE 50%, #DDD6FE 100%);
+  background: linear-gradient(180deg, #FAF8FF 0%, #F3EEFF 40%, #E9DFFF 100%);
+  box-shadow: inset 0 0 30px rgba(139, 92, 246, 0.08);
 }
 
 html.light .phone-notch {
-  background: #0a0a0f;
+  background: linear-gradient(180deg, #2D2D35 0%, #1A1A22 100%);
 }
 
 html.light .phone-brand-text {
-  color: rgba(109, 40, 217, 0.6);
+  color: rgba(109, 40, 217, 0.7);
+  text-shadow: 0 1px 2px rgba(139, 92, 246, 0.1);
 }
 
-/* Breathing circles in light mode phone */
+/* Breathing circles in light mode phone - MORE VIBRANT */
 html.light .phone-screen .breathing-circle-outer {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.15));
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(168, 85, 247, 0.18));
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
 }
 
 html.light .phone-screen .breathing-circle-middle {
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(168, 85, 247, 0.25));
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.30), rgba(168, 85, 247, 0.30));
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
 }
 
 html.light .phone-screen .breathing-circle-inner {
   background: linear-gradient(135deg, #8B5CF6, #A855F7);
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
 }
 
 html.light .phone-screen .breathing-text {
-  color: rgba(255, 255, 255, 0.95);
+  color: rgba(255, 255, 255, 0.98);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Footer - subtle gradient */
+/* Footer - subtle gradient with decoration */
 html.light .footer-gradient {
-  background: linear-gradient(180deg, var(--slate-50) 0%, var(--slate-100) 100%);
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+  position: relative;
+}
+
+html.light .footer-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.25), transparent);
+}
+
+/* Download section - enhanced styling */
+html.light #download {
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  position: relative;
+}
+
+html.light #download::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+}
+
+/* Download section text colors */
+html.light #download h2,
+html.light #download .text-white {
+  color: #1e293b !important;
+}
+
+html.light #download p,
+html.light #download .text-gray-400,
+html.light #download .text-gray-300 {
+  color: #475569 !important;
+}
+
+html.light #download .text-violet-300 {
+  color: #7c3aed !important;
+}
+
+/* Store buttons in download section */
+html.light #download .store-btn,
+html.light #download a[href*="apple"],
+html.light #download a[href*="google"] {
+  background: rgba(139, 92, 246, 0.1) !important;
+  border: 1px solid rgba(139, 92, 246, 0.2) !important;
+  color: #1e293b !important;
+}
+
+html.light #download .store-btn:hover {
+  background: rgba(139, 92, 246, 0.15) !important;
+  border-color: rgba(139, 92, 246, 0.3) !important;
+}
+
+/* Store buttons enhanced glow */
+html.light .store-btn {
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+  transition: all 0.3s ease;
+}
+
+html.light .store-btn:hover {
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Section titles gradient accent */
+html.light section h2.text-gradient {
+  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 /* Modern scrollbar */
@@ -1154,15 +1597,13 @@ html.light .text-amber-400 {
   color: #D97706;
 }
 
-/* CTA Section - bold lavender gradient */
+/* CTA Section - light mode with light background */
 html.light .cta-section {
-  background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%);
+  background: linear-gradient(180deg, #e2e8f0 0%, #f1f5f9 50%, #f8fafc 100%) !important;
 }
 
 html.light .cta-section::before {
-  background:
-    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 50%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+  opacity: 0 !important;
 }
 
 /* Store buttons - clean with hover */
@@ -1174,6 +1615,44 @@ html.light .store-btn {
 html.light .store-btn:hover {
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.6);
+}
+
+/* CTA Section Text Colors - Light Mode (html.light) */
+html.light .cta-title {
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+}
+
+html.light .cta-subtitle {
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
+}
+
+html.light .cta-note {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+html.light .cta-label {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+html.light .cta-store-btn {
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+  background: rgba(139, 92, 246, 0.1) !important;
+  border: 1px solid rgba(139, 92, 246, 0.2) !important;
+}
+
+html.light .cta-store-btn:hover {
+  background: rgba(139, 92, 246, 0.15) !important;
+  border-color: rgba(139, 92, 246, 0.3) !important;
+}
+
+html.light .cta-store-btn svg {
+  color: #7c3aed !important;
+  -webkit-text-fill-color: #7c3aed !important;
 }
 
 /* Feature icons with soft backgrounds */
@@ -1221,6 +1700,40 @@ html.light .hero-bg a[href="#download"].bg-gradient-to-r {
 html.light .hero-bg a.bg-gradient-to-r.from-violet-600 svg,
 html.light .hero-bg a[href="#download"].bg-gradient-to-r svg {
   color: #FFFFFF !important;
+}
+
+/* Hero title - dark text in light mode */
+html.light .hero-bg h1 .text-white {
+  color: var(--slate-800) !important;
+}
+
+/* Hero subtitle - readable gray in light mode */
+html.light .hero-bg .text-gray-400 {
+  color: var(--slate-600) !important;
+}
+
+/* Hero secondary button (glass) - WHITE CARD STYLE in light mode */
+html.light .hero-bg a.glass {
+  color: var(--slate-700) !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(139, 92, 246, 0.12) !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(139, 92, 246, 0.08) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+html.light .hero-bg a.glass:hover {
+  background: #FFFFFF !important;
+  border-color: rgba(139, 92, 246, 0.2) !important;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(139, 92, 246, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+html.light .hero-bg a.glass svg {
+  color: var(--slate-700) !important;
 }
 
 /* Badge styling */
@@ -1911,35 +2424,57 @@ html.light .nav-check-icon {
 }
 
 /* ==========================================================================
-   CTA SECTION - Force white text in light mode (keeps dark gradient visible)
+   CTA SECTION - Dark text in light mode (light gradient background)
    ========================================================================== */
+
+/* Global text override for ALL elements in CTA section in light mode */
+html.light .cta-section,
+html.light .cta-section * {
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+}
 
 html.light .cta-section .text-white,
 html.light .cta-section h2,
 html.light .cta-section h3,
 html.light .cta-section p {
-  color: #FFFFFF !important;
-  -webkit-text-fill-color: #FFFFFF !important;
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
 }
 
 html.light .cta-section .text-white\/80,
 html.light .cta-section .text-gray-200 {
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: #475569 !important;
+  -webkit-text-fill-color: #475569 !important;
 }
 
 html.light .cta-section .text-white\/60,
 html.light .cta-section .text-gray-300 {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
 }
 
-/* Store buttons in CTA - keep light text on dark buttons */
+/* Store buttons in CTA - dark text with violet accent in light mode */
 html.light .cta-section .store-btn {
-  color: #FFFFFF;
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+  background: rgba(139, 92, 246, 0.1) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+html.light .cta-section .store-btn:hover {
+  background: rgba(139, 92, 246, 0.15) !important;
+  border-color: rgba(139, 92, 246, 0.4) !important;
 }
 
 html.light .cta-section .store-btn span,
 html.light .cta-section .store-btn div {
-  color: #FFFFFF !important;
+  color: #1e293b !important;
+  -webkit-text-fill-color: #1e293b !important;
+}
+
+html.light .cta-section .store-btn svg {
+  color: #7c3aed !important;
 }
 
 /* Footer in light mode - ensure good contrast */
@@ -2240,6 +2775,126 @@ html.light .footer-gradient a:hover {
 
 .subpage-footer-link:hover {
   color: var(--brand-primary);
+}
+
+/* Full Footer on subpages - unified with main page */
+.subpage-footer-full {
+  margin-top: var(--spacing-3xl);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.subpage-footer-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-xl);
+}
+
+@media (min-width: 768px) {
+  .subpage-footer-content {
+    grid-template-columns: 1.5fr 2fr;
+    gap: var(--spacing-2xl);
+  }
+}
+
+.subpage-footer-brand-section {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .subpage-footer-brand-section {
+    text-align: left;
+  }
+}
+
+.subpage-footer-brand-name {
+  font-size: var(--font-size-2xl);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subpage-footer-brand-tagline {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.subpage-footer-links-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .subpage-footer-links-section {
+    text-align: left;
+  }
+}
+
+.subpage-footer-link-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.subpage-footer-link-title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.subpage-footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.subpage-footer-link-list .subpage-footer-link {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.subpage-footer-link-list .subpage-footer-link:hover {
+  color: var(--brand-primary);
+}
+
+.subpage-footer-bottom {
+  max-width: 1000px;
+  margin: var(--spacing-xl) auto 0;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .subpage-footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.subpage-footer-copyright {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.subpage-footer-tagline-bottom {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
 }
 
 /* Prose styling for long content */
@@ -2840,6 +3495,10 @@ html.light .features-section {
   background-color: #FFFFFF;
 }
 
+html.light .cta-section {
+  background-color: #E2E8F0;
+}
+
 html.light .footer-gradient {
   background-color: #F8FAFC;
 }
@@ -3401,16 +4060,6 @@ html.light .hover-lift:hover {
 .stagger-children.revealed > *:nth-child(4) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
 .stagger-children.revealed > *:nth-child(5) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
 .stagger-children.revealed > *:nth-child(6) { transition-delay: 500ms; opacity: 1; transform: translateY(0); }
-
-/* Modern noise texture overlay */
-.noise-overlay {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
 
 /* Smooth hover underline effect */
 .hover-underline {

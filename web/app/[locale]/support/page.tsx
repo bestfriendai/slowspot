@@ -1,8 +1,8 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 import HeaderWithControls from '../components/HeaderWithControls';
+import SubpageFooter from '../components/SubpageFooter';
 
 interface FaqItem {
   question: string;
@@ -11,7 +11,6 @@ interface FaqItem {
 
 export default function Support() {
   const t = useTranslations('supportPage');
-  const tFooter = useTranslations('footer');
 
   // Get FAQ items using raw() method
   const faqItems = t.raw('faq.items') as FaqItem[];
@@ -95,25 +94,9 @@ export default function Support() {
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div className="subpage-footer">
-          <p className="subpage-footer-brand">
-            <span className="font-light">Slow</span>{' '}
-            <span className="subpage-brand-accent font-semibold">Spot</span>
-          </p>
-          <p className="subpage-footer-tagline">Mindfulness. Simplicity. Privacy.</p>
-          <div className="subpage-footer-links">
-            <Link href="/privacy" className="subpage-footer-link">
-              {tFooter('columns.legal.links.privacy')}
-            </Link>
-            <span className="subpage-footer-separator">•</span>
-            <Link href="/terms" className="subpage-footer-link">
-              {tFooter('columns.legal.links.terms')}
-            </Link>
-          </div>
-        </div>
       </article>
+
+      <SubpageFooter />
     </main>
   );
 }

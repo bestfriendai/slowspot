@@ -258,10 +258,26 @@ type Props = {
   children: React.ReactNode;
 };
 
+// Inline script to prevent FOUC (Flash of Unstyled Content)
+// This script runs before CSS is parsed and sets the correct theme class
+const themeScript = `
+(function() {
+  try {
+    var stored = localStorage.getItem('theme');
+    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = stored ? stored === 'dark' : prefersDark;
+    document.documentElement.classList.add(isDark ? 'dark' : 'light');
+    document.documentElement.classList.remove(isDark ? 'light' : 'dark');
+  } catch (e) {}
+})();
+`;
+
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Theme detection script - must run before CSS to prevent flash */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

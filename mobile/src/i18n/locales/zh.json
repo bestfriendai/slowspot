@@ -1,10 +1,10 @@
 {
   "app": {
-    "name": "慢时光",
-    "tagline": "每天5分钟，改变一切 ✨"
+    "name": "Slow Spot.me",
+    "tagline": "每天5分钟，改变一切"
   },
   "splash": {
-    "appName": "慢时光",
+    "appName": "Slow Spot.me",
     "tagline": "找到属于你的宁静时刻"
   },
   "home": {

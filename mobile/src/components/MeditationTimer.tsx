@@ -2,7 +2,7 @@ import { logger } from '../utils/logger';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Audio } from 'expo-av';
+import { createAudioPlayer, AudioPlayer } from 'expo-audio';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import Animated, {
@@ -116,7 +116,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const [adjustableChimes, setAdjustableChimes] = useState<ChimePoint[]>(chimePoints);
   const [showEndConfirmation, setShowEndConfirmation] = useState(false);
   const playedChimes = useRef<Set<number>>(new Set());
-  const chimeSound = useRef<Audio.Sound | null>(null);
+  const chimeSound = useRef<AudioPlayer | null>(null);
 
   // Handle end session button press
   const handleEndSessionPress = () => {
@@ -146,13 +146,12 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
     const loadChimeSound = async () => {
       try {
-        const { sound } = await Audio.Sound.createAsync(
-          require('../../assets/sounds/meditation-bell.mp3'),
-          { shouldPlay: false, isLooping: false }
+        const player = createAudioPlayer(
+          require('../../assets/sounds/meditation-bell.mp3')
         );
+        player.loop = false;
         if (isMounted) {
-          chimeSound.current = sound;
-          await sound.setIsLoopingAsync(false);
+          chimeSound.current = player;
         }
       } catch (error) {
         logger.error('Error loading chime sound:', error);
@@ -164,8 +163,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     return () => {
       isMounted = false;
       if (chimeSound.current) {
-        chimeSound.current.stopAsync().catch(() => {});
-        chimeSound.current.unloadAsync().catch(() => {});
+        chimeSound.current.release();
       }
     };
   }, []);
@@ -226,7 +224,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
       cancelAnimation(breathingScale);
       cancelAnimation(breathingOpacity);
       if (chimeSound.current) {
-        chimeSound.current.stopAsync().catch(() => {});
+        chimeSound.current.pause();
       }
     }
   }, [isRunning, breathingScale, breathingOpacity]);
@@ -242,13 +240,8 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
     if (audioEnabled && chimeSound.current) {
       try {
-        const status = await chimeSound.current.getStatusAsync();
-        if (status.isLoaded) {
-          await chimeSound.current.stopAsync();
-          await chimeSound.current.setPositionAsync(0);
-          await chimeSound.current.setIsLoopingAsync(false);
-          await chimeSound.current.playAsync();
-        }
+        chimeSound.current.seekTo(0);
+        chimeSound.current.play();
       } catch (error) {
         logger.error('Error playing chime:', error);
       }

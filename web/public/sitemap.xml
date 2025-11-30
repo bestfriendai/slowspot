@@ -1,32 +1,405 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
+  <!-- Main pages - all languages -->
   <url>
-    <loc>https://slowspot.me</loc>
+    <loc>https://slowspot.me/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://slowspot.me/en"/>
     <lastmod>2024-11-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://slowspot.me/privacy</loc>
+    <loc>https://slowspot.me/pl</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/de</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/es</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/fr</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/zh</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/hi</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Privacy pages - all languages -->
+  <url>
+    <loc>https://slowspot.me/en/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://slowspot.me/en/privacy"/>
     <lastmod>2024-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slowspot.me/terms</loc>
+    <loc>https://slowspot.me/pl/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
     <lastmod>2024-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://slowspot.me/support</loc>
+    <loc>https://slowspot.me/de/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/es/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/fr/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/zh/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/hi/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/privacy"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/privacy"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/privacy"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/privacy"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/privacy"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/privacy"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/privacy"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Terms pages - all languages -->
+  <url>
+    <loc>https://slowspot.me/en/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://slowspot.me/en/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/pl/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/de/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/es/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/fr/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/zh/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/hi/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/terms"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/terms"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/terms"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/terms"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/terms"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/terms"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/terms"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Support pages - all languages -->
+  <url>
+    <loc>https://slowspot.me/en/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://slowspot.me/en/support"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/pl/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/de/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/es/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/fr/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/zh/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
+    <lastmod>2024-11-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://slowspot.me/hi/support</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://slowspot.me/en/support"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://slowspot.me/pl/support"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://slowspot.me/de/support"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://slowspot.me/es/support"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://slowspot.me/fr/support"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://slowspot.me/zh/support"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://slowspot.me/hi/support"/>
     <lastmod>2024-11-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

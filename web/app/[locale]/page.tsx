@@ -411,30 +411,30 @@ export default function HomePage() {
       <section id="download" className="cta-section py-32">
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-2xl mx-auto space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
+            <h2 className="text-4xl md:text-5xl font-bold cta-title">
               {t('download.sectionTitle')}
             </h2>
-            <p className="text-white/80 text-lg">{t('download.sectionSubtitle')}</p>
+            <p className="cta-subtitle text-lg">{t('download.sectionSubtitle')}</p>
 
             {/* Store Buttons */}
             <div className="flex flex-wrap justify-center gap-4 pt-4">
-              <a href="#" className="store-btn text-white">
+              <a href="#" className="store-btn cta-store-btn">
                 {Icons.apple}
                 <div className="text-left">
-                  <div className="text-xs opacity-80">{t('download.appStore.label')}</div>
+                  <div className="text-xs cta-label">{t('download.appStore.label')}</div>
                   <div className="font-semibold">{t('download.appStore.name')}</div>
                 </div>
               </a>
-              <a href="#" className="store-btn text-white">
+              <a href="#" className="store-btn cta-store-btn">
                 {Icons.playStore}
                 <div className="text-left">
-                  <div className="text-xs opacity-80">{t('download.googlePlay.label')}</div>
+                  <div className="text-xs cta-label">{t('download.googlePlay.label')}</div>
                   <div className="font-semibold">{t('download.googlePlay.name')}</div>
                 </div>
               </a>
             </div>
 
-            <p className="text-white/60 text-sm">{t('download.note')}</p>
+            <p className="cta-note text-sm">{t('download.note')}</p>
           </div>
         </div>
       </section>

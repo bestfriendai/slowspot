@@ -36,7 +36,7 @@
     "cards": {
       "progressive": {
         "title": "Progresywna nauka",
-        "description": "5 poziomów od początkującego do zaawansowanego. Prowadzone sesje dostosowane do Twojego doświadczenia."
+        "description": "5 poziomów od początkującego do zaawansowanego. Sesje dostosowane do Twojego poziomu doświadczenia."
       },
       "audio": {
         "title": "Immersyjny dźwięk",
@@ -273,7 +273,7 @@
       },
       "service": {
         "title": "Co oferujemy",
-        "content": "Slow Spot to darmowa aplikacja do medytacji, która działa całkowicie offline. Zawiera sesje z prowadzeniem, dźwięki otoczenia, śledzenie postępów i konfigurowalne timery. Nie wymaga konta ani internetu."
+        "content": "Slow Spot to darmowa aplikacja do medytacji, która działa całkowicie offline. Zawiera sesje medytacyjne, dźwięki otoczenia, śledzenie postępów i konfigurowalne timery. Nie wymaga konta ani internetu."
       },
       "license": {
         "title": "Twoja licencja",
