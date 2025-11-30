@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "./deploy.sh",
+    "deploy:build": "./deploy.sh --build-only",
+    "deploy:upload": "./deploy.sh --upload-only"
   },
   "dependencies": {
     "next": "^15.5.6",
