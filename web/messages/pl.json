@@ -1,0 +1,315 @@
+{
+  "hero": {
+    "badge": "Medytacja bez komplikacji",
+    "title": "Odnajdź wewnętrzny spokój",
+    "subtitle": "Aplikacja do medytacji zaprojektowana z myślą o prywatności. Bez kont, bez śledzenia, bez przeszkód. Tylko Ty i Twoja praktyka.",
+    "ctaPrimary": "Pobierz za darmo",
+    "ctaSecondary": "Zobacz funkcje"
+  },
+  "appPreview": {
+    "title": "Twój osobisty przewodnik medytacji",
+    "subtitle": "Stworzona z myślą o codziennym życiu. Ćwicz gdziekolwiek i kiedykolwiek, w swoim języku. Wszystko pozostaje prywatne na Twoim urządzeniu.",
+    "features": {
+      "instant": {
+        "title": "Zacznij od razu",
+        "description": "Bez rejestracji. Otwórz aplikację i rozpocznij praktykę."
+      },
+      "language": {
+        "title": "W Twoim języku",
+        "description": "Dostępna w 7 językach ze zlokalizowaną treścią."
+      },
+      "offline": {
+        "title": "Działa offline",
+        "description": "Internet nie jest wymagany. Medytuj gdziekolwiek."
+      }
+    },
+    "demoText": "Wdech...",
+    "breathingTexts": {
+      "in": "Wdech...",
+      "hold": "Zatrzymaj...",
+      "out": "Wydech..."
+    }
+  },
+  "features": {
+    "sectionTitle": "Wszystko, czego potrzebujesz",
+    "sectionSubtitle": "Przemyślane funkcje wspierające Twoją praktykę medytacji",
+    "cards": {
+      "progressive": {
+        "title": "Progresywna nauka",
+        "description": "5 poziomów od początkującego do zaawansowanego. Prowadzone sesje dostosowane do Twojego doświadczenia."
+      },
+      "audio": {
+        "title": "Immersyjny dźwięk",
+        "description": "Warstwowe pejzaże dźwiękowe z dźwiękami otoczenia i dzwonkami medytacyjnymi."
+      },
+      "tracking": {
+        "title": "Śledź swoje postępy",
+        "description": "Monitoruj sesje, serie i minuty medytacji w czasie."
+      },
+      "wisdom": {
+        "title": "Codzienna inspiracja",
+        "description": "Świeże inspirujące cytaty każdego dnia, dostępne w Twoim języku."
+      },
+      "cultural": {
+        "title": "Różnorodne tradycje",
+        "description": "Odkrywaj Zen, Mindfulness, Vipassanę i praktyki z całego świata."
+      },
+      "theme": {
+        "title": "Tryb jasny i ciemny",
+        "description": "Komfortowe wyświetlanie dostosowane do Twoich preferencji i pory dnia."
+      }
+    }
+  },
+  "whySlowSpot": {
+    "sectionTitle": "Dlaczego Slow Spot?",
+    "sectionSubtitle": "Wierzymy, że aplikacje do medytacji powinny szanować Twoją prywatność i czas",
+    "items": [
+      {
+        "title": "100% prywatna",
+        "description": "Twoje dane pozostają na Twoim urządzeniu. Nie zbieramy, nie śledzimy ani nie sprzedajemy Twoich informacji."
+      },
+      {
+        "title": "Bez konta",
+        "description": "Zacznij medytować natychmiast. Bez e-maila, bez hasła, bez weryfikacji."
+      },
+      {
+        "title": "Całkowicie darmowa",
+        "description": "Wszystkie funkcje w zestawie. Bez subskrypcji, bez zakupów w aplikacji, bez reklam."
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Zacznij praktykę już dziś",
+    "sectionSubtitle": "Dostępna za darmo na iOS i Android. Bez wymaganego konta.",
+    "appStore": {
+      "label": "Pobierz z",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Pobierz z",
+      "name": "Google Play"
+    },
+    "note": "Darmowe pobieranie ze wszystkimi funkcjami"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Odnajdź wewnętrzny spokój, jeden oddech na raz."
+    },
+    "columns": {
+      "product": {
+        "title": "Produkt",
+        "links": {
+          "features": "Funkcje",
+          "download": "Pobierz"
+        }
+      },
+      "support": {
+        "title": "Wsparcie",
+        "links": {
+          "help": "Pomoc",
+          "contact": "Kontakt"
+        }
+      },
+      "legal": {
+        "title": "Prawne",
+        "links": {
+          "privacy": "Polityka prywatności",
+          "terms": "Regulamin"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "{year} Slow Spot. Wszelkie prawa zastrzeżone.",
+      "tagline": "Stworzone z uważnością dla lepszego świata."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Język",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  },
+  "supportPage": {
+    "title": "Pomoc",
+    "subtitle": "Jesteśmy tutaj, aby pomóc Ci w Twojej podróży medytacyjnej.",
+    "contact": {
+      "title": "Kontakt",
+      "email": "E-mail",
+      "emailAddress": "contact@slowspot.me",
+      "responseTime": "Czas odpowiedzi: Staramy się odpowiedzieć w ciągu 48 godzin."
+    },
+    "faq": {
+      "title": "Często zadawane pytania",
+      "items": [
+        {
+          "question": "Jak zacząć medytować?",
+          "answer": "Po prostu otwórz aplikację i dotknij przycisku \"Medytuj\" na ekranie głównym. Wybierz gotową sesję lub stwórz własną. Aplikacja poprowadzi Cię przez medytację z opcjonalnymi dzwonkami i dźwiękami otoczenia."
+        },
+        {
+          "question": "Czy aplikacja działa offline?",
+          "answer": "Tak! Slow Spot jest zaprojektowana do pracy w 100% offline. Wszystkie sesje medytacyjne, dźwięki i funkcje są dostępne bez połączenia z internetem. Twoje dane są przechowywane lokalnie na urządzeniu."
+        },
+        {
+          "question": "Jak ustawić przypomnienia o medytacji?",
+          "answer": "Przejdź do ekranu Profil i dotknij \"Zaplanuj przypomnienie\". Możesz wybrać preferowaną godzinę codziennych przypomnień o medytacji. Aplikacja poprosi o dostęp do kalendarza, aby utworzyć te przypomnienia."
+        },
+        {
+          "question": "Czy mogę tworzyć własne sesje medytacyjne?",
+          "answer": "Tak! Dotknij przycisku \"+\" na ekranie Medytacja, aby stworzyć własną sesję. Możesz dostosować czas trwania, dźwięki otoczenia, dzwonki interwałowe i wiele więcej."
+        },
+        {
+          "question": "Jak zmienić język aplikacji?",
+          "answer": "Przejdź do Ustawień i znajdź sekcję Język. Slow Spot obsługuje angielski, polski, hiszpański, niemiecki, francuski, hindi i chiński."
+        },
+        {
+          "question": "Jak usunąć moje dane?",
+          "answer": "Przejdź do Ustawienia > Dane i prywatność > \"Wyczyść dane\", aby usunąć wszystkie lokalne dane. Alternatywnie, odinstalowanie aplikacji usunie wszystkie dane z urządzenia. Ponieważ nie przechowujemy żadnych danych na serwerach, nie ma nic więcej do usunięcia."
+        },
+        {
+          "question": "Czy moje dane są prywatne?",
+          "answer": "Absolutnie. Slow Spot nie zbiera, nie przesyła ani nie przechowuje żadnych Twoich danych osobowych na zewnętrznych serwerach. Cała historia medytacji, preferencje i postępy pozostają tylko na Twoim urządzeniu."
+        },
+        {
+          "question": "Aplikacja nie działa prawidłowo. Co mam zrobić?",
+          "answer": "Spróbuj tych kroków: 1) Zamknij i ponownie otwórz aplikację, 2) Uruchom ponownie urządzenie, 3) Upewnij się, że masz najnowszą wersję z App Store lub Google Play. Jeśli problem będzie się powtarzał, skontaktuj się z nami, opisując szczegóły problemu."
+        }
+      ]
+    },
+    "feedback": {
+      "title": "Opinie i sugestie",
+      "text": "Uwielbiamy słuchać naszych użytkowników! Jeśli masz sugestie dotyczące nowych funkcji, ulepszeń lub po prostu chcesz podzielić się swoim doświadczeniem z medytacją, napisz do nas:",
+      "button": "Wyślij opinię"
+    },
+    "appInfo": {
+      "title": "Informacje o aplikacji",
+      "version": "Wersja",
+      "versionNumber": "1.0.0",
+      "platform": "Platforma",
+      "platformValue": "iOS i Android"
+    }
+  },
+  "privacyPage": {
+    "title": "Polityka prywatności",
+    "lastUpdated": "Ostatnia aktualizacja: 27 listopada 2024",
+    "summary": {
+      "title": "W skrócie",
+      "items": [
+        "Wszystkie dane zostają na Twoim urządzeniu",
+        "Bez kont, bez śledzenia, bez reklam",
+        "Działa 100% offline",
+        "Usuń wszystko odinstalowując aplikację"
+      ]
+    },
+    "sections": {
+      "core": {
+        "title": "Nasza obietnica",
+        "content": "Slow Spot jest zbudowana z prywatnością jako fundamentem. Twoja praktyka medytacyjna jest osobista i w pełni to szanujemy."
+      },
+      "whatWeCollect": {
+        "title": "Co zbieramy",
+        "content": "Nic. Nie zbieramy żadnych danych osobowych. Wszystkie Twoje informacje (preferencje, historia sesji, statystyki) są przechowywane lokalnie na Twoim urządzeniu i nigdy nie są nigdzie przesyłane."
+      },
+      "localStorage": {
+        "title": "Dane przechowywane na Twoim urządzeniu",
+        "intro": "Aplikacja przechowuje lokalnie:",
+        "items": [
+          "Twoje preferencje (język, motyw)",
+          "Historię sesji medytacyjnych",
+          "Statystyki postępów i serie",
+          "Przypomnienia kalendarza (jeśli włączone)"
+        ],
+        "note": "Te dane nigdy nie opuszczają Twojego urządzenia."
+      },
+      "permissions": {
+        "title": "Uprawnienia",
+        "content": "Aplikacja nie wymaga żadnych uprawnień do działania. Dostęp do kalendarza jest opcjonalny i używany tylko jeśli chcesz otrzymywać przypomnienia o medytacji."
+      },
+      "thirdParty": {
+        "title": "Usługi zewnętrzne",
+        "content": "Nie używamy żadnych usług analitycznych, reklamowych ani śledzących. Treści audio pochodzą z bezpłatnych źródeł i nie wiążą się z udostępnianiem danych."
+      },
+      "children": {
+        "title": "Prywatność dzieci",
+        "content": "Ponieważ nie zbieramy żadnych danych, aplikacja jest bezpieczna dla użytkowników w każdym wieku."
+      },
+      "yourRights": {
+        "title": "Twoje prawa",
+        "content": "Możesz przeglądać wszystkie swoje dane w aplikacji i usunąć je w każdej chwili przez Ustawienia lub odinstalowanie. Ponieważ nie ma konta, nie ma też nic zapisanego gdzie indziej do usunięcia."
+      },
+      "changes": {
+        "title": "Zmiany polityki",
+        "content": "Jeśli zaktualizujemy tę politykę, zmienimy datę powyżej i powiadomimy Cię w aplikacji o istotnych zmianach."
+      },
+      "contact": {
+        "title": "Kontakt",
+        "email": "E-mail:",
+        "website": "Strona:"
+      }
+    }
+  },
+  "termsPage": {
+    "title": "Regulamin",
+    "lastUpdated": "Ostatnia aktualizacja: 27 listopada 2024",
+    "summary": {
+      "title": "W skrócie",
+      "items": [
+        "Darmowa aplikacja do osobistej medytacji",
+        "Konto nie jest wymagane",
+        "Twoje dane zostają na urządzeniu",
+        "To nie jest porada medyczna - w razie potrzeby skonsultuj się z lekarzem"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "Zgoda",
+        "content": "Korzystając ze Slow Spot, zgadzasz się z tym regulaminem. Jeśli się nie zgadzasz, prosimy o niekorzystanie z aplikacji."
+      },
+      "service": {
+        "title": "Co oferujemy",
+        "content": "Slow Spot to darmowa aplikacja do medytacji, która działa całkowicie offline. Zawiera sesje z prowadzeniem, dźwięki otoczenia, śledzenie postępów i konfigurowalne timery. Nie wymaga konta ani internetu."
+      },
+      "license": {
+        "title": "Twoja licencja",
+        "content": "Możesz swobodnie korzystać z aplikacji do osobistej medytacji. Prosimy, abyś nie kopiował, nie modyfikował, nie dokonywał inżynierii wstecznej ani nie używał jej komercyjnie bez pozwolenia."
+      },
+      "yourContent": {
+        "title": "Twoje treści",
+        "content": "Wszystko, co tworzysz w aplikacji (własne sesje, notatki) pozostaje na Twoim urządzeniu. Nigdy nie mamy do tego dostępu ani tego nie zbieramy."
+      },
+      "health": {
+        "title": "Informacja zdrowotna",
+        "warning": "Ważne",
+        "content": "Ta aplikacja służy wyłącznie ogólnemu dobrostanowi. Nie jest poradą medyczną i nie zastępuje profesjonalnej opieki zdrowotnej. Jeśli masz problemy zdrowotne lub odczuwasz dyskomfort podczas medytacji, skonsultuj się z lekarzem."
+      },
+      "disclaimer": {
+        "title": "Wyłączenie odpowiedzialności",
+        "content": "Aplikacja jest dostarczana \"tak jak jest\" bez gwarancji. Nie ponosimy odpowiedzialności za szkody wynikające z korzystania z aplikacji. Nasza odpowiedzialność jest ograniczona do kwoty, którą zapłaciłeś (aplikacja jest darmowa)."
+      },
+      "changes": {
+        "title": "Zmiany",
+        "content": "Możemy aktualizować aplikację lub ten regulamin. Dalsze korzystanie oznacza akceptację zmian."
+      },
+      "governing": {
+        "title": "Postanowienia prawne",
+        "content": "Ten regulamin podlega prawu polskiemu. Wraz z naszą Polityką prywatności stanowi pełną umowę."
+      },
+      "contact": {
+        "title": "Kontakt",
+        "email": "E-mail:",
+        "website": "Strona:"
+      }
+    }
+  },
+  "cookieBanner": {
+    "message": "Używamy plików cookie tylko do zapamiętywania Twoich preferencji. Bez śledzenia, bez analityki.",
+    "accept": "Akceptuję",
+    "learnMore": "Więcej informacji"
+  }
+}

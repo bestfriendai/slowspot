@@ -1,10 +1,10 @@
-import type { Metadata, Viewport } from 'next'
-import './globals.css'
-import { LanguageProvider } from './i18n'
+import type { Metadata, Viewport } from 'next';
+import './globals.css';
 
-const siteUrl = 'https://slowspot.me'
-const siteName = 'Slow Spot'
-const siteDescription = 'Discover inner peace with Slow Spot - the minimalist meditation app. No account required, 100% offline, complete privacy. Start your mindfulness journey today with guided sessions, ambient sounds, and progress tracking.'
+const siteUrl = 'https://slowspot.me';
+const siteName = 'Slow Spot';
+const siteDescription =
+  'Discover inner peace with Slow Spot - the minimalist meditation app. No account required, 100% offline, complete privacy. Start your mindfulness journey today with guided sessions, ambient sounds, and progress tracking.';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -14,7 +14,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#667eea' },
     { media: '(prefers-color-scheme: dark)', color: '#1a1a2e' },
   ],
-}
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -66,9 +66,7 @@ export const metadata: Metadata = {
       { url: '/favicon-16.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
-    ],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
     other: [
       { rel: 'icon', url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
       { rel: 'icon', url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
@@ -153,6 +151,8 @@ export const metadata: Metadata = {
       'de-DE': `${siteUrl}/de`,
       'es-ES': `${siteUrl}/es`,
       'fr-FR': `${siteUrl}/fr`,
+      'hi-IN': `${siteUrl}/hi`,
+      'zh-CN': `${siteUrl}/zh`,
     },
   },
 
@@ -165,7 +165,7 @@ export const metadata: Metadata = {
     'msapplication-TileColor': '#667eea',
     'msapplication-config': '/browserconfig.xml',
   },
-}
+};
 
 // JSON-LD Structured Data
 const jsonLd = {
@@ -191,9 +191,7 @@ const jsonLd = {
         width: 512,
         height: 512,
       },
-      sameAs: [
-        'https://twitter.com/slowspotapp',
-      ],
+      sameAs: ['https://twitter.com/slowspotapp'],
     },
     {
       '@type': 'SoftwareApplication',
@@ -248,19 +246,19 @@ const jsonLd = {
           name: 'Is my data private with Slow Spot?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes, Slow Spot is designed with privacy as a core principle. All your data stays on your device. We don\'t collect, transmit, or store any personal information.',
+            text: "Yes, Slow Spot is designed with privacy as a core principle. All your data stays on your device. We don't collect, transmit, or store any personal information.",
           },
         },
       ],
     },
   ],
-}
+};
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+type Props = {
+  children: React.ReactNode;
+};
+
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -269,11 +267,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body suppressHydrationWarning>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
-      </body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
-  )
+  );
 }

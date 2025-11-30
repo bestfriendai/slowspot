@@ -1,0 +1,295 @@
+{
+  "hero": {
+    "badge": "Meditation einfach gemacht",
+    "title": "Finde deinen inneren Frieden",
+    "subtitle": "Eine Meditations-App mit Fokus auf Privatsphäre. Keine Konten, kein Tracking, keine Hindernisse. Nur du und deine Praxis.",
+    "ctaPrimary": "Kostenlos herunterladen",
+    "ctaSecondary": "Funktionen ansehen"
+  },
+  "appPreview": {
+    "title": "Dein persönlicher Meditationsbegleiter",
+    "subtitle": "Für das echte Leben entwickelt. Überall und jederzeit üben, in deiner Sprache. Alles bleibt privat auf deinem Gerät.",
+    "features": {
+      "instant": {
+        "title": "Sofort starten",
+        "description": "Keine Anmeldung erforderlich. Öffne die App und beginne."
+      },
+      "language": {
+        "title": "In deiner Sprache",
+        "description": "Verfügbar in 7 Sprachen mit lokalisiertem Inhalt."
+      },
+      "offline": {
+        "title": "Funktioniert offline",
+        "description": "Kein Internet nötig. Meditiere überall."
+      }
+    },
+    "demoText": "Einatmen...",
+    "breathingTexts": {
+      "in": "Einatmen...",
+      "hold": "Halten...",
+      "out": "Ausatmen..."
+    }
+  },
+  "features": {
+    "sectionTitle": "Alles was du brauchst",
+    "sectionSubtitle": "Durchdachte Funktionen zur Unterstützung deiner Meditationspraxis",
+    "cards": {
+      "progressive": {
+        "title": "Progressives Lernen",
+        "description": "5 Stufen vom Anfänger bis Fortgeschrittenen. Geführte Sitzungen, die sich anpassen."
+      },
+      "audio": {
+        "title": "Immersiver Klang",
+        "description": "Geschichtete Klanglandschaften mit Umgebungsgeräuschen und Meditationsglocken."
+      },
+      "tracking": {
+        "title": "Verfolge deinen Fortschritt",
+        "description": "Überwache deine Sitzungen, Serien und Meditationsminuten im Laufe der Zeit."
+      },
+      "wisdom": {
+        "title": "Tägliche Inspiration",
+        "description": "Frische inspirierende Zitate jeden Tag, verfügbar in deiner Sprache."
+      },
+      "cultural": {
+        "title": "Vielfalt der Traditionen",
+        "description": "Entdecke Zen, Achtsamkeit, Vipassana und Praktiken aus aller Welt."
+      },
+      "theme": {
+        "title": "Hell- und Dunkelmodus",
+        "description": "Angenehme Darstellung, die sich an deine Vorlieben und Tageszeit anpasst."
+      }
+    }
+  },
+  "whySlowSpot": {
+    "sectionTitle": "Warum Slow Spot?",
+    "sectionSubtitle": "Wir glauben, dass Meditations-Apps deine Privatsphäre und Zeit respektieren sollten",
+    "items": [
+      {
+        "title": "100% Privat",
+        "description": "Deine Daten bleiben auf deinem Gerät. Wir sammeln, verfolgen oder verkaufen deine Daten nicht."
+      },
+      {
+        "title": "Kein Konto erforderlich",
+        "description": "Beginne sofort mit der Meditation. Keine E-Mail, kein Passwort, keine Verifizierung."
+      },
+      {
+        "title": "Völlig kostenlos",
+        "description": "Alle Funktionen inklusive. Keine Abonnements, keine In-App-Käufe, keine Werbung."
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Starte deine Praxis heute",
+    "sectionSubtitle": "Kostenlos verfügbar für iOS und Android. Kein Konto erforderlich.",
+    "appStore": {
+      "label": "Laden im",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Jetzt bei",
+      "name": "Google Play"
+    },
+    "note": "Kostenloser Download mit allen Funktionen"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Finde deinen inneren Frieden, einen Atemzug nach dem anderen."
+    },
+    "columns": {
+      "product": {
+        "title": "Produkt",
+        "links": {
+          "features": "Funktionen",
+          "download": "Herunterladen"
+        }
+      },
+      "support": {
+        "title": "Support",
+        "links": {
+          "help": "Hilfe",
+          "contact": "Kontakt"
+        }
+      },
+      "legal": {
+        "title": "Rechtliches",
+        "links": {
+          "privacy": "Datenschutz",
+          "terms": "Nutzungsbedingungen"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "{year} Slow Spot. Alle Rechte vorbehalten.",
+      "tagline": "Mit Achtsamkeit für eine bessere Welt entwickelt."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Sprache",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  },
+  "cookieBanner": {
+    "message": "Wir verwenden Cookies nur um Ihre Einstellungen zu speichern. Kein Tracking, keine Analyse.",
+    "accept": "Akzeptieren",
+    "learnMore": "Mehr erfahren"
+  },
+  "supportPage": {
+    "title": "Support",
+    "subtitle": "Wir sind hier, um dir auf deiner Meditationsreise zu helfen.",
+    "contact": {
+      "title": "Kontaktiere uns",
+      "email": "E-Mail",
+      "emailAddress": "contact@slowspot.me",
+      "responseTime": "Antwortzeit: Wir bemühen uns, innerhalb von 48 Stunden zu antworten."
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "items": [
+        {
+          "question": "Wie beginne ich mit der Meditation?",
+          "answer": "Öffne einfach die App und tippe auf die Schaltfläche \"Meditieren\" auf dem Startbildschirm. Wähle eine voreingestellte Sitzung oder erstelle deine eigene."
+        },
+        {
+          "question": "Funktioniert die App offline?",
+          "answer": "Ja! Slow Spot ist so konzipiert, dass es 100% offline funktioniert."
+        },
+        {
+          "question": "Sind meine Daten privat?",
+          "answer": "Absolut. Slow Spot sammelt, überträgt oder speichert keine persönlichen Daten auf externen Servern."
+        }
+      ]
+    },
+    "feedback": {
+      "title": "Feedback und Vorschläge",
+      "text": "Wir freuen uns über das Feedback unserer Nutzer!",
+      "button": "Feedback senden"
+    },
+    "appInfo": {
+      "title": "App-Informationen",
+      "version": "Version",
+      "versionNumber": "1.0.0",
+      "platform": "Plattform",
+      "platformValue": "iOS und Android"
+    }
+  },
+  "privacyPage": {
+    "title": "Datenschutzrichtlinie",
+    "lastUpdated": "Letzte Aktualisierung: 27. November 2024",
+    "summary": {
+      "title": "Kurz gesagt",
+      "items": [
+        "Alle Daten bleiben nur auf deinem Gerät",
+        "Keine Konten, kein Tracking, keine Werbung",
+        "Funktioniert 100% offline",
+        "Deinstalliere, um alles zu löschen"
+      ]
+    },
+    "sections": {
+      "core": {
+        "title": "Unser Versprechen",
+        "content": "Slow Spot wurde mit Privatsphäre als Kernprinzip entwickelt. Deine Meditationspraxis ist persönlich, und wir respektieren das vollständig."
+      },
+      "whatWeCollect": {
+        "title": "Was wir sammeln",
+        "content": "Nichts. Wir sammeln keine persönlichen Daten."
+      },
+      "localStorage": {
+        "title": "Auf deinem Gerät gespeicherte Daten",
+        "intro": "Die App speichert lokal Folgendes:",
+        "items": [
+          "Deine Einstellungen (Sprache, Design)",
+          "Meditationssitzungs-Verlauf",
+          "Fortschrittsstatistiken und Serien",
+          "Kalendererinnerungen (falls aktiviert)"
+        ],
+        "note": "Diese Daten verlassen niemals dein Gerät."
+      },
+      "permissions": {
+        "title": "Berechtigungen",
+        "content": "Die App benötigt keine Berechtigungen zum Funktionieren."
+      },
+      "thirdParty": {
+        "title": "Drittanbieter-Dienste",
+        "content": "Wir verwenden keine Analyse-, Werbe- oder Tracking-Dienste."
+      },
+      "children": {
+        "title": "Datenschutz für Kinder",
+        "content": "Da wir keine Daten sammeln, ist die App für Benutzer jeden Alters sicher."
+      },
+      "yourRights": {
+        "title": "Deine Rechte",
+        "content": "Du kannst alle deine Daten in der App einsehen und jederzeit löschen."
+      },
+      "changes": {
+        "title": "Richtlinienänderungen",
+        "content": "Wenn wir diese Richtlinie aktualisieren, ändern wir das Datum oben."
+      },
+      "contact": {
+        "title": "Kontakt",
+        "email": "E-Mail:",
+        "website": "Website:"
+      }
+    }
+  },
+  "termsPage": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Letzte Aktualisierung: 27. November 2024",
+    "summary": {
+      "title": "Kurz gesagt",
+      "items": [
+        "Kostenlose App für persönliche Meditation",
+        "Kein Konto erforderlich",
+        "Deine Daten bleiben auf deinem Gerät",
+        "Kein medizinischer Rat - konsultiere bei Bedarf einen Arzt"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "Vereinbarung",
+        "content": "Durch die Nutzung von Slow Spot stimmst du diesen Bedingungen zu."
+      },
+      "service": {
+        "title": "Was wir bieten",
+        "content": "Slow Spot ist eine kostenlose Meditations-App, die vollständig offline funktioniert."
+      },
+      "license": {
+        "title": "Deine Lizenz",
+        "content": "Du kannst die App frei für persönliche Meditation nutzen."
+      },
+      "yourContent": {
+        "title": "Deine Inhalte",
+        "content": "Alles, was du in der App erstellst, bleibt auf deinem Gerät."
+      },
+      "health": {
+        "title": "Gesundheitsinformationen",
+        "warning": "Wichtig",
+        "content": "Diese App ist nur für das allgemeine Wohlbefinden gedacht. Dies ist kein medizinischer Rat."
+      },
+      "disclaimer": {
+        "title": "Haftungsausschluss",
+        "content": "Die App wird \"wie sie ist\" ohne Garantien bereitgestellt."
+      },
+      "changes": {
+        "title": "Änderungen",
+        "content": "Wir können die App oder diese Bedingungen aktualisieren."
+      },
+      "governing": {
+        "title": "Rechtliches",
+        "content": "Diese Bedingungen unterliegen polnischem Recht."
+      },
+      "contact": {
+        "title": "Kontakt",
+        "email": "E-Mail:",
+        "website": "Website:"
+      }
+    }
+  }
+}

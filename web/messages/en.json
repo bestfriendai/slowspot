@@ -1,0 +1,315 @@
+{
+  "hero": {
+    "badge": "Meditation Made Simple",
+    "title": "Find Your Inner Peace",
+    "subtitle": "A meditation app designed with privacy in mind. No accounts, no tracking, no barriers. Just you and your practice.",
+    "ctaPrimary": "Download Free",
+    "ctaSecondary": "See Features"
+  },
+  "appPreview": {
+    "title": "Your Personal Meditation Companion",
+    "subtitle": "Built for real life. Practice anywhere, anytime, in your own language. Everything stays private on your device.",
+    "features": {
+      "instant": {
+        "title": "Start Instantly",
+        "description": "No sign-up required. Open the app and begin your practice."
+      },
+      "language": {
+        "title": "Your Language",
+        "description": "Available in 7 languages with localized content."
+      },
+      "offline": {
+        "title": "Works Offline",
+        "description": "No internet needed. Meditate anywhere."
+      }
+    },
+    "demoText": "Breathe In...",
+    "breathingTexts": {
+      "in": "Breathe In...",
+      "hold": "Hold...",
+      "out": "Breathe Out..."
+    }
+  },
+  "features": {
+    "sectionTitle": "Everything You Need",
+    "sectionSubtitle": "Thoughtfully designed features to support your meditation journey",
+    "cards": {
+      "progressive": {
+        "title": "Progressive Learning",
+        "description": "5 levels from beginner to advanced. Guided sessions that adapt to your experience."
+      },
+      "audio": {
+        "title": "Immersive Audio",
+        "description": "Layered soundscapes with ambient sounds and meditation bells."
+      },
+      "tracking": {
+        "title": "Track Your Progress",
+        "description": "Monitor your sessions, streaks, and meditation minutes over time."
+      },
+      "wisdom": {
+        "title": "Daily Inspiration",
+        "description": "Fresh inspirational quotes each day, available in your language."
+      },
+      "cultural": {
+        "title": "Diverse Traditions",
+        "description": "Explore Zen, Mindfulness, Vipassana, and practices from around the world."
+      },
+      "theme": {
+        "title": "Light & Dark Mode",
+        "description": "Comfortable viewing that adapts to your preferences and time of day."
+      }
+    }
+  },
+  "whySlowSpot": {
+    "sectionTitle": "Why Slow Spot?",
+    "sectionSubtitle": "We believe meditation apps should respect your privacy and time",
+    "items": [
+      {
+        "title": "100% Private",
+        "description": "Your data stays on your device. We don't collect, track, or sell your information."
+      },
+      {
+        "title": "No Account Required",
+        "description": "Start meditating immediately. No email, no password, no verification."
+      },
+      {
+        "title": "Completely Free",
+        "description": "All features included. No subscriptions, no in-app purchases, no ads."
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "Start Your Practice Today",
+    "sectionSubtitle": "Available free on iOS and Android. No account required.",
+    "appStore": {
+      "label": "Download on the",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "Get it on",
+      "name": "Google Play"
+    },
+    "note": "Free download with all features included"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "Find your inner peace, one breath at a time."
+    },
+    "columns": {
+      "product": {
+        "title": "Product",
+        "links": {
+          "features": "Features",
+          "download": "Download"
+        }
+      },
+      "support": {
+        "title": "Support",
+        "links": {
+          "help": "Help & Support",
+          "contact": "Contact Us"
+        }
+      },
+      "legal": {
+        "title": "Legal",
+        "links": {
+          "privacy": "Privacy Policy",
+          "terms": "Terms of Service"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "{year} Slow Spot. All rights reserved.",
+      "tagline": "Built with mindfulness for a better world."
+    }
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  },
+  "supportPage": {
+    "title": "Support",
+    "subtitle": "We're here to help you with your meditation journey.",
+    "contact": {
+      "title": "Contact Us",
+      "email": "Email",
+      "emailAddress": "contact@slowspot.me",
+      "responseTime": "Response time: We aim to respond within 48 hours."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "How do I get started with meditation?",
+          "answer": "Simply open the app and tap the \"Meditate\" button on the home screen. Choose a preset session or create your own custom session. The app will guide you through the meditation with optional bells and ambient sounds."
+        },
+        {
+          "question": "Does the app work offline?",
+          "answer": "Yes! Slow Spot is designed to work 100% offline. All meditation sessions, sounds, and features are available without an internet connection. Your data is stored locally on your device."
+        },
+        {
+          "question": "How do I set up meditation reminders?",
+          "answer": "Go to your Profile screen and tap \"Schedule Reminder\". You can choose your preferred time for daily meditation reminders. The app will request calendar permission to create these reminders."
+        },
+        {
+          "question": "Can I create custom meditation sessions?",
+          "answer": "Yes! Tap the \"+\" button in the Meditation screen to create a custom session. You can customize the duration, ambient sounds, interval bells, and more."
+        },
+        {
+          "question": "How do I change the app language?",
+          "answer": "Go to Settings and find the Language section. Slow Spot supports English, Polish, Spanish, German, French, Hindi, and Chinese."
+        },
+        {
+          "question": "How do I delete my data?",
+          "answer": "Go to Settings > Data & Privacy > \"Clear Data\" to delete all your local data. Alternatively, uninstalling the app will remove all data from your device. Since we don't store any data on servers, there's nothing else to delete."
+        },
+        {
+          "question": "Is my data private?",
+          "answer": "Absolutely. Slow Spot doesn't collect, transmit, or store any of your personal data on external servers. All your meditation history, preferences, and progress remain on your device only."
+        },
+        {
+          "question": "The app is not working properly. What should I do?",
+          "answer": "Try these steps: 1) Close and reopen the app, 2) Restart your device, 3) Make sure you have the latest version from App Store or Google Play. If the problem persists, please contact us with details about the issue."
+        }
+      ]
+    },
+    "feedback": {
+      "title": "Feedback & Suggestions",
+      "text": "We love hearing from our users! If you have suggestions for new features, improvements, or just want to share your meditation experience, please reach out:",
+      "button": "Send Feedback"
+    },
+    "appInfo": {
+      "title": "App Information",
+      "version": "Version",
+      "versionNumber": "1.0.0",
+      "platform": "Platform",
+      "platformValue": "iOS & Android"
+    }
+  },
+  "privacyPage": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: November 27, 2024",
+    "summary": {
+      "title": "The Short Version",
+      "items": [
+        "All data stays on your device only",
+        "No accounts, no tracking, no ads",
+        "Works 100% offline",
+        "Delete everything by uninstalling"
+      ]
+    },
+    "sections": {
+      "core": {
+        "title": "Our Promise",
+        "content": "Slow Spot is built with privacy at its core. Your meditation practice is personal, and we respect that completely."
+      },
+      "whatWeCollect": {
+        "title": "What We Collect",
+        "content": "Nothing. We don't collect any personal data. All your information (preferences, session history, statistics) is stored locally on your device and never transmitted anywhere."
+      },
+      "localStorage": {
+        "title": "Data Stored On Your Device",
+        "intro": "The app stores the following locally:",
+        "items": [
+          "Your preferences (language, theme)",
+          "Meditation session history",
+          "Progress statistics and streaks",
+          "Calendar reminders (if enabled)"
+        ],
+        "note": "This data never leaves your device."
+      },
+      "permissions": {
+        "title": "Permissions",
+        "content": "The app requires no permissions to work. Calendar access is optional and only used if you want meditation reminders."
+      },
+      "thirdParty": {
+        "title": "Third-Party Services",
+        "content": "We don't use any analytics, advertising, or tracking services. Audio content is from royalty-free sources and doesn't involve data sharing."
+      },
+      "children": {
+        "title": "Children's Privacy",
+        "content": "Since we don't collect any data, the app is safe for users of all ages."
+      },
+      "yourRights": {
+        "title": "Your Rights",
+        "content": "You can view all your data in the app and delete it anytime via Settings or by uninstalling. Since there's no account, there's nothing stored elsewhere to delete."
+      },
+      "changes": {
+        "title": "Policy Changes",
+        "content": "If we update this policy, we'll change the date above and notify you in the app for significant changes."
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "Email:",
+        "website": "Website:"
+      }
+    }
+  },
+  "termsPage": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last Updated: November 27, 2024",
+    "summary": {
+      "title": "The Short Version",
+      "items": [
+        "Free app for personal meditation",
+        "No account needed",
+        "Your data stays on your device",
+        "Not medical advice - consult a doctor if needed"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "Agreement",
+        "content": "By using Slow Spot, you agree to these terms. If you don't agree, please don't use the app."
+      },
+      "service": {
+        "title": "What We Offer",
+        "content": "Slow Spot is a free meditation app that works entirely offline. It includes guided sessions, ambient sounds, progress tracking, and customizable timers. No account or internet required."
+      },
+      "license": {
+        "title": "Your License",
+        "content": "You can use the app freely for personal meditation. Please don't copy, modify, reverse-engineer, or use it commercially without permission."
+      },
+      "yourContent": {
+        "title": "Your Content",
+        "content": "Anything you create in the app (custom sessions, notes) stays on your device. We never access or collect it."
+      },
+      "health": {
+        "title": "Health Notice",
+        "warning": "Important",
+        "content": "This app is for general wellness only. It's not medical advice and doesn't replace professional healthcare. If you have health concerns or experience discomfort during meditation, please consult a healthcare provider."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "content": "The app is provided \"as is\" without warranties. We're not liable for any damages from using the app. Our liability is limited to what you paid (the app is free)."
+      },
+      "changes": {
+        "title": "Changes",
+        "content": "We may update the app or these terms. Continued use means you accept any changes."
+      },
+      "governing": {
+        "title": "Legal",
+        "content": "These terms are governed by Polish law. Together with our Privacy Policy, they form the complete agreement."
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "Email:",
+        "website": "Website:"
+      }
+    }
+  },
+  "cookieBanner": {
+    "message": "We use cookies only to remember your preferences. No tracking, no analytics.",
+    "accept": "Accept",
+    "learnMore": "Learn more"
+  }
+}

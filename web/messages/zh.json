@@ -1,0 +1,295 @@
+{
+  "hero": {
+    "badge": "冥想变得简单",
+    "title": "找到你的内心平静",
+    "subtitle": "一款注重隐私的冥想应用。无需账户，无需追踪，无需障碍。只有你和你的练习。",
+    "ctaPrimary": "免费下载",
+    "ctaSecondary": "查看功能"
+  },
+  "appPreview": {
+    "title": "你的个人冥想伴侣",
+    "subtitle": "为真实生活而设计。随时随地，用你的语言练习。一切都保存在你的设备上。",
+    "features": {
+      "instant": {
+        "title": "即刻开始",
+        "description": "无需注册。打开应用开始你的练习。"
+      },
+      "language": {
+        "title": "你的语言",
+        "description": "支持7种语言的本地化内容。"
+      },
+      "offline": {
+        "title": "离线使用",
+        "description": "无需网络。随处冥想。"
+      }
+    },
+    "demoText": "深呼吸...",
+    "breathingTexts": {
+      "in": "吸气...",
+      "hold": "屏住...",
+      "out": "呼气..."
+    }
+  },
+  "features": {
+    "sectionTitle": "你需要的一切",
+    "sectionSubtitle": "精心设计的功能支持你的冥想之旅",
+    "cards": {
+      "progressive": {
+        "title": "循序渐进",
+        "description": "从初学者到进阶的5个等级。根据你的经验调整的引导课程。"
+      },
+      "audio": {
+        "title": "沉浸式音频",
+        "description": "多层声景包含环境音效和冥想钟声。"
+      },
+      "tracking": {
+        "title": "追踪你的进步",
+        "description": "随时间监控你的课程、连续天数和冥想分钟数。"
+      },
+      "wisdom": {
+        "title": "每日灵感",
+        "description": "每天新鲜的励志名言，以你的语言呈现。"
+      },
+      "cultural": {
+        "title": "多元传统",
+        "description": "探索禅宗、正念、内观以及来自世界各地的练习。"
+      },
+      "theme": {
+        "title": "明暗模式",
+        "description": "舒适的显示，根据你的偏好和时间自动调整。"
+      }
+    }
+  },
+  "whySlowSpot": {
+    "sectionTitle": "为什么选择Slow Spot?",
+    "sectionSubtitle": "我们相信冥想应用应该尊重你的隐私和时间",
+    "items": [
+      {
+        "title": "100%隐私",
+        "description": "你的数据留在你的设备上。我们不收集、追踪或出售你的信息。"
+      },
+      {
+        "title": "无需账户",
+        "description": "立即开始冥想。无需邮箱，无需密码，无需验证。"
+      },
+      {
+        "title": "完全免费",
+        "description": "所有功能包含。无订阅，无应用内购买，无广告。"
+      }
+    ]
+  },
+  "download": {
+    "sectionTitle": "今天开始你的练习",
+    "sectionSubtitle": "iOS和Android免费下载。无需账户。",
+    "appStore": {
+      "label": "下载于",
+      "name": "App Store"
+    },
+    "googlePlay": {
+      "label": "获取于",
+      "name": "Google Play"
+    },
+    "note": "免费下载包含所有功能"
+  },
+  "footer": {
+    "brand": {
+      "name": "Slow Spot",
+      "tagline": "找到你的内心平静，一次呼吸。"
+    },
+    "columns": {
+      "product": {
+        "title": "产品",
+        "links": {
+          "features": "功能",
+          "download": "下载"
+        }
+      },
+      "support": {
+        "title": "支持",
+        "links": {
+          "help": "帮助",
+          "contact": "联系"
+        }
+      },
+      "legal": {
+        "title": "法律",
+        "links": {
+          "privacy": "隐私",
+          "terms": "条款"
+        }
+      }
+    },
+    "bottom": {
+      "copyright": "{year} Slow Spot。保留所有权利。",
+      "tagline": "用心打造，为了更美好的世界。"
+    }
+  },
+  "languageSwitcher": {
+    "label": "语言",
+    "languages": {
+      "en": "English",
+      "pl": "Polski",
+      "de": "Deutsch",
+      "es": "Español",
+      "fr": "Français",
+      "hi": "हिन्दी",
+      "zh": "中文"
+    }
+  },
+  "cookieBanner": {
+    "message": "我们仅使用 Cookie 来记住您的偏好。无跟踪，无分析。",
+    "accept": "接受",
+    "learnMore": "了解更多"
+  },
+  "supportPage": {
+    "title": "支持",
+    "subtitle": "我们在这里帮助您的冥想之旅。",
+    "contact": {
+      "title": "联系我们",
+      "email": "电子邮件",
+      "emailAddress": "contact@slowspot.me",
+      "responseTime": "响应时间：我们努力在48小时内回复。"
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": [
+        {
+          "question": "如何开始冥想？",
+          "answer": "只需打开应用程序，点击主屏幕上的「冥想」按钮。选择预设课程或创建自己的课程。"
+        },
+        {
+          "question": "应用程序可以离线使用吗？",
+          "answer": "是的！Slow Spot 设计为100%离线工作。"
+        },
+        {
+          "question": "我的数据是私密的吗？",
+          "answer": "绝对是。Slow Spot 不会在外部服务器上收集、传输或存储任何个人数据。"
+        }
+      ]
+    },
+    "feedback": {
+      "title": "反馈和建议",
+      "text": "我们喜欢听取用户的意见！",
+      "button": "发送反馈"
+    },
+    "appInfo": {
+      "title": "应用信息",
+      "version": "版本",
+      "versionNumber": "1.0.0",
+      "platform": "平台",
+      "platformValue": "iOS 和 Android"
+    }
+  },
+  "privacyPage": {
+    "title": "隐私政策",
+    "lastUpdated": "最后更新：2024年11月27日",
+    "summary": {
+      "title": "简而言之",
+      "items": [
+        "所有数据仅保留在您的设备上",
+        "无账户、无跟踪、无广告",
+        "100%离线工作",
+        "卸载即删除所有内容"
+      ]
+    },
+    "sections": {
+      "core": {
+        "title": "我们的承诺",
+        "content": "Slow Spot 以隐私为核心设计。您的冥想练习是私人的，我们完全尊重这一点。"
+      },
+      "whatWeCollect": {
+        "title": "我们收集什么",
+        "content": "什么都不收集。我们不收集任何个人数据。"
+      },
+      "localStorage": {
+        "title": "存储在您设备上的数据",
+        "intro": "应用程序在本地存储以下内容：",
+        "items": [
+          "您的偏好设置（语言、主题）",
+          "冥想课程历史",
+          "进度统计和连续天数",
+          "日历提醒（如果启用）"
+        ],
+        "note": "这些数据永远不会离开您的设备。"
+      },
+      "permissions": {
+        "title": "权限",
+        "content": "应用程序无需任何权限即可运行。"
+      },
+      "thirdParty": {
+        "title": "第三方服务",
+        "content": "我们不使用任何分析、广告或跟踪服务。"
+      },
+      "children": {
+        "title": "儿童隐私",
+        "content": "由于我们不收集任何数据，该应用对所有年龄段的用户都是安全的。"
+      },
+      "yourRights": {
+        "title": "您的权利",
+        "content": "您可以在应用程序中查看所有数据，并随时删除。"
+      },
+      "changes": {
+        "title": "政策变更",
+        "content": "如果我们更新此政策，我们将更改上面的日期。"
+      },
+      "contact": {
+        "title": "联系方式",
+        "email": "电子邮件：",
+        "website": "网站："
+      }
+    }
+  },
+  "termsPage": {
+    "title": "服务条款",
+    "lastUpdated": "最后更新：2024年11月27日",
+    "summary": {
+      "title": "简而言之",
+      "items": [
+        "免费的个人冥想应用",
+        "无需账户",
+        "您的数据保留在您的设备上",
+        "非医疗建议 - 如需要请咨询医生"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "协议",
+        "content": "使用 Slow Spot 即表示您同意这些条款。"
+      },
+      "service": {
+        "title": "我们提供什么",
+        "content": "Slow Spot 是一款完全离线运行的免费冥想应用。"
+      },
+      "license": {
+        "title": "您的许可",
+        "content": "您可以自由使用该应用进行个人冥想。"
+      },
+      "yourContent": {
+        "title": "您的内容",
+        "content": "您在应用中创建的所有内容都保留在您的设备上。"
+      },
+      "health": {
+        "title": "健康信息",
+        "warning": "重要",
+        "content": "此应用仅用于一般健康目的。这不是医疗建议。"
+      },
+      "disclaimer": {
+        "title": "免责声明",
+        "content": "应用程序按「原样」提供，不提供任何保证。"
+      },
+      "changes": {
+        "title": "变更",
+        "content": "我们可能会更新应用程序或这些条款。"
+      },
+      "governing": {
+        "title": "法律",
+        "content": "这些条款受波兰法律管辖。"
+      },
+      "contact": {
+        "title": "联系方式",
+        "email": "电子邮件：",
+        "website": "网站："
+      }
+    }
+  }
+}
