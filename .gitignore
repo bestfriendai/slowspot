@@ -49,6 +49,10 @@ logs/
 coverage/
 *.coverage
 .nyc_output
+test-results/
+playwright-report/
+.playwright/
+.playwright-mcp/
 
 # Database
 *.db
