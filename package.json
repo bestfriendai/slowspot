@@ -3,12 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "description": "Slow Spot - Meditation App",
-  "workspaces": [
-    "mobile",
-    "web"
-  ],
   "scripts": {
-    "prepare": "husky"
+    "prepare": "node -e \"if (process.env.CI !== 'true') { require('child_process').execSync('husky', {stdio: 'inherit'}) }\""
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

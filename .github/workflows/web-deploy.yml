@@ -45,7 +45,7 @@ jobs:
         with:
           server: s14.mydevil.net
           username: f1204_slowspot
-          password: ${{ secrets.FTP_PASSWORD }}
+          password: ${{ secrets.FTP_PASS }}
           local-dir: ./web/out/
           server-dir: ./
           exclude: |
