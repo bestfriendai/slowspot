@@ -1,0 +1,79 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install semantic-release
+        run: |
+          npm install -g semantic-release \
+            @semantic-release/changelog \
+            @semantic-release/git \
+            @semantic-release/exec \
+            conventional-changelog-conventionalcommits
+
+      - name: Semantic Release
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npx semantic-release
+
+      - name: Release Summary
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          echo "## 🎉 New Release Published!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** v${{ steps.semantic.outputs.new_release_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### What happens next:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Git tag created: \`v${{ steps.semantic.outputs.new_release_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ GitHub Release created" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ CHANGELOG.md updated" >> $GITHUB_STEP_SUMMARY
+          echo "- 🚀 EAS Production Build will start (triggered by tag)" >> $GITHUB_STEP_SUMMARY
+
+  # Trigger mobile production build when new release is created
+  trigger-mobile-build:
+    name: Trigger Mobile Production Build
+    needs: release
+    if: needs.release.outputs.new_release_published == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger EAS Production Build
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // The EAS Production Build workflow is triggered by tags (v*.*.*)
+            // which semantic-release creates automatically
+            console.log('New release v${{ needs.release.outputs.new_release_version }} created');
+            console.log('EAS Production Build will be triggered by the new tag');
