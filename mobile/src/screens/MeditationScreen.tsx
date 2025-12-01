@@ -11,7 +11,7 @@ import { GradientBackground } from '../components/GradientBackground';
 import { api, MeditationSession } from '../services/api';
 import { audioEngine } from '../services/audio';
 import { saveSessionCompletion } from '../services/progressTracker';
-import { getAllCustomSessions, deleteCustomSession, SavedCustomSession } from '../services/customSessionStorage';
+import { getAllCustomSessions, deleteCustomSession, SavedCustomSession, BreathingPattern, CustomBreathingPattern } from '../services/customSessionStorage';
 import { userPreferences } from '../services/userPreferences';
 import { ChimePoint } from '../types/customSession';
 import { CustomSessionConfig } from './CustomSessionBuilderScreen';
@@ -470,6 +470,21 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
       return selectedSession.ambientUrl ? t('custom.ambientNature') : t('custom.ambientSilence');
     };
 
+    // Get breathing pattern from custom session config
+    const getBreathingPattern = (): BreathingPattern => {
+      if ('config' in selectedSession && selectedSession.config?.breathingPattern) {
+        return selectedSession.config.breathingPattern;
+      }
+      return 'box'; // Default to box breathing for non-custom sessions
+    };
+
+    const getCustomBreathing = (): CustomBreathingPattern | undefined => {
+      if ('config' in selectedSession && selectedSession.config?.customBreathing) {
+        return selectedSession.config.customBreathing;
+      }
+      return undefined;
+    };
+
     return (
       <GradientBackground gradient={themeGradients.primary.clean} style={styles.container}>
         <MeditationTimer
@@ -480,6 +495,8 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
           onAudioToggle={handleAudioToggle}
           ambientSoundName={getAmbientSoundName()}
           isDark={isDark}
+          breathingPattern={getBreathingPattern()}
+          customBreathing={getCustomBreathing()}
         />
       </GradientBackground>
     );

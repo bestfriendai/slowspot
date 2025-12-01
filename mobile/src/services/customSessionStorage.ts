@@ -11,6 +11,18 @@ import { logger } from '../utils/logger';
 const CUSTOM_SESSIONS_KEY = '@slow_spot_custom_sessions';
 
 /**
+ * Breathing pattern types for meditation sessions
+ */
+export type BreathingPattern = 'none' | 'box' | '4-7-8' | 'equal' | 'calm' | 'custom';
+
+export interface CustomBreathingPattern {
+  inhale: number;
+  hold1: number;
+  exhale: number;
+  hold2: number;
+}
+
+/**
  * Custom session configuration from the builder screen
  */
 export interface CustomSessionConfig {
@@ -20,6 +32,8 @@ export interface CustomSessionConfig {
   intervalBellMinutes: number;
   wakeUpChimeEnabled: boolean;
   voiceGuidanceEnabled: boolean;
+  breathingPattern?: BreathingPattern;
+  customBreathing?: CustomBreathingPattern;
   name?: string;
 }
 

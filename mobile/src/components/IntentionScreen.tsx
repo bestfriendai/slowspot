@@ -23,8 +23,11 @@ import Reanimated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
+  withRepeat,
+  withSequence,
   Easing,
 } from 'react-native-reanimated';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { GradientBackground } from './GradientBackground';
 import { GradientButton } from './GradientButton';
@@ -34,7 +37,91 @@ import theme, { getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, backgrounds } from '../theme/colors';
 import { userPreferences } from '../services/userPreferences';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
+// ══════════════════════════════════════════════════════════════
+// Scroll Indicator Component
+// Shows animated chevron when content is scrollable
+// ══════════════════════════════════════════════════════════════
+
+interface ScrollIndicatorProps {
+  isVisible: boolean;
+  isDark: boolean;
+}
+
+const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ isVisible, isDark }) => {
+  const opacity = useSharedValue(0);
+  const translateY = useSharedValue(0);
+
+  useEffect(() => {
+    if (isVisible) {
+      opacity.value = withTiming(1, { duration: 300 });
+      translateY.value = withRepeat(
+        withSequence(
+          withTiming(6, { duration: 800, easing: Easing.inOut(Easing.ease) }),
+          withTiming(0, { duration: 800, easing: Easing.inOut(Easing.ease) })
+        ),
+        -1, // infinite
+        false
+      );
+    } else {
+      opacity.value = withTiming(0, { duration: 300 });
+    }
+  }, [isVisible]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ translateY: translateY.value }],
+  }));
+
+  const gradientColors = isDark
+    ? ['transparent', 'rgba(28, 28, 30, 0.95)', 'rgba(28, 28, 30, 1)']
+    : ['transparent', 'rgba(255, 255, 255, 0.95)', 'rgba(255, 255, 255, 1)'];
+
+  return (
+    <Reanimated.View style={[scrollIndicatorStyles.container, animatedStyle]} pointerEvents="none">
+      <LinearGradient
+        colors={gradientColors}
+        style={scrollIndicatorStyles.gradient}
+      />
+      <View style={scrollIndicatorStyles.chevronContainer}>
+        <Ionicons
+          name="chevron-down"
+          size={18}
+          color={brandColors.purple.primary}
+        />
+      </View>
+    </Reanimated.View>
+  );
+};
+
+const scrollIndicatorStyles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    paddingBottom: 4,
+  },
+  gradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 48,
+  },
+  chevronContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: brandColors.transparent.light15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 interface IntentionScreenProps {
   onBegin: (intention: string) => void;
@@ -198,6 +285,7 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
   const [breathingTime, setBreathingTime] = useState(60); // 1 minute default
   const [selectedPattern, setSelectedPattern] = useState<'box' | '4-7-8' | 'equal' | 'calm'>('box');
   const [showIntroGuideModal, setShowIntroGuideModal] = useState(false);
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
@@ -281,6 +369,16 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
   const handleStopBreathing = () => {
     setBreathingActive(false);
     setBreathingTime(60);
+  };
+
+  // Handle scroll to show/hide scroll indicator
+  const handleScroll = (event: { nativeEvent: { contentOffset: { y: number }, contentSize: { height: number }, layoutMeasurement: { height: number } } }) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const scrolledToBottom = contentOffset.y + layoutMeasurement.height >= contentSize.height - 50;
+    const hasScrollableContent = contentSize.height > layoutMeasurement.height + 20;
+
+    // Hide indicator when scrolled to bottom or if content doesn't need scrolling
+    setShowScrollIndicator(hasScrollableContent && !scrolledToBottom);
   };
 
   // Get time-based greeting
@@ -459,11 +557,14 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}
       >
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-        >
+        <View style={styles.scrollWrapper}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            onScroll={handleScroll}
+            scrollEventThrottle={16}
+          >
           {/* Header */}
           <View style={styles.header}>
             <View style={[styles.iconCircle, { backgroundColor: dynamicStyles.iconBoxBg }]}>
@@ -542,40 +643,6 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
             </Text>
           </GradientCard>
 
-          {/* Inspirations */}
-          <View style={styles.inspirationsContainer}>
-            <Text style={[styles.inspirationsTitle, dynamicStyles.subtitle]}>
-              {t('intention.inspirations', 'Inspiracje:')}
-            </Text>
-            <View style={styles.inspirationChips}>
-              {[
-                t('intention.chip1', 'Spokój'),
-                t('intention.chip2', 'Obecność'),
-                t('intention.chip3', 'Wdzięczność'),
-                t('intention.chip4', 'Odpuszczenie'),
-              ].map((chip, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={[
-                    styles.chip,
-                    { backgroundColor: dynamicStyles.iconBoxBg },
-                    intention === chip && styles.chipSelected,
-                  ]}
-                  onPress={() => setIntention(chip)}
-                >
-                  <Text
-                    style={[
-                      styles.chipText,
-                      { color: intention === chip ? colors.neutral.white : brandColors.purple.primary },
-                    ]}
-                  >
-                    {chip}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-
           {/* Skip forever checkbox */}
           <TouchableOpacity
             onPress={() => setSkipForever(!skipForever)}
@@ -605,7 +672,9 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
               </Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+          </ScrollView>
+          <ScrollIndicator isVisible={showScrollIndicator} isDark={isDark} />
+        </View>
       </KeyboardAvoidingView>
     </GradientBackground>
   );
@@ -716,6 +785,10 @@ const styles = StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
+  scrollWrapper: {
+    flex: 1,
+    position: 'relative',
+  },
   scrollContent: {
     flexGrow: 1,
     padding: theme.spacing.lg,
@@ -801,31 +874,6 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.xs,
     textAlign: 'right',
     marginTop: theme.spacing.xs,
-  },
-  inspirationsContainer: {
-    marginBottom: theme.spacing.lg,
-  },
-  inspirationsTitle: {
-    fontSize: theme.typography.fontSizes.sm,
-    fontWeight: theme.typography.fontWeights.medium,
-    marginBottom: theme.spacing.sm,
-  },
-  inspirationChips: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: theme.spacing.sm,
-  },
-  chip: {
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.sm,
-    borderRadius: theme.borderRadius.full,
-  },
-  chipSelected: {
-    backgroundColor: brandColors.purple.primary,
-  },
-  chipText: {
-    fontSize: theme.typography.fontSizes.sm,
-    fontWeight: theme.typography.fontWeights.medium,
   },
   skipCheckbox: {
     flexDirection: 'row',

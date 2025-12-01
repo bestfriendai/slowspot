@@ -18,8 +18,19 @@ import theme, { getThemeColors } from '../theme';
 import { brandColors } from '../theme/colors';
 import { ChimePoint } from '../types/customSession';
 import { ConfirmationModal } from './ConfirmationModal';
+import { BreathingPattern, CustomBreathingPattern } from '../services/customSessionStorage';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
+
+// Predefined breathing patterns in seconds [inhale, hold1, exhale, hold2]
+const BREATHING_PATTERNS_CONFIG: Record<BreathingPattern, [number, number, number, number]> = {
+  'none': [0, 0, 0, 0], // No breathing
+  'box': [4, 4, 4, 4], // Box breathing
+  '4-7-8': [4, 7, 8, 0], // 4-7-8 relaxation
+  'equal': [4, 0, 4, 0], // Equal breathing
+  'calm': [2, 0, 2, 0], // Calming breathing
+  'custom': [4, 4, 4, 4], // Will be overridden by customBreathing
+};
 
 interface MeditationTimerProps {
   totalSeconds: number;
@@ -29,6 +40,8 @@ interface MeditationTimerProps {
   onAudioToggle?: (enabled: boolean) => void;
   ambientSoundName?: string;
   isDark?: boolean;
+  breathingPattern?: BreathingPattern;
+  customBreathing?: CustomBreathingPattern;
 }
 
 export const MeditationTimer: React.FC<MeditationTimerProps> = ({
@@ -39,8 +52,35 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   onAudioToggle,
   ambientSoundName,
   isDark = false,
+  breathingPattern = 'box', // Default to box breathing for backward compatibility
+  customBreathing,
 }) => {
   const { t } = useTranslation();
+
+  // Get breathing timing from pattern or custom config
+  const breathingTiming = useMemo(() => {
+    if (breathingPattern === 'none') {
+      return null; // No breathing guidance
+    }
+    if (breathingPattern === 'custom' && customBreathing) {
+      return [
+        customBreathing.inhale * 1000,
+        customBreathing.hold1 * 1000,
+        customBreathing.exhale * 1000,
+        customBreathing.hold2 * 1000,
+      ] as [number, number, number, number];
+    }
+    const config = BREATHING_PATTERNS_CONFIG[breathingPattern];
+    return [
+      config[0] * 1000,
+      config[1] * 1000,
+      config[2] * 1000,
+      config[3] * 1000,
+    ] as [number, number, number, number];
+  }, [breathingPattern, customBreathing]);
+
+  // Check if breathing guidance should be shown
+  const showBreathingGuide = breathingPattern !== 'none' && breathingTiming !== null;
 
   // Theme-aware colors
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
@@ -165,8 +205,15 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     };
   }, []);
 
-  // Breathing animation - synchronized with text, more visible
+  // Breathing animation - synchronized with text, using dynamic timing from pattern
   useEffect(() => {
+    // Skip animation if breathing is disabled
+    if (!showBreathingGuide || !breathingTiming) {
+      return;
+    }
+
+    const [inhaleDuration, hold1Duration, exhaleDuration, hold2Duration] = breathingTiming;
+
     if (isRunning) {
       let timeoutId: NodeJS.Timeout;
 
@@ -174,48 +221,52 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         // INHALE - grow but stay inside the ring
         setBreathingPhase('inhale');
         breathingScale.value = withTiming(0.95, {
-          duration: 4000,
+          duration: inhaleDuration,
           easing: Easing.inOut(Easing.ease),
         });
         breathingOpacity.value = withTiming(0.5, {
-          duration: 4000,
+          duration: inhaleDuration,
           easing: Easing.inOut(Easing.ease),
         });
         breathingGlow.value = withTiming(1, {
-          duration: 4000,
+          duration: inhaleDuration,
           easing: Easing.inOut(Easing.ease),
         });
 
         timeoutId = setTimeout(() => {
-          // HOLD - maintain
-          setBreathingPhase('hold');
+          // HOLD 1 - maintain (only if duration > 0)
+          if (hold1Duration > 0) {
+            setBreathingPhase('hold');
+          }
 
           timeoutId = setTimeout(() => {
             // EXHALE - shrink
             setBreathingPhase('exhale');
             breathingScale.value = withTiming(0.7, {
-              duration: 4000,
+              duration: exhaleDuration,
               easing: Easing.inOut(Easing.ease),
             });
             breathingOpacity.value = withTiming(0.3, {
-              duration: 4000,
+              duration: exhaleDuration,
               easing: Easing.inOut(Easing.ease),
             });
             breathingGlow.value = withTiming(0, {
-              duration: 4000,
+              duration: exhaleDuration,
               easing: Easing.inOut(Easing.ease),
             });
 
             timeoutId = setTimeout(() => {
-              // REST
-              setBreathingPhase('rest');
+              // REST / HOLD 2 (only if duration > 0)
+              if (hold2Duration > 0) {
+                setBreathingPhase('rest');
+              }
 
               timeoutId = setTimeout(() => {
                 animateBreathing();
-              }, 4000);
-            }, 4000);
-          }, 4000);
-        }, 4000);
+              }, hold2Duration > 0 ? hold2Duration : 100); // Small delay to prevent infinite loop
+            }, exhaleDuration);
+          }, hold1Duration > 0 ? hold1Duration : 100); // Small delay for smooth transition
+        }, inhaleDuration);
       };
 
       animateBreathing();
@@ -234,7 +285,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         chimeSound.current.pause();
       }
     }
-  }, [isRunning, breathingScale, breathingOpacity, breathingGlow]);
+  }, [isRunning, breathingScale, breathingOpacity, breathingGlow, showBreathingGuide, breathingTiming]);
 
   const breathingAnimatedStyle = useAnimatedStyle(() => ({
     opacity: breathingOpacity.value,
@@ -344,30 +395,43 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         )}
       </View>
 
-      {/* Breathing guidance - simple text only */}
-      <View style={styles.breathingSection}>
-        <Text style={[styles.instructionLabel, dynamicStyles.instructionLabel]}>
-          {t('meditation.focusOnBreath', 'SKUP SIĘ NA ODDECHU')}
-        </Text>
-        <Animated.Text style={[styles.breathingText, dynamicStyles.breathingText]}>
-          {breathingPhase === 'inhale' && t('meditation.breatheIn', 'Wdech')}
-          {breathingPhase === 'hold' && t('meditation.hold', 'Trzymaj')}
-          {breathingPhase === 'exhale' && t('meditation.breatheOut', 'Wydech')}
-          {breathingPhase === 'rest' && t('meditation.hold', 'Trzymaj')}
-        </Animated.Text>
-      </View>
+      {/* Breathing guidance - only show if breathing pattern is enabled */}
+      {showBreathingGuide ? (
+        <View style={styles.breathingSection}>
+          <Text style={[styles.instructionLabel, dynamicStyles.instructionLabel]}>
+            {t('meditation.focusOnBreath', 'SKUP SIĘ NA ODDECHU')}
+          </Text>
+          <Animated.Text style={[styles.breathingText, dynamicStyles.breathingText]}>
+            {breathingPhase === 'inhale' && t('meditation.breatheIn', 'Wdech')}
+            {breathingPhase === 'hold' && t('meditation.hold', 'Trzymaj')}
+            {breathingPhase === 'exhale' && t('meditation.breatheOut', 'Wydech')}
+            {breathingPhase === 'rest' && t('meditation.hold', 'Trzymaj')}
+          </Animated.Text>
+        </View>
+      ) : (
+        <View style={styles.breathingSection}>
+          <Text style={[styles.instructionLabel, dynamicStyles.instructionLabel]}>
+            {t('meditation.meditationInProgress', 'MEDYTACJA W TRAKCIE')}
+          </Text>
+          <Text style={[styles.breathingText, dynamicStyles.breathingText]}>
+            {t('meditation.breatheNaturally', 'Oddychaj naturalnie')}
+          </Text>
+        </View>
+      )}
 
       {/* Main circle with timer */}
       <View style={styles.circleWrapper}>
-        {/* Breathing circle with gradient glow */}
-        <Animated.View style={[styles.breathingCircleWrapper, breathingAnimatedStyle, { width: size, height: size }]}>
-          <LinearGradient
-            colors={dynamicStyles.breathingCircleGradient}
-            style={styles.breathingCircle}
-            start={{ x: 0.5, y: 0.5 }}
-            end={{ x: 1, y: 1 }}
-          />
-        </Animated.View>
+        {/* Breathing circle with gradient glow - only show if breathing pattern is enabled */}
+        {showBreathingGuide && (
+          <Animated.View style={[styles.breathingCircleWrapper, breathingAnimatedStyle, { width: size, height: size }]}>
+            <LinearGradient
+              colors={dynamicStyles.breathingCircleGradient}
+              style={styles.breathingCircle}
+              start={{ x: 0.5, y: 0.5 }}
+              end={{ x: 1, y: 1 }}
+            />
+          </Animated.View>
+        )}
 
         {/* Progress ring */}
         <Svg width={svgSize} height={svgSize} style={styles.progressRing}>

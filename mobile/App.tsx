@@ -132,29 +132,12 @@ function AppContent() {
     setCurrentScreen(screen);
   };
 
-  const handleStartCustomSession = async (config: CustomSessionConfig) => {
-    try {
-      // Import the custom session storage service
-      const { saveCustomSession } = require('./src/services/customSessionStorage');
-
-      // Save the custom session to storage
-      const savedSession = await saveCustomSession(config);
-      logger.log('Custom session saved successfully:', savedSession.id);
-
-      // Navigate to meditation screen
-      // The MeditationScreen will automatically load and display the new custom session
-      setCurrentScreen('meditation');
-
-      // Provide haptic feedback
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-    } catch (error) {
-      logger.error('Failed to save custom session:', error);
-      Alert.alert(
-        'Error',
-        'Failed to save custom session. Please try again.',
-        [{ text: 'OK' }]
-      );
-    }
+  const handleStartCustomSession = (config: CustomSessionConfig) => {
+    // Navigate to meditation screen with the custom session config
+    // Note: Saving is handled by CustomSessionBuilderScreen when user explicitly saves
+    logger.log('Starting custom session:', config.name || 'unnamed');
+    setCurrentScreen('meditation');
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
   };
 
   const handleEditSession = (sessionId: string, sessionConfig: CustomSessionConfig) => {
