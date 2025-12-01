@@ -2,7 +2,7 @@
  * ConfirmationModal Component
  *
  * Elegant modal for confirming user actions (e.g., ending a meditation session)
- * Follows the app's mint accent color scheme and supports dark mode
+ * Follows the app's brand color scheme and supports dark mode
  */
 
 import React, { useMemo } from 'react';
@@ -17,6 +17,7 @@ import {
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import theme, { getThemeColors } from '../theme';
+import { brandColors, primaryColor } from '../theme/colors';
 
 interface ConfirmationModalProps {
   visible: boolean;
@@ -65,7 +66,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     confirmButton: {
       backgroundColor: destructive
         ? '#ef4444'
-        : colors.accent.mint[500],
+        : brandColors.purple.primary,
     },
     confirmButtonText: {
       color: colors.neutral.white,
@@ -73,9 +74,9 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     iconContainer: {
       backgroundColor: destructive
         ? (isDark ? 'rgba(239, 68, 68, 0.2)' : 'rgba(239, 68, 68, 0.1)')
-        : (isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)'),
+        : (isDark ? primaryColor.transparent[25] : primaryColor.transparent[15]),
     },
-    iconColor: destructive ? '#ef4444' : colors.accent.mint[500],
+    iconColor: destructive ? '#ef4444' : brandColors.purple.primary,
   }), [colors, isDark, destructive]);
 
   return (

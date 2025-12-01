@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { GradientBackground } from '../components/GradientBackground';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
+import { brandColors, brandGradients, getSectionColors } from '../theme/colors';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -37,6 +38,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   // Theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
+  const sectionThemeColors = useMemo(() => getSectionColors(isDark), [isDark]);
 
   // Subtle breathing animation for main button
   const breatheScale = useSharedValue(1);
@@ -73,15 +75,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   const dynamicStyles = useMemo(() => ({
     title: { color: colors.text.primary },
     tagline: { color: colors.text.secondary },
-    // Main button shadow
+    // Main button shadow - purple brand color
     mainButtonShadow: isDark ? {
-      shadowColor: colors.accent.mint[500],
+      shadowColor: brandColors.purple.primary,
       shadowOffset: { width: 0, height: 6 },
       shadowOpacity: 0.4,
       shadowRadius: 16,
       elevation: 10,
     } : {
-      shadowColor: colors.accent.mint[600],
+      shadowColor: brandColors.purple.dark,
       shadowOffset: { width: 0, height: 8 },
       shadowOpacity: 0.3,
       shadowRadius: 20,
@@ -106,18 +108,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       : colors.neutral.white,
     secondaryButtonText: { color: colors.text.primary },
     secondaryButtonSubtext: { color: colors.text.secondary },
-    iconColor: isDark ? colors.accent.blue[400] : colors.accent.blue[600],
-    iconColorPurple: isDark ? colors.accent.purple[400] : colors.accent.purple[600],
   }), [colors, isDark]);
 
   return (
     <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
       <View style={styles.content}>
-        {/* Header - Centered and elegant */}
+        {/* Header - Centered and elegant with Slow Spot.me branding */}
         <View style={styles.header}>
           <View style={styles.titleContainer}>
             <Text style={[styles.titleLight, dynamicStyles.title]}>Slow</Text>
-            <Text style={[styles.titleBold, { color: colors.accent.mint[500] }]}>Spot</Text>
+            <Text style={[styles.titleBold, { color: brandColors.purple.primary }]}>Spot</Text>
+            <Text style={[styles.titleAccent, { color: brandColors.accent.gold }]}>.me</Text>
           </View>
           <Text style={[styles.tagline, dynamicStyles.tagline]}>{t('app.tagline')}</Text>
         </View>
@@ -131,7 +132,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
               activeOpacity={0.9}
             >
               <LinearGradient
-                colors={['#0D9488', '#0F766E', '#115E59']}
+                colors={[...brandGradients.primary]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.mainButtonGradient}
@@ -164,7 +165,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
         {/* Secondary options */}
         <View style={styles.secondaryButtons}>
-          {/* Instrukcje */}
+          {/* Instrukcje - Blue/Indigo */}
           <TouchableOpacity
             style={[
               styles.secondaryButton,
@@ -174,8 +175,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             onPress={onNavigateToInstructions}
             activeOpacity={0.8}
           >
-            <View style={[styles.secondaryIcon, { backgroundColor: isDark ? 'rgba(99, 102, 241, 0.2)' : 'rgba(99, 102, 241, 0.1)' }]}>
-              <Ionicons name="book-outline" size={28} color={dynamicStyles.iconColor} />
+            <View style={[styles.secondaryIcon, { backgroundColor: sectionThemeColors.instructions.background }]}>
+              <Ionicons name="book-outline" size={28} color={sectionThemeColors.instructions.icon} />
             </View>
             <View style={styles.secondaryTextContainer}>
               <Text style={[styles.secondaryTitle, dynamicStyles.secondaryButtonText]}>
@@ -198,8 +199,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
             onPress={onNavigateToQuotes}
             activeOpacity={0.8}
           >
-            <View style={[styles.secondaryIcon, { backgroundColor: isDark ? 'rgba(168, 85, 247, 0.2)' : 'rgba(168, 85, 247, 0.1)' }]}>
-              <Ionicons name="sparkles-outline" size={28} color={dynamicStyles.iconColorPurple} />
+            <View style={[styles.secondaryIcon, { backgroundColor: sectionThemeColors.inspirations.background }]}>
+              <Ionicons name="sparkles-outline" size={28} color={sectionThemeColors.inspirations.icon} />
             </View>
             <View style={styles.secondaryTextContainer}>
               <Text style={[styles.secondaryTitle, dynamicStyles.secondaryButtonText]}>
@@ -244,6 +245,11 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   titleBold: {
+    fontSize: 42,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
+  titleAccent: {
     fontSize: 42,
     fontWeight: '700',
     letterSpacing: 0.5,

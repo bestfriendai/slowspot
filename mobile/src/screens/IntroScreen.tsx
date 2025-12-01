@@ -14,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 import theme, { gradients } from '../theme';
+import { brandColors } from '../theme/colors';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,7 +35,7 @@ const slides: Slide[] = [
     textKey: 'onboarding.slide1.text',
     icon: 'flower-outline',
     gradient: {
-      colors: [theme.colors.accent.blue[500], theme.colors.accent.purple[500]],
+      colors: [brandColors.purple.light, brandColors.purple.primary],
       start: { x: 0, y: 0 },
       end: { x: 1, y: 1 },
     },
@@ -56,7 +57,7 @@ const slides: Slide[] = [
     textKey: 'onboarding.slide3.text',
     icon: 'trending-up-outline',
     gradient: {
-      colors: [theme.colors.accent.teal[400], theme.colors.accent.mint[400]],
+      colors: [brandColors.purple.primary, brandColors.purple.light],
       start: { x: 0, y: 0 },
       end: { x: 1, y: 1 },
     },

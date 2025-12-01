@@ -8,6 +8,7 @@ import { SavedCustomSession } from '../services/customSessionStorage';
 import { GradientCard } from './GradientCard';
 import { getThemeGradients } from '../theme/gradients';
 import theme, { getThemeColors } from '../theme';
+import { brandColors } from '../theme/colors';
 
 interface SessionCardProps {
   session: MeditationSession;
@@ -76,7 +77,7 @@ export const SessionCard = React.memo<SessionCardProps>(({ session, onPress, onL
     label: { color: colors.text.secondary },
     value: { color: colors.text.primary },
     startBadgeText: { color: colors.text.primary },
-    customBadgeIconColor: colors.accent.blue[600],
+    customBadgeIconColor: brandColors.purple.primary,
     // Theme-aware semi-transparent backgrounds
     guidanceBoxBg: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.3)',
     startBadgeBg: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.4)',

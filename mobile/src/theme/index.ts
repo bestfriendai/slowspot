@@ -5,7 +5,7 @@
  * shadows, and other design tokens for a beautiful meditation app.
  */
 
-import colors, { darkColors, getThemeColors } from './colors';
+import colors, { darkColors, getThemeColors, brandColors } from './colors';
 import gradients, { darkGradients, getThemeGradients } from './gradients';
 
 /**
@@ -115,7 +115,7 @@ export const shadows = {
     elevation: 5,
   },
   floatingButton: {
-    shadowColor: colors.accent.blue[500],
+    shadowColor: brandColors.purple.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 12,

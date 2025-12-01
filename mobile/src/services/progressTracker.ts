@@ -15,6 +15,7 @@ export interface CompletedSession {
   date: string; // ISO string
   durationSeconds: number;
   languageCode: string;
+  intention?: string; // User's intention set before the session
   mood?: 1 | 2 | 3 | 4 | 5; // Optional mood rating after session
   notes?: string; // Optional session notes/reflections
 }
@@ -36,7 +37,8 @@ export const saveSessionCompletion = async (
   durationSeconds: number,
   languageCode: string,
   mood?: 1 | 2 | 3 | 4 | 5,
-  notes?: string
+  notes?: string,
+  intention?: string
 ): Promise<void> => {
   try {
     const sessionsJson = await AsyncStorage.getItem(SESSIONS_KEY);
@@ -50,6 +52,7 @@ export const saveSessionCompletion = async (
       date: new Date().toISOString(),
       durationSeconds,
       languageCode,
+      ...(intention && intention.trim() && { intention: intention.trim() }), // Only add intention if provided
       ...(mood !== undefined && { mood }), // Only add mood if provided
       ...(notes && notes.trim() && { notes: notes.trim() }), // Only add notes if provided
     };

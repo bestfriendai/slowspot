@@ -23,6 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GradientBackground } from '../components/GradientBackground';
 import { GradientCard } from '../components/GradientCard';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
+import { brandColors, primaryColor, featureColorPalettes, semanticColors, getFeatureIconColors } from '../theme/colors';
 import { exportAllData, clearAllData } from '../services/storage';
 import { clearAllCustomSessions } from '../services/customSessionStorage';
 import { clearProgress } from '../services/progressTracker';
@@ -77,8 +78,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   // Get theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
+  const featureColors = useMemo(() => getFeatureIconColors(isDark), [isDark]);
 
-  // Dynamic styles based on theme
+  // Dynamic styles based on theme - using brand/primary colors for consistency
   const dynamicStyles = useMemo(() => ({
     title: { color: colors.text.primary },
     cardTitle: { color: colors.text.primary },
@@ -96,20 +98,33 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       shadowRadius: 16,
       elevation: 8,
     },
-    iconBoxBg: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)',
-    iconBoxBgBlue: isDark ? 'rgba(59, 130, 246, 0.2)' : 'rgba(59, 130, 246, 0.1)',
-    iconBoxBgRed: isDark ? 'rgba(239, 68, 68, 0.2)' : 'rgba(239, 68, 68, 0.1)',
+    // Icon box backgrounds - using feature color palettes for beautiful, consistent look
+    iconBoxBgPurple: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10],
+    iconBoxBgBlue: isDark ? `rgba(${featureColorPalettes.indigo.rgb}, 0.2)` : `rgba(${featureColorPalettes.indigo.rgb}, 0.1)`,
+    iconBoxBgRed: isDark ? `rgba(${featureColorPalettes.rose.rgb}, 0.2)` : `rgba(${featureColorPalettes.rose.rgb}, 0.1)`,
+    iconBoxBgGreen: isDark ? `rgba(${featureColorPalettes.emerald.rgb}, 0.2)` : `rgba(${featureColorPalettes.emerald.rgb}, 0.1)`,
+    iconBoxBgAmber: isDark ? `rgba(${featureColorPalettes.amber.rgb}, 0.2)` : `rgba(${featureColorPalettes.amber.rgb}, 0.1)`,
+    iconBoxBgTeal: isDark ? `rgba(${featureColorPalettes.teal.rgb}, 0.2)` : `rgba(${featureColorPalettes.teal.rgb}, 0.1)`,
+    // Option styling - using primary/brand colors
     optionBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.lightGray[50],
     optionBorder: isDark ? colors.neutral.charcoal[100] : colors.neutral.lightGray[200],
     optionText: { color: colors.text.primary },
-    optionSelectedBg: isDark ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.15)',
-    optionSelectedBorder: isDark ? 'rgba(16, 185, 129, 0.4)' : 'rgba(16, 185, 129, 0.3)',
-    optionSelectedText: { color: colors.accent.mint[500] },
+    optionSelectedBg: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
+    optionSelectedBorder: isDark ? primaryColor.transparent[40] : primaryColor.transparent[30],
+    optionSelectedText: { color: brandColors.purple.primary },
+    // Switch colors - using primary/brand
     switchTrackFalse: isDark ? colors.neutral.charcoal[100] : colors.neutral.lightGray[300],
-    switchTrackTrue: colors.accent.mint[400],
+    switchTrackTrue: brandColors.purple.primary,
     switchThumbFalse: isDark ? colors.neutral.gray[400] : colors.neutral.white,
     switchThumbTrue: colors.neutral.white,
-  }), [colors, isDark]);
+    // Icon colors for different sections
+    iconPurple: isDark ? featureColorPalettes.violet.darkIcon : featureColorPalettes.violet.lightIcon,
+    iconBlue: isDark ? featureColorPalettes.indigo.darkIcon : featureColorPalettes.indigo.lightIcon,
+    iconGreen: isDark ? featureColorPalettes.emerald.darkIcon : featureColorPalettes.emerald.lightIcon,
+    iconAmber: isDark ? featureColorPalettes.amber.darkIcon : featureColorPalettes.amber.lightIcon,
+    iconTeal: isDark ? featureColorPalettes.teal.darkIcon : featureColorPalettes.teal.lightIcon,
+    iconRose: isDark ? featureColorPalettes.rose.darkIcon : featureColorPalettes.rose.lightIcon,
+  }), [colors, isDark, featureColors]);
 
   const handleLanguageChange = async (languageCode: string) => {
     try {
@@ -196,7 +211,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           >
             <View style={styles.cardRow}>
               <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
-                <Ionicons name="person" size={24} color={colors.accent.blue[500]} />
+                <Ionicons name="person" size={24} color={dynamicStyles.iconBlue} />
               </View>
               <View style={styles.cardTextContainer}>
                 <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -218,8 +233,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="globe" size={24} color={colors.accent.mint[500]} />
+            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgTeal }]}>
+              <Ionicons name="globe" size={24} color={dynamicStyles.iconTeal} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -256,7 +271,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                     {lang.name}
                   </Text>
                   {isSelected && (
-                    <Ionicons name="checkmark-circle" size={18} color={colors.accent.mint[500]} />
+                    <Ionicons name="checkmark-circle" size={18} color={brandColors.purple.primary} />
                   )}
                 </TouchableOpacity>
               );
@@ -271,8 +286,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="color-palette" size={24} color={colors.accent.mint[500]} />
+            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgPurple }]}>
+              <Ionicons name="color-palette" size={24} color={dynamicStyles.iconPurple} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -302,7 +317,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                   <Ionicons
                     name={option.icon}
                     size={24}
-                    color={isSelected ? colors.accent.mint[500] : colors.text.secondary}
+                    color={isSelected ? brandColors.purple.primary : colors.text.secondary}
                   />
                   <Text
                     style={[
@@ -325,8 +340,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="leaf" size={24} color={colors.accent.mint[500]} />
+            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgGreen }]}>
+              <Ionicons name="leaf" size={24} color={dynamicStyles.iconGreen} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -353,7 +368,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                 <Ionicons
                   name="flash"
                   size={20}
-                  color={skipInstructions ? colors.accent.mint[500] : colors.text.tertiary}
+                  color={skipInstructions ? brandColors.purple.primary : colors.text.tertiary}
                 />
                 <View style={styles.switchTextContainer}>
                   <Text style={[styles.switchLabel, dynamicStyles.optionText]}>
@@ -385,8 +400,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="shield-checkmark" size={24} color={colors.accent.mint[500]} />
+            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgGreen }]}>
+              <Ionicons name="shield-checkmark" size={24} color={dynamicStyles.iconGreen} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -399,7 +414,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </View>
           <View style={styles.dataButtons}>
             <TouchableOpacity
-              style={[styles.dataButton, { backgroundColor: colors.accent.blue[500] }]}
+              style={[styles.dataButton, { backgroundColor: brandColors.purple.primary }]}
               onPress={handleExportData}
               activeOpacity={0.8}
             >
@@ -428,8 +443,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="information-circle" size={24} color={colors.accent.mint[500]} />
+            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgPurple }]}>
+              <Ionicons name="information-circle" size={24} color={dynamicStyles.iconPurple} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -446,19 +461,19 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </Text>
             <View style={styles.aboutFeatures}>
               <View style={styles.aboutFeature}>
-                <Ionicons name="checkmark-circle" size={16} color={colors.accent.mint[500]} />
+                <Ionicons name="checkmark-circle" size={16} color={brandColors.purple.primary} />
                 <Text style={[styles.aboutFeatureText, dynamicStyles.cardDescription]}>
                   {t('settings.featureOffline', 'Działa offline')}
                 </Text>
               </View>
               <View style={styles.aboutFeature}>
-                <Ionicons name="checkmark-circle" size={16} color={colors.accent.mint[500]} />
+                <Ionicons name="checkmark-circle" size={16} color={brandColors.purple.primary} />
                 <Text style={[styles.aboutFeatureText, dynamicStyles.cardDescription]}>
                   {t('settings.featurePrivacy', 'Bez reklam i śledzenia')}
                 </Text>
               </View>
               <View style={styles.aboutFeature}>
-                <Ionicons name="checkmark-circle" size={16} color={colors.accent.mint[500]} />
+                <Ionicons name="checkmark-circle" size={16} color={brandColors.purple.primary} />
                 <Text style={[styles.aboutFeatureText, dynamicStyles.cardDescription]}>
                   {t('settings.featureLocal', 'Dane na urządzeniu')}
                 </Text>
@@ -601,7 +616,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.xs,
   },
   dangerButton: {
-    backgroundColor: '#ef4444',
+    backgroundColor: semanticColors.error.default,
   },
   dataButtonText: {
     color: theme.colors.neutral.white,

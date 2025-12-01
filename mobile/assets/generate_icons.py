@@ -1,171 +1,189 @@
 #!/usr/bin/env python3
 """
-Generate beautiful meditation app icons with lotus and zen circle designs
+Generate modern, professional meditation app icons
+Slow Spot - Premium Meditation App Icon Generator
 """
 from PIL import Image, ImageDraw, ImageFilter
 import math
 
-def create_gradient_background(size, color1, color2):
-    """Create a radial gradient background"""
+def create_premium_gradient(size):
+    """Create a beautiful multi-stop gradient"""
     image = Image.new('RGB', size)
-    draw = ImageDraw.Draw(image)
 
-    center_x, center_y = size[0] // 2, size[1] // 2
-    max_radius = math.sqrt(center_x**2 + center_y**2)
+    # Premium purple gradient
+    color_top = (99, 102, 241)     # Indigo-500
+    color_middle = (139, 92, 246)  # Violet-500
+    color_bottom = (168, 85, 247)  # Purple-500
 
     for y in range(size[1]):
+        ratio = y / size[1]
+        # Smooth easing
+        ratio = ratio * ratio * (3 - 2 * ratio)
+
+        if ratio < 0.5:
+            r = ratio * 2
+            r_val = int(color_top[0] * (1-r) + color_middle[0] * r)
+            g_val = int(color_top[1] * (1-r) + color_middle[1] * r)
+            b_val = int(color_top[2] * (1-r) + color_middle[2] * r)
+        else:
+            r = (ratio - 0.5) * 2
+            r_val = int(color_middle[0] * (1-r) + color_bottom[0] * r)
+            g_val = int(color_middle[1] * (1-r) + color_bottom[1] * r)
+            b_val = int(color_middle[2] * (1-r) + color_bottom[2] * r)
+
         for x in range(size[0]):
-            # Calculate distance from center
-            distance = math.sqrt((x - center_x)**2 + (y - center_y)**2)
-            # Normalize distance
-            ratio = distance / max_radius
-            # Interpolate colors
-            r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
-            g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
-            b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
-            image.putpixel((x, y), (r, g, b))
+            image.putpixel((x, y), (r_val, g_val, b_val))
 
     return image
 
+def draw_petal(draw, cx, cy, angle, length, width, color):
+    """Draw a single smooth petal"""
+    rad = math.radians(angle)
+
+    points = []
+    steps = 60
+
+    for i in range(steps + 1):
+        t = i / steps
+        # Distance along petal
+        dist = t * length
+        # Width varies - widest at 40% from base
+        w = width * math.sin(t * math.pi) * (1.0 if t < 0.5 else (1 - (t - 0.5) * 0.3))
+
+        # Position along petal axis
+        px = cx + math.cos(rad) * dist
+        py = cy + math.sin(rad) * dist
+
+        # Perpendicular offset for width
+        perp = rad + math.pi / 2
+        points.append((px + math.cos(perp) * w, py + math.sin(perp) * w))
+
+    # Return along other side
+    for i in range(steps, -1, -1):
+        t = i / steps
+        dist = t * length
+        w = width * math.sin(t * math.pi) * (1.0 if t < 0.5 else (1 - (t - 0.5) * 0.3))
+
+        px = cx + math.cos(rad) * dist
+        py = cy + math.sin(rad) * dist
+
+        perp = rad - math.pi / 2
+        points.append((px + math.cos(perp) * w, py + math.sin(perp) * w))
+
+    if len(points) > 2:
+        draw.polygon(points, fill=color)
+
 def draw_lotus(draw, center_x, center_y, size, color):
-    """Draw a stylized lotus flower"""
-    petal_color = color
+    """Draw elegant 3-petal lotus"""
 
-    # Draw outer petals (8 petals)
-    for i in range(8):
-        angle = (i * 45) * math.pi / 180
-        petal_width = size // 3
-        petal_height = size // 2
+    # Side petals first (behind)
+    petal_length = size * 0.38
+    petal_width = size * 0.14
 
-        # Calculate petal position
-        x = center_x + math.cos(angle) * (size // 4)
-        y = center_y + math.sin(angle) * (size // 4)
+    # Left petal
+    draw_petal(draw, center_x, center_y,
+               angle=235, length=petal_length * 0.85, width=petal_width * 0.9, color=color)
 
-        # Draw ellipse for petal
-        bbox = [
-            x - petal_width // 2,
-            y - petal_height // 2,
-            x + petal_width // 2,
-            y + petal_height // 2
-        ]
-        draw.ellipse(bbox, fill=petal_color)
+    # Right petal
+    draw_petal(draw, center_x, center_y,
+               angle=305, length=petal_length * 0.85, width=petal_width * 0.9, color=color)
 
-    # Draw center circle
-    center_size = size // 3
-    bbox = [
-        center_x - center_size // 2,
-        center_y - center_size // 2,
-        center_x + center_size // 2,
-        center_y + center_size // 2
-    ]
-    draw.ellipse(bbox, fill=petal_color)
+    # Center petal (on top, pointing up)
+    draw_petal(draw, center_x, center_y,
+               angle=270, length=petal_length, width=petal_width, color=color)
 
-def draw_zen_circle(draw, center_x, center_y, radius, color, thickness=20):
-    """Draw an enso (zen circle)"""
-    # Draw incomplete circle (enso style - gap at top)
-    for angle in range(15, 345, 2):  # Leave gap at top
-        rad = angle * math.pi / 180
-        x1 = center_x + math.cos(rad) * radius
-        y1 = center_y + math.sin(rad) * radius
-        x2 = center_x + math.cos(rad) * (radius - thickness)
-        y2 = center_y + math.sin(rad) * (radius - thickness)
-
-        draw.ellipse([x1-2, y1-2, x1+2, y1+2], fill=color)
+    # Small center dot to clean up
+    dot_r = size * 0.025
+    draw.ellipse([center_x - dot_r, center_y - dot_r,
+                  center_x + dot_r, center_y + dot_r], fill=color)
 
 def create_app_icon(size, filename):
-    """Create main app icon with lotus design"""
-    # Calming gradient: teal to purple
-    color1 = (94, 114, 228)   # Soft blue
-    color2 = (142, 84, 233)   # Soft purple
-
-    image = create_gradient_background((size, size), color1, color2)
+    """Create main app icon"""
+    image = create_premium_gradient((size, size))
+    image = image.convert('RGBA')
     draw = ImageDraw.Draw(image, 'RGBA')
 
-    # Draw lotus
     center = size // 2
-    lotus_size = int(size * 0.6)
-    draw_lotus(draw, center, center, lotus_size, (255, 255, 255, 230))
+    lotus_size = int(size * 0.70)
 
-    # Add zen circle around lotus
-    draw_zen_circle(draw, center, center, int(size * 0.45), (255, 255, 255, 180), int(size * 0.03))
+    draw_lotus(draw, center, center, lotus_size, color=(255, 255, 255, 255))
 
-    # Apply subtle blur for smoothness
     image = image.filter(ImageFilter.SMOOTH)
+    image.save(filename, 'PNG', quality=100)
+    print(f"Created {filename} ({size}x{size})")
 
-    # Convert to RGBA and add alpha channel for rounded corners (iOS style)
+def create_adaptive_icon(size, filename):
+    """Create Android adaptive icon"""
+    image = create_premium_gradient((size, size))
     image = image.convert('RGBA')
+    draw = ImageDraw.Draw(image, 'RGBA')
 
+    center = size // 2
+    lotus_size = int(size * 0.55)
+
+    draw_lotus(draw, center, center, lotus_size, color=(255, 255, 255, 255))
+
+    image = image.filter(ImageFilter.SMOOTH)
     image.save(filename, 'PNG', quality=100)
     print(f"Created {filename} ({size}x{size})")
 
 def create_splash_icon(size, filename):
-    """Create splash screen icon - simpler design"""
-    # Lighter gradient for splash
-    color1 = (124, 144, 255)  # Light blue
-    color2 = (172, 114, 255)  # Light purple
-
-    image = create_gradient_background((size, size), color1, color2)
+    """Create splash screen icon"""
+    image = create_premium_gradient((size, size))
+    image = image.convert('RGBA')
     draw = ImageDraw.Draw(image, 'RGBA')
 
-    # Draw simple zen circle
     center = size // 2
-    draw_zen_circle(draw, center, center, int(size * 0.4), (255, 255, 255, 200), int(size * 0.04))
+    lotus_size = int(size * 0.50)
 
-    # Add small lotus in center
-    lotus_size = int(size * 0.3)
-    draw_lotus(draw, center, center, lotus_size, (255, 255, 255, 220))
+    draw_lotus(draw, center, center, lotus_size, color=(255, 255, 255, 255))
 
     image = image.filter(ImageFilter.SMOOTH)
-    image = image.convert('RGBA')
-
     image.save(filename, 'PNG', quality=100)
     print(f"Created {filename} ({size}x{size})")
 
 def create_favicon(filename):
-    """Create favicon - simplified icon"""
+    """Create favicon"""
     size = 48
-
-    # Simple solid color background
-    color1 = (108, 128, 240)
-    color2 = (156, 98, 240)
-
-    image = create_gradient_background((size, size), color1, color2)
+    image = create_premium_gradient((size, size))
+    image = image.convert('RGBA')
     draw = ImageDraw.Draw(image, 'RGBA')
 
-    # Draw simple lotus
     center = size // 2
-    lotus_size = int(size * 0.7)
-    draw_lotus(draw, center, center, lotus_size, (255, 255, 255, 255))
+    lotus_size = int(size * 0.75)
 
-    image = image.convert('RGBA')
+    draw_lotus(draw, center, center, lotus_size, color=(255, 255, 255, 255))
+
+    image.save(filename, 'PNG', quality=100)
+    print(f"Created {filename} ({size}x{size})")
+
+def create_notification_icon(filename):
+    """Create notification icon"""
+    size = 96
+    image = Image.new('RGBA', (size, size), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(image, 'RGBA')
+
+    center = size // 2
+    lotus_size = int(size * 0.80)
+
+    draw_lotus(draw, center, center, lotus_size, color=(255, 255, 255, 255))
+
     image.save(filename, 'PNG', quality=100)
     print(f"Created {filename} ({size}x{size})")
 
 if __name__ == '__main__':
     import os
 
-    # Change to assets directory
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
-    print("🎨 Generating Slow Spot meditation app icons...")
+    print("Generating Slow Spot premium app icons...")
     print("=" * 50)
 
-    # Create main app icon (1024x1024 for iOS/Android)
     create_app_icon(1024, os.path.join(script_dir, 'icon.png'))
-
-    # Create adaptive icon (Android)
-    create_app_icon(1024, os.path.join(script_dir, 'adaptive-icon.png'))
-
-    # Create splash icon
+    create_adaptive_icon(1024, os.path.join(script_dir, 'adaptive-icon.png'))
     create_splash_icon(1024, os.path.join(script_dir, 'splash-icon.png'))
-
-    # Create favicon
     create_favicon(os.path.join(script_dir, 'favicon.png'))
+    create_notification_icon(os.path.join(script_dir, 'notification-icon.png'))
 
     print("=" * 50)
-    print("✅ All icons generated successfully!")
-    print("\nGenerated icons:")
-    print("  • icon.png (1024x1024) - Main app icon")
-    print("  • adaptive-icon.png (1024x1024) - Android adaptive icon")
-    print("  • splash-icon.png (1024x1024) - Splash screen")
-    print("  • favicon.png (48x48) - Web favicon")
+    print("All icons generated!")

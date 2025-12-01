@@ -5,7 +5,7 @@
  * Designed to create a peaceful, clean, and modern aesthetic.
  */
 
-import { neutralColors, accentColors, darkBackgrounds } from './colors';
+import { neutralColors, accentColors, darkBackgrounds, brandColors, primaryColor } from './colors';
 
 export interface GradientDefinition {
   colors: string[];
@@ -178,9 +178,9 @@ export const screenGradients = {
  * Button gradients
  */
 export const buttonGradients = {
-  // Primary CTA button - soft blue
+  // Primary CTA button - brand purple
   primary: {
-    colors: [accentColors.blue[500], accentColors.blue[600]],
+    colors: [brandColors.purple.light, brandColors.purple.primary],
     start: { x: 0, y: 0 },
     end: { x: 1, y: 0 },
   },
@@ -498,9 +498,9 @@ export const darkScreenGradients = {
  * Dark mode button gradients
  */
 export const darkButtonGradients = {
-  // Primary CTA button
+  // Primary CTA button - brand purple
   primary: {
-    colors: [accentColors.blue[400], accentColors.blue[500]],
+    colors: [brandColors.purple.primary, brandColors.purple.dark],
     start: { x: 0, y: 0 },
     end: { x: 1, y: 0 },
   },

@@ -18,6 +18,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../theme';
+import { brandColors } from '../theme/colors';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -76,7 +77,7 @@ export const Button: React.FC<ButtonProps> = ({
         return {
           container: {
             ...baseStyle,
-            backgroundColor: theme.colors.accent.blue[600],
+            backgroundColor: brandColors.purple.primary,
           },
           text: {
             color: theme.colors.neutral.white,
@@ -111,7 +112,7 @@ export const Button: React.FC<ButtonProps> = ({
             backgroundColor: 'transparent',
           },
           text: {
-            color: theme.colors.accent.blue[600],
+            color: brandColors.purple.primary,
           },
         };
       case 'destructive':

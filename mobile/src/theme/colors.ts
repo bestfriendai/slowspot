@@ -1017,8 +1017,10 @@ export const darkChipColors = {
   },
 };
 
-// Combined dark mode colors object
-export const darkColors = {
+// Combined dark mode colors object - section colors will be added dynamically
+// to avoid circular reference issues (brandColors and sectionColors defined later)
+// Using 'as any' initially, then properly typed properties are added after colors is defined
+export const darkColors: any = {
   neutral: neutralColors,
   accent: accentColors,
   darkAccent: darkAccentColors,
@@ -1027,6 +1029,7 @@ export const darkColors = {
   text: darkTextColors,
   border: darkBorderColors,
   shadow: darkShadowColors,
+  // Note: brand, brandGradients, section, primary, feature, featureIcon will be added after their definitions
   // New complete color categories
   interactive: darkInteractiveColors,
   skeleton: darkSkeletonColors,
@@ -1045,6 +1048,677 @@ export const darkColors = {
 };
 
 // ============================================
+// BRAND COLORS - Slow Spot.me
+// ============================================
+// Core brand colors used across the app for consistent branding
+
+export const brandColors = {
+  // Primary brand purple gradient colors
+  purple: {
+    light: '#6366F1',    // Indigo - gradient start
+    primary: '#8B5CF6',  // Violet - main brand color
+    dark: '#A855F7',     // Purple - gradient end
+    // RGB values for rgba() usage
+    rgb: '139, 92, 246', // RGB of #8B5CF6
+  },
+  // Accent colors for branding
+  accent: {
+    gold: '#FCD34D',     // Golden yellow for ".me" accent
+    white: '#FFFFFF',    // White for contrast text
+  },
+  // Background colors
+  background: '#8B5CF6', // Main brand background color
+  // Transparent variants for backgrounds
+  transparent: {
+    light10: 'rgba(139, 92, 246, 0.1)',  // Light mode icon bg
+    light15: 'rgba(139, 92, 246, 0.15)', // Light mode active button
+    light20: 'rgba(139, 92, 246, 0.2)',  // Dark mode icon bg
+    light25: 'rgba(139, 92, 246, 0.25)', // Dark mode active button
+  },
+};
+
+// Brand gradient definitions
+export const brandGradients = {
+  // Main purple gradient (used in main CTA button, splash screen)
+  primary: ['#6366F1', '#8B5CF6', '#A855F7'] as const,
+  // Alternative purple gradient (lighter)
+  light: ['#818CF8', '#A78BFA', '#C084FC'] as const,
+  // Dark purple gradient (for dark mode)
+  dark: ['#4F46E5', '#7C3AED', '#9333EA'] as const,
+};
+
+// ============================================
+// SECTION COLORS - Dedicated colors for app sections
+// ============================================
+// Each section has its own color palette with automatic light/dark mode support
+// Usage: sectionColors.instructions.icon (light mode) or getSectionColors(true).instructions.icon (dark mode)
+
+// ============================================
+// COLOR UTILITY FUNCTIONS
+// ============================================
+// Helper functions for automatic color manipulation and shade calculation
+
+// Helper function to create transparent rgba values from hex
+const hexToRgba = (hex: string, alpha: number): string => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+// Convert hex to HSL for manipulation
+const hexToHsl = (hex: string): { h: number; s: number; l: number } => {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+
+  return { h: h * 360, s: s * 100, l: l * 100 };
+};
+
+// Convert HSL to hex
+const hslToHex = (h: number, s: number, l: number): string => {
+  s /= 100;
+  l /= 100;
+  const a = s * Math.min(l, 1 - l);
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color).toString(16).padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+};
+
+// Generate a complete color palette from a single hex color
+// Automatically creates 50-900 shades (like Tailwind CSS)
+export const generateColorPalette = (baseHex: string): ColorPalette => {
+  const hsl = hexToHsl(baseHex);
+
+  // Shade configurations: [lightness adjustment, saturation adjustment]
+  const shadeConfigs: { shade: keyof ColorPalette; targetL: number; satAdj: number }[] = [
+    { shade: 50, targetL: 95, satAdj: -15 },   // Very light
+    { shade: 100, targetL: 90, satAdj: -10 },  // Light
+    { shade: 200, targetL: 82, satAdj: -5 },   // Light medium
+    { shade: 300, targetL: 70, satAdj: 0 },    // Medium light
+    { shade: 400, targetL: 58, satAdj: 5 },    // Medium
+    { shade: 500, targetL: 45, satAdj: 0 },    // Base (primary)
+    { shade: 600, targetL: 38, satAdj: 5 },    // Medium dark
+    { shade: 700, targetL: 30, satAdj: 10 },   // Dark
+    { shade: 800, targetL: 22, satAdj: 10 },   // Very dark
+    { shade: 900, targetL: 15, satAdj: 5 },    // Darkest
+  ];
+
+  const palette: ColorPalette = {
+    50: '', 100: '', 200: '', 300: '', 400: '',
+    500: '', 600: '', 700: '', 800: '', 900: '',
+  };
+
+  for (const { shade, targetL, satAdj } of shadeConfigs) {
+    const newS = Math.max(0, Math.min(100, hsl.s + satAdj));
+    palette[shade] = hslToHex(hsl.h, newS, targetL);
+  }
+
+  return palette;
+};
+
+// Type for color palette
+export interface ColorPalette {
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+}
+
+// ============================================
+// FEATURE ICON COLOR PALETTES
+// ============================================
+// Beautiful color palettes for feature icons (as shown in screenshots)
+// Each palette has automatic shade calculation for light/dark modes
+
+// Predefined beautiful palettes matching the screenshots
+export const featureColorPalettes = {
+  // Emerald/Mint Green - for privacy, success states
+  emerald: {
+    50: '#ECFDF5',
+    100: '#D1FAE5',
+    200: '#A7F3D0',
+    300: '#6EE7B7',
+    400: '#34D399',
+    500: '#10B981',  // Primary
+    600: '#059669',
+    700: '#047857',
+    800: '#065F46',
+    900: '#064E3B',
+    // Calculated variants
+    light: '#D1FAE5',      // For light mode backgrounds
+    lightIcon: '#10B981',  // Icon color on light bg
+    dark: '#064E3B',       // For dark mode backgrounds
+    darkIcon: '#34D399',   // Icon color on dark bg
+    rgb: '16, 185, 129',
+  },
+
+  // Violet/Purple - for user/profile features
+  violet: {
+    50: '#F5F3FF',
+    100: '#EDE9FE',
+    200: '#DDD6FE',
+    300: '#C4B5FD',
+    400: '#A78BFA',
+    500: '#8B5CF6',  // Primary
+    600: '#7C3AED',
+    700: '#6D28D9',
+    800: '#5B21B6',
+    900: '#4C1D95',
+    light: '#EDE9FE',
+    lightIcon: '#8B5CF6',
+    dark: '#4C1D95',
+    darkIcon: '#A78BFA',
+    rgb: '139, 92, 246',
+  },
+
+  // Amber/Orange - for gifts, rewards, premium
+  amber: {
+    50: '#FFFBEB',
+    100: '#FEF3C7',
+    200: '#FDE68A',
+    300: '#FCD34D',
+    400: '#FBBF24',
+    500: '#F59E0B',  // Primary
+    600: '#D97706',
+    700: '#B45309',
+    800: '#92400E',
+    900: '#78350F',
+    light: '#FEF3C7',
+    lightIcon: '#F59E0B',
+    dark: '#78350F',
+    darkIcon: '#FBBF24',
+    rgb: '245, 158, 11',
+  },
+
+  // Rose/Pink - for targets, goals, meditation
+  rose: {
+    50: '#FFF1F2',
+    100: '#FFE4E6',
+    200: '#FECDD3',
+    300: '#FDA4AF',
+    400: '#FB7185',
+    500: '#F43F5E',  // Primary
+    600: '#E11D48',
+    700: '#BE123C',
+    800: '#9F1239',
+    900: '#881337',
+    light: '#FFE4E6',
+    lightIcon: '#F43F5E',
+    dark: '#881337',
+    darkIcon: '#FB7185',
+    rgb: '244, 63, 94',
+  },
+
+  // Indigo/Blue - for learning, progress, analytics
+  indigo: {
+    50: '#EEF2FF',
+    100: '#E0E7FF',
+    200: '#C7D2FE',
+    300: '#A5B4FC',
+    400: '#818CF8',
+    500: '#6366F1',  // Primary
+    600: '#4F46E5',
+    700: '#4338CA',
+    800: '#3730A3',
+    900: '#312E81',
+    light: '#E0E7FF',
+    lightIcon: '#6366F1',
+    dark: '#312E81',
+    darkIcon: '#818CF8',
+    rgb: '99, 102, 241',
+  },
+
+  // Yellow/Gold - for inspirations, sparkles
+  yellow: {
+    50: '#FEFCE8',
+    100: '#FEF9C3',
+    200: '#FEF08A',
+    300: '#FDE047',
+    400: '#FACC15',
+    500: '#EAB308',  // Primary
+    600: '#CA8A04',
+    700: '#A16207',
+    800: '#854D0E',
+    900: '#713F12',
+    light: '#FEF9C3',
+    lightIcon: '#EAB308',
+    dark: '#713F12',
+    darkIcon: '#FACC15',
+    rgb: '234, 179, 8',
+  },
+
+  // Teal - for meditation, calm features
+  teal: {
+    50: '#F0FDFA',
+    100: '#CCFBF1',
+    200: '#99F6E4',
+    300: '#5EEAD4',
+    400: '#2DD4BF',
+    500: '#14B8A6',  // Primary
+    600: '#0D9488',
+    700: '#0F766E',
+    800: '#115E59',
+    900: '#134E4A',
+    light: '#CCFBF1',
+    lightIcon: '#14B8A6',
+    dark: '#134E4A',
+    darkIcon: '#2DD4BF',
+    rgb: '20, 184, 166',
+  },
+
+  // Sky Blue - for info, global features
+  sky: {
+    50: '#F0F9FF',
+    100: '#E0F2FE',
+    200: '#BAE6FD',
+    300: '#7DD3FC',
+    400: '#38BDF8',
+    500: '#0EA5E9',  // Primary
+    600: '#0284C7',
+    700: '#0369A1',
+    800: '#075985',
+    900: '#0C4A6E',
+    light: '#E0F2FE',
+    lightIcon: '#0EA5E9',
+    dark: '#0C4A6E',
+    darkIcon: '#38BDF8',
+    rgb: '14, 165, 233',
+  },
+
+  // Slate/Gray - for settings, neutral features
+  slate: {
+    50: '#F8FAFC',
+    100: '#F1F5F9',
+    200: '#E2E8F0',
+    300: '#CBD5E1',
+    400: '#94A3B8',
+    500: '#64748B',  // Primary
+    600: '#475569',
+    700: '#334155',
+    800: '#1E293B',
+    900: '#0F172A',
+    light: '#F1F5F9',
+    lightIcon: '#64748B',
+    dark: '#0F172A',
+    darkIcon: '#94A3B8',
+    rgb: '100, 116, 139',
+  },
+};
+
+// Type for feature palette
+export type FeaturePaletteName = keyof typeof featureColorPalettes;
+export type FeaturePalette = typeof featureColorPalettes[FeaturePaletteName];
+
+// ============================================
+// PRIMARY COLOR SYSTEM
+// ============================================
+// Central primary color that controls the entire app theme
+// Change this to automatically update all related colors
+
+// Default primary color (Violet/Purple - brand color)
+const PRIMARY_COLOR_HEX = '#8B5CF6';
+
+// Generate primary palette from the primary color
+export const primaryPalette = generateColorPalette(PRIMARY_COLOR_HEX);
+
+// Primary color variants for easy access
+export const primaryColor = {
+  // Main shades
+  lightest: primaryPalette[50],
+  lighter: primaryPalette[100],
+  light: primaryPalette[300],
+  main: primaryPalette[500],      // Primary color
+  dark: primaryPalette[700],
+  darker: primaryPalette[800],
+  darkest: primaryPalette[900],
+
+  // Full palette
+  palette: primaryPalette,
+
+  // Transparent variants (for backgrounds)
+  transparent: {
+    5: hexToRgba(PRIMARY_COLOR_HEX, 0.05),
+    10: hexToRgba(PRIMARY_COLOR_HEX, 0.1),
+    15: hexToRgba(PRIMARY_COLOR_HEX, 0.15),
+    20: hexToRgba(PRIMARY_COLOR_HEX, 0.2),
+    25: hexToRgba(PRIMARY_COLOR_HEX, 0.25),
+    30: hexToRgba(PRIMARY_COLOR_HEX, 0.3),
+    40: hexToRgba(PRIMARY_COLOR_HEX, 0.4),
+    50: hexToRgba(PRIMARY_COLOR_HEX, 0.5),
+  },
+
+  // Gradient variants
+  gradient: {
+    light: [primaryPalette[300], primaryPalette[500]] as const,
+    main: [primaryPalette[400], primaryPalette[600]] as const,
+    dark: [primaryPalette[600], primaryPalette[800]] as const,
+    full: [primaryPalette[300], primaryPalette[500], primaryPalette[700]] as const,
+  },
+
+  // RGB value for custom rgba
+  rgb: hexToHsl(PRIMARY_COLOR_HEX),
+  hex: PRIMARY_COLOR_HEX,
+};
+
+// ============================================
+// FEATURE ICON COLORS (simplified access)
+// ============================================
+// Quick access to icon colors for feature cards
+// Usage: featureIconColors.emerald.icon (light mode) or featureIconColors.emerald.iconDark (dark mode)
+
+export const featureIconColors = {
+  // Privacy/Security - Emerald Green
+  privacy: {
+    icon: featureColorPalettes.emerald.lightIcon,
+    iconDark: featureColorPalettes.emerald.darkIcon,
+    background: featureColorPalettes.emerald.light,
+    backgroundDark: featureColorPalettes.emerald[800],
+  },
+
+  // User/Profile - Violet Purple
+  user: {
+    icon: featureColorPalettes.violet.lightIcon,
+    iconDark: featureColorPalettes.violet.darkIcon,
+    background: featureColorPalettes.violet.light,
+    backgroundDark: featureColorPalettes.violet[800],
+  },
+
+  // Gift/Premium - Amber Orange
+  gift: {
+    icon: featureColorPalettes.amber.lightIcon,
+    iconDark: featureColorPalettes.amber.darkIcon,
+    background: featureColorPalettes.amber.light,
+    backgroundDark: featureColorPalettes.amber[800],
+  },
+
+  // Target/Goals - Rose Pink
+  target: {
+    icon: featureColorPalettes.rose.lightIcon,
+    iconDark: featureColorPalettes.rose.darkIcon,
+    background: featureColorPalettes.rose.light,
+    backgroundDark: featureColorPalettes.rose[800],
+  },
+
+  // Learning/Progress - Indigo Blue
+  learning: {
+    icon: featureColorPalettes.indigo.lightIcon,
+    iconDark: featureColorPalettes.indigo.darkIcon,
+    background: featureColorPalettes.indigo.light,
+    backgroundDark: featureColorPalettes.indigo[800],
+  },
+
+  // Inspiration/Sparkles - Yellow Gold
+  inspiration: {
+    icon: featureColorPalettes.yellow.lightIcon,
+    iconDark: featureColorPalettes.yellow.darkIcon,
+    background: featureColorPalettes.yellow.light,
+    backgroundDark: featureColorPalettes.yellow[800],
+  },
+
+  // Meditation/Calm - Teal
+  meditation: {
+    icon: featureColorPalettes.teal.lightIcon,
+    iconDark: featureColorPalettes.teal.darkIcon,
+    background: featureColorPalettes.teal.light,
+    backgroundDark: featureColorPalettes.teal[800],
+  },
+
+  // Global/Info - Sky Blue
+  global: {
+    icon: featureColorPalettes.sky.lightIcon,
+    iconDark: featureColorPalettes.sky.darkIcon,
+    background: featureColorPalettes.sky.light,
+    backgroundDark: featureColorPalettes.sky[800],
+  },
+
+  // Settings/Neutral - Slate Gray
+  settings: {
+    icon: featureColorPalettes.slate.lightIcon,
+    iconDark: featureColorPalettes.slate.darkIcon,
+    background: featureColorPalettes.slate.light,
+    backgroundDark: featureColorPalettes.slate[800],
+  },
+
+  // Sound/Audio - Indigo (music note)
+  sound: {
+    icon: featureColorPalettes.rose.lightIcon,
+    iconDark: featureColorPalettes.rose.darkIcon,
+    background: featureColorPalettes.rose.light,
+    backgroundDark: featureColorPalettes.rose[800],
+  },
+};
+
+// Helper to get feature icon colors based on theme
+export const getFeatureIconColors = (isDark: boolean) => {
+  const transform = (colors: typeof featureIconColors.privacy) => ({
+    icon: isDark ? colors.iconDark : colors.icon,
+    background: isDark ? colors.backgroundDark : colors.background,
+  });
+
+  return {
+    privacy: transform(featureIconColors.privacy),
+    user: transform(featureIconColors.user),
+    gift: transform(featureIconColors.gift),
+    target: transform(featureIconColors.target),
+    learning: transform(featureIconColors.learning),
+    inspiration: transform(featureIconColors.inspiration),
+    meditation: transform(featureIconColors.meditation),
+    global: transform(featureIconColors.global),
+    settings: transform(featureIconColors.settings),
+    sound: transform(featureIconColors.sound),
+  };
+};
+
+// Base section color definitions
+const sectionColorDefinitions = {
+  // Instructions section - Blue/Indigo
+  instructions: {
+    primary: '#6366F1',     // Indigo-500
+    light: '#818CF8',       // Indigo-400
+    dark: '#4F46E5',        // Indigo-600
+    rgb: '99, 102, 241',
+  },
+  // Inspirations section - Purple/Violet
+  inspirations: {
+    primary: '#8B5CF6',     // Violet-500
+    light: '#A78BFA',       // Violet-400
+    dark: '#7C3AED',        // Violet-600
+    rgb: '139, 92, 246',
+  },
+  // Custom session section - Emerald/Mint
+  custom: {
+    primary: '#10B981',     // Emerald-500
+    light: '#34D399',       // Emerald-400
+    dark: '#059669',        // Emerald-600
+    rgb: '16, 185, 129',
+  },
+  // Meditation section - Teal
+  meditation: {
+    primary: '#14B8A6',     // Teal-500
+    light: '#2DD4BF',       // Teal-400
+    dark: '#0D9488',        // Teal-600
+    rgb: '20, 184, 166',
+  },
+  // Quotes section - Amber/Gold
+  quotes: {
+    primary: '#F59E0B',     // Amber-500
+    light: '#FBBF24',       // Amber-400
+    dark: '#D97706',        // Amber-600
+    rgb: '245, 158, 11',
+  },
+  // Settings section - Slate/Gray
+  settings: {
+    primary: '#64748B',     // Slate-500
+    light: '#94A3B8',       // Slate-400
+    dark: '#475569',        // Slate-600
+    rgb: '100, 116, 139',
+  },
+  // Profile section - Rose/Pink
+  profile: {
+    primary: '#F43F5E',     // Rose-500
+    light: '#FB7185',       // Rose-400
+    dark: '#E11D48',        // Rose-600
+    rgb: '244, 63, 94',
+  },
+};
+
+// Section colors with full palette for Light Mode
+export const sectionColors = {
+  instructions: {
+    // Icon colors
+    icon: sectionColorDefinitions.instructions.primary,
+    iconLight: sectionColorDefinitions.instructions.light,
+    // Background colors (for icon containers)
+    background: hexToRgba(sectionColorDefinitions.instructions.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.instructions.primary, 0.15),
+    // Border/accent
+    border: hexToRgba(sectionColorDefinitions.instructions.primary, 0.2),
+    // Gradient
+    gradient: [sectionColorDefinitions.instructions.light, sectionColorDefinitions.instructions.primary, sectionColorDefinitions.instructions.dark] as const,
+  },
+  inspirations: {
+    icon: sectionColorDefinitions.inspirations.primary,
+    iconLight: sectionColorDefinitions.inspirations.light,
+    background: hexToRgba(sectionColorDefinitions.inspirations.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.inspirations.primary, 0.15),
+    border: hexToRgba(sectionColorDefinitions.inspirations.primary, 0.2),
+    gradient: [sectionColorDefinitions.inspirations.light, sectionColorDefinitions.inspirations.primary, sectionColorDefinitions.inspirations.dark] as const,
+  },
+  custom: {
+    icon: sectionColorDefinitions.custom.primary,
+    iconLight: sectionColorDefinitions.custom.light,
+    background: hexToRgba(sectionColorDefinitions.custom.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.custom.primary, 0.15),
+    border: hexToRgba(sectionColorDefinitions.custom.primary, 0.2),
+    gradient: [sectionColorDefinitions.custom.light, sectionColorDefinitions.custom.primary, sectionColorDefinitions.custom.dark] as const,
+  },
+  meditation: {
+    icon: sectionColorDefinitions.meditation.primary,
+    iconLight: sectionColorDefinitions.meditation.light,
+    background: hexToRgba(sectionColorDefinitions.meditation.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.meditation.primary, 0.15),
+    border: hexToRgba(sectionColorDefinitions.meditation.primary, 0.2),
+    gradient: [sectionColorDefinitions.meditation.light, sectionColorDefinitions.meditation.primary, sectionColorDefinitions.meditation.dark] as const,
+  },
+  quotes: {
+    icon: sectionColorDefinitions.quotes.primary,
+    iconLight: sectionColorDefinitions.quotes.light,
+    background: hexToRgba(sectionColorDefinitions.quotes.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.quotes.primary, 0.15),
+    border: hexToRgba(sectionColorDefinitions.quotes.primary, 0.2),
+    gradient: [sectionColorDefinitions.quotes.light, sectionColorDefinitions.quotes.primary, sectionColorDefinitions.quotes.dark] as const,
+  },
+  settings: {
+    icon: sectionColorDefinitions.settings.primary,
+    iconLight: sectionColorDefinitions.settings.light,
+    background: hexToRgba(sectionColorDefinitions.settings.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.settings.primary, 0.15),
+    border: hexToRgba(sectionColorDefinitions.settings.primary, 0.2),
+    gradient: [sectionColorDefinitions.settings.light, sectionColorDefinitions.settings.primary, sectionColorDefinitions.settings.dark] as const,
+  },
+  profile: {
+    icon: sectionColorDefinitions.profile.primary,
+    iconLight: sectionColorDefinitions.profile.light,
+    background: hexToRgba(sectionColorDefinitions.profile.primary, 0.1),
+    backgroundHover: hexToRgba(sectionColorDefinitions.profile.primary, 0.15),
+    border: hexToRgba(sectionColorDefinitions.profile.primary, 0.2),
+    gradient: [sectionColorDefinitions.profile.light, sectionColorDefinitions.profile.primary, sectionColorDefinitions.profile.dark] as const,
+  },
+};
+
+// Section colors for Dark Mode (higher opacity backgrounds, lighter icon colors)
+export const darkSectionColors = {
+  instructions: {
+    icon: sectionColorDefinitions.instructions.light,
+    iconLight: sectionColorDefinitions.instructions.light,
+    background: hexToRgba(sectionColorDefinitions.instructions.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.instructions.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.instructions.primary, 0.3),
+    gradient: [sectionColorDefinitions.instructions.dark, sectionColorDefinitions.instructions.primary, sectionColorDefinitions.instructions.light] as const,
+  },
+  inspirations: {
+    icon: sectionColorDefinitions.inspirations.light,
+    iconLight: sectionColorDefinitions.inspirations.light,
+    background: hexToRgba(sectionColorDefinitions.inspirations.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.inspirations.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.inspirations.primary, 0.3),
+    gradient: [sectionColorDefinitions.inspirations.dark, sectionColorDefinitions.inspirations.primary, sectionColorDefinitions.inspirations.light] as const,
+  },
+  custom: {
+    icon: sectionColorDefinitions.custom.light,
+    iconLight: sectionColorDefinitions.custom.light,
+    background: hexToRgba(sectionColorDefinitions.custom.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.custom.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.custom.primary, 0.3),
+    gradient: [sectionColorDefinitions.custom.dark, sectionColorDefinitions.custom.primary, sectionColorDefinitions.custom.light] as const,
+  },
+  meditation: {
+    icon: sectionColorDefinitions.meditation.light,
+    iconLight: sectionColorDefinitions.meditation.light,
+    background: hexToRgba(sectionColorDefinitions.meditation.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.meditation.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.meditation.primary, 0.3),
+    gradient: [sectionColorDefinitions.meditation.dark, sectionColorDefinitions.meditation.primary, sectionColorDefinitions.meditation.light] as const,
+  },
+  quotes: {
+    icon: sectionColorDefinitions.quotes.light,
+    iconLight: sectionColorDefinitions.quotes.light,
+    background: hexToRgba(sectionColorDefinitions.quotes.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.quotes.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.quotes.primary, 0.3),
+    gradient: [sectionColorDefinitions.quotes.dark, sectionColorDefinitions.quotes.primary, sectionColorDefinitions.quotes.light] as const,
+  },
+  settings: {
+    icon: sectionColorDefinitions.settings.light,
+    iconLight: sectionColorDefinitions.settings.light,
+    background: hexToRgba(sectionColorDefinitions.settings.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.settings.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.settings.primary, 0.3),
+    gradient: [sectionColorDefinitions.settings.dark, sectionColorDefinitions.settings.primary, sectionColorDefinitions.settings.light] as const,
+  },
+  profile: {
+    icon: sectionColorDefinitions.profile.light,
+    iconLight: sectionColorDefinitions.profile.light,
+    background: hexToRgba(sectionColorDefinitions.profile.primary, 0.2),
+    backgroundHover: hexToRgba(sectionColorDefinitions.profile.primary, 0.25),
+    border: hexToRgba(sectionColorDefinitions.profile.primary, 0.3),
+    gradient: [sectionColorDefinitions.profile.dark, sectionColorDefinitions.profile.primary, sectionColorDefinitions.profile.light] as const,
+  },
+};
+
+// Helper function to get section colors based on theme
+export const getSectionColors = (isDark: boolean) => isDark ? darkSectionColors : sectionColors;
+
+// Export base definitions for custom usage
+export { sectionColorDefinitions };
+
+// ============================================
 // LIGHT MODE (default)
 // ============================================
 
@@ -1057,6 +1731,16 @@ export const colors = {
   text: textColors,
   border: borderColors,
   shadow: shadowColors,
+  // Brand colors for Slow Spot.me
+  brand: brandColors,
+  brandGradients: brandGradients,
+  // Section-specific colors (for different app sections)
+  section: sectionColors,
+  // PRIMARY COLOR SYSTEM - Central color that controls the entire theme
+  primary: primaryColor,
+  // Feature icon color palettes (emerald, violet, amber, rose, indigo, etc.)
+  feature: featureColorPalettes,
+  featureIcon: featureIconColors,
   // Complete color categories for 10/10 design system
   interactive: interactiveColors,
   skeleton: skeletonColors,
@@ -1073,6 +1757,15 @@ export const colors = {
   emptyState: emptyStateColors,
   chip: chipColors,
 };
+
+// Add brand, section, primary and feature colors to darkColors (after they're defined)
+// This is done dynamically to avoid circular reference issues
+(darkColors as any).brand = brandColors;
+(darkColors as any).brandGradients = brandGradients;
+(darkColors as any).section = darkSectionColors;
+(darkColors as any).primary = primaryColor;
+(darkColors as any).feature = featureColorPalettes;
+(darkColors as any).featureIcon = featureIconColors;
 
 // Helper function to get colors based on theme
 export const getThemeColors = (isDark: boolean) => isDark ? darkColors : colors;

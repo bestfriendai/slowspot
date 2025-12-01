@@ -6,6 +6,7 @@ const PREFERENCES_KEY = '@user_preferences';
 export interface UserPreferences {
   skipPreSessionIntro: boolean; // Skip the "Welcome to your first meditation" intro screen
   skipPreSessionInstructions: boolean; // Skip entire pre-session instructions (for experienced meditators)
+  skipIntentionScreen: boolean; // Skip the intention screen before meditation
   language?: string;
   theme?: 'light' | 'dark' | 'system';
 }
@@ -13,6 +14,7 @@ export interface UserPreferences {
 const DEFAULT_PREFERENCES: UserPreferences = {
   skipPreSessionIntro: false,
   skipPreSessionInstructions: false,
+  skipIntentionScreen: false,
   theme: 'system',
 };
 
@@ -94,5 +96,19 @@ export const userPreferences = {
    */
   setSkipPreSessionInstructions: async (value: boolean): Promise<void> => {
     await userPreferences.set('skipPreSessionInstructions', value);
+  },
+
+  /**
+   * Check if user wants to skip intention screen
+   */
+  shouldSkipIntentionScreen: async (): Promise<boolean> => {
+    return await userPreferences.get('skipIntentionScreen');
+  },
+
+  /**
+   * Set skip intention screen preference
+   */
+  setSkipIntentionScreen: async (value: boolean): Promise<void> => {
+    await userPreferences.set('skipIntentionScreen', value);
   },
 };

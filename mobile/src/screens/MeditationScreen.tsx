@@ -5,22 +5,22 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { SessionCard } from '../components/SessionCard';
 import { MeditationTimer } from '../components/MeditationTimer';
-import { PreSessionInstructions } from '../components/PreSessionInstructions';
+import { IntentionScreen } from '../components/IntentionScreen';
 import { CelebrationScreen } from '../components/CelebrationScreen';
 import { GradientBackground } from '../components/GradientBackground';
 import { api, MeditationSession } from '../services/api';
 import { audioEngine } from '../services/audio';
 import { saveSessionCompletion } from '../services/progressTracker';
-import { getInstructionForSession } from '../data/instructions';
 import { getAllCustomSessions, deleteCustomSession, SavedCustomSession } from '../services/customSessionStorage';
 import { userPreferences } from '../services/userPreferences';
 import { ChimePoint } from '../types/customSession';
 import { CustomSessionConfig } from './CustomSessionBuilderScreen';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
+import { brandColors, primaryColor } from '../theme/colors';
 import * as Haptics from 'expo-haptics';
 import { ActiveMeditationState } from '../../App';
 
-type FlowState = 'list' | 'instructions' | 'meditation' | 'celebration';
+type FlowState = 'list' | 'intention' | 'meditation' | 'celebration';
 
 interface MeditationScreenProps {
   isDark?: boolean;
@@ -70,9 +70,9 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
   const dynamicStyles = useMemo(() => ({
     title: { color: colors.text.primary },
     subtitle: { color: colors.text.secondary },
-    customBadgeText: { color: colors.accent.blue[600] },
-    customBadgeIconColor: colors.accent.blue[600],
-    loaderColor: colors.accent.blue[500],
+    customBadgeText: { color: brandColors.purple.primary },
+    customBadgeIconColor: brandColors.purple.primary,
+    loaderColor: brandColors.purple.primary,
     createButtonBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
     createButtonShadow: isDark ? {
       shadowColor: '#000',
@@ -130,13 +130,15 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
   const handleStartSession = async (session: MeditationSession) => {
     setSelectedSession(session);
 
-    // Check if user wants to skip pre-session instructions (for experienced meditators)
-    const skipInstructions = await userPreferences.shouldSkipPreSessionInstructions();
-    if (skipInstructions) {
-      // Skip instructions and go directly to meditation
+    // Check if user wants to skip intention screen (set permanently via checkbox)
+    const skipIntention = await userPreferences.shouldSkipIntentionScreen();
+    if (skipIntention) {
+      // Skip intention screen and go directly to meditation
       setFlowState('meditation');
+      // Start audio immediately since we're skipping intention screen
+      handleIntentionComplete('');
     } else {
-      setFlowState('instructions');
+      setFlowState('intention');
     }
   };
 
@@ -213,7 +215,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
     );
   };
 
-  const handleInstructionsComplete = async (intention: string) => {
+  const handleIntentionComplete = async (intention: string) => {
     setUserIntention(intention);
     setFlowState('meditation');
 
@@ -262,11 +264,6 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
       logger.warn('Session will continue in silent mode');
       // Don't prevent session from starting - just log the error
     }
-  };
-
-  const handleSkipInstructions = () => {
-    setFlowState('list');
-    setSelectedSession(null);
   };
 
   const handleAudioToggle = async (enabled: boolean) => {
@@ -327,7 +324,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
 
   const handleCelebrationContinue = async (mood?: 1 | 2 | 3 | 4 | 5, notes?: string) => {
     try {
-      // Save session completion with mood and notes for progress tracking
+      // Save session completion with mood, notes, and intention for progress tracking
       if (selectedSession) {
         await saveSessionCompletion(
           selectedSession.id,
@@ -335,7 +332,8 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
           selectedSession.durationSeconds,
           selectedSession.languageCode,
           mood,
-          notes
+          notes,
+          userIntention // Pass the user's intention from pre-session
         );
       }
 
@@ -387,8 +385,8 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
             onPress={onNavigateToCustom}
             activeOpacity={0.8}
           >
-            <View style={[styles.createButtonIcon, { backgroundColor: isDark ? 'rgba(52, 211, 153, 0.2)' : 'rgba(52, 211, 153, 0.15)' }]}>
-              <Ionicons name="add" size={32} color={colors.accent.mint[500]} />
+            <View style={[styles.createButtonIcon, { backgroundColor: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15] }]}>
+              <Ionicons name="add" size={32} color={brandColors.purple.primary} />
             </View>
             <View style={styles.createButtonTextContainer}>
               <Text style={[styles.createButtonTitle, { color: colors.text.primary }]}>
@@ -442,22 +440,14 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
     [loading, dynamicStyles, colors, t]
   );
 
-  // Show pre-session instructions
-  if (flowState === 'instructions' && selectedSession) {
-    const instruction = getInstructionForSession(
-      selectedSession.level,
-      'breath_awareness' // Default technique, can be mapped from session type
-    );
-
+  // Show intention screen before meditation
+  if (flowState === 'intention' && selectedSession) {
     return (
-      <View style={{ flex: 1 }}>
-        <PreSessionInstructions
-          instruction={instruction}
-          onComplete={handleInstructionsComplete}
-          onSkip={handleSkipInstructions}
-          isDark={isDark}
-        />
-      </View>
+      <IntentionScreen
+        onBegin={handleIntentionComplete}
+        isDark={isDark}
+        sessionName={selectedSession.title}
+      />
     );
   }
 
@@ -501,6 +491,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
       <CelebrationScreen
         durationMinutes={Math.ceil(selectedSession.durationSeconds / 60)}
         sessionTitle={selectedSession.title}
+        userIntention={userIntention}
         onContinue={handleCelebrationContinue}
         isDark={isDark}
       />
@@ -560,7 +551,7 @@ const styles = StyleSheet.create({
   },
   customBadgeText: {
     fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.accent.blue[600],
+    color: brandColors.purple.primary,
     fontWeight: theme.typography.fontWeights.medium,
   },
   loader: {

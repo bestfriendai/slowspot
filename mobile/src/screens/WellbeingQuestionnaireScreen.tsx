@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '../theme';
+import { brandColors } from '../theme/colors';
 import {
   WellbeingQuestion as QuestionType,
   WellbeingAnswer,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create<any>({
     marginBottom: theme.spacing.xxl,
   },
   submitButton: {
-    backgroundColor: theme.colors.accent.blue[500],
+    backgroundColor: brandColors.purple.primary,
     paddingVertical: theme.spacing.md,
     borderRadius: theme.borderRadius.lg,
     alignItems: 'center',

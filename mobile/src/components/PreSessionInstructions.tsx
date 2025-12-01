@@ -5,7 +5,7 @@ import { logger } from '../utils/logger';
 // ══════════════════════════════════════════════════════════════
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { View, Text, ScrollView, StyleSheet, Pressable, Animated, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Pressable, Animated, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import Reanimated, {
@@ -16,12 +16,14 @@ import Reanimated, {
   Easing,
 } from 'react-native-reanimated';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { PreSessionInstruction, ChecklistItem } from '../types/instructions';
 import { GradientBackground } from './GradientBackground';
 import { GradientCard } from './GradientCard';
 import { GradientButton } from './GradientButton';
 import theme, { gradients, getThemeColors, getThemeGradients } from '../theme';
+import { brandColors, primaryColor, featureColorPalettes, neutralColors, backgrounds } from '../theme/colors';
 import { userPreferences } from '../services/userPreferences';
 
 // ══════════════════════════════════════════════════════════════
@@ -34,7 +36,7 @@ interface IconProps {
   color?: string;
 }
 
-const Icon: React.FC<IconProps> = ({ name, size = 24, color = theme.colors.accent.mint[600] }) => {
+const Icon: React.FC<IconProps> = ({ name, size = 24, color = brandColors.purple.primary }) => {
   const iconMap: Record<string, string> = {
     // Physical setup icons
     chair: 'chair',
@@ -82,18 +84,19 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
   isDark = false,
 }) => {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
 
   // Theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
 
-  // Dynamic styles based on theme - using mint accent for consistency with app
+  // Dynamic styles based on theme - using primary brand color for consistency with app
   const dynamicStyles = useMemo(() => ({
     title: { color: colors.text.primary },
     subtitle: { color: colors.text.secondary },
     cardTitle: { color: colors.text.primary },
     cardDescription: { color: colors.text.secondary },
-    listBullet: { color: colors.accent.mint[600] },
+    listBullet: { color: brandColors.purple.primary },
     listText: { color: colors.text.secondary },
     skipButtonText: { color: colors.text.secondary },
     inputLabel: { color: colors.text.secondary },
@@ -102,8 +105,8 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
       color: colors.text.primary,
       backgroundColor: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
     },
-    timerText: { color: colors.accent.mint[600] },
-    breathingText: { color: colors.accent.mint[600] },
+    timerText: { color: brandColors.purple.primary },
+    breathingText: { color: brandColors.purple.primary },
     checklistTitle: { color: colors.text.primary },
     checklistDescription: { color: colors.text.secondary },
     optionalBadge: { color: colors.text.tertiary },
@@ -127,13 +130,24 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
       elevation: 8,
     },
     cardBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
-    iconColor: colors.accent.mint[500],
+    // Icon box backgrounds - using primary color palette
+    iconBoxBg: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
+    iconBoxBgCompleted: brandColors.purple.primary,
+    // Icon colors
+    iconColor: brandColors.purple.primary,
+    iconColorCompleted: colors.neutral.white,
+    // Checkbox and progress colors
+    checkboxColor: brandColors.purple.primary,
+    checkboxColorUnchecked: isDark ? brandColors.purple.light : brandColors.transparent.light25,
+    progressActiveColor: brandColors.purple.primary,
   }), [colors, isDark]);
   const [currentStep, setCurrentStep] = useState<'overview' | 'setup' | 'breathing' | 'intention'>('overview');
   const [setupChecklist, setSetupChecklist] = useState<ChecklistItem[]>([]);
   const [breathingPrepComplete, setBreathingPrepComplete] = useState(false);
   const [userIntention, setUserIntention] = useState('');
   const [alwaysSkip, setAlwaysSkip] = useState(false);
+  const [showSkipModal, setShowSkipModal] = useState(false);
+  const [dontShowAgain, setDontShowAgain] = useState(false);
 
   useEffect(() => {
     // Initialize checklist from physical setup steps
@@ -167,6 +181,25 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
     setAlwaysSkip(!alwaysSkip);
   };
 
+  // Handle skip with "don't show again" option
+  const handleSkipPress = () => {
+    setShowSkipModal(true);
+  };
+
+  const handleSkipConfirm = async () => {
+    if (dontShowAgain) {
+      await userPreferences.setSkipPreSessionInstructions(true);
+    }
+    setShowSkipModal(false);
+    // Skip to intention step so user can still set their intention
+    setCurrentStep('intention');
+  };
+
+  const handleSkipCancel = () => {
+    setShowSkipModal(false);
+    setDontShowAgain(false);
+  };
+
   // Get time-based greeting
   const getTimeGreeting = () => {
     const hour = new Date().getHours();
@@ -178,8 +211,71 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
 
   return (
     <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
+      {/* Skip Confirmation Modal */}
+      <Modal
+        visible={showSkipModal}
+        transparent
+        animationType="fade"
+        onRequestClose={handleSkipCancel}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalContent, { backgroundColor: dynamicStyles.cardBg }]}>
+            <View style={[styles.modalIconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+              <Ionicons name="rocket" size={28} color={dynamicStyles.iconColor} />
+            </View>
+            <Text style={[styles.modalTitle, dynamicStyles.cardTitle]}>
+              {t('instructions.skipModal.title', 'Przejdź do medytacji')}
+            </Text>
+            <Text style={[styles.modalDescription, dynamicStyles.cardDescription]}>
+              {t('instructions.skipModal.description', 'Możesz pominąć przygotowanie i od razu rozpocząć medytację.')}
+            </Text>
+
+            {/* Don't show again checkbox */}
+            <TouchableOpacity
+              onPress={() => setDontShowAgain(!dontShowAgain)}
+              style={styles.modalCheckbox}
+            >
+              <Ionicons
+                name={dontShowAgain ? 'checkbox' : 'square-outline'}
+                size={24}
+                color={dynamicStyles.checkboxColor}
+              />
+              <Text style={[styles.modalCheckboxText, dynamicStyles.cardDescription]}>
+                {t('instructions.skipModal.dontShowAgain', 'Nie pokazuj więcej tego wstępu')}
+              </Text>
+            </TouchableOpacity>
+
+            <View style={styles.modalButtons}>
+              <TouchableOpacity
+                onPress={handleSkipCancel}
+                style={[styles.modalButton, styles.modalButtonSecondary]}
+              >
+                <Text style={[styles.modalButtonText, dynamicStyles.skipButtonText]}>
+                  {t('common.cancel', 'Anuluj')}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleSkipConfirm}
+                style={styles.modalButton}
+              >
+                <LinearGradient
+                  colors={[brandColors.purple.light, brandColors.purple.primary]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                  style={styles.modalButtonGradient}
+                >
+                  <Text style={styles.modalButtonTextPrimary}>
+                    {t('instructions.skipModal.startMeditation', 'Rozpocznij')}
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[styles.scrollContent, { paddingTop: Math.max(insets.top, 20) + 40 }]}
         showsVerticalScrollIndicator={false}
       >
         {/* Header */}
@@ -197,7 +293,7 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
             instruction={instruction}
             timeGreeting={getTimeGreeting()}
             onNext={() => setCurrentStep('setup')}
-            onSkip={onSkip}
+            onSkip={handleSkipPress}
             t={t}
             isDark={isDark}
             themeGradients={themeGradients}
@@ -212,6 +308,7 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
             checklist={setupChecklist}
             onToggle={handleChecklistToggle}
             onNext={() => setCurrentStep(instruction.breathingPrep ? 'breathing' : 'intention')}
+            onSkip={handleSkipPress}
             canContinue={allRequiredComplete}
             t={t}
             isDark={isDark}
@@ -228,7 +325,8 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
               setBreathingPrepComplete(true);
               setCurrentStep('intention');
             }}
-            onSkip={() => setCurrentStep('intention')}
+            onSkipStep={() => setCurrentStep('intention')}
+            onSkipAll={handleSkipPress}
             t={t}
             isDark={isDark}
             themeGradients={themeGradients}
@@ -278,8 +376,8 @@ const OverviewStep: React.FC<OverviewStepProps> = ({ instruction, timeGreeting, 
       {/* Time of Day Insight */}
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="sunrise" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="sunrise" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>{timeGreeting}</Text>
@@ -295,8 +393,8 @@ const OverviewStep: React.FC<OverviewStepProps> = ({ instruction, timeGreeting, 
       {/* Mental Preparation */}
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="target" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="target" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -312,8 +410,8 @@ const OverviewStep: React.FC<OverviewStepProps> = ({ instruction, timeGreeting, 
       {/* Common Challenges */}
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="lightbulb" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="lightbulb" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -341,7 +439,7 @@ const OverviewStep: React.FC<OverviewStepProps> = ({ instruction, timeGreeting, 
         <GradientButton
           title={t('instructions.preparation.prepareMySpace') || 'Prepare My Space'}
           onPress={onNext}
-          gradient={themeGradients.button.success}
+          gradient={themeGradients.button.primary}
           style={styles.primaryButton}
         />
         <Pressable onPress={onSkip} style={styles.skipButton}>
@@ -364,6 +462,7 @@ interface PhysicalSetupStepProps {
   checklist: ChecklistItem[];
   onToggle: (id: string) => void;
   onNext: () => void;
+  onSkip: () => void;
   canContinue: boolean;
   t: any;
   isDark?: boolean;
@@ -377,6 +476,7 @@ const PhysicalSetupStep: React.FC<PhysicalSetupStepProps> = ({
   checklist,
   onToggle,
   onNext,
+  onSkip,
   canContinue,
   t,
   isDark,
@@ -387,8 +487,8 @@ const PhysicalSetupStep: React.FC<PhysicalSetupStepProps> = ({
     <View style={styles.stepContainer}>
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="clipboard" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="clipboard" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -427,17 +527,24 @@ const PhysicalSetupStep: React.FC<PhysicalSetupStepProps> = ({
         );
       })}
 
-      <GradientButton
-        title={
-          canContinue
-            ? t('instructions.preparation.continue') || 'Continue'
-            : t('instructions.preparation.completeRequired') || 'Complete Required Steps'
-        }
-        onPress={onNext}
-        gradient={canContinue ? themeGradients.button.success : themeGradients.button.disabled}
-        style={styles.primaryButton}
-        disabled={!canContinue}
-      />
+      <View style={styles.buttonContainer}>
+        <GradientButton
+          title={
+            canContinue
+              ? t('instructions.preparation.continue') || 'Continue'
+              : t('instructions.preparation.completeRequired') || 'Complete Required Steps'
+          }
+          onPress={onNext}
+          gradient={canContinue ? themeGradients.button.primary : themeGradients.button.disabled}
+          style={styles.primaryButton}
+          disabled={!canContinue}
+        />
+        <Pressable onPress={onSkip} style={styles.skipButton}>
+          <Text style={[styles.skipButtonText, dynamicStyles.skipButtonText]}>
+            {t('instructions.preparation.skipAll') || 'Pomiń przygotowanie'}
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -450,7 +557,8 @@ interface BreathingPrepStepProps {
   instructionId: string;
   breathingPrep: NonNullable<PreSessionInstruction['breathingPrep']>;
   onComplete: () => void;
-  onSkip: () => void;
+  onSkipStep: () => void;
+  onSkipAll: () => void;
   t: any;
   isDark?: boolean;
   themeGradients: any;
@@ -461,7 +569,8 @@ const BreathingPrepStep: React.FC<BreathingPrepStepProps> = ({
   instructionId,
   breathingPrep,
   onComplete,
-  onSkip,
+  onSkipStep,
+  onSkipAll,
   t,
   isDark,
   themeGradients,
@@ -504,8 +613,8 @@ const BreathingPrepStep: React.FC<BreathingPrepStepProps> = ({
     <View style={styles.stepContainer}>
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="wind" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="wind" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -538,14 +647,22 @@ const BreathingPrepStep: React.FC<BreathingPrepStepProps> = ({
           <GradientButton
             title={t('instructions.preparation.startBreathing') || 'Start Breathing Prep'}
             onPress={handleStart}
-            gradient={themeGradients.button.success}
+            gradient={themeGradients.button.primary}
             style={styles.primaryButton}
           />
-          <Pressable onPress={onSkip} style={styles.skipButton}>
-            <Text style={[styles.skipButtonText, dynamicStyles.skipButtonText]}>
-              {t('instructions.preparation.skip') || 'Skip'}
-            </Text>
-          </Pressable>
+          <View style={styles.skipButtonsRow}>
+            <Pressable onPress={onSkipStep} style={styles.skipButton}>
+              <Text style={[styles.skipButtonText, dynamicStyles.skipButtonText]}>
+                {t('instructions.preparation.skipStep') || 'Pomiń krok'}
+              </Text>
+            </Pressable>
+            <Text style={[styles.skipDivider, dynamicStyles.skipButtonText]}>•</Text>
+            <Pressable onPress={onSkipAll} style={styles.skipButton}>
+              <Text style={[styles.skipButtonText, dynamicStyles.skipButtonText]}>
+                {t('instructions.preparation.skipAll') || 'Pomiń wszystko'}
+              </Text>
+            </Pressable>
+          </View>
         </View>
       ) : (
         <Pressable onPress={onComplete} style={styles.skipButton}>
@@ -595,8 +712,8 @@ const IntentionStep: React.FC<IntentionStepProps> = ({
     <View style={styles.stepContainer}>
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="target" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="target" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -627,8 +744,8 @@ const IntentionStep: React.FC<IntentionStepProps> = ({
       {/* Session Tips */}
       <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.card, dynamicStyles.cardShadow]} isDark={isDark}>
         <View style={styles.cardRow}>
-          <View style={[styles.iconBox, { backgroundColor: isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)' }]}>
-            <Icon name="sparkles" size={24} />
+          <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+            <Icon name="sparkles" size={24} color={dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -664,7 +781,7 @@ const IntentionStep: React.FC<IntentionStepProps> = ({
         <Ionicons
           name={alwaysSkip ? 'checkbox' : 'square-outline'}
           size={24}
-          color={theme.colors.accent.mint[500]}
+          color={dynamicStyles.checkboxColor}
           style={{ marginRight: 12 }}
         />
         <View style={{ flex: 1 }}>
@@ -681,7 +798,7 @@ const IntentionStep: React.FC<IntentionStepProps> = ({
       <GradientButton
         title={t('instructions.preparation.beginMeditation') || 'Begin Meditation'}
         onPress={onBegin}
-        gradient={themeGradients.button.success}
+        gradient={themeGradients.button.primary}
         style={[styles.primaryButton, styles.beginButton]}
       />
     </View>
@@ -715,11 +832,11 @@ const ChecklistItemCard: React.FC<{
           <View style={[
             styles.iconBox,
             { backgroundColor: isCompleted
-              ? theme.colors.accent.mint[500]
-              : (isDark ? 'rgba(16, 185, 129, 0.2)' : 'rgba(16, 185, 129, 0.1)')
+              ? dynamicStyles.iconBoxBgCompleted
+              : dynamicStyles.iconBoxBg
             }
           ]}>
-            <Icon name={icon} size={22} color={isCompleted ? theme.colors.neutral.white : theme.colors.accent.mint[600]} />
+            <Icon name={icon} size={22} color={isCompleted ? dynamicStyles.iconColorCompleted : dynamicStyles.iconColor} />
           </View>
           <View style={styles.cardTextContainer}>
             <View style={styles.checklistTitleRow}>
@@ -739,7 +856,7 @@ const ChecklistItemCard: React.FC<{
           <Ionicons
             name={isCompleted ? 'checkmark-circle' : 'ellipse-outline'}
             size={28}
-            color={isCompleted ? theme.colors.accent.mint[500] : theme.colors.accent.mint[400]}
+            color={isCompleted ? dynamicStyles.checkboxColor : dynamicStyles.checkboxColorUnchecked}
           />
         </View>
       </GradientCard>
@@ -867,19 +984,55 @@ const StepProgress: React.FC<{ currentStep: string; t: any; isDark?: boolean }> 
 
         return (
           <React.Fragment key={step}>
-            <View
-              style={[
-                styles.progressDot,
-                (isComplete || isActive) && styles.progressDotActive,
-              ]}
-            />
-            {index < steps.length - 1 && (
-              <View
+            {/* Modern step dot with glow effect */}
+            <View style={styles.progressDotWrapper}>
+              {/* Glow ring for active step */}
+              {isActive && (
+                <View style={[
+                  styles.progressDotGlow,
+                  { backgroundColor: isDark ? 'rgba(139, 92, 246, 0.3)' : 'rgba(139, 92, 246, 0.2)' }
+                ]} />
+              )}
+              <LinearGradient
+                colors={
+                  isComplete || isActive
+                    ? [brandColors.purple.light, brandColors.purple.primary]
+                    : isDark
+                      ? ['#3A3A4A', '#2A2A3A']
+                      : [neutralColors.gray[200], neutralColors.gray[300]]
+                }
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
                 style={[
-                  styles.progressLine,
-                  isComplete && styles.progressLineActive,
+                  styles.progressDot,
+                  isActive && styles.progressDotCurrent,
                 ]}
-              />
+              >
+                {isComplete && (
+                  <Ionicons name="checkmark" size={10} color="#FFFFFF" />
+                )}
+              </LinearGradient>
+            </View>
+            {/* Connecting line */}
+            {index < steps.length - 1 && (
+              <View style={styles.progressLineWrapper}>
+                <View
+                  style={[
+                    styles.progressLine,
+                    { backgroundColor: isDark ? '#2A2A3A' : neutralColors.gray[200] },
+                  ]}
+                />
+                {/* Filled portion of line for completed steps */}
+                <LinearGradient
+                  colors={[brandColors.purple.light, brandColors.purple.primary]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                  style={[
+                    styles.progressLineFilled,
+                    { width: isComplete ? '100%' : '0%' },
+                  ]}
+                />
+              </View>
             )}
           </React.Fragment>
         );
@@ -902,7 +1055,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: theme.spacing.lg,
+    marginBottom: theme.spacing.sm,
   },
   title: {
     fontSize: theme.typography.fontSizes.xxxl,
@@ -967,7 +1120,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.xs,
   },
   listBullet: {
-    color: theme.colors.accent.mint[600],
+    color: brandColors.purple.primary,
     fontWeight: theme.typography.fontWeights.semiBold,
     fontSize: theme.typography.fontSizes.md,
   },
@@ -1002,7 +1155,7 @@ const styles = StyleSheet.create({
   },
   checklistCardCompleted: {
     borderWidth: 2,
-    borderColor: theme.colors.accent.mint[500],
+    borderColor: brandColors.purple.primary,
   },
   checklistContent: {
     flexDirection: 'row',
@@ -1079,46 +1232,167 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: `${theme.colors.accent.mint[500]}30`,
+    backgroundColor: brandColors.transparent.light25,
     borderWidth: 3,
-    borderColor: theme.colors.accent.mint[500],
+    borderColor: brandColors.purple.primary,
   },
   breathingText: {
     position: 'absolute',
     fontSize: theme.typography.fontSizes.lg,
     fontWeight: theme.typography.fontWeights.semiBold,
-    color: theme.colors.accent.mint[600],
+    color: brandColors.purple.primary,
   },
   timerText: {
     fontSize: 48,
     fontWeight: theme.typography.fontWeights.bold,
-    color: theme.colors.accent.mint[600],
+    color: brandColors.purple.primary,
     marginVertical: theme.spacing.md,
     textAlign: 'center',
   },
   progressContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: theme.spacing.lg,
+    marginTop: theme.spacing.xs,
+    marginBottom: theme.spacing.md,
     paddingHorizontal: theme.spacing.xl,
   },
-  progressDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: theme.colors.neutral.gray[300],
+  progressDotWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 28,
+    height: 28,
   },
-  progressDotActive: {
-    backgroundColor: theme.colors.accent.mint[500],
+  progressDotGlow: {
+    position: 'absolute',
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+  },
+  progressDot: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressDotCurrent: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+  },
+  progressLineWrapper: {
+    width: 60,
+    height: 3,
+    marginHorizontal: 4,
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: 1.5,
   },
   progressLine: {
-    flex: 1,
-    height: 2,
-    backgroundColor: theme.colors.neutral.gray[300],
-    marginHorizontal: theme.spacing.xxs,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    borderRadius: 1.5,
   },
-  progressLineActive: {
-    backgroundColor: theme.colors.accent.mint[500],
+  progressLineFilled: {
+    position: 'absolute',
+    height: '100%',
+    borderRadius: 1.5,
+  },
+  // Skip buttons row for multiple skip options
+  skipButtonsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: theme.spacing.sm,
+  },
+  skipDivider: {
+    marginHorizontal: theme.spacing.sm,
+    fontSize: theme.typography.fontSizes.sm,
+  },
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: backgrounds.overlay,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing.lg,
+  },
+  modalContent: {
+    width: '100%',
+    maxWidth: 340,
+    borderRadius: theme.borderRadius.xl,
+    padding: theme.spacing.xl,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  modalIconBox: {
+    width: 56,
+    height: 56,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: theme.spacing.md,
+  },
+  modalTitle: {
+    fontSize: theme.typography.fontSizes.lg,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: theme.spacing.xs,
+  },
+  modalDescription: {
+    fontSize: theme.typography.fontSizes.sm,
+    textAlign: 'center',
+    lineHeight: theme.typography.lineHeights.relaxed * theme.typography.fontSizes.sm,
+    marginBottom: theme.spacing.lg,
+  },
+  modalCheckbox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
+    gap: theme.spacing.sm,
+  },
+  modalCheckboxText: {
+    fontSize: theme.typography.fontSizes.sm,
+    flex: 1,
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    gap: theme.spacing.sm,
+    width: '100%',
+  },
+  modalButton: {
+    flex: 1,
+    borderRadius: theme.borderRadius.lg,
+    overflow: 'hidden',
+  },
+  modalButtonSecondary: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: brandColors.transparent.light25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: theme.spacing.md,
+  },
+  modalButtonGradient: {
+    paddingVertical: theme.spacing.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalButtonText: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '600',
+  },
+  modalButtonTextPrimary: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '600',
+    color: neutralColors.white,
   },
 });

@@ -9,6 +9,7 @@ import { api, Quote } from '../services/api';
 import { getUniqueRandomQuote, markQuoteAsShown } from '../services/quoteHistory';
 import { GradientBackground } from '../components/GradientBackground';
 import theme, { gradients, getThemeColors, getThemeGradients } from '../theme';
+import { brandColors } from '../theme/colors';
 
 interface QuotesScreenProps {
   isDark?: boolean;
@@ -107,7 +108,7 @@ export const QuotesScreen: React.FC<QuotesScreenProps> = ({ isDark = false }) =>
           <View style={styles.loader}>
             <ActivityIndicator
               size="large"
-              color={colors.accent.blue[600]}
+              color={brandColors.purple.primary}
             />
           </View>
         ) : quotes.length > 0 ? (

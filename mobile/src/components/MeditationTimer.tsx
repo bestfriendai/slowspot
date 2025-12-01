@@ -13,7 +13,9 @@ import Animated, {
   cancelAnimation,
 } from 'react-native-reanimated';
 import Svg, { Circle, G, Text as SvgText } from 'react-native-svg';
+import { LinearGradient } from 'expo-linear-gradient';
 import theme, { getThemeColors } from '../theme';
+import { brandColors } from '../theme/colors';
 import { ChimePoint } from '../types/customSession';
 import { ConfirmationModal } from './ConfirmationModal';
 
@@ -73,17 +75,17 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     breathingText: {
       color: isDark ? colors.neutral.white : theme.colors.neutral.gray[800],
     },
-    breathingCircle: {
-      backgroundColor: isDark ? colors.neutral.charcoal[100] : theme.colors.neutral.lightGray[200],
-    },
+    breathingCircleGradient: isDark
+      ? ['rgba(139, 92, 246, 0.15)', 'rgba(139, 92, 246, 0.05)'] as const
+      : ['rgba(139, 92, 246, 0.12)', 'rgba(139, 92, 246, 0.03)'] as const,
     progressTrack: {
       backgroundColor: isDark ? colors.neutral.charcoal[100] : theme.colors.neutral.lightGray[300],
     },
     progressFill: {
       backgroundColor: isDark ? colors.neutral.gray[300] : theme.colors.neutral.gray[400],
     },
-    progressRingBg: isDark ? colors.neutral.charcoal[100] : theme.colors.neutral.lightGray[300],
-    progressRingFg: isDark ? colors.neutral.gray[300] : theme.colors.neutral.gray[500],
+    progressRingBg: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
+    progressRingFg: brandColors.purple.primary,
     timerText: {
       color: isDark ? colors.neutral.white : theme.colors.neutral.gray[700],
     },
@@ -101,12 +103,6 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     },
     secondaryButtonText: {
       color: isDark ? colors.neutral.white : theme.colors.neutral.gray[600],
-    },
-    primaryButton: {
-      backgroundColor: isDark ? colors.accent.blue[600] : theme.colors.neutral.gray[800],
-    },
-    primaryButtonText: {
-      color: colors.neutral.white,
     },
   }), [colors, isDark]);
   const [remainingSeconds, setRemainingSeconds] = useState(totalSeconds);
@@ -136,9 +132,10 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     setIsRunning(true); // Resume meditation
   };
 
-  // Breathing animation - very subtle
-  const breathingScale = useSharedValue(0.95);
+  // Breathing animation - subtle, stays inside the ring
+  const breathingScale = useSharedValue(0.7);
   const breathingOpacity = useSharedValue(0.3);
+  const breathingGlow = useSharedValue(0);
 
   // Load chime sound
   useEffect(() => {
@@ -168,15 +165,15 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     };
   }, []);
 
-  // Breathing animation - synchronized with text
+  // Breathing animation - synchronized with text, more visible
   useEffect(() => {
     if (isRunning) {
       let timeoutId: NodeJS.Timeout;
 
       const animateBreathing = () => {
-        // INHALE - grow
+        // INHALE - grow but stay inside the ring
         setBreathingPhase('inhale');
-        breathingScale.value = withTiming(1.05, {
+        breathingScale.value = withTiming(0.95, {
           duration: 4000,
           easing: Easing.inOut(Easing.ease),
         });
@@ -184,19 +181,27 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           duration: 4000,
           easing: Easing.inOut(Easing.ease),
         });
+        breathingGlow.value = withTiming(1, {
+          duration: 4000,
+          easing: Easing.inOut(Easing.ease),
+        });
 
         timeoutId = setTimeout(() => {
-          // HOLD
+          // HOLD - maintain
           setBreathingPhase('hold');
 
           timeoutId = setTimeout(() => {
             // EXHALE - shrink
             setBreathingPhase('exhale');
-            breathingScale.value = withTiming(0.95, {
+            breathingScale.value = withTiming(0.7, {
               duration: 4000,
               easing: Easing.inOut(Easing.ease),
             });
             breathingOpacity.value = withTiming(0.3, {
+              duration: 4000,
+              easing: Easing.inOut(Easing.ease),
+            });
+            breathingGlow.value = withTiming(0, {
               duration: 4000,
               easing: Easing.inOut(Easing.ease),
             });
@@ -219,15 +224,17 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         clearTimeout(timeoutId);
         cancelAnimation(breathingScale);
         cancelAnimation(breathingOpacity);
+        cancelAnimation(breathingGlow);
       };
     } else {
       cancelAnimation(breathingScale);
       cancelAnimation(breathingOpacity);
+      cancelAnimation(breathingGlow);
       if (chimeSound.current) {
         chimeSound.current.pause();
       }
     }
-  }, [isRunning, breathingScale, breathingOpacity]);
+  }, [isRunning, breathingScale, breathingOpacity, breathingGlow]);
 
   const breathingAnimatedStyle = useAnimatedStyle(() => ({
     opacity: breathingOpacity.value,
@@ -312,6 +319,10 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           }}
           accessibilityLabel={audioEnabled ? 'Audio enabled' : 'Audio disabled'}
         >
+          {/* Subtle glow ring behind icon when enabled */}
+          {audioEnabled && (
+            <View style={styles.audioButtonGlow} />
+          )}
           <Ionicons
             name={audioEnabled ? 'volume-high' : 'volume-mute'}
             size={20}
@@ -333,7 +344,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         )}
       </View>
 
-      {/* Breathing guidance - minimal */}
+      {/* Breathing guidance - simple text only */}
       <View style={styles.breathingSection}>
         <Text style={[styles.instructionLabel, dynamicStyles.instructionLabel]}>
           {t('meditation.focusOnBreath', 'SKUP SIĘ NA ODDECHU')}
@@ -348,8 +359,15 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
       {/* Main circle with timer */}
       <View style={styles.circleWrapper}>
-        {/* Subtle breathing background */}
-        <Animated.View style={[styles.breathingCircle, dynamicStyles.breathingCircle, breathingAnimatedStyle, { width: size, height: size }]} />
+        {/* Breathing circle with gradient glow */}
+        <Animated.View style={[styles.breathingCircleWrapper, breathingAnimatedStyle, { width: size, height: size }]}>
+          <LinearGradient
+            colors={dynamicStyles.breathingCircleGradient}
+            style={styles.breathingCircle}
+            start={{ x: 0.5, y: 0.5 }}
+            end={{ x: 1, y: 1 }}
+          />
+        </Animated.View>
 
         {/* Progress ring */}
         <Svg width={svgSize} height={svgSize} style={styles.progressRing}>
@@ -443,12 +461,20 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.primaryButton, dynamicStyles.primaryButton]}
+          style={styles.primaryButtonWrapper}
           onPress={() => setIsRunning(!isRunning)}
+          activeOpacity={0.8}
         >
-          <Text style={[styles.primaryButtonText, dynamicStyles.primaryButtonText]}>
-            {isRunning ? t('meditation.pause') : t('meditation.resume')}
-          </Text>
+          <LinearGradient
+            colors={[brandColors.purple.light, brandColors.purple.primary]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.primaryButton}
+          >
+            <Text style={styles.primaryButtonText}>
+              {isRunning ? t('meditation.pause') : t('meditation.resume')}
+            </Text>
+          </LinearGradient>
         </TouchableOpacity>
       </View>
 
@@ -496,6 +522,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
     shadowRadius: 8,
     elevation: 2,
+  },
+  audioButtonGlow: {
+    position: 'absolute',
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 1.5,
+    borderColor: 'rgba(139, 92, 246, 0.25)',
   },
   audioButtonMuted: {
     backgroundColor: theme.colors.neutral.lightGray[100],
@@ -551,10 +585,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  breathingCircle: {
+  breathingCircleWrapper: {
     position: 'absolute',
     borderRadius: 999,
-    backgroundColor: theme.colors.neutral.lightGray[200],
+    overflow: 'hidden',
+  },
+  breathingCircle: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 999,
   },
   progressRing: {
     transform: [{ rotate: '0deg' }],
@@ -641,18 +680,19 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: theme.colors.neutral.gray[600],
   },
-  primaryButton: {
+  primaryButtonWrapper: {
     flex: 1,
+    shadowColor: brandColors.purple.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  primaryButton: {
     paddingVertical: 18,
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.colors.neutral.gray[800],
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 4,
   },
   primaryButtonText: {
     fontSize: 16,

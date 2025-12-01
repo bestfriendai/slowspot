@@ -10,6 +10,7 @@ import { GradientBackground } from '../components/GradientBackground';
 import { GradientCard } from '../components/GradientCard';
 import { GradientButton } from '../components/GradientButton';
 import theme, { gradients, getThemeColors, getThemeGradients } from '../theme';
+import { brandColors, primaryColor } from '../theme/colors';
 import { saveCustomSession, updateCustomSession, getAllCustomSessions, deleteCustomSession, SavedCustomSession } from '../services/customSessionStorage';
 
 export interface CustomSessionConfig {
@@ -46,7 +47,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
 
-  // Dynamic styles based on theme - using mint accent for consistency
+  // Dynamic styles based on theme - using brand colors for consistency
   const dynamicStyles = useMemo(() => ({
     title: { color: colors.text.primary },
     subtitle: { color: colors.text.secondary },
@@ -54,7 +55,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
     sectionTitle: { color: colors.text.primary },
     sectionDescription: { color: colors.text.secondary },
     label: { color: colors.text.secondary },
-    currentValue: { color: colors.accent.mint[600] },
+    currentValue: { color: brandColors.purple.primary },
     textInput: {
       borderColor: isDark ? colors.neutral.charcoal[100] : theme.colors.border.default,
       color: colors.text.primary,
@@ -86,9 +87,9 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
     smallPresetButtonText: { color: colors.text.secondary },
     quickStartText: { color: colors.text.secondary },
     savedSessionsTitle: { color: colors.text.primary },
-    savedSessionsIconColor: colors.accent.mint[500],
+    savedSessionsIconColor: brandColors.purple.primary,
     switchTrackColorFalse: isDark ? colors.neutral.charcoal[100] : theme.colors.neutral.gray[200],
-    switchTrackColorTrue: colors.accent.mint[500],
+    switchTrackColorTrue: brandColors.purple.primary,
   }), [colors, isDark]);
 
   // Session configuration state - initialize with initialConfig if editing
@@ -435,7 +436,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
                       <Text style={[styles.savedSessionName, { color: colors.text.primary }]} numberOfLines={1}>
                         {session.title}
                       </Text>
-                      <Ionicons name="star" size={16} color={colors.accent.mint[500]} />
+                      <Ionicons name="star" size={16} color={brandColors.purple.primary} />
                     </View>
                     {/* Duration and sound info */}
                     <Text style={[styles.savedSessionDescription, { color: colors.text.secondary }]} numberOfLines={1}>
@@ -548,15 +549,15 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
                       styles.ambientOptionActive,
                       {
                         backgroundColor: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
-                        borderColor: colors.accent.mint[500],
+                        borderColor: brandColors.purple.primary,
                       }
                     ]}>
                       <Ionicons
                         name={option.icon}
                         size={32}
-                        color={colors.accent.mint[500]}
+                        color={brandColors.purple.primary}
                       />
-                      <Text style={[styles.ambientOptionTextActive, { color: colors.accent.mint[600] }]}>
+                      <Text style={[styles.ambientOptionTextActive, { color: brandColors.purple.primary }]}>
                         {option.label}
                       </Text>
                     </View>
@@ -698,7 +699,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
               }}
               trackColor={{
                 false: theme.colors.neutral.gray[200],
-                true: theme.colors.accent.blue[500],
+                true: brandColors.purple.primary,
               }}
               thumbColor={theme.colors.neutral.white}
             />
@@ -863,7 +864,7 @@ const styles = StyleSheet.create({
   },
   currentValue: {
     fontSize: theme.typography.fontSizes.md,
-    color: theme.colors.accent.mint[600],
+    color: brandColors.purple.primary,
     fontWeight: theme.typography.fontWeights.semiBold,
     textAlign: 'center',
     marginTop: theme.spacing.sm,

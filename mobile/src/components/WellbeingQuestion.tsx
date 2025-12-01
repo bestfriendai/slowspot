@@ -13,6 +13,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import theme from '../theme';
+import { brandColors, primaryColor } from '../theme/colors';
 import { WellbeingQuestion as QuestionType } from '../types/wellbeing';
 
 interface Props {
@@ -160,8 +161,8 @@ const styles = StyleSheet.create<any>({
     borderColor: theme.colors.neutral.gray[300],
   },
   scaleButtonActive: {
-    backgroundColor: theme.colors.accent.blue[500],
-    borderColor: theme.colors.accent.blue[600],
+    backgroundColor: brandColors.purple.primary,
+    borderColor: brandColors.purple.dark,
   },
   scaleButtonText: {
     fontSize: theme.typography.fontSizes.md,
@@ -185,15 +186,15 @@ const styles = StyleSheet.create<any>({
     borderColor: theme.colors.neutral.gray[300],
   },
   emotionButtonActive: {
-    backgroundColor: theme.colors.accent.blue[100],
-    borderColor: theme.colors.accent.blue[500],
+    backgroundColor: primaryColor.transparent[10],
+    borderColor: brandColors.purple.primary,
   },
   emotionButtonText: {
     fontSize: theme.typography.fontSizes.md,
     color: theme.colors.neutral.gray[700],
   },
   emotionButtonTextActive: {
-    color: theme.colors.accent.blue[600],
+    color: brandColors.purple.primary,
     fontWeight: theme.typography.fontWeights.medium,
   },
   textInput: {

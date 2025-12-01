@@ -27,20 +27,41 @@
 
 /* ==========================================================================
    DESIGN TOKENS - Single Source of Truth for all visual elements
+   Slow Spot.me Brand Colors - synced with mobile app colors.ts
    ========================================================================== */
 :root {
-  /* Brand Colors - Primary Palette */
-  --brand-primary: #8B5CF6;
-  --brand-primary-light: #A78BFA;
-  --brand-primary-dark: #7C3AED;
-  --brand-secondary: #A855F7;
-  --brand-accent: #C084FC;
+  /* ============================================
+     BRAND COLORS - Slow Spot.me Primary Palette
+     Matching mobile/src/theme/colors.ts brandColors
+     ============================================ */
+  --brand-indigo: #6366F1;     /* Indigo - gradient start */
+  --brand-violet: #8B5CF6;     /* Violet - main brand color */
+  --brand-purple: #A855F7;     /* Purple - gradient end */
+  --brand-deep-violet: #7C3AED; /* Deep violet for dark mode */
+  --brand-gold: #FCD34D;       /* Golden yellow for ".me" accent */
 
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
-  --gradient-brand: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%);
+  /* Brand Aliases */
+  --brand-primary: var(--brand-violet);
+  --brand-primary-light: #A78BFA;
+  --brand-primary-dark: var(--brand-deep-violet);
+  --brand-secondary: var(--brand-purple);
+  --brand-accent: var(--brand-gold);
+
+  /* Brand RGB values for rgba() usage */
+  --brand-violet-rgb: 139, 92, 246;
+  --brand-indigo-rgb: 99, 102, 241;
+  --brand-purple-rgb: 168, 85, 247;
+
+  /* ============================================
+     BRAND GRADIENTS - matching mobile brandGradients
+     ============================================ */
+  --gradient-brand: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 50%, var(--brand-purple) 100%);
+  --gradient-brand-vertical: linear-gradient(180deg, var(--brand-indigo) 0%, var(--brand-violet) 50%, var(--brand-purple) 100%);
+  --gradient-brand-light: linear-gradient(135deg, #818CF8 0%, #A78BFA 50%, #C084FC 100%);
+  --gradient-brand-dark: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #9333EA 100%);
+  --gradient-primary: var(--gradient-brand);
   --gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(var(--brand-violet-rgb), 0.1) 0%, rgba(var(--brand-purple-rgb), 0.1) 100%);
 
   /* Text Colors - Dark Theme */
   --text-primary: #FFFFFF;
@@ -62,7 +83,8 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.15);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
-  --shadow-glow: 0 0 40px rgba(139, 92, 246, 0.2);
+  --shadow-glow: 0 0 40px rgba(var(--brand-violet-rgb), 0.2);
+  --shadow-brand: 0 0 60px rgba(var(--brand-violet-rgb), 0.3);
 
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -97,11 +119,10 @@
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
 
-  /* Legacy support */
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  --accent-violet: #667eea;
-  --accent-purple: #764ba2;
+  /* Legacy support (deprecated - use brand colors above) */
+  --primary-gradient: var(--gradient-brand);
+  --accent-violet: var(--brand-indigo);
+  --accent-purple: var(--brand-deep-violet);
   --accent-indigo: #5c6bc0;
 }
 
@@ -165,40 +186,82 @@ body {
 
   html:not(.dark) .hero-bg {
     background:
-      linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
-      linear-gradient(225deg, rgba(167, 139, 250, 0.04) 0%, transparent 50%),
-      linear-gradient(180deg, #FFFFFF 0%, #FAFAFF 30%, #F5F3FF 60%, #EDE9FE 100%);
+      linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+      linear-gradient(225deg, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+      linear-gradient(180deg, #FFFFFF 0%, #FAFAFF 20%, #F5F3FF 50%, #EDE9FE 100%);
     position: relative;
     overflow: hidden;
   }
 
-  /* Decorative gradient orbs for light mode hero - ENHANCED */
+  /* ============================================
+     DECORATIVE GRADIENT CIRCLES - Light Mode Hero
+     Matching mobile app card style with soft gradient circles
+     ============================================ */
+
+  /* Large decorative circle - top left */
   html:not(.dark) .hero-bg::before {
     content: '';
     position: absolute;
-    top: -30%;
-    right: -15%;
-    width: 70%;
-    height: 70%;
-    background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.05) 40%, transparent 70%);
+    top: -20%;
+    left: -15%;
+    width: 50%;
+    height: 80%;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(99, 102, 241, 0.15) 0%,
+        rgba(139, 92, 246, 0.08) 35%,
+        transparent 70%);
     border-radius: 50%;
     pointer-events: none;
-    animation: float-slow 20s ease-in-out infinite;
-    filter: blur(40px);
+    animation: float-slow 25s ease-in-out infinite;
+    filter: blur(60px);
   }
 
+  /* Medium decorative circle - bottom right */
   html:not(.dark) .hero-bg::after {
     content: '';
     position: absolute;
-    bottom: -20%;
-    left: -20%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.10) 0%, rgba(196, 181, 253, 0.05) 40%, transparent 70%);
+    bottom: -30%;
+    right: -10%;
+    width: 55%;
+    height: 75%;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(168, 85, 247, 0.12) 0%,
+        rgba(196, 181, 253, 0.06) 40%,
+        transparent 70%);
     border-radius: 50%;
     pointer-events: none;
-    animation: float-slow 25s ease-in-out infinite reverse;
+    animation: float-slow 30s ease-in-out infinite reverse;
+    filter: blur(70px);
+  }
+
+  /* Additional decorative elements via .orb classes */
+  html:not(.dark) .hero-bg .orb-1 {
+    background: radial-gradient(circle at center,
+      rgba(99, 102, 241, 0.25) 0%,
+      rgba(139, 92, 246, 0.12) 40%,
+      transparent 65%);
     filter: blur(50px);
+    opacity: 0.6;
+  }
+
+  html:not(.dark) .hero-bg .orb-2 {
+    background: radial-gradient(circle at center,
+      rgba(168, 85, 247, 0.2) 0%,
+      rgba(196, 181, 253, 0.1) 40%,
+      transparent 65%);
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+
+  html:not(.dark) .hero-bg .orb-3 {
+    background: radial-gradient(circle at center,
+      rgba(139, 92, 246, 0.18) 0%,
+      rgba(124, 58, 237, 0.08) 40%,
+      transparent 65%);
+    filter: blur(55px);
+    opacity: 0.45;
   }
 
   /* Hero title - ensure dark text in light mode (mobile) */
@@ -401,12 +464,12 @@ body {
 
 /* Utility Classes */
 .text-gradient {
-  background: linear-gradient(to right, #a78bfa, #c084fc, #f472b6);
+  background: var(--gradient-brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   /* iOS Safari fallback */
-  color: #a78bfa;
+  color: var(--brand-violet);
 }
 
 @supports (-webkit-background-clip: text) {
@@ -467,10 +530,10 @@ body {
   width: 200%;
   height: 200%;
   background:
-    radial-gradient(ellipse 800px 800px at 15% 15%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse 700px 700px at 85% 25%, rgba(168, 85, 247, 0.2) 0%, transparent 50%),
-    radial-gradient(ellipse 600px 600px at 35% 75%, rgba(102, 126, 234, 0.18) 0%, transparent 50%),
-    radial-gradient(ellipse 500px 500px at 75% 70%, rgba(236, 72, 153, 0.12) 0%, transparent 50%);
+    radial-gradient(ellipse 800px 800px at 15% 15%, rgba(var(--brand-violet-rgb), 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 700px 700px at 85% 25%, rgba(var(--brand-purple-rgb), 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse 600px 600px at 35% 75%, rgba(var(--brand-indigo-rgb), 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 500px at 75% 70%, rgba(var(--brand-purple-rgb), 0.12) 0%, transparent 50%);
   animation: float-bg 25s ease-in-out infinite;
   z-index: 0;
 }
@@ -513,7 +576,7 @@ body {
 .orb-1 {
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.7) 0%, rgba(102, 126, 234, 0.4) 40%, transparent 65%);
+  background: radial-gradient(circle at center, rgba(var(--brand-violet-rgb), 0.7) 0%, rgba(var(--brand-indigo-rgb), 0.4) 40%, transparent 65%);
   top: -25%;
   right: -15%;
   opacity: 0.8;
@@ -523,7 +586,7 @@ body {
 .orb-2 {
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle at center, rgba(236, 72, 153, 0.6) 0%, rgba(168, 85, 247, 0.35) 40%, transparent 65%);
+  background: radial-gradient(circle at center, rgba(var(--brand-purple-rgb), 0.6) 0%, rgba(var(--brand-violet-rgb), 0.35) 40%, transparent 65%);
   bottom: 5%;
   left: -15%;
   opacity: 0.7;
@@ -533,7 +596,7 @@ body {
 .orb-3 {
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.6) 0%, rgba(139, 92, 246, 0.3) 40%, transparent 65%);
+  background: radial-gradient(circle at center, rgba(var(--brand-indigo-rgb), 0.6) 0%, rgba(var(--brand-violet-rgb), 0.3) 40%, transparent 65%);
   top: 40%;
   right: 0%;
   opacity: 0.6;
@@ -558,7 +621,7 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+  background: linear-gradient(135deg, rgba(var(--brand-indigo-rgb), 0.2), rgba(var(--brand-purple-rgb), 0.2));
   transition: transform 4s ease-in-out, opacity 4s ease-in-out;
 }
 
@@ -566,7 +629,7 @@ body {
   position: absolute;
   inset: 30px;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(139, 92, 246, 0.3));
+  background: linear-gradient(135deg, rgba(var(--brand-indigo-rgb), 0.3), rgba(var(--brand-violet-rgb), 0.3));
   transition: transform 4s ease-in-out, opacity 4s ease-in-out;
 }
 
@@ -574,7 +637,7 @@ body {
   position: absolute;
   inset: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  background: linear-gradient(135deg, var(--brand-indigo), var(--brand-violet), var(--brand-purple));
   transition: transform 4s ease-in-out;
   display: flex;
   align-items: center;
@@ -596,7 +659,7 @@ body {
 
 /* Breathing preview background */
 .breathing-preview-bg {
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
+  background: linear-gradient(135deg, rgba(var(--brand-indigo-rgb), 0.3) 0%, rgba(var(--brand-violet-rgb), 0.3) 100%);
 }
 
 /* Breathing Phases - Inhale (expand) */
@@ -732,6 +795,71 @@ body {
   position: relative;
   padding: 6rem 0 8rem;
   background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 50%, #F8FAFC 100%);
+  overflow: hidden;
+}
+
+/* Decorative Orbs for Features Section - like the mobile button style */
+.features-section::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%);
+  top: -150px;
+  right: -150px;
+  pointer-events: none;
+  animation: orb-float-light 25s ease-in-out infinite;
+}
+
+.features-section::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, rgba(99, 102, 241, 0.03) 40%, transparent 70%);
+  bottom: -100px;
+  left: -100px;
+  pointer-events: none;
+  animation: orb-float-light 30s ease-in-out infinite reverse;
+}
+
+@keyframes orb-float-light {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.08);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+/* Third central orb for extra depth */
+.features-orb-center {
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, rgba(167, 139, 250, 0.02) 45%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: orb-pulse-light 15s ease-in-out infinite;
+}
+
+@keyframes orb-pulse-light {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
 }
 
 .features-title {

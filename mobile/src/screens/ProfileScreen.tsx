@@ -28,6 +28,7 @@ import { GradientCard } from '../components/GradientCard';
 import { ScheduleReminderModal } from '../components/ScheduleReminderModal';
 import { Badge } from '../components/Badge';
 import theme, { gradients, getThemeColors, getThemeGradients } from '../theme';
+import { brandColors, primaryColor, featureColorPalettes, semanticColors } from '../theme/colors';
 import {
   getProgressStats,
   getCompletedSessions,
@@ -79,9 +80,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     sessionDuration: { color: colors.text.secondary },
     sessionTimeAgo: { color: colors.text.tertiary },
     sessionIcon: {
-      backgroundColor: isDark ? colors.accent.blue[800] : colors.accent.blue[100],
+      backgroundColor: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10],
     },
-    iconColor: colors.accent.blue[600],
+    iconColor: brandColors.purple.primary,
     // New consistent card styling
     cardShadow: isDark ? {
       shadowColor: '#000',
@@ -113,10 +114,16 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
       elevation: 10,
       backgroundColor: 'transparent',
     },
-    iconBoxBg: isDark ? 'rgba(16, 185, 129, 0.25)' : 'rgba(16, 185, 129, 0.15)',
-    iconBoxBgBlue: isDark ? 'rgba(59, 130, 246, 0.25)' : 'rgba(59, 130, 246, 0.15)',
-    iconBoxBgOrange: isDark ? 'rgba(251, 146, 60, 0.25)' : 'rgba(251, 146, 60, 0.15)',
-    iconBoxBgPurple: isDark ? 'rgba(168, 85, 247, 0.25)' : 'rgba(168, 85, 247, 0.15)',
+    // Icon box backgrounds - using feature color palettes
+    iconBoxBg: isDark ? `rgba(${featureColorPalettes.emerald.rgb}, 0.25)` : `rgba(${featureColorPalettes.emerald.rgb}, 0.15)`,
+    iconBoxBgBlue: isDark ? `rgba(${featureColorPalettes.indigo.rgb}, 0.25)` : `rgba(${featureColorPalettes.indigo.rgb}, 0.15)`,
+    iconBoxBgOrange: isDark ? `rgba(${featureColorPalettes.amber.rgb}, 0.25)` : `rgba(${featureColorPalettes.amber.rgb}, 0.15)`,
+    iconBoxBgPurple: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
+    // Icon colors for different sections
+    iconEmerald: isDark ? featureColorPalettes.emerald.darkIcon : featureColorPalettes.emerald.lightIcon,
+    iconBlue: isDark ? featureColorPalettes.indigo.darkIcon : featureColorPalettes.indigo.lightIcon,
+    iconOrange: isDark ? featureColorPalettes.amber.darkIcon : featureColorPalettes.amber.lightIcon,
+    iconPurple: brandColors.purple.primary,
     cardTitle: { color: colors.text.primary },
     cardDescription: { color: colors.text.secondary },
   }), [colors, isDark]);
@@ -356,7 +363,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     <View style={[styles.statCardWrapper, dynamicStyles.statCardShadow]}>
       <GradientCard gradient={themeGradients.card.whiteCard} style={styles.statCard} isDark={isDark}>
         <View style={[styles.statIconBox, { backgroundColor: iconBg || dynamicStyles.iconBoxBg }]}>
-          <Ionicons name={icon} size={22} color={iconColor || colors.accent.mint[500]} />
+          <Ionicons name={icon} size={22} color={iconColor || dynamicStyles.iconEmerald} />
         </View>
         <View style={styles.statContent}>
           <Text style={[styles.statValue, dynamicStyles.statValue]}>
@@ -443,7 +450,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <Ionicons
             name={isCustom ? 'construct' : 'leaf'}
             size={20}
-            color={isCustom ? colors.accent.blue[500] : colors.accent.mint[500]}
+            color={isCustom ? dynamicStyles.iconBlue : dynamicStyles.iconEmerald}
           />
         </View>
         <View style={styles.sessionInfo}>
@@ -454,6 +461,14 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
             <Text style={[styles.sessionDuration, dynamicStyles.sessionDuration]}>{formatDuration(session.durationSeconds)}</Text>
           </View>
         </View>
+        {session.intention && (
+          <Ionicons
+            name="flag"
+            size={14}
+            color={brandColors.purple.primary}
+            style={styles.sessionIntentionBadge}
+          />
+        )}
         {session.mood && (
           <Text style={styles.sessionMoodBadge}>{getMoodEmoji(session.mood)}</Text>
         )}
@@ -529,14 +544,14 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
 
         {hasMoreSessions && (
           <TouchableOpacity
-            style={[styles.showMoreButton, { backgroundColor: isDark ? colors.background.tertiary : colors.accent.blue[50] }]}
+            style={[styles.showMoreButton, { backgroundColor: isDark ? colors.background.tertiary : primaryColor.transparent[10] }]}
             onPress={handleShowMore}
             activeOpacity={0.7}
           >
-            <Text style={[styles.showMoreText, { color: colors.accent.blue[600] }]}>
+            <Text style={[styles.showMoreText, { color: brandColors.purple.primary }]}>
               {t('profile.showMore') || 'Pokaż więcej'} ({sessions.length - visibleSessionsCount})
             </Text>
-            <Ionicons name="chevron-down" size={18} color={colors.accent.blue[600]} />
+            <Ionicons name="chevron-down" size={18} color={brandColors.purple.primary} />
           </TouchableOpacity>
         )}
       </>
@@ -549,7 +564,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
   const renderEmptyState = () => (
     <View style={styles.emptyState}>
       <View style={[styles.emptyIconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-        <Ionicons name="leaf-outline" size={48} color={colors.accent.mint[500]} />
+        <Ionicons name="leaf-outline" size={48} color={dynamicStyles.iconEmerald} />
       </View>
       <Text style={[styles.emptyTitle, dynamicStyles.emptyTitle]}>{t('profile.noSessionsYet')}</Text>
       <Text style={[styles.emptyMessage, dynamicStyles.emptyMessage]}>{t('profile.startMeditating')}</Text>
@@ -563,7 +578,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     return (
       <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={colors.accent.blue[600]} />
+          <ActivityIndicator size="large" color={brandColors.purple.primary} />
         </View>
       </GradientBackground>
     );
@@ -579,7 +594,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor={colors.accent.blue[600]}
+            tintColor={brandColors.purple.primary}
           />
         }
       >
@@ -588,7 +603,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <Ionicons
             name="person-circle"
             size={64}
-            color={colors.accent.blue[600]}
+            color={brandColors.purple.primary}
             style={styles.avatar}
           />
           <Text style={[styles.title, dynamicStyles.title]}>{t('profile.title')}</Text>
@@ -603,7 +618,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               stats.totalSessions,
               t('profile.totalSessions'),
               undefined,
-              colors.accent.mint[500],
+              dynamicStyles.iconEmerald,
               dynamicStyles.iconBoxBg
             )}
             {renderStatCard(
@@ -611,7 +626,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               stats.totalMinutes,
               t('profile.totalMinutes'),
               undefined,
-              colors.accent.blue[500],
+              dynamicStyles.iconBlue,
               dynamicStyles.iconBoxBgBlue
             )}
             {renderStatCard(
@@ -619,7 +634,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               stats.currentStreak,
               t('profile.currentStreak'),
               t('profile.days'),
-              '#FB923C',
+              dynamicStyles.iconOrange,
               dynamicStyles.iconBoxBgOrange
             )}
             {renderStatCard(
@@ -627,7 +642,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               stats.longestStreak,
               t('profile.longestStreak'),
               t('profile.days'),
-              '#A855F7',
+              dynamicStyles.iconPurple,
               dynamicStyles.iconBoxBgPurple
             )}
           </View>
@@ -653,7 +668,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.calendarCard, dynamicStyles.cardShadow]} isDark={isDark}>
             <View style={styles.cardRow}>
               <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-                <Ionicons name="calendar" size={24} color={colors.accent.mint[500]} />
+                <Ionicons name="calendar" size={24} color={dynamicStyles.iconEmerald} />
               </View>
               <View style={styles.cardTextContainer}>
                 <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -664,7 +679,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
                     <Ionicons
                       name="checkmark-circle"
                       size={14}
-                      color={colors.accent.mint[500]}
+                      color={dynamicStyles.iconEmerald}
                     />
                     <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
                       {t('calendar.currentReminder')}: {reminderSettings.time}
@@ -690,9 +705,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
                     <Ionicons
                       name="trash-outline"
                       size={18}
-                      color={colors.accent.mint[600]}
+                      color={dynamicStyles.iconEmerald}
                     />
-                    <Text style={[styles.calendarSecondaryButtonText, { color: colors.accent.mint[600] }]}>
+                    <Text style={[styles.calendarSecondaryButtonText, { color: dynamicStyles.iconEmerald }]}>
                       {t('calendar.cancel')}
                     </Text>
                   </TouchableOpacity>
@@ -735,7 +750,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.customCard, dynamicStyles.cardShadow]} isDark={isDark}>
             <View style={styles.cardRow}>
               <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
-                <Ionicons name="construct" size={24} color={colors.accent.blue[500]} />
+                <Ionicons name="construct" size={24} color={brandColors.purple.primary} />
               </View>
               <View style={styles.cardTextContainer}>
                 <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -799,7 +814,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.detailCard, dynamicStyles.cardShadow]} isDark={isDark}>
                 <View style={styles.cardRow}>
                   <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
-                    <Ionicons name="leaf" size={24} color={colors.accent.blue[500]} />
+                    <Ionicons name="leaf" size={24} color={brandColors.purple.primary} />
                   </View>
                   <View style={styles.cardTextContainer}>
                     <Text style={[styles.detailTitle, { color: colors.text.primary }]}>
@@ -812,11 +827,34 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
                 </View>
               </GradientCard>
 
+              {/* Intention Card - Only show if intention was set */}
+              {selectedSession.intention && (
+                <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.detailCard, dynamicStyles.cardShadow]} isDark={isDark}>
+                  <View style={styles.intentionCardContent}>
+                    <View style={styles.cardRow}>
+                      <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgPurple }]}>
+                        <Ionicons name="flag" size={24} color={dynamicStyles.iconPurple} />
+                      </View>
+                      <View style={styles.cardTextContainer}>
+                        <Text style={[styles.detailLabel, { color: colors.text.secondary }]}>
+                          {t('profile.sessionIntention')}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.intentionTextContainer}>
+                      <Text style={[styles.intentionText, { color: colors.text.primary }]}>
+                        "{selectedSession.intention}"
+                      </Text>
+                    </View>
+                  </View>
+                </GradientCard>
+              )}
+
               {/* Duration Card */}
               <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.detailCard, dynamicStyles.cardShadow]} isDark={isDark}>
                 <View style={styles.cardRow}>
                   <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-                    <Ionicons name="time" size={24} color={colors.accent.mint[500]} />
+                    <Ionicons name="time" size={24} color={dynamicStyles.iconEmerald} />
                   </View>
                   <View style={styles.cardTextContainer}>
                     <Text style={[styles.detailLabel, { color: colors.text.secondary }]}>
@@ -851,7 +889,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
                 <View style={styles.notesCardContent}>
                   <View style={styles.notesHeader}>
                     <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgPurple }]}>
-                      <Ionicons name="document-text" size={24} color="#A855F7" />
+                      <Ionicons name="document-text" size={24} color={dynamicStyles.iconPurple} />
                     </View>
                     <Text style={[styles.detailLabel, { color: colors.text.secondary, marginLeft: 12 }]}>
                       {t('profile.reflections')}
@@ -1027,6 +1065,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginRight: theme.spacing.xs,
   },
+  sessionIntentionBadge: {
+    marginRight: theme.spacing.xs,
+  },
   showMoreButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1051,7 +1092,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 12,
-    backgroundColor: theme.colors.accent.blue[100],
+    backgroundColor: primaryColor.transparent[10],
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -1082,7 +1123,7 @@ const styles = StyleSheet.create({
   },
   sessionType: {
     fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.accent.blue[600],
+    color: brandColors.purple.primary,
     fontWeight: theme.typography.fontWeights.medium,
   },
   sessionTimeAgo: {
@@ -1131,7 +1172,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.xl,
-    backgroundColor: theme.colors.accent.blue[500],
+    backgroundColor: brandColors.purple.primary,
     borderRadius: theme.borderRadius.lg,
     marginTop: theme.spacing.md,
   },
@@ -1166,7 +1207,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.xl,
-    backgroundColor: theme.colors.accent.mint[500],
+    backgroundColor: brandColors.purple.primary,
     borderRadius: theme.borderRadius.lg,
   },
   calendarPrimaryButtonFull: {
@@ -1256,5 +1297,22 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.md,
     lineHeight: 24,
     fontStyle: 'normal',
+  },
+  intentionCardContent: {
+    gap: theme.spacing.md,
+  },
+  intentionTextContainer: {
+    marginTop: theme.spacing.sm,
+    paddingLeft: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
+    borderLeftWidth: 3,
+    borderLeftColor: brandColors.purple.primary,
+    backgroundColor: 'rgba(139, 92, 246, 0.04)',
+    borderRadius: 4,
+  },
+  intentionText: {
+    fontSize: theme.typography.fontSizes.md,
+    fontStyle: 'italic',
+    lineHeight: 24,
   },
 });

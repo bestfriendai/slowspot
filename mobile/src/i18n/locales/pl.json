@@ -7,6 +7,49 @@
     "appName": "Slow Spot.me",
     "tagline": "Znajdź chwilę spokoju"
   },
+  "intention": {
+    "greeting": {
+      "morning": "Dzień dobry",
+      "afternoon": "Dzień dobry",
+      "evening": "Dobry wieczór",
+      "night": "Dobranoc"
+    },
+    "title": "Ustaw Swoją Intencję",
+    "subtitle": "Co chciałbyś kultywować w tej sesji?",
+    "inputLabel": "Twoja Intencja (Opcjonalnie)",
+    "placeholder": "np. \"Pozostań obecny z moim oddechem\"",
+    "inspirations": "Inspiracje:",
+    "chip1": "Spokój",
+    "chip2": "Obecność",
+    "chip3": "Wdzięczność",
+    "chip4": "Odpuszczenie",
+    "skipForever": "Nie pokazuj tego ekranu przed medytacją",
+    "begin": "Rozpocznij Medytację",
+    "skip": "Pomiń",
+    "breathing": {
+      "buttonTitle": "Ćwiczenie oddechowe",
+      "buttonSubtitle": "Przygotuj ciało i umysł",
+      "title": "Ćwiczenie oddechowe",
+      "subtitle": "Przygotuj się do medytacji",
+      "choosePattern": "Wybierz wzorzec:",
+      "patterns": {
+        "box": "Na stres",
+        "boxDesc": "4-4-4-4 • Uspokaja i skupia umysł",
+        "478": "Na spokój",
+        "478Desc": "4-7-8 • Głęboka relaksacja przed snem",
+        "equal": "Na początek",
+        "equalDesc": "4-4 • Prosty wzorzec dla początkujących",
+        "calm": "Na energię",
+        "calmDesc": "2-2 • Szybki i pobudzający"
+      },
+      "inhale": "Wdech",
+      "hold": "Trzymaj",
+      "exhale": "Wydech",
+      "breathe": "Oddychaj",
+      "start": "Rozpocznij",
+      "stop": "Zakończ"
+    }
+  },
   "home": {
     "welcome": "Witaj",
     "dailyQuote": "Dzienny Cytat",
@@ -73,7 +116,9 @@
     "endSessionTitle": "Zakończyć sesję?",
     "endSessionMessage": "Twój postęp zostanie zapisany. Czy na pewno chcesz zakończyć medytację?",
     "endSessionConfirm": "Zakończ",
-    "endSessionCancel": "Kontynuuj"
+    "endSessionCancel": "Kontynuuj",
+    "yourIntention": "Twoja intencja",
+    "intentionDescription": "To, co sobie założyłeś przed sesją"
   },
   "instructions": {
     "timeOfDay": {
@@ -93,6 +138,8 @@
     "preparation": {
       "prepareMySpace": "Przygotuj Przestrzeń",
       "skip": "Pomiń",
+      "skipStep": "Pomiń krok",
+      "skipAll": "Pomiń przygotowanie",
       "continue": "Kontynuuj",
       "beginMeditation": "Rozpocznij Medytację",
       "stepProgress": "Krok {{current}} z {{total}}",
@@ -117,9 +164,15 @@
       "duringSession": "Podczas Twojej Sesji",
       "keepInMind": "Pamiętaj o tych wskazówkach:"
     },
+    "skipModal": {
+      "title": "Przejdź do medytacji",
+      "description": "Możesz pominąć przygotowanie i od razu rozpocząć medytację.",
+      "dontShowAgain": "Nie pokazuj więcej tego wstępu",
+      "startMeditation": "Rozpocznij"
+    },
     "level1_breath": {
-      "title": "Witaj w Twojej Pierwszej Medytacji",
-      "subtitle": "Zbudujmy razem fundamenty",
+      "title": "Wprowadzenie do Medytacji",
+      "subtitle": "Poznaj podstawy uważnej praktyki",
       "intention": "Po prostu zauważ swój oddech, nie próbując go zmieniać",
       "focusPoint": "Naturalny rytm wdechu i wydechu",
       "challenges": {
@@ -346,7 +399,58 @@
   },
   "common": {
     "ok": "OK",
-    "cancel": "Anuluj"
+    "cancel": "Anuluj",
+    "back": "Wstecz",
+    "next": "Dalej",
+    "close": "Zamknij",
+    "skip": "Pomiń",
+    "continue": "Kontynuuj"
+  },
+  "introGuide": {
+    "title": "Wprowadzenie do Medytacji",
+    "subtitle": "Poznaj podstawy uważnej praktyki",
+    "startMeditation": "Rozpocznij Medytację",
+    "greetings": {
+      "morning": "Dzień dobry",
+      "morningContext": "Świetny moment na poranną praktykę",
+      "afternoon": "Dobre popołudnie",
+      "afternoonContext": "Czas na chwilę wyciszenia",
+      "evening": "Dobry wieczór",
+      "eveningContext": "Idealny czas na relaksację",
+      "night": "Dobranoc",
+      "nightContext": "Przygotuj się do spokojnego snu"
+    },
+    "slides": {
+      "welcome": {
+        "text": "Medytacja to prosty sposób na wyciszenie umysłu i odnalezienie wewnętrznego spokoju. Niezależnie od tego, czy masz 5 minut czy godzinę, każda chwila uważności ma znaczenie."
+      },
+      "whatIs": {
+        "title": "Czym jest medytacja?",
+        "text": "Medytacja to praktyka świadomego skupienia uwagi. Nie chodzi o wyciszenie myśli, ale o zauważanie ich bez oceniania. To trening umysłu, który każdy może opanować."
+      },
+      "benefits": {
+        "title": "Korzyści z praktyki",
+        "text": "Regularna medytacja przynosi wiele korzyści dla ciała i umysłu:",
+        "bullets": {
+          "1": "Redukcja stresu i lęku",
+          "2": "Lepsza koncentracja i jasność umysłu",
+          "3": "Głębszy, bardziej spokojny sen"
+        }
+      },
+      "howTo": {
+        "title": "Jak zacząć?",
+        "text": "Medytacja jest prostsza niż myślisz. Oto podstawowe kroki:",
+        "bullets": {
+          "1": "Znajdź wygodne miejsce i usiądź swobodnie",
+          "2": "Zamknij oczy i skup się na oddechu",
+          "3": "Gdy umysł błądzi, delikatnie wróć uwagą do oddechu"
+        }
+      },
+      "ready": {
+        "title": "Gotowy?",
+        "text": "Nie ma idealnego momentu ani idealnej medytacji. Wystarczy zacząć. Każda sesja to krok w kierunku większego spokoju i uważności."
+      }
+    }
   },
   "profile": {
     "title": "Twój Profil",
@@ -377,6 +481,8 @@
     "reflections": "Refleksje",
     "noMoodRecorded": "Nie zapisano nastroju",
     "noNotesRecorded": "Nie zapisano notatek",
+    "sessionIntention": "Intencja Sesji",
+    "noIntentionRecorded": "Nie zapisano intencji",
     "mood1": "Bardzo źle",
     "mood2": "Źle",
     "mood3": "Neutralnie",
@@ -623,6 +729,152 @@
       "ocean": "Ocean",
       "forest": "Las",
       "silence": "Cisza"
+    }
+  },
+  "instructionsScreen": {
+    "title": "Przewodniki Medytacji",
+    "subtitle": "Poznaj techniki i naucz się budować własną praktykę",
+    "featuredIntro": {
+      "title": "Wprowadzenie do Medytacji",
+      "description": "Interaktywny przewodnik krok po kroku. Idealny dla początkujących lub gdy chcesz odświeżyć podstawy.",
+      "duration": "~5 min"
+    },
+    "techniquesSection": "Techniki",
+    "duration": "Czas trwania: {{duration}}",
+    "breathingSection": "Ćwiczenia Oddechowe",
+    "breathingIntro": "Techniki oddechowe pomagają uspokoić umysł i przygotować się do medytacji. Wybierz wzorzec odpowiedni dla swojej sytuacji.",
+    "breathingExercises": {
+      "box": {
+        "name": "Na stres",
+        "description": "Uspokaja i skupia umysł. Idealny przy stresie i lęku.",
+        "steps": [
+          "Wdech przez nos przez 4 sekundy",
+          "Zatrzymaj oddech na 4 sekundy",
+          "Wydech przez usta przez 4 sekundy",
+          "Zatrzymaj oddech na 4 sekundy",
+          "Powtarzaj przez 4-5 cykli"
+        ]
+      },
+      "478": {
+        "name": "Na spokój",
+        "description": "Głęboka relaksacja przed snem. Pomaga zasnąć.",
+        "steps": [
+          "Wdech przez nos przez 4 sekundy",
+          "Zatrzymaj oddech na 7 sekund",
+          "Wydech przez usta przez 8 sekund",
+          "Powtórz 3-4 razy",
+          "Pozwól ciału się rozluźnić"
+        ]
+      },
+      "equal": {
+        "name": "Na początek",
+        "description": "Prosty wzorzec dla początkujących. Łatwy do nauki.",
+        "steps": [
+          "Wdech przez nos przez 4 sekundy",
+          "Wydech przez nos przez 4 sekundy",
+          "Utrzymuj równy, spokojny rytm",
+          "Skup się na naturalnym oddechu",
+          "Kontynuuj przez 2-3 minuty"
+        ]
+      },
+      "calm": {
+        "name": "Na energię",
+        "description": "Szybki i pobudzający oddech. Dodaje energii.",
+        "steps": [
+          "Szybki wdech przez nos przez 2 sekundy",
+          "Szybki wydech przez usta przez 2 sekundy",
+          "Utrzymuj dynamiczny rytm",
+          "Poczuj przypływ energii",
+          "Wykonuj przez 1-2 minuty"
+        ]
+      },
+      "readyMessage": "Gdy będziesz gotowy, naciśnij przycisk poniżej aby rozpocząć ćwiczenie."
+    },
+    "tryExercise": "Wypróbuj",
+    "buildSessionSection": "Jak Zbudować Sesję",
+    "buildSessionIntro": "Połącz techniki, aby stworzyć kompletną sesję medytacji. Zacznij od uspokojenia, przejdź przez główną technikę i zakończ integracją.",
+    "techniques": {
+      "bodyScan": {
+        "name": "Skanowanie Ciała",
+        "description": "Technika progresywnej relaksacji poprzez prowadzenie uwagi przez ciało",
+        "duration": "10-20 minut",
+        "steps": [
+          "Połóż się wygodnie lub usiądź w zrelaksowanej pozycji",
+          "Zamknij oczy i weź kilka głębokich oddechów",
+          "Skieruj uwagę na palce stóp, zauważ wszelkie odczucia",
+          "Powoli przenoś uwagę w górę: stopy, kostki, łydki",
+          "Kontynuuj skanowanie: uda, biodra, brzuch",
+          "Przejdź przez klatkę piersiową, ramiona, dłonie",
+          "Skanuj szyję, twarz i czubek głowy",
+          "Utrzymaj przez chwilę świadomość całego ciała",
+          "Delikatnie otwórz oczy, gdy będziesz gotowy"
+        ]
+      },
+      "breathFocus": {
+        "name": "Skupienie na Oddechu",
+        "description": "Praktyka koncentracji z oddechem jako kotwicą",
+        "duration": "5-15 minut",
+        "steps": [
+          "Usiądź wygodnie z prostymi plecami",
+          "Zamknij oczy lub rozluźnij wzrok",
+          "Zauważ naturalny rytm oddychania",
+          "Poczuj oddech w nozdrzach, klatce piersiowej lub brzuchu",
+          "Gdy umysł błądzi, delikatnie wróć do oddechu",
+          "Licz oddechy, jeśli to pomaga (1-10, potem powtórz)",
+          "Kontynuuj przez wybrany czas",
+          "Zakończ kilkoma głębszymi oddechami"
+        ]
+      },
+      "lovingKindness": {
+        "name": "Medytacja Miłującej Dobroci (Metta)",
+        "description": "Kultywowanie współczucia i życzliwości wobec siebie i innych",
+        "duration": "10-20 minut",
+        "steps": [
+          "Usiądź wygodnie i zamknij oczy",
+          "Zacznij od siebie: \"Niech będę szczęśliwy, niech będę zdrowy\"",
+          "Wyobraź sobie kogoś, kogo kochasz, poślij mu życzliwość",
+          "Pomyśl o osobie neutralnej, rozszerz na nią życzliwość",
+          "Rozważ kogoś trudnego, życz mu dobrze",
+          "Rozszerz na wszystkie istoty wszędzie",
+          "Spoczywaj w uczuciu uniwersalnego współczucia"
+        ]
+      },
+      "mindfulObservation": {
+        "name": "Uważna Obserwacja",
+        "description": "Świadomość chwili obecnej poprzez obserwację zmysłową",
+        "duration": "5-10 minut",
+        "steps": [
+          "Wybierz przedmiot (kwiat, płomień świecy itp.)",
+          "Usiądź wygodnie i skieruj pełną uwagę na przedmiot",
+          "Zauważ kolory, kształty, tekstury w szczegółach",
+          "Obserwuj bez oceniania i analizowania",
+          "Gdy umysł błądzi, wróć do obserwacji",
+          "Rozszerz świadomość na dźwięki i odczucia",
+          "Zakończ wdzięcznością za obecną chwilę"
+        ]
+      }
+    },
+    "sessionGuides": {
+      "simple12Min": {
+        "title": "Prosta 12-Minutowa Praktyka",
+        "description": "Zalecana struktura z \"Wyostrz Swój Umysł\"",
+        "structure": [
+          "2 min - Uspokojenie, świadomość oddechu",
+          "3 min - Skanowanie ciała (szybka wersja)",
+          "5 min - Skupienie na oddechu",
+          "2 min - Miłująca dobroć"
+        ]
+      },
+      "deepRelaxation": {
+        "title": "Sesja Głębokiej Relaksacji",
+        "description": "Na uwolnienie od stresu i głęboki odpoczynek",
+        "structure": [
+          "3 min - Ćwiczenia oddechowe",
+          "10 min - Pełne skanowanie ciała",
+          "5 min - Spoczynek w ciszy",
+          "2 min - Stopniowy powrót"
+        ]
+      }
     }
   },
   "achievements": {

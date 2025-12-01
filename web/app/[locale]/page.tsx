@@ -308,7 +308,9 @@ export default function HomePage() {
 
       {/* Features Section */}
       <section id="features" className="features-section">
-        <div className="container mx-auto px-6">
+        {/* Additional decorative orb */}
+        <div className="features-orb-center" />
+        <div className="container mx-auto px-6 relative z-10">
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
             <h2 className="features-title">{t('features.sectionTitle')}</h2>

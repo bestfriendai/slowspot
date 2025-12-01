@@ -3,6 +3,7 @@ import React from 'react';
 import { Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '../theme';
+import { brandColors, primaryColor } from '../theme/colors';
 
 export type BadgeVariant =
   | 'default'
@@ -32,9 +33,9 @@ const variantStyles: Record<BadgeVariant, { colors: string[]; textColor: string;
     borderColor: theme.colors.border.light,
   },
   primary: {
-    colors: [theme.colors.accent.blue[50], theme.colors.accent.blue[100]],
-    textColor: theme.colors.accent.blue[700],
-    borderColor: theme.colors.accent.blue[200],
+    colors: [primaryColor.transparent[5], primaryColor.transparent[10]],
+    textColor: brandColors.purple.primary,
+    borderColor: primaryColor.transparent[20],
   },
   secondary: {
     colors: [theme.colors.accent.purple[50], theme.colors.accent.purple[100]],
@@ -65,12 +66,12 @@ const variantStyles: Record<BadgeVariant, { colors: string[]; textColor: string;
 
 const selectedStyles: Record<BadgeVariant, { colors: string[]; textColor: string; borderColor?: string }> = {
   default: {
-    colors: [theme.colors.accent.blue[500], theme.colors.accent.blue[600]],
+    colors: [brandColors.purple.light, brandColors.purple.primary],
     textColor: theme.colors.neutral.white,
     borderColor: 'transparent',
   },
   primary: {
-    colors: [theme.colors.accent.blue[500], theme.colors.accent.blue[600]],
+    colors: [brandColors.purple.light, brandColors.purple.primary],
     textColor: theme.colors.neutral.white,
     borderColor: 'transparent',
   },

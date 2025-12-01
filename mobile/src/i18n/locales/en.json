@@ -7,6 +7,49 @@
     "appName": "Slow Spot.me",
     "tagline": "Find your moment of peace"
   },
+  "intention": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night"
+    },
+    "title": "Set Your Intention",
+    "subtitle": "What would you like to cultivate in this session?",
+    "inputLabel": "Your Intention (Optional)",
+    "placeholder": "e.g. \"Stay present with my breath\"",
+    "inspirations": "Inspirations:",
+    "chip1": "Calm",
+    "chip2": "Presence",
+    "chip3": "Gratitude",
+    "chip4": "Letting go",
+    "skipForever": "Don't show this screen before meditation",
+    "begin": "Begin Meditation",
+    "skip": "Skip",
+    "breathing": {
+      "buttonTitle": "Breathing Exercise",
+      "buttonSubtitle": "Prepare body and mind",
+      "title": "Breathing Exercise",
+      "subtitle": "Prepare for meditation",
+      "choosePattern": "Choose a pattern:",
+      "patterns": {
+        "box": "For Stress",
+        "boxDesc": "4-4-4-4 • Calms and focuses the mind",
+        "478": "For Sleep",
+        "478Desc": "4-7-8 • Deep relaxation before sleep",
+        "equal": "For Beginners",
+        "equalDesc": "4-4 • Simple pattern for beginners",
+        "calm": "For Energy",
+        "calmDesc": "2-2 • Fast and energizing"
+      },
+      "inhale": "Inhale",
+      "hold": "Hold",
+      "exhale": "Exhale",
+      "breathe": "Breathe",
+      "start": "Start",
+      "stop": "Stop"
+    }
+  },
   "home": {
     "welcome": "Welcome",
     "dailyQuote": "Daily Quote",
@@ -66,7 +109,9 @@
     "focusOnBreath": "Focus on your breath",
     "breatheIn": "Breathe In",
     "breatheOut": "Breathe Out",
-    "hold": "Hold"
+    "hold": "Hold",
+    "yourIntention": "Your Intention",
+    "intentionDescription": "What you set for yourself before the session"
   },
   "instructions": {
     "timeOfDay": {
@@ -82,6 +127,8 @@
     "preparation": {
       "prepareMySpace": "Prepare My Space",
       "skip": "Skip",
+      "skipStep": "Skip step",
+      "skipAll": "Skip preparation",
       "continue": "Continue",
       "beginMeditation": "Begin Meditation",
       "stepProgress": "Step {{current}} of {{total}}",
@@ -106,9 +153,15 @@
       "duringSession": "During Your Session",
       "keepInMind": "Keep these tips in mind:"
     },
+    "skipModal": {
+      "title": "Go to meditation",
+      "description": "You can skip the preparation and start your meditation right away.",
+      "dontShowAgain": "Don't show this intro again",
+      "startMeditation": "Start"
+    },
     "level1_breath": {
-      "title": "Welcome to Your First Meditation",
-      "subtitle": "Let's build the foundation together",
+      "title": "Introduction to Meditation",
+      "subtitle": "Learn the fundamentals of mindful practice",
       "intention": "Simply notice your breath without trying to change it",
       "focusPoint": "The natural rhythm of breathing in and out",
       "challenges": {
@@ -332,6 +385,61 @@
     "meditate": "Meditate",
     "quotes": "Quotes",
     "settings": "Settings"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "skip": "Skip",
+    "continue": "Continue"
+  },
+  "introGuide": {
+    "title": "Introduction to Meditation",
+    "subtitle": "Learn the fundamentals of mindful practice",
+    "startMeditation": "Start Meditation",
+    "greetings": {
+      "morning": "Good morning",
+      "morningContext": "Great time for morning practice",
+      "afternoon": "Good afternoon",
+      "afternoonContext": "Time for a moment of calm",
+      "evening": "Good evening",
+      "eveningContext": "Perfect time to relax",
+      "night": "Good night",
+      "nightContext": "Prepare for peaceful sleep"
+    },
+    "slides": {
+      "welcome": {
+        "text": "Meditation is a simple way to quiet your mind and find inner peace. Whether you have 5 minutes or an hour, every moment of mindfulness matters."
+      },
+      "whatIs": {
+        "title": "What is meditation?",
+        "text": "Meditation is the practice of consciously focusing your attention. It's not about silencing thoughts, but about noticing them without judgment. It's mental training that anyone can master."
+      },
+      "benefits": {
+        "title": "Benefits of practice",
+        "text": "Regular meditation brings many benefits for body and mind:",
+        "bullets": {
+          "1": "Reduced stress and anxiety",
+          "2": "Better concentration and mental clarity",
+          "3": "Deeper, more peaceful sleep"
+        }
+      },
+      "howTo": {
+        "title": "How to start?",
+        "text": "Meditation is simpler than you think. Here are the basic steps:",
+        "bullets": {
+          "1": "Find a comfortable place and sit relaxed",
+          "2": "Close your eyes and focus on your breath",
+          "3": "When your mind wanders, gently return attention to breath"
+        }
+      },
+      "ready": {
+        "title": "Ready?",
+        "text": "There's no perfect moment or perfect meditation. Just start. Each session is a step toward greater peace and mindfulness."
+      }
+    }
   },
   "sessionsList": {
     "morningAwakening": {
@@ -576,6 +684,8 @@
     "reflections": "Reflections",
     "noMoodRecorded": "No mood recorded",
     "noNotesRecorded": "No notes recorded",
+    "sessionIntention": "Session Intention",
+    "noIntentionRecorded": "No intention recorded",
     "mood1": "Very bad",
     "mood2": "Bad",
     "mood3": "Neutral",
@@ -597,6 +707,152 @@
     "currentReminder": "Current Reminder",
     "noReminder": "No active reminder",
     "at": "at"
+  },
+  "instructionsScreen": {
+    "title": "Meditation Guides",
+    "subtitle": "Learn techniques and how to build your practice",
+    "featuredIntro": {
+      "title": "Introduction to Meditation",
+      "description": "Interactive step-by-step guide. Perfect for beginners or when you want to refresh the basics.",
+      "duration": "~5 min"
+    },
+    "techniquesSection": "Techniques",
+    "duration": "Duration: {{duration}}",
+    "breathingSection": "Breathing Exercises",
+    "breathingIntro": "Breathing techniques help calm the mind and prepare for meditation. Choose the pattern that suits your situation.",
+    "breathingExercises": {
+      "box": {
+        "name": "For Stress",
+        "description": "Calms and focuses the mind. Perfect for stress and anxiety.",
+        "steps": [
+          "Inhale through nose for 4 seconds",
+          "Hold breath for 4 seconds",
+          "Exhale through mouth for 4 seconds",
+          "Hold breath for 4 seconds",
+          "Repeat for 4-5 cycles"
+        ]
+      },
+      "478": {
+        "name": "For Sleep",
+        "description": "Deep relaxation before bed. Helps you fall asleep.",
+        "steps": [
+          "Inhale through nose for 4 seconds",
+          "Hold breath for 7 seconds",
+          "Exhale through mouth for 8 seconds",
+          "Repeat 3-4 times",
+          "Allow your body to relax"
+        ]
+      },
+      "equal": {
+        "name": "For Beginners",
+        "description": "Simple pattern for beginners. Easy to learn.",
+        "steps": [
+          "Inhale through nose for 4 seconds",
+          "Exhale through nose for 4 seconds",
+          "Maintain an even, calm rhythm",
+          "Focus on natural breathing",
+          "Continue for 2-3 minutes"
+        ]
+      },
+      "calm": {
+        "name": "For Energy",
+        "description": "Fast and energizing breath. Boosts energy.",
+        "steps": [
+          "Quick inhale through nose for 2 seconds",
+          "Quick exhale through mouth for 2 seconds",
+          "Maintain a dynamic rhythm",
+          "Feel the energy surge",
+          "Practice for 1-2 minutes"
+        ]
+      },
+      "readyMessage": "When you're ready, press the button below to start the exercise."
+    },
+    "tryExercise": "Try it",
+    "buildSessionSection": "How to Build a Session",
+    "buildSessionIntro": "Combine techniques to create a complete meditation session. Start with settling, move through a main technique, and end with integration.",
+    "techniques": {
+      "bodyScan": {
+        "name": "Body Scan",
+        "description": "Progressive relaxation technique moving attention through the body",
+        "duration": "10-20 minutes",
+        "steps": [
+          "Lie down comfortably or sit in a relaxed position",
+          "Close your eyes and take a few deep breaths",
+          "Bring attention to your toes, notice any sensations",
+          "Slowly move attention up through feet, ankles, calves",
+          "Continue scanning upward: thighs, hips, abdomen",
+          "Move through chest, shoulders, arms, hands",
+          "Scan neck, face, and top of head",
+          "Hold awareness of your whole body for a moment",
+          "Gently open your eyes when ready"
+        ]
+      },
+      "breathFocus": {
+        "name": "Breath Focus",
+        "description": "Concentration practice using the breath as an anchor",
+        "duration": "5-15 minutes",
+        "steps": [
+          "Sit comfortably with a straight back",
+          "Close your eyes or soften your gaze",
+          "Notice the natural rhythm of your breathing",
+          "Feel the breath at your nostrils, chest, or belly",
+          "When mind wanders, gently return to the breath",
+          "Count breaths if helpful (1-10, then repeat)",
+          "Continue for your chosen duration",
+          "End with a few deeper breaths"
+        ]
+      },
+      "lovingKindness": {
+        "name": "Loving Kindness (Metta)",
+        "description": "Cultivating compassion and goodwill toward self and others",
+        "duration": "10-20 minutes",
+        "steps": [
+          "Sit comfortably and close your eyes",
+          "Begin with yourself: \"May I be happy, may I be healthy\"",
+          "Visualize someone you love, send them kindness",
+          "Think of a neutral person, extend kindness to them",
+          "Consider someone difficult, wish them well",
+          "Expand to all beings everywhere",
+          "Rest in the feeling of universal compassion"
+        ]
+      },
+      "mindfulObservation": {
+        "name": "Mindful Observation",
+        "description": "Present moment awareness through sensory observation",
+        "duration": "5-10 minutes",
+        "steps": [
+          "Choose an object (flower, candle flame, etc.)",
+          "Sit comfortably and bring full attention to the object",
+          "Notice colors, shapes, textures in detail",
+          "Observe without judgment or analysis",
+          "When mind wanders, return to observing",
+          "Expand awareness to sounds and sensations",
+          "Conclude with gratitude for the present moment"
+        ]
+      }
+    },
+    "sessionGuides": {
+      "simple12Min": {
+        "title": "Simple 12-Minute Practice",
+        "description": "Recommended structure from \"Sharpen Your Mind\"",
+        "structure": [
+          "2 min - Settle in, breath awareness",
+          "3 min - Body scan (quick version)",
+          "5 min - Focus on breath",
+          "2 min - Loving kindness"
+        ]
+      },
+      "deepRelaxation": {
+        "title": "Deep Relaxation Session",
+        "description": "For stress relief and deep rest",
+        "structure": [
+          "3 min - Breathing exercises",
+          "10 min - Full body scan",
+          "5 min - Rest in stillness",
+          "2 min - Gradual return"
+        ]
+      }
+    }
   },
   "achievements": {
     "title": "Achievements",

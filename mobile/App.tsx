@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, TouchableOpacity, Platform, useColorScheme, Alert } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import * as SplashScreen from 'expo-splash-screen';
 import './src/i18n';
 import { logger } from './src/utils/logger';
+import { brandColors } from './src/theme/colors';
 
 // Keep the splash screen visible while we load resources
 SplashScreen.preventAutoHideAsync();
@@ -37,7 +38,7 @@ export interface ActiveMeditationState {
   startedAt: number; // timestamp
 }
 
-export default function App() {
+function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [themeMode, setThemeMode] = useState<ThemeMode>('system');
   const [editSessionId, setEditSessionId] = useState<string | undefined>();
@@ -46,6 +47,7 @@ export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const systemColorScheme = useColorScheme();
+  const insets = useSafeAreaInsets();
 
   // Calculate actual dark mode based on theme mode and system preference
   const isDark = themeMode === 'system'
@@ -221,9 +223,8 @@ export default function App() {
   };
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView
-        style={[styles.container, isDark ? styles.darkContainer : styles.lightContainer]}
+      <View
+        style={[styles.container, isDark ? styles.darkContainer : styles.lightContainer, { paddingTop: insets.top }]}
         onLayout={onLayoutRootView}
       >
         <StatusBar style={isDark ? 'light' : 'dark'} />
@@ -238,7 +239,7 @@ export default function App() {
           tint={isDark ? 'dark' : 'light'}
           style={[styles.bottomNav, styles.glassmorphNav]}
         >
-          <View style={styles.navContent}>
+          <View style={[styles.navContent, { paddingBottom: Math.max(insets.bottom - 16, 4) }]}>
             <TouchableOpacity
             style={[
               styles.navButton,
@@ -254,7 +255,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'home'
-                  ? '#10B981'
+                  ? brandColors.purple.primary
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -276,7 +277,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'meditation'
-                  ? '#10B981'
+                  ? brandColors.purple.primary
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -298,7 +299,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'quotes'
-                  ? '#10B981'
+                  ? brandColors.purple.primary
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -320,7 +321,7 @@ export default function App() {
               size={24}
               color={
                 currentScreen === 'settings'
-                  ? '#10B981'
+                  ? brandColors.purple.primary
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -330,7 +331,14 @@ export default function App() {
           </View>
         </BlurView>
       </View>
-    </SafeAreaView>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <AppContent />
     </SafeAreaProvider>
   );
 }
@@ -361,22 +369,22 @@ const styles = StyleSheet.create({
   },
   navContent: {
     flexDirection: 'row',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    gap: 6,
+    justifyContent: 'center',
+    paddingTop: 8,
+    paddingHorizontal: 20,
+    gap: 8,
   },
   navButton: {
-    flex: 1,
-    paddingVertical: 14,
-    paddingHorizontal: 12,
+    width: 64,
+    height: 44,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
   activeButtonLight: {
-    backgroundColor: 'rgba(16, 185, 129, 0.15)', // Subtle mint tint - consistent with app
+    backgroundColor: brandColors.transparent.light15, // Subtle purple tint - consistent with brand
   },
   activeButtonDark: {
-    backgroundColor: 'rgba(16, 185, 129, 0.25)', // Subtle mint tint for dark mode
+    backgroundColor: brandColors.transparent.light25, // Subtle purple tint for dark mode
   },
 });

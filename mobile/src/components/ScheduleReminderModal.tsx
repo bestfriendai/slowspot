@@ -21,6 +21,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { GradientCard } from './GradientCard';
 import { GradientButton } from './GradientButton';
 import theme, { gradients } from '../theme';
+import { brandColors, primaryColor } from '../theme/colors';
 
 interface ScheduleReminderModalProps {
   visible: boolean;
@@ -117,7 +118,7 @@ export const ScheduleReminderModal: React.FC<ScheduleReminderModalProps> = ({
               <Ionicons
                 name="time-outline"
                 size={32}
-                color={theme.colors.accent.blue[600]}
+                color={brandColors.purple.primary}
               />
             </View>
             <Text style={styles.title}>{t('calendar.scheduleReminder')}</Text>
@@ -141,7 +142,7 @@ export const ScheduleReminderModal: React.FC<ScheduleReminderModalProps> = ({
               <Ionicons
                 name="time"
                 size={24}
-                color={theme.colors.accent.blue[600]}
+                color={brandColors.purple.primary}
               />
               <Text style={styles.pickerButtonText}>
                 {t('calendar.selectTime')}
@@ -168,7 +169,7 @@ export const ScheduleReminderModal: React.FC<ScheduleReminderModalProps> = ({
               <Ionicons
                 name="repeat"
                 size={20}
-                color={theme.colors.accent.mint[600]}
+                color={brandColors.purple.primary}
               />
               <Text style={styles.frequencyText}>
                 {t('calendar.daily')}
@@ -234,7 +235,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: theme.borderRadius.round,
-    backgroundColor: theme.colors.accent.blue[100],
+    backgroundColor: primaryColor.transparent[10],
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: theme.spacing.md,
@@ -254,7 +255,7 @@ const styles = StyleSheet.create({
   timeDisplay: {
     alignItems: 'center',
     padding: theme.spacing.lg,
-    backgroundColor: theme.colors.accent.blue[50],
+    backgroundColor: primaryColor.transparent[5],
     borderRadius: theme.borderRadius.lg,
     marginBottom: theme.spacing.lg,
   },
@@ -269,7 +270,7 @@ const styles = StyleSheet.create({
   timeValue: {
     fontSize: theme.typography.fontSizes.display,
     fontWeight: theme.typography.fontWeights.bold,
-    color: theme.colors.accent.blue[600],
+    color: brandColors.purple.primary,
   },
   pickerButton: {
     flexDirection: 'row',
@@ -284,7 +285,7 @@ const styles = StyleSheet.create({
   pickerButtonText: {
     fontSize: theme.typography.fontSizes.md,
     fontWeight: theme.typography.fontWeights.medium,
-    color: theme.colors.accent.blue[600],
+    color: brandColors.purple.primary,
   },
   pickerContainer: {
     alignItems: 'center',
@@ -296,7 +297,7 @@ const styles = StyleSheet.create({
   },
   frequencyInfo: {
     padding: theme.spacing.md,
-    backgroundColor: theme.colors.accent.mint[50],
+    backgroundColor: primaryColor.transparent[15],
     borderRadius: theme.borderRadius.md,
     marginBottom: theme.spacing.xl,
   },
@@ -309,7 +310,7 @@ const styles = StyleSheet.create({
   frequencyText: {
     fontSize: theme.typography.fontSizes.md,
     fontWeight: theme.typography.fontWeights.semiBold,
-    color: theme.colors.accent.mint[700],
+    color: brandColors.purple.primary,
   },
   frequencyDescription: {
     fontSize: theme.typography.fontSizes.sm,
