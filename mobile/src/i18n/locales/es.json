@@ -11,7 +11,7 @@
     "welcome": "Bienvenido",
     "dailyQuote": "Cita Diaria",
     "quickStart": "Inicio Rápido",
-    "quickStartDesc": "Comienza una meditación de 5 minutos ahora",
+    "quickStartDesc": "Comienza tu meditación ahora",
     "startMeditation": "Comenzar Meditación",
     "exploreSessions": "Explorar Sesiones",
     "exploreFeatures": "Explorar Funciones",
@@ -24,7 +24,7 @@
     "totalMinutes": "min totales",
     "sessions": "sesiones",
     "meditate": "Meditar",
-    "meditateDesc": "Comienza tu práctica",
+    "meditateDesc": "Comienza tu sesión",
     "instructions": "Instrucciones",
     "instructionsDesc": "Cómo meditar",
     "inspirations": "Inspiraciones",
@@ -32,7 +32,7 @@
   },
   "meditation": {
     "title": "Meditación",
-    "subtitle": "Elige tu práctica",
+    "subtitle": "Elige tu sesión",
     "createSession": "Crear sesión",
     "createSessionDesc": "Personaliza tiempo, sonidos e intervalos",
     "yourSessions": "Tus sesiones",
@@ -89,7 +89,7 @@
       "evening": "Buenas tardes",
       "night": "Buenas noches",
       "morningRecommendation": "Las meditaciones matutinas establecen el tono de tu día. Prueba el conteo de respiraciones o visualización.",
-      "afternoonRecommendation": "La práctica de la tarde refresca tu mente. Considera la bondad amorosa o una meditación caminando.",
+      "afternoonRecommendation": "La meditación de la tarde refresca tu mente. Considera la bondad amorosa o una meditación caminando.",
       "eveningRecommendation": "Las sesiones nocturnas te ayudan a relajarte. El escaneo corporal o la conciencia suave de la respiración funcionan maravillosamente.",
       "nightRecommendation": "La meditación nocturna puede prepararte para un sueño reparador. El escaneo corporal es muy recomendado."
     },
@@ -105,7 +105,7 @@
       "stepProgress": "Paso {{current}} de {{total}}",
       "alwaysSkipInstructions": "Siempre omitir instrucciones (para meditadores experimentados)",
       "skipInstructionsNote": "Puedes cambiar esto más tarde en Configuración",
-      "greeting": "Estás a punto de practicar {{technique}}. Preparémonos con atención.",
+      "greeting": "Estás a punto de comenzar {{technique}}. Preparémonos con atención.",
       "focusToday": "Tu Enfoque de Hoy",
       "remember": "Recuerda",
       "reminders": "Algunos recordatorios a tener en cuenta:",
@@ -161,7 +161,7 @@
       "sessionTips": {
         "1": "Comienza simplemente notando cuándo inhalas y cuándo exhalas",
         "2": "Cuando tu mente divague, trae suavemente la atención de vuelta a tu respiración",
-        "3": "Sé paciente y amable contigo mismo—esto es una práctica",
+        "3": "Sé paciente y amable contigo mismo—cada sesión es un paso adelante",
         "4": "Cada momento de conciencia cuenta, sin importar cuán breve sea"
       },
       "breathingPrep": {
@@ -291,7 +291,7 @@
       "focus": "Enfoque Profundo",
       "anxiety": "Liberación de Ansiedad",
       "grief": "Duelo y Pérdida",
-      "gratitude": "Práctica de Gratitud",
+      "gratitude": "Meditación de Gratitud",
       "creativity": "Inspiración Creativa"
     },
     "cultures": {
@@ -352,11 +352,11 @@
   "sessionsList": {
     "morningAwakening": {
       "title": "Despertar Matutino",
-      "description": "Comienza tu día con claridad y enfoque. Una práctica suave de 5 minutos para centrarte."
+      "description": "Comienza tu día con claridad y enfoque. Una sesión suave para centrarte antes de comenzar."
     },
     "breathAwareness": {
       "title": "Conciencia de la Respiración",
-      "description": "Enfócate en tu respiración natural. Una práctica fundamental para principiantes."
+      "description": "Enfócate en tu respiración natural. Una técnica fundamental para principiantes."
     },
     "bodyScanRelaxation": {
       "title": "Relajación con Escaneo Corporal",
@@ -368,7 +368,7 @@
     },
     "deepMeditation": {
       "title": "Meditación Profunda",
-      "description": "Práctica extendida para meditadores experimentados. Sumérgete en la quietud."
+      "description": "Sesión extendida para meditadores experimentados. Sumérgete en la quietud."
     },
     "morningEnergyBoost": {
       "title": "Impulso de Energía Matutina",
@@ -380,7 +380,7 @@
     },
     "quickStressRelief": {
       "title": "Alivio Rápido del Estrés",
-      "description": "Libera la tensión en solo 5 minutos. Perfecto para pausas en el trabajo."
+      "description": "Una breve sesión para liberar tensión y resetear. Perfecto para pausas en el trabajo."
     },
     "deepStressRelease": {
       "title": "Liberación Profunda del Estrés",
@@ -407,7 +407,7 @@
       "description": "Alivia los pensamientos ansiosos con conciencia suave de la respiración."
     },
     "anxietyReleasePractice": {
-      "title": "Práctica de Liberación de Ansiedad",
+      "title": "Sesión de Liberación de Ansiedad",
       "description": "Ancla tu ser y libera la preocupación a través de la conciencia corporal."
     },
     "healingThroughGrief": {
@@ -444,7 +444,7 @@
     },
     "beginnerZazen": {
       "title": "Zazen para Principiantes",
-      "description": "Introducción a la práctica de meditación sentada Zen."
+      "description": "Introducción a la técnica de meditación sentada Zen."
     },
     "vipassanaBodyScan": {
       "title": "Escaneo Corporal Vipassana",
@@ -456,7 +456,7 @@
     },
     "beginnerVipassana": {
       "title": "Vipassana para Principiantes",
-      "description": "Introducción a la práctica de meditación de insight."
+      "description": "Introducción a la técnica de meditación de insight."
     },
     "omMeditation": {
       "title": "Meditación Om",
@@ -464,7 +464,7 @@
     },
     "transcendentalMeditation": {
       "title": "Meditación Trascendental",
-      "description": "Asiéntate en el silencio interior profundo con práctica de mantra."
+      "description": "Asiéntate en el silencio interior profundo con meditación de mantra."
     },
     "chakraAwareness": {
       "title": "Conciencia de los Chakras",
@@ -475,7 +475,7 @@
       "description": "Cultiva la energía Qi a través de la respiración y visualización."
     },
     "innerSmilePractice": {
-      "title": "Práctica de la Sonrisa Interior",
+      "title": "Meditación de la Sonrisa Interior",
       "description": "Meditación taoísta para cultivar paz interior y alegría."
     },
     "wuWeiEffortlessBeing": {
@@ -492,7 +492,7 @@
     },
     "breathOfCompassion": {
       "title": "Aliento de Compasión",
-      "description": "Práctica de respiración sufí para abrir el corazón."
+      "description": "Técnica de respiración sufí para abrir el corazón."
     },
     "centeringPrayer": {
       "title": "Oración Centrante",
@@ -573,7 +573,7 @@
     "sessionName": "Nombre de Sesión (opcional)",
     "sessionNamePlaceholder": "Ej. Meditación matutina",
     "duration": "Duración",
-    "durationDescription": "¿Cuánto tiempo quieres dedicar a la práctica?",
+    "durationDescription": "¿Cuánto tiempo quieres dedicar a la sesión?",
     "minutes": "min",
     "minutesWithCount": "{{count}} min",
     "customInterval": "Valor personalizado:",
@@ -586,9 +586,9 @@
     "intervalEvery": "Campana cada:",
     "min": "min",
     "awakeningChime": "Campana de Despertar",
-    "awakeningChimeSubtitle": "Sonido suave para señalar el final de la práctica",
+    "awakeningChimeSubtitle": "Sonido suave para señalar el final de la sesión",
     "guidingVoice": "Voz Guía",
-    "guidingVoiceSubtitle": "Indicaciones suaves durante la práctica",
+    "guidingVoiceSubtitle": "Indicaciones suaves durante la sesión",
     "ambientSilence": "Silencio",
     "ambientNature": "Naturaleza",
     "ambientOcean": "Océano",
@@ -643,7 +643,7 @@
       "description": "Completa tu primera sesión de meditación"
     },
     "tenSessions": {
-      "title": "Practicante Dedicado",
+      "title": "Meditador Dedicado",
       "description": "Completa 10 sesiones de meditación"
     },
     "fiftySessions": {
@@ -687,7 +687,7 @@
       "description": "Completa 5 sesiones de meditación Zen"
     },
     "vipassanaPractitioner": {
-      "title": "Practicante de Vipassana",
+      "title": "Explorador de Vipassana",
       "description": "Completa 5 sesiones de meditación Vipassana"
     },
     "vedicMaster": {

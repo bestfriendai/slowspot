@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "Slow Spot.me",
-    "tagline": "5 minut dziennie zmienia wszystko"
+    "tagline": "Twoja przestrzeń do medytacji"
   },
   "splash": {
     "appName": "Slow Spot.me",
@@ -51,10 +51,31 @@
     }
   },
   "home": {
+    "greeting": {
+      "morning": "Dzień dobry",
+      "afternoon": "Witaj",
+      "evening": "Dobry wieczór",
+      "night": "Dobry wieczór"
+    },
+    "greetingMorning": "Dzień dobry",
+    "greetingAfternoon": "Witaj ponownie",
+    "greetingEvening": "Dobry wieczór",
+    "greetingNight": "Spokojnej nocy",
+    "suggestionMorning": "Rozpocznij dzień z klarownością",
+    "suggestionAfternoon": "Czas na chwilę spokoju",
+    "suggestionEvening": "Wycisz się przed wieczorem",
+    "suggestionNight": "Przygotuj się do spokojnego snu",
+    "streakStart": "Rozpocznij swoją serię!",
+    "streakFirst": "Pierwszy dzień serii!",
+    "streakBuilding": "Budujesz nawyk!",
+    "streakWeek": "Tydzień z rzędu!",
+    "streakTwoWeeks": "Niesamowite!",
+    "streakMonth": "Mistrz spokoju!",
+    "streakMaster": "Legenda medytacji!",
     "welcome": "Witaj",
     "dailyQuote": "Dzienny cytat",
     "quickStart": "Szybki start",
-    "quickStartDesc": "Rozpocznij 5-minutową medytację teraz",
+    "quickStartDesc": "Rozpocznij medytację teraz",
     "startMeditation": "Rozpocznij medytację",
     "exploreSessions": "Przeglądaj sesje",
     "exploreFeatures": "Odkryj funkcje",
@@ -67,15 +88,19 @@
     "totalMinutes": "łącznie min",
     "sessions": "sesje",
     "meditate": "Medytuj",
-    "meditateDesc": "Rozpocznij swoją praktykę",
+    "meditateDesc": "Rozpocznij medytację",
+    "readyToMeditate": "Gotowy na medytację?",
+    "startNow": "Rozpocznij",
+    "explore": "Odkrywaj",
     "instructions": "Instrukcje",
-    "instructionsDesc": "Jak medytować",
+    "instructionsDesc": "Poznaj techniki",
     "inspirations": "Inspiracje",
-    "inspirationsDesc": "Cytaty i motywacja"
+    "inspirationsDesc": "Mądrość na każdy dzień"
   },
   "meditation": {
     "title": "Medytacja",
-    "subtitle": "Wybierz swoją praktykę",
+    "subtitle": "Wybierz sesję medytacji",
+    "customize": "Spersonalizuj",
     "createSession": "Stwórz sesję",
     "createSessionDesc": "Dostosuj czas, dźwięki i interwały",
     "yourSessions": "Twoje sesje",
@@ -129,7 +154,7 @@
       "evening": "Dobry wieczór",
       "night": "Dobranoc",
       "morningRecommendation": "Poranne medytacje nadają ton całemu dniowi. Spróbuj liczenia oddechów lub wizualizacji.",
-      "afternoonRecommendation": "Popołudniowa praktyka odświeża umysł. Rozważ medytację metta lub spacer w uważności.",
+      "afternoonRecommendation": "Popołudniowa medytacja odświeża umysł. Rozważ mettę lub spacer w uważności.",
       "eveningRecommendation": "Wieczorne sesje pomagają się odprężyć. Skanowanie ciała lub łagodna świadomość oddechu działają świetnie.",
       "nightRecommendation": "Nocna medytacja przygotowuje do spokojnego snu. Skanowanie ciała jest bardzo polecane."
     },
@@ -138,32 +163,32 @@
       "breathe": "Oddychaj"
     },
     "preparation": {
-      "prepareMySpace": "Przygotuj Przestrzeń",
+      "prepareMySpace": "Przygotuj przestrzeń",
       "skip": "Pomiń",
       "skipStep": "Pomiń krok",
       "skipAll": "Pomiń przygotowanie",
       "continue": "Kontynuuj",
-      "beginMeditation": "Rozpocznij Medytację",
+      "beginMeditation": "Rozpocznij medytację",
       "stepProgress": "Krok {{current}} z {{total}}",
       "alwaysSkipInstructions": "Zawsze pomijaj instrukcje (dla doświadczonych medytujących)",
       "skipInstructionsNote": "Możesz to zmienić później w Ustawieniach",
-      "greeting": "Za chwilę będziesz praktykować {{technique}}. Przygotujmy się uważnie.",
-      "focusToday": "Twój Dzisiejszy Cel",
+      "greeting": "Za chwilę rozpoczniesz {{technique}}. Przygotujmy się uważnie.",
+      "focusToday": "Twój dzisiejszy cel",
       "remember": "Pamiętaj",
       "reminders": "Kilka przypomnień, o których warto pamiętać:",
-      "physicalSetup": "Przygotowanie Fizyczne",
+      "physicalSetup": "Przygotowanie fizyczne",
       "checkOffItems": "Zaznaczaj kolejne pozycje przygotowując przestrzeń do medytacji:",
       "optional": "(opcjonalne)",
-      "completeRequired": "Ukończ Wymagane Kroki",
-      "breathingExercise": "Krótkie Ćwiczenie Oddechowe",
-      "startBreathing": "Rozpocznij Przygotowanie Oddechowe",
-      "finishEarly": "Zakończ Wcześniej",
+      "completeRequired": "Ukończ wymagane kroki",
+      "breathingExercise": "Krótkie ćwiczenie oddechowe",
+      "startBreathing": "Rozpocznij przygotowanie oddechowe",
+      "finishEarly": "Zakończ wcześniej",
       "breathe": "Oddychaj",
-      "setIntention": "Ustaw Swoją Intencję",
+      "setIntention": "Ustaw swoją intencję",
       "intentionPrompt": "Co chciałbyś kultywować w tej sesji?",
-      "yourIntention": "Twoja Intencja (Opcjonalnie)",
+      "yourIntention": "Twoja intencja (opcjonalnie)",
       "intentionPlaceholder": "np. \"Pozostań obecny z moim oddechem\"",
-      "duringSession": "Podczas Twojej Sesji",
+      "duringSession": "Podczas twojej sesji",
       "keepInMind": "Pamiętaj o tych wskazówkach:"
     },
     "skipModal": {
@@ -173,8 +198,8 @@
       "startMeditation": "Rozpocznij"
     },
     "level1_breath": {
-      "title": "Wprowadzenie do Medytacji",
-      "subtitle": "Poznaj podstawy uważnej praktyki",
+      "title": "Wprowadzenie do medytacji",
+      "subtitle": "Poznaj podstawy uważności",
       "intention": "Po prostu zauważ swój oddech, nie próbując go zmieniać",
       "focusPoint": "Naturalny rytm wdechu i wydechu",
       "challenges": {
@@ -184,17 +209,17 @@
       },
       "physicalSetup": {
         "1": {
-          "title": "Znajdź Swoje Miejsce",
+          "title": "Znajdź swoje miejsce",
           "description": "Usiądź na krześle, poduszce lub skrzyżuj nogi na podłodze. Twój komfort jest najważniejszy.",
           "icon": "🪑"
         },
         "2": {
-          "title": "Sprawdź Postawę",
+          "title": "Sprawdź postawę",
           "description": "Utrzymuj kręgosłup prosty, ale nie sztywny. Wyobraź sobie nitkę delikatnie pociągającą głowę w kierunku nieba.",
           "icon": "🧘"
         },
         "3": {
-          "title": "Ułożenie Dłoni",
+          "title": "Ułożenie dłoni",
           "description": "Połóż dłonie na kolanach lub w okolicy brzucha. Pozwól ramionom opaść i rozluźnić się.",
           "icon": "🙏",
           "optional": true
@@ -209,7 +234,7 @@
       "sessionTips": {
         "1": "Zacznij od zauważania, kiedy wdychasz i kiedy wydychasz",
         "2": "Gdy twój umysł zabłądzi, delikatnie przenieś uwagę z powrotem na oddech",
-        "3": "Bądź cierpliwy i życzliwy dla siebie—to jest praktyka",
+        "3": "Bądź cierpliwy i życzliwy dla siebie",
         "4": "Każda chwila świadomości się liczy, bez względu na to, jak krótka"
       },
       "breathingPrep": {
@@ -230,7 +255,7 @@
       }
     },
     "level1_body_scan": {
-      "title": "Zrelaksuj się ze Świadomością Ciała",
+      "title": "Zrelaksuj się ze świadomością ciała",
       "subtitle": "Uwolnij napięcie od głowy do stóp",
       "intention": "Systematycznie zrelaksuj każdą część ciała",
       "focusPoint": "Odczucia w różnych częściach ciała podczas skanowania",
@@ -241,12 +266,12 @@
       },
       "physicalSetup": {
         "1": {
-          "title": "Połóż się Wygodnie",
+          "title": "Połóż się wygodnie",
           "description": "Leż na plecach z rękami po bokach, dłonie skierowane do góry. Użyj poduszki, jeśli potrzebujesz.",
           "icon": "🛏️"
         },
         "2": {
-          "title": "Nogi Nieskrzyżowane",
+          "title": "Nogi nieskrzyżowane",
           "description": "Pozwól stopom opaść naturalnie na boki. Nie musisz utrzymywać żadnej pozycji.",
           "icon": "🦶"
         },
@@ -276,7 +301,7 @@
       }
     },
     "level5_vipassana": {
-      "title": "Wgląd Poprzez Bezpośrednią Obserwację",
+      "title": "Wgląd poprzez bezpośrednią obserwację",
       "subtitle": "Zobacz trzy cechy: nietrwałość, niezadowalanie, bez-jaźń",
       "intention": "Badaj naturę doświadczenia z precyzją i równowagą",
       "focusPoint": "Powstawanie i przemijanie odczuć, myśli i stanów umysłu",
@@ -287,12 +312,12 @@
       },
       "physicalSetup": {
         "1": {
-          "title": "Tradycyjna Postawa",
+          "title": "Tradycyjna postawa",
           "description": "Usiądź w ustalonej postawie medytacyjnej. Nieruchomość wspiera wgląd.",
           "icon": "🪷"
         },
         "2": {
-          "title": "Jak Góra",
+          "title": "Jak góra",
           "description": "Ucieleśnij stabilność i obecność, nieporuszony przemijającymi zjawiskami.",
           "icon": "⛰️"
         }
@@ -338,30 +363,33 @@
       "cultural": "Kulturowe"
     },
     "occasions": {
-      "morning": "Poranna Energia",
-      "stress": "Uwolnienie od Stresu",
-      "sleep": "Przygotowanie do Snu",
-      "focus": "Głębokie Skupienie",
-      "anxiety": "Uwolnienie od Lęku",
-      "grief": "Żałoba i Strata",
-      "gratitude": "Praktyka Wdzięczności",
-      "creativity": "Twórcza Inspiracja"
+      "morning": "Poranna energia",
+      "stress": "Uwolnienie od stresu",
+      "sleep": "Przygotowanie do snu",
+      "focus": "Głębokie skupienie",
+      "anxiety": "Uwolnienie od lęku",
+      "grief": "Żałoba i strata",
+      "gratitude": "Wdzięczność",
+      "creativity": "Twórcza inspiracja"
     },
     "cultures": {
-      "zen": "Zen (Japońska)",
-      "vipassana": "Vipassana (Buddyjska)",
-      "vedic": "Wedyjska (Hinduska)",
-      "taoist": "Taoistyczna (Chińska)",
-      "sufi": "Sufi (Islamska)",
-      "christian": "Kontemplacja Chrześcijańska"
+      "zen": "Zen (japońska)",
+      "vipassana": "Vipassana (buddyjska)",
+      "vedic": "Wedyjska (hinduska)",
+      "taoist": "Taoistyczna (chińska)",
+      "sufi": "Sufi (islamska)",
+      "christian": "Kontemplacja chrześcijańska"
     }
   },
   "quotes": {
-    "title": "Inspirujące Cytaty",
+    "title": "Inspiracje",
+    "subtitle": "Mądrość na każdy dzień",
     "author": "autor: {{author}}",
-    "next": "Następny Cytat",
-    "previous": "Poprzedni Cytat",
-    "random": "Losowy Cytat"
+    "next": "Następny",
+    "previous": "Poprzedni",
+    "random": "Losuj",
+    "swipe": "Przesuń",
+    "empty": "Brak cytatów do wyświetlenia"
   },
   "settings": {
     "title": "Ustawienia",
@@ -373,15 +401,15 @@
     "dark": "Ciemny",
     "system": "Systemowy",
     "notifications": "Powiadomienia",
-    "reminderTime": "Czas Przypomnienia",
+    "reminderTime": "Czas przypomnienia",
     "about": "O aplikacji",
-    "viewProfile": "Zobacz Profil",
+    "viewProfile": "Zobacz profil",
     "viewProfileDescription": "Zobacz swój postęp i statystyki",
     "meditation": "Medytacja",
     "meditationDescription": "Preferencje sesji medytacyjnych",
     "skipInstructions": "Pomijaj instrukcje",
     "skipInstructionsDescription": "Dla doświadczonych medytujących",
-    "dataPrivacy": "Dane i Prywatność",
+    "dataPrivacy": "Dane i prywatność",
     "dataPrivacyDescription": "Wszystkie dane pozostają na tym urządzeniu",
     "exportData": "Eksportuj dane",
     "clearData": "Wyczyść dane",
@@ -414,12 +442,12 @@
     "continue": "Kontynuuj"
   },
   "introGuide": {
-    "title": "Wprowadzenie do Medytacji",
-    "subtitle": "Poznaj podstawy uważnej praktyki",
-    "startMeditation": "Rozpocznij Medytację",
+    "title": "Wprowadzenie do medytacji",
+    "subtitle": "Poznaj podstawy uważności",
+    "startMeditation": "Rozpocznij medytację",
     "greetings": {
       "morning": "Dzień dobry",
-      "morningContext": "Świetny moment na poranną praktykę",
+      "morningContext": "Świetny moment na poranną medytację",
       "afternoon": "Dobre popołudnie",
       "afternoonContext": "Czas na chwilę wyciszenia",
       "evening": "Dobry wieczór",
@@ -429,14 +457,14 @@
     },
     "slides": {
       "welcome": {
-        "text": "Medytacja to prosty sposób na wyciszenie umysłu i odnalezienie wewnętrznego spokoju. Niezależnie od tego, czy masz 5 minut czy godzinę, każda chwila uważności ma znaczenie."
+        "text": "Medytacja to trening uwagi i świadomości. Badania naukowe wskazują, że regularne sesje (min. 10-12 minut dziennie przez 8 tygodni) mogą wspierać redukcję stresu i poprawę koncentracji."
       },
       "whatIs": {
         "title": "Czym jest medytacja?",
-        "text": "Medytacja to praktyka świadomego skupienia uwagi. Nie chodzi o wyciszenie myśli, ale o zauważanie ich bez oceniania. To trening umysłu, który każdy może opanować."
+        "text": "Medytacja to świadome skupienie uwagi. Nie chodzi o wyciszenie myśli, ale o zauważanie ich bez oceniania. To trening umysłu, który każdy może opanować."
       },
       "benefits": {
-        "title": "Korzyści z praktyki",
+        "title": "Korzyści z medytacji",
         "text": "Regularna medytacja przynosi wiele korzyści dla ciała i umysłu:",
         "bullets": {
           "1": "Redukcja stresu i lęku",
@@ -460,35 +488,35 @@
     }
   },
   "profile": {
-    "title": "Twój Profil",
+    "title": "Twój profil",
     "statistics": "Statystyki",
-    "totalSessions": "Wszystkie Sesje",
-    "totalMinutes": "Suma Minut",
-    "currentStreak": "Aktualna Passa",
-    "longestStreak": "Najdłuższa Passa",
+    "totalSessions": "Wszystkie sesje",
+    "totalMinutes": "Suma minut",
+    "currentStreak": "Aktualna passa",
+    "longestStreak": "Najdłuższa passa",
     "days": "dni",
-    "recentSessions": "Ostatnie Sesje",
-    "customSessions": "Moje Własne Sesje",
+    "recentSessions": "Ostatnie sesje",
+    "customSessions": "Moje własne sesje",
     "noSessionsYet": "Nie ukończono jeszcze żadnej sesji",
     "startMeditating": "Rozpocznij swoją pierwszą medytację!",
     "today": "Dziś",
     "yesterday": "Wczoraj",
-    "thisWeek": "Ten Tydzień",
+    "thisWeek": "Ten tydzień",
     "earlier": "Wcześniej",
-    "manageCustomSessions": "Zarządzaj Własnymi Sesjami",
+    "manageCustomSessions": "Zarządzaj własnymi sesjami",
     "custom": "Własna",
     "saved": "zapisane",
     "justNow": "Właśnie teraz",
     "minutesAgo": "{{count}}m temu",
     "hoursAgo": "{{count}}h temu",
     "daysAgo": "{{count}}d temu",
-    "sessionDetails": "Szczegóły Sesji",
-    "duration": "Czas Trwania",
-    "moodAfterSession": "Nastrój po Sesji",
+    "sessionDetails": "Szczegóły sesji",
+    "duration": "Czas trwania",
+    "moodAfterSession": "Nastrój po sesji",
     "reflections": "Refleksje",
     "noMoodRecorded": "Nie zapisano nastroju",
     "noNotesRecorded": "Nie zapisano notatek",
-    "sessionIntention": "Intencja Sesji",
+    "sessionIntention": "Intencja sesji",
     "noIntentionRecorded": "Nie zapisano intencji",
     "mood1": "Bardzo źle",
     "mood2": "Źle",
@@ -514,123 +542,123 @@
   },
   "sessionsList": {
     "morningAwakening": {
-      "title": "Poranne Przebudzenie",
-      "description": "Rozpocznij swój dzień z jasnością i skupieniem. Łagodna 5-minutowa praktyka, by się wycentrować."
+      "title": "Poranne przebudzenie",
+      "description": "Rozpocznij swój dzień z jasnością i skupieniem. Łagodna sesja, by się wycentrować."
     },
     "breathAwareness": {
-      "title": "Świadomość Oddechu",
-      "description": "Skup się na swoim naturalnym oddechu. Fundamentalna praktyka dla początkujących."
+      "title": "Świadomość oddechu",
+      "description": "Skup się na swoim naturalnym oddechu. Idealna sesja dla początkujących."
     },
     "bodyScanRelaxation": {
-      "title": "Relaksacja poprzez Skanowanie Ciała",
+      "title": "Relaksacja poprzez skanowanie ciała",
       "description": "Progresywna technika relaksacji prowadząca uwagę przez całe ciało."
     },
     "lovingKindness": {
-      "title": "Medytacja Współczucia",
+      "title": "Medytacja współczucia",
       "description": "Kultywuj współczucie i życzliwość wobec siebie i innych."
     },
     "deepMeditation": {
-      "title": "Głęboka Medytacja",
-      "description": "Rozszerzona praktyka dla doświadczonych medytujących. Zanurz się w ciszy."
+      "title": "Głęboka medytacja",
+      "description": "Rozszerzona sesja dla doświadczonych medytujących. Zanurz się w ciszy."
     },
     "morningEnergyBoost": {
-      "title": "Poranna Dawka Energii",
+      "title": "Poranna dawka energii",
       "description": "Zasilij swoje ciało i umysł na nadchodzący dzień za pomocą technik oddechowych."
     },
     "sunriseMeditation": {
-      "title": "Medytacja o Wschodzie Słońca",
+      "title": "Medytacja o wschodzie słońca",
       "description": "Powitaj nowy dzień z wdzięcznością i wyznaczaniem intencji."
     },
     "quickStressRelief": {
-      "title": "Szybkie Uwolnienie od Stresu",
-      "description": "Uwolnij napięcie w zaledwie 5 minut. Idealne na przerwy w pracy."
+      "title": "Szybkie uwolnienie od stresu",
+      "description": "Krótka sesja uwalniania napięcia. Może być częścią dłuższej sesji lub stanowić wstęp do głębszej medytacji."
     },
     "deepStressRelease": {
-      "title": "Głębokie Uwolnienie od Stresu",
+      "title": "Głębokie uwolnienie od stresu",
       "description": "Kompleksowe uwolnienie od stresu poprzez progresywną relaksację."
     },
     "eveningWindDown": {
-      "title": "Wieczorne Wyciszenie",
+      "title": "Wieczorne wyciszenie",
       "description": "Uwolnij napięcia dnia i przygotuj się na spokojny sen."
     },
     "sleepSanctuary": {
-      "title": "Sanktuarium Snu",
+      "title": "Sanktuarium snu",
       "description": "Głębokie skanowanie ciała i relaksacja dla głębokiego odpoczynku."
     },
     "concentrationBuilder": {
-      "title": "Budowanie Koncentracji",
+      "title": "Budowanie koncentracji",
       "description": "Wyostrz swoją uwagę i wyeliminuj rozproszenia."
     },
     "flowStateActivation": {
-      "title": "Aktywacja Stanu Flow",
+      "title": "Aktywacja stanu flow",
       "description": "Wejdź w głęboką koncentrację do pracy lub nauki."
     },
     "calmAnxiety": {
-      "title": "Uspokojenie Lęku",
+      "title": "Uspokojenie lęku",
       "description": "Złagodź niepokojące myśli poprzez łagodną świadomość oddechu."
     },
     "anxietyReleasePractice": {
-      "title": "Praktyka Uwolnienia od Lęku",
+      "title": "Uwolnienie od lęku",
       "description": "Uziemij się i uwolnij zmartwienia poprzez świadomość ciała."
     },
     "healingThroughGrief": {
-      "title": "Uzdrawianie poprzez Żałobę",
+      "title": "Uzdrawianie poprzez żałobę",
       "description": "Łagodna przestrzeń do uhonorowania straty i znalezienia spokoju."
     },
     "embracingLoss": {
-      "title": "Przyjmowanie Straty",
+      "title": "Przyjmowanie straty",
       "description": "Współczująca medytacja do przetwarzania trudnych emocji."
     },
     "gratitudeReflection": {
-      "title": "Refleksja Wdzięczności",
+      "title": "Refleksja wdzięczności",
       "description": "Kultywuj uznanie dla błogosławieństw życia."
     },
     "deepGratitudeJourney": {
-      "title": "Głęboka Podróż Wdzięczności",
+      "title": "Głęboka podróż wdzięczności",
       "description": "Odkrywaj głęboką wdzięczność i radość."
     },
     "creativeAwakening": {
-      "title": "Twórcze Przebudzenie",
+      "title": "Twórcze przebudzenie",
       "description": "Odblokuj swój potencjał twórczy poprzez otwartą świadomość."
     },
     "inspirationFlow": {
-      "title": "Przepływ Inspiracji",
+      "title": "Przepływ inspiracji",
       "description": "Uzyskaj dostęp do swojej wewnętrznej muzy i twórczego geniuszu."
     },
     "zazenZenSitting": {
-      "title": "Zazen - Siedzenie w Zen",
+      "title": "Zazen - siedzenie w Zen",
       "description": "Tradycyjna medytacja Zen. Po prostu siedzenie, obserwowanie oddechu i myśli."
     },
     "kinhinZenWalking": {
-      "title": "Kinhin - Spacer w Zen",
+      "title": "Kinhin - spacer w Zen",
       "description": "Powolny, uważny spacer pomiędzy okresami siedzenia."
     },
     "beginnerZazen": {
-      "title": "Zazen dla Początkujących",
-      "description": "Wprowadzenie do praktyki medytacji siedzącej Zen."
+      "title": "Zazen dla początkujących",
+      "description": "Wprowadzenie do medytacji siedzącej Zen."
     },
     "vipassanaBodyScan": {
-      "title": "Skanowanie Ciała Vipassana",
+      "title": "Skanowanie ciała Vipassana",
       "description": "Systematyczna świadomość doznań w całym ciele."
     },
     "insightMeditation": {
-      "title": "Medytacja Wglądu",
+      "title": "Medytacja wglądu",
       "description": "Obserwuj nietrwałą naturę wszystkich zjawisk."
     },
     "beginnerVipassana": {
-      "title": "Vipassana dla Początkujących",
-      "description": "Wprowadzenie do praktyki medytacji wglądu."
+      "title": "Vipassana dla początkujących",
+      "description": "Wprowadzenie do medytacji wglądu."
     },
     "omMeditation": {
       "title": "Medytacja Om",
       "description": "Śpiewaj i medytuj nad pierwotnym dźwiękiem Om."
     },
     "transcendentalMeditation": {
-      "title": "Medytacja Transcendentalna",
-      "description": "Osiągnij głęboką wewnętrzną ciszę poprzez praktykę mantry."
+      "title": "Medytacja transcendentalna",
+      "description": "Osiągnij głęboką wewnętrzną ciszę poprzez powtarzanie mantry."
     },
     "chakraAwareness": {
-      "title": "Świadomość Czakr",
+      "title": "Świadomość czakr",
       "description": "Podróż przez siedem centrów energetycznych."
     },
     "qigongMeditation": {
@@ -638,27 +666,27 @@
       "description": "Kultywuj energię Qi poprzez oddech i wizualizację."
     },
     "innerSmilePractice": {
-      "title": "Praktyka Wewnętrznego Uśmiechu",
+      "title": "Wewnętrzny uśmiech",
       "description": "Taoistyczna medytacja dla kultywowania wewnętrznego spokoju i radości."
     },
     "wuWeiEffortlessBeing": {
-      "title": "Wu Wei - Bycie bez Wysiłku",
+      "title": "Wu Wei - bycie bez wysiłku",
       "description": "Płyń z naturalnym biegiem rzeczy."
     },
     "dhikrRemembrance": {
-      "title": "Dhikr - Wspomnienie",
+      "title": "Dhikr - wspomnienie",
       "description": "Rytmiczne wspominanie Boskiego."
     },
     "muraqabaHeartMeditation": {
-      "title": "Muraqaba - Medytacja Serca",
+      "title": "Muraqaba - medytacja serca",
       "description": "Suficka kontemplacja centrum serca."
     },
     "breathOfCompassion": {
-      "title": "Oddech Współczucia",
-      "description": "Suficka praktyka oddechowa dla otwarcia serca."
+      "title": "Oddech współczucia",
+      "description": "Suficka technika oddechowa dla otwarcia serca."
     },
     "centeringPrayer": {
-      "title": "Modlitwa Centrująca",
+      "title": "Modlitwa centrująca",
       "description": "Cicha komunia z Bogiem poprzez święte słowo."
     },
     "lectioDivina": {
@@ -666,11 +694,11 @@
       "description": "Kontemplacyjne czytanie i medytacja nad Pismem Świętym."
     },
     "contemplativeSilence": {
-      "title": "Kontemplacyjna Cisza",
+      "title": "Kontemplacyjna cisza",
       "description": "Spoczynek w obecności Bożej."
     },
     "breathPrayer": {
-      "title": "Modlitwa Oddechowa",
+      "title": "Modlitwa oddechowa",
       "description": "Rytmiczna modlitwa zsynchronizowana z oddychaniem."
     }
   },
@@ -683,7 +711,7 @@
     "sessionNameHint": "Opcjonalne - do zapisania",
     "sessionNamePlaceholder": "Np. Poranna medytacja",
     "duration": "Czas trwania",
-    "durationDescription": "Ile czasu chcesz poświęcić na praktykę?",
+    "durationDescription": "Ile czasu chcesz poświęcić na medytację?",
     "minutes": "min",
     "minutesWithCount": "{{count}} min",
     "customInterval": "Własna wartość:",
@@ -693,14 +721,29 @@
     "ambientDescription": "Wybierz uspokajający dźwięk, który pomoże Ci się skupić",
     "intervalBell": "Dzwonek interwałowy",
     "intervalBellDescription": "Delikatne przypomnienie podczas sesji",
+    "intervalBellHint": "Uważna chwila podczas sesji",
     "intervalEvery": "Dzwonek co:",
+    "intervalWarning": "Interwał musi być krótszy niż czas sesji",
     "min": "min",
+    "bells": "Dzwonki",
+    "bellsDescription": "Sygnały dźwiękowe podczas sesji",
     "wakeUpChime": "Dzwonek końcowy",
     "wakeUpChimeDescription": "Delikatny dźwięk sygnalizujący koniec sesji",
+    "wakeUpChimeHint": "Delikatny sygnał na koniec",
+    "vibration": "Wibracje",
+    "vibrationHint": "Wibracje przy dzwonkach",
+    "sounds": {
+      "silence": "Cisza",
+      "nature": "Natura",
+      "ocean": "Ocean",
+      "forest": "Las",
+      "432hz": "432 Hz",
+      "528hz": "528 Hz"
+    },
     "awakeningChime": "Dzwonek przebudzenia",
-    "awakeningChimeSubtitle": "Delikatny dźwięk sygnalizujący koniec praktyki",
+    "awakeningChimeSubtitle": "Delikatny dźwięk sygnalizujący koniec sesji",
     "guidingVoice": "Głos prowadzący",
-    "guidingVoiceSubtitle": "Łagodne wskazówki głosowe podczas praktyki",
+    "guidingVoiceSubtitle": "Łagodne wskazówki głosowe podczas sesji",
     "ambientSilence": "Cisza",
     "ambientNature": "Natura",
     "ambientOcean": "Ocean",
@@ -762,16 +805,16 @@
     }
   },
   "instructionsScreen": {
-    "title": "Przewodniki Medytacji",
-    "subtitle": "Poznaj techniki i naucz się budować własną praktykę",
+    "title": "Przewodniki medytacji",
+    "subtitle": "Poznaj techniki i naucz się budować własną rutynę",
     "featuredIntro": {
-      "title": "Wprowadzenie do Medytacji",
+      "title": "Wprowadzenie do medytacji",
       "description": "Interaktywny przewodnik krok po kroku. Idealny dla początkujących lub gdy chcesz odświeżyć podstawy.",
       "duration": "~5 min"
     },
     "techniquesSection": "Techniki",
     "duration": "Czas trwania: {{duration}}",
-    "breathingSection": "Ćwiczenia Oddechowe",
+    "breathingSection": "Ćwiczenia oddechowe",
     "breathingIntro": "Techniki oddechowe pomagają uspokoić umysł i przygotować się do medytacji. Wybierz wzorzec odpowiedni dla swojej sytuacji.",
     "breathingExercises": {
       "box": {
@@ -821,11 +864,11 @@
       "readyMessage": "Gdy będziesz gotowy, naciśnij przycisk poniżej aby rozpocząć ćwiczenie."
     },
     "tryExercise": "Wypróbuj",
-    "buildSessionSection": "Jak Zbudować Sesję",
+    "buildSessionSection": "Jak zbudować sesję",
     "buildSessionIntro": "Połącz techniki, aby stworzyć kompletną sesję medytacji. Zacznij od uspokojenia, przejdź przez główną technikę i zakończ integracją.",
     "techniques": {
       "bodyScan": {
-        "name": "Skanowanie Ciała",
+        "name": "Skanowanie ciała",
         "description": "Technika progresywnej relaksacji poprzez prowadzenie uwagi przez ciało",
         "duration": "10-20 minut",
         "steps": [
@@ -841,8 +884,8 @@
         ]
       },
       "breathFocus": {
-        "name": "Skupienie na Oddechu",
-        "description": "Praktyka koncentracji z oddechem jako kotwicą",
+        "name": "Skupienie na oddechu",
+        "description": "Technika koncentracji z oddechem jako kotwicą",
         "duration": "5-15 minut",
         "steps": [
           "Usiądź wygodnie z prostymi plecami",
@@ -856,7 +899,7 @@
         ]
       },
       "lovingKindness": {
-        "name": "Medytacja Miłującej Dobroci (Metta)",
+        "name": "Medytacja miłującej dobroci (Metta)",
         "description": "Kultywowanie współczucia i życzliwości wobec siebie i innych",
         "duration": "10-20 minut",
         "steps": [
@@ -870,7 +913,7 @@
         ]
       },
       "mindfulObservation": {
-        "name": "Uważna Obserwacja",
+        "name": "Uważna obserwacja",
         "description": "Świadomość chwili obecnej poprzez obserwację zmysłową",
         "duration": "5-10 minut",
         "steps": [
@@ -886,7 +929,7 @@
     },
     "sessionGuides": {
       "simple12Min": {
-        "title": "Prosta 12-Minutowa Praktyka",
+        "title": "Prosta 12-minutowa sesja",
         "description": "Zalecana struktura z \"Wyostrz Swój Umysł\"",
         "structure": [
           "2 min - Uspokojenie, świadomość oddechu",
@@ -896,7 +939,7 @@
         ]
       },
       "deepRelaxation": {
-        "title": "Sesja Głębokiej Relaksacji",
+        "title": "Sesja głębokiej relaksacji",
         "description": "Na uwolnienie od stresu i głęboki odpoczynek",
         "structure": [
           "3 min - Ćwiczenia oddechowe",
@@ -910,81 +953,81 @@
   "achievements": {
     "title": "Osiągnięcia",
     "level": "Poziom",
-    "levelProgress": "Postęp Poziomu",
+    "levelProgress": "Postęp poziomu",
     "toNextLevel": "do następnego poziomu",
     "unlocked": "Odblokowane",
     "almostThere": "Prawie gotowe",
     "hidden": "Sekretne osiągnięcie",
     "firstSession": {
-      "title": "Pierwsze Kroki",
+      "title": "Pierwsze kroki",
       "description": "Ukończ swoją pierwszą sesję medytacji"
     },
     "tenSessions": {
-      "title": "Oddany Praktyk",
+      "title": "Oddany medytujący",
       "description": "Ukończ 10 sesji medytacji"
     },
     "fiftySessions": {
-      "title": "Zaangażowany Medytujący",
+      "title": "Zaangażowany medytujący",
       "description": "Ukończ 50 sesji medytacji"
     },
     "hundredSessions": {
-      "title": "Klub Setki",
+      "title": "Klub setki",
       "description": "Ukończ 100 sesji medytacji"
     },
     "thousandSessions": {
-      "title": "Mistrz Medytacji",
+      "title": "Mistrz medytacji",
       "description": "Ukończ 1000 sesji medytacji"
     },
     "streak3": {
-      "title": "Dobry Start",
+      "title": "Dobry start",
       "description": "Medytuj przez 3 dni z rzędu"
     },
     "streak7": {
-      "title": "Tydzień Mocy",
+      "title": "Tydzień mocy",
       "description": "Utrzymaj 7-dniową passę medytacji"
     },
     "streak14": {
-      "title": "Dwutygodniowy Wojownik",
+      "title": "Dwutygodniowy wojownik",
       "description": "Utrzymaj 14-dniową passę medytacji"
     },
     "streak30": {
-      "title": "Miesięczne Zaangażowanie",
+      "title": "Miesięczne zaangażowanie",
       "description": "Utrzymaj 30-dniową passę medytacji"
     },
     "streak100": {
-      "title": "100 Dni Zen",
+      "title": "100 dni zen",
       "description": "Utrzymaj 100-dniową passę medytacji"
     },
     "streak365": {
-      "title": "Rok Uważności",
+      "title": "Rok uważności",
       "description": "Medytuj każdego dnia przez cały rok"
     },
     "zenExplorer": {
-      "title": "Odkrywca Zen",
+      "title": "Odkrywca zen",
       "description": "Ukończ 5 sesji medytacji Zen"
     },
     "vipassanaPractitioner": {
-      "title": "Praktykujący Vipassanę",
+      "title": "Doświadczony w vipassanie",
       "description": "Ukończ 5 sesji medytacji Vipassana"
     },
     "vedicMaster": {
-      "title": "Mistrz Wedyjski",
+      "title": "Mistrz wedyjski",
       "description": "Ukończ 10 sesji medytacji wedyjskiej"
     },
     "taoistSage": {
-      "title": "Taoistyczny Mędrzec",
+      "title": "Taoistyczny mędrzec",
       "description": "Ukończ 10 sesji medytacji taoistycznej"
     },
     "sufiMystic": {
-      "title": "Mistyk Sufi",
+      "title": "Mistyk sufi",
       "description": "Ukończ 10 sesji medytacji Sufi"
     },
     "christianContemplative": {
-      "title": "Kontemplujący Chrześcijanin",
+      "title": "Kontemplujący chrześcijanin",
       "description": "Ukończ 10 sesji medytacji chrześcijańskiej"
     },
     "worldTraveler": {
-      "title": "Podróżnik Świata",
+      "title": "Podróżnik świata",
       "description": "Doświadcz wszystkich 6 tradycji medytacyjnych"
     },
     "levelUp": {
@@ -992,43 +1035,43 @@
       "description": "Osiągnij Poziom 2"
     },
     "intermediate": {
-      "title": "Medytujący Średniozaawansowany",
+      "title": "Medytujący średniozaawansowany",
       "description": "Osiągnij Poziom 3"
     },
     "advanced": {
-      "title": "Zaawansowany Praktyk",
+      "title": "Zaawansowany medytujący",
       "description": "Osiągnij Poziom 4"
     },
     "master": {
-      "title": "Mistrz Medytacji",
+      "title": "Mistrz medytacji",
       "description": "Osiągnij Poziom 5"
     },
     "timeDedication100": {
-      "title": "100 Minut",
+      "title": "100 minut",
       "description": "Medytuj przez 100 minut łącznie"
     },
     "timeDedication1000": {
-      "title": "1000 Minut",
+      "title": "1000 minut",
       "description": "Medytuj przez 1000 minut łącznie"
     },
     "timeDedication10000": {
-      "title": "10000 Minut",
+      "title": "10000 minut",
       "description": "Medytuj przez 10000 minut łącznie"
     },
     "earlyBird": {
-      "title": "Ranny Ptaszek",
+      "title": "Ranny ptaszek",
       "description": "Ukończ 5 sesji medytacji przed 7 rano"
     },
     "nightOwl": {
-      "title": "Nocna Sowa",
+      "title": "Nocna sowa",
       "description": "Ukończ 5 sesji medytacji po 22:00"
     },
     "weekendWarrior": {
-      "title": "Weekendowy Wojownik",
+      "title": "Weekendowy wojownik",
       "description": "Ukończ 10 sesji medytacji w weekendy"
     },
     "middayRefresh": {
-      "title": "Popołudniowe Orzeźwienie",
+      "title": "Popołudniowe orzeźwienie",
       "description": "Ukończ 10 sesji medytacji między 11:00 a 14:00"
     },
     "perfectionist": {
@@ -1036,11 +1079,11 @@
       "description": "Ukończ 10 sesji w pełni bez przerwy"
     },
     "moodImprover": {
-      "title": "Polepszacz Nastroju",
+      "title": "Polepszacz nastroju",
       "description": "Popraw swój nastrój przez medytację 20 razy"
     },
     "marathonMeditator": {
-      "title": "Maratończyk Medytacji",
+      "title": "Maratończyk medytacji",
       "description": "Ukończ 10 sesji trwających 20+ minut"
     },
     "explorer": {
@@ -1052,8 +1095,43 @@
       "description": "Doświadcz wszystkich 40 sesji medytacji"
     },
     "reflectionMaster": {
-      "title": "Mistrz Refleksji",
+      "title": "Mistrz refleksji",
       "description": "Dodaj notatki do 25 sesji medytacji"
+    }
+  },
+  "onboarding": {
+    "skip": "Pomiń",
+    "next": "Dalej",
+    "getStarted": "Rozpocznij",
+    "slide1": {
+      "title": "Znajdź spokój",
+      "subtitle": "Slow Spot to Twoja przestrzeń do codziennej medytacji. Badania wskazują, że 10-12 minut dziennie przez 8 tygodni może przynieść wymierne korzyści."
+    },
+    "slide2": {
+      "title": "Prosto i skutecznie",
+      "subtitle": "Bez skomplikowanych technik. Wybierz sesję, ustaw czas i zanurz się w ciszy. My zadbamy o resztę."
+    },
+    "slide3": {
+      "title": "Twoja podróż",
+      "subtitle": "Śledź swoje postępy, buduj nawyk i ciesz się korzyściami regularnych sesji. Zaczynamy?"
+    }
+  },
+  "personalization": {
+    "title": "Personalizacja",
+    "subtitle": "Dostosuj aplikację do swoich preferencji",
+    "colorTheme": "Motyw kolorystyczny",
+    "colorThemeDescription": "Wybierz kolor, który najlepiej oddaje Twój nastrój",
+    "animations": "Animacje",
+    "animationsDescription": "Włącz lub wyłącz animacje w aplikacji",
+    "hapticFeedback": "Wibracje",
+    "hapticFeedbackDescription": "Subtelny feedback dotykowy przy interakcjach",
+    "themes": {
+      "purple": "Spokojny fiolet",
+      "teal": "Harmonijny turkus",
+      "indigo": "Głęboki indygo",
+      "rose": "Delikatny róż",
+      "amber": "Ciepły bursztyn",
+      "emerald": "Świeży szmaragd"
     }
   }
 }

@@ -30,6 +30,7 @@ import Animated, {
 import { GradientBackground } from './GradientBackground';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, neutralColors, primaryColor } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -64,7 +65,7 @@ const getTimeBasedGreeting = (t: any): { greeting: string; context: string } => 
   if (hour >= 5 && hour < 12) {
     return {
       greeting: t('introGuide.greetings.morning', 'Dzień dobry'),
-      context: t('introGuide.greetings.morningContext', 'Świetny moment na poranną praktykę'),
+      context: t('introGuide.greetings.morningContext', 'Świetny moment na poranną medytację'),
     };
   } else if (hour >= 12 && hour < 17) {
     return {
@@ -106,6 +107,7 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
   isDark = false,
 }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const insets = useSafeAreaInsets();
   const flatListRef = useRef<FlatList>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -147,12 +149,12 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
     headerTitle: { color: colors.text.primary },
     slideTitle: { color: colors.text.primary },
     slideText: { color: colors.text.secondary },
-    dotActive: { backgroundColor: brandColors.purple.primary },
+    dotActive: { backgroundColor: currentTheme.primary },
     dotInactive: { backgroundColor: isDark ? colors.neutral.charcoal[50] : colors.neutral.gray[300] },
     closeButton: { backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)' },
     cardBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
-    iconBoxBg: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
-  }), [colors, isDark]);
+    iconBoxBg: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}26`,
+  }), [colors, isDark, currentTheme]);
 
   // Render slide content
   const renderSlide = useCallback(({ item, index }: { item: SlideContent; index: number }) => {
@@ -165,9 +167,9 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
           {/* Icon */}
           <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
             {item.iconType === 'ionicons' ? (
-              <Ionicons name={item.icon as any} size={48} color={brandColors.purple.primary} />
+              <Ionicons name={item.icon as any} size={48} color={currentTheme.primary} />
             ) : (
-              <FontAwesome5 name={item.icon} size={40} color={brandColors.purple.primary} solid />
+              <FontAwesome5 name={item.icon} size={40} color={currentTheme.primary} solid />
             )}
           </View>
 
@@ -180,7 +182,7 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
 
           {/* Subtitle/Context for welcome */}
           {isWelcome && (
-            <Text style={[styles.slideSubtitle, { color: brandColors.purple.primary }]}>
+            <Text style={[styles.slideSubtitle, { color: currentTheme.primary }]}>
               {context}
             </Text>
           )}
@@ -198,7 +200,7 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
                 if (!bulletText) return null;
                 return (
                   <View key={num} style={styles.bulletRow}>
-                    <View style={[styles.bulletDot, { backgroundColor: brandColors.purple.primary }]} />
+                    <View style={[styles.bulletDot, { backgroundColor: currentTheme.primary }]} />
                     <Text style={[styles.bulletText, dynamicStyles.slideText]}>{bulletText}</Text>
                   </View>
                 );
@@ -214,7 +216,7 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
               activeOpacity={0.8}
             >
               <LinearGradient
-                colors={[brandColors.purple.light, brandColors.purple.primary]}
+                colors={currentTheme.gradient}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.ctaGradient}
@@ -240,7 +242,7 @@ export const MeditationIntroGuide: React.FC<MeditationIntroGuideProps> = ({
             {t('introGuide.title', 'Wprowadzenie do Medytacji')}
           </Text>
           <Text style={[styles.headerSubtitle, dynamicStyles.slideText]}>
-            {t('introGuide.subtitle', 'Poznaj podstawy uważnej praktyki')}
+            {t('introGuide.subtitle', 'Poznaj podstawy uważności')}
           </Text>
         </View>
         <TouchableOpacity

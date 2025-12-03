@@ -1296,7 +1296,7 @@ export const MOCK_QUOTES: Quote[] = [
     text: 'Mindfulness isn\'t difficult. We just need to remember to do it.',
     translations: {
       en: 'Mindfulness isn\'t difficult. We just need to remember to do it.',
-      pl: 'Uważność nie jest trudna. Musimy tylko pamiętać, aby ją praktykować.',
+      pl: 'Uważność nie jest trudna. Musimy tylko pamiętać, aby być uważni.',
       de: 'Achtsamkeit ist nicht schwierig. Wir müssen uns nur daran erinnern, sie zu praktizieren.',
       es: 'La atención plena no es difícil. Solo necesitamos recordar practicarla.',
       fr: 'La pleine conscience n\'est pas difficile. Il suffit de se rappeler de la pratiquer.',

@@ -1,40 +1,24 @@
-import { logger } from '../utils/logger';
-import React, { useMemo } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useMemo, useRef } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Animated as RNAnimated } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { Swipeable } from 'react-native-gesture-handler';
+import * as Haptics from 'expo-haptics';
 import { MeditationSession } from '../services/api';
 import { SavedCustomSession } from '../services/customSessionStorage';
-import { GradientCard } from './GradientCard';
-import { getThemeGradients } from '../theme/gradients';
-import theme, { getThemeColors } from '../theme';
-import { brandColors } from '../theme/colors';
+import { AnimatedPressable } from './AnimatedPressable';
+import theme, { getThemeColors, getCardStyles, getSwipeActionColors } from '../theme';
+import { getSectionColors } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 interface SessionCardProps {
   session: MeditationSession;
   onPress: () => void;
-  onLongPress?: () => void;
+  onEdit?: () => void;
+  onDelete?: () => void;
   isCustom?: boolean;
   isDark?: boolean;
 }
-
-const getLevelLabel = (level: number): string => {
-  const levels = ['beginner', 'intermediate', 'advanced', 'expert', 'master'];
-  return levels[level - 1] || 'beginner';
-};
-
-const getGuidanceText = (level: number, t: any): string => {
-  // Beginners: Detailed step-by-step instructions
-  if (level === 1) {
-    return t('meditation.beginnerGuidance') || '1. Find a quiet space\n2. Sit comfortably\n3. Close your eyes\n4. Follow the voice guidance';
-  }
-  // Intermediate: Brief reminders
-  if (level === 2) {
-    return t('meditation.intermediateGuidance') || 'Find your comfortable position, breathe naturally';
-  }
-  // Advanced+: Minimal or no text (just ambient)
-  return t('meditation.advancedGuidance') || 'Settle into stillness';
-};
 
 const formatDuration = (seconds: number): string => {
   const minutes = Math.floor(seconds / 60);
@@ -42,185 +26,289 @@ const formatDuration = (seconds: number): string => {
 };
 
 /**
- * Generate localized description for custom sessions
+ * Get breathing pattern display name
  */
-const getCustomSessionDescription = (session: SavedCustomSession, t: any): string => {
-  const minutes = Math.floor(session.durationSeconds / 60);
-  const ambientSound = session.config?.ambientSound || 'silence';
-
-  // Get translated ambient sound name
-  const soundKey = `custom.ambient${ambientSound.charAt(0).toUpperCase() + ambientSound.slice(1)}`;
-  const soundName = t(soundKey) || ambientSound;
-
-  // Use translation template: "X min meditation with Y"
-  return t('custom.sessionDescription', {
-    minutes,
-    ambientSound: soundName
-  }) || `${minutes} min meditation with ${soundName}`;
+const getBreathingPatternName = (pattern: string | undefined, t: any): string => {
+  if (!pattern || pattern === 'none') return '';
+  const patterns: Record<string, string> = {
+    'box': t('custom.breathingBox', 'Box Breathing'),
+    '4-7-8': t('custom.breathing478', '4-7-8'),
+    'equal': t('custom.breathingEqual', 'Equal Breathing'),
+    'calm': t('custom.breathingCalm', 'Calm Breathing'),
+    'custom': t('custom.breathingCustom', 'Custom'),
+  };
+  return patterns[pattern] || '';
 };
 
-// ✨ React.memo for performance optimization - Prevents unnecessary re-renders
-export const SessionCard = React.memo<SessionCardProps>(({ session, onPress, onLongPress, isCustom, isDark = false }) => {
+/**
+ * Get ambient sound display name
+ */
+const getAmbientSoundName = (sound: string | undefined, t: any): string => {
+  if (!sound || sound === 'silence') return t('custom.ambientSilence', 'Cisza');
+  const sounds: Record<string, string> = {
+    'nature': t('custom.ambientNature', 'Natura'),
+    'ocean': t('custom.ambientOcean', 'Ocean'),
+    'forest': t('custom.ambientForest', 'Las'),
+    '432hz': t('custom.ambient432hz', '432 Hz'),
+    '528hz': t('custom.ambient528hz', '528 Hz'),
+  };
+  return sounds[sound] || sound;
+};
+
+// SessionCard with swipe-to-reveal actions
+export const SessionCard = React.memo<SessionCardProps>(({
+  session,
+  onPress,
+  onEdit,
+  onDelete,
+  isCustom,
+  isDark = false
+}) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
+  const swipeableRef = useRef<Swipeable>(null);
 
-  // Theme-aware colors and gradients
+  // Theme-aware colors and styles from global theme
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
-  const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
-  const gradient = themeGradients.getGradientForLevel(getLevelLabel(session.level));
+  const sectionColors = useMemo(() => getSectionColors(isDark), [isDark]);
+  const globalCardStyles = useMemo(() => getCardStyles(isDark), [isDark]);
+  const swipeColors = useMemo(() => getSwipeActionColors(isDark), [isDark]);
 
-  // Dynamic styles based on theme
-  const dynamicStyles = useMemo(() => ({
-    title: { color: colors.text.primary },
-    description: { color: colors.text.secondary },
-    guidanceText: { color: colors.text.primary },
-    minimalGuidance: { color: colors.text.secondary },
-    label: { color: colors.text.secondary },
-    value: { color: colors.text.primary },
-    startBadgeText: { color: colors.text.primary },
-    customBadgeIconColor: brandColors.purple.primary,
-    // Theme-aware semi-transparent backgrounds
-    guidanceBoxBg: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.3)',
-    startBadgeBg: isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.4)',
-    customBadgeBg: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.5)',
-  }), [colors, isDark]);
+  // Get custom session config for displaying details
+  const customConfig = isCustom ? (session as SavedCustomSession).config : null;
 
   // Use translation keys if available, otherwise fall back to direct values
   const title = session.titleKey ? t(session.titleKey) : session.title;
 
-  // For custom sessions, generate localized description dynamically
-  const description = useMemo(() => {
-    if (isCustom && (session as SavedCustomSession).config) {
-      return getCustomSessionDescription(session as SavedCustomSession, t);
-    }
-    return session.descriptionKey ? t(session.descriptionKey) : session.description;
-  }, [session, isCustom, t]);
+  // Get ambient sound name for display
+  const ambientSound = customConfig?.ambientSound
+    ? getAmbientSoundName(customConfig.ambientSound, t)
+    : '';
 
-  return (
-    <GradientCard gradient={gradient} onPress={onPress} onLongPress={onLongPress} style={styles.card} isDark={isDark}>
-      {/* Card Header */}
-      <View style={styles.header}>
-        <View style={styles.titleRow}>
-          <Text style={[styles.title, dynamicStyles.title]}>{title}</Text>
-          {isCustom && (
-            <View style={[styles.customBadge, { backgroundColor: dynamicStyles.customBadgeBg }]}>
-              <Ionicons name="star" size={16} color={dynamicStyles.customBadgeIconColor} />
-            </View>
+  // Get breathing pattern for display
+  const breathingPattern = customConfig?.breathingPattern
+    ? getBreathingPatternName(customConfig.breathingPattern, t)
+    : '';
+
+  // Get interval bell info for display
+  const intervalBellInfo = customConfig?.intervalBellEnabled
+    ? `${customConfig.intervalBellMinutes} min`
+    : '';
+
+  // Close swipeable after action
+  const closeSwipeable = () => {
+    swipeableRef.current?.close();
+  };
+
+  // Handle edit with haptic
+  const handleEdit = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    closeSwipeable();
+    onEdit?.();
+  };
+
+  // Handle delete with haptic
+  const handleDelete = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    closeSwipeable();
+    onDelete?.();
+  };
+
+  // Render right swipe actions (Edit + Delete)
+  const renderRightActions = (
+    progress: RNAnimated.AnimatedInterpolation<number>,
+    dragX: RNAnimated.AnimatedInterpolation<number>
+  ) => {
+    // Only show actions for custom sessions
+    if (!isCustom || (!onEdit && !onDelete)) return null;
+
+    const translateX = dragX.interpolate({
+      inputRange: [-120, 0],
+      outputRange: [0, 120],
+      extrapolate: 'clamp',
+    });
+
+    return (
+      <RNAnimated.View
+        style={[
+          styles.actionsContainer,
+          { transform: [{ translateX }] }
+        ]}
+      >
+        {onEdit && (
+          <TouchableOpacity
+            style={[styles.actionButton, { backgroundColor: swipeColors.edit.background }]}
+            onPress={handleEdit}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="pencil" size={20} color={swipeColors.edit.icon} />
+            <Text style={[styles.actionText, { color: swipeColors.edit.text }]}>{t('custom.edit', 'Edytuj')}</Text>
+          </TouchableOpacity>
+        )}
+        {onDelete && (
+          <TouchableOpacity
+            style={[styles.actionButton, { backgroundColor: swipeColors.delete.background }]}
+            onPress={handleDelete}
+            activeOpacity={0.8}
+          >
+            <Ionicons name="trash-outline" size={20} color={swipeColors.delete.icon} />
+            <Text style={[styles.actionText, { color: swipeColors.delete.text }]}>{t('custom.delete', 'Usuń')}</Text>
+          </TouchableOpacity>
+        )}
+      </RNAnimated.View>
+    );
+  };
+
+  // Card content component - uses global cardStyles.secondary
+  // Style structure matches HomeScreen secondaryCard for consistent shadows
+  const CardContent = (
+    <AnimatedPressable
+      onPress={onPress}
+      style={[styles.card, globalCardStyles.secondary]}
+      pressScale={0.98}
+      hapticType="light"
+      accessibilityLabel={`${title}, ${formatDuration(session.durationSeconds)}`}
+    >
+      {/* Icon Section */}
+      <View style={[styles.iconContainer, { backgroundColor: sectionColors.meditation.background }]}>
+        <Ionicons name="leaf-outline" size={22} color={sectionColors.meditation.icon} />
+      </View>
+
+      {/* Middle Section - Title and Tags */}
+      <View style={styles.infoSection}>
+        <Text style={[styles.title, { color: colors.text.primary }]} numberOfLines={1}>
+          {title}
+        </Text>
+
+        {/* Tags Row - compact info */}
+        <View style={styles.tagsRow}>
+          <Text style={[styles.tagText, { color: colors.text.secondary }]}>
+            {formatDuration(session.durationSeconds)}
+          </Text>
+          {ambientSound && (
+            <>
+              <Text style={[styles.tagSeparator, { color: colors.text.secondary }]}>•</Text>
+              <Text style={[styles.tagText, { color: colors.text.secondary }]}>
+                {ambientSound}
+              </Text>
+            </>
+          )}
+          {breathingPattern && (
+            <>
+              <Text style={[styles.tagSeparator, { color: colors.text.secondary }]}>•</Text>
+              <Text style={[styles.tagText, { color: colors.text.secondary }]}>
+                {breathingPattern}
+              </Text>
+            </>
+          )}
+          {intervalBellInfo && (
+            <>
+              <Text style={[styles.tagSeparator, { color: colors.text.secondary }]}>•</Text>
+              <Ionicons name="notifications-outline" size={12} color={colors.text.secondary} style={{ marginRight: 3 }} />
+              <Text style={[styles.tagText, { color: colors.text.secondary }]}>
+                {intervalBellInfo}
+              </Text>
+            </>
           )}
         </View>
-        {description && (
-          <Text style={[styles.description, dynamicStyles.description]}>{description}</Text>
-        )}
-
-        {/* Guidance for beginners */}
-        {session.level === 1 && (
-          <View style={[styles.guidanceBox, { backgroundColor: dynamicStyles.guidanceBoxBg }]}>
-            <Text style={[styles.guidanceText, dynamicStyles.guidanceText]}>{getGuidanceText(session.level, t)}</Text>
-          </View>
-        )}
-
-        {/* Minimal guidance for intermediate+ */}
-        {session.level > 1 && (
-          <Text style={[styles.minimalGuidance, dynamicStyles.minimalGuidance]}>{getGuidanceText(session.level, t)}</Text>
-        )}
       </View>
 
-      {/* Card Footer */}
-      <View style={styles.footer}>
-        <View style={styles.detailsContainer}>
-          <View style={styles.detailRow}>
-            <Text style={[styles.label, dynamicStyles.label]}>{t('meditation.duration')}:</Text>
-            <Text style={[styles.value, dynamicStyles.value]}>{formatDuration(session.durationSeconds)}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={[styles.label, dynamicStyles.label]}>{t('meditation.level')}:</Text>
-            <Text style={[styles.value, dynamicStyles.value]}>{t(`meditation.${getLevelLabel(session.level)}`)}</Text>
-          </View>
-        </View>
-
-        <View style={[styles.startBadge, { backgroundColor: dynamicStyles.startBadgeBg }]}>
-          <Text style={[styles.startBadgeText, dynamicStyles.startBadgeText]}>▶ {t('meditation.start')}</Text>
-        </View>
-      </View>
-    </GradientCard>
+      {/* Chevron */}
+      <Ionicons name="chevron-forward" size={18} color={colors.text.tertiary} />
+    </AnimatedPressable>
   );
+
+  // If swipe actions available, wrap in Swipeable
+  if (isCustom && (onEdit || onDelete)) {
+    return (
+      <View style={styles.swipeableWrapper}>
+        <Swipeable
+          ref={swipeableRef}
+          renderRightActions={renderRightActions}
+          friction={2}
+          rightThreshold={40}
+          overshootRight={false}
+          containerStyle={styles.swipeableContainer}
+          childrenContainerStyle={styles.swipeableContent}
+          onSwipeableOpen={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+        >
+          {CardContent}
+        </Swipeable>
+      </View>
+    );
+  }
+
+  return CardContent;
 });
 
 const styles = StyleSheet.create({
+  // Swipeable wrapper and container styles
+  // IMPORTANT: overflow: 'visible' is required to show shadows outside card bounds
+  swipeableWrapper: {
+    width: '100%',
+    overflow: 'visible',
+  },
+  swipeableContainer: {
+    width: '100%',
+    overflow: 'visible',
+  },
+  swipeableContent: {
+    width: '100%',
+    overflow: 'visible',
+  },
+  // Card style - matches HomeScreen secondaryCard structure
+  // backgroundColor, borderRadius, and shadows come from globalCardStyles.secondary
   card: {
-    marginBottom: theme.spacing.md,
-  },
-  header: {
-    marginBottom: theme.spacing.md,
-  },
-  titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: theme.spacing.xs,
-    marginBottom: theme.spacing.xs,
+    paddingVertical: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.lg,
+    gap: theme.spacing.md,
+  },
+  iconContainer: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  infoSection: {
+    flex: 1,
+    gap: 4,
   },
   title: {
-    fontSize: theme.typography.fontSizes.xl,
-    fontWeight: theme.typography.fontWeights.semiBold,
-    color: theme.colors.text.primary,
-    flex: 1,
-  },
-  customBadge: {
-    borderRadius: theme.borderRadius.full,
-    padding: theme.spacing.xs,
-  },
-  description: {
-    fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.text.secondary,
-    lineHeight: theme.typography.lineHeights.relaxed * theme.typography.fontSizes.sm,
-  },
-  guidanceBox: {
-    marginTop: theme.spacing.md,
-    padding: theme.spacing.md,
-    borderRadius: theme.borderRadius.md,
-  },
-  guidanceText: {
-    fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.text.primary,
-    lineHeight: theme.typography.lineHeights.relaxed * theme.typography.fontSizes.sm,
-  },
-  minimalGuidance: {
-    marginTop: theme.spacing.sm,
-    fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.text.secondary,
-    fontStyle: 'italic',
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: theme.spacing.sm,
-  },
-  detailsContainer: {
-    gap: theme.spacing.xs,
-  },
-  detailRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing.xs,
-  },
-  label: {
-    fontSize: theme.typography.fontSizes.xs,
-    color: theme.colors.text.secondary,
+    fontSize: theme.typography.fontSizes.lg,
     fontWeight: theme.typography.fontWeights.medium,
   },
-  value: {
-    fontSize: theme.typography.fontSizes.sm,
-    color: theme.colors.text.primary,
-    fontWeight: theme.typography.fontWeights.semiBold,
+  tagsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
-  startBadge: {
-    paddingVertical: theme.spacing.sm,
-    paddingHorizontal: theme.spacing.md,
-    borderRadius: theme.borderRadius.lg,
-  },
-  startBadgeText: {
-    color: theme.colors.text.primary,
+  tagText: {
     fontSize: theme.typography.fontSizes.sm,
-    fontWeight: theme.typography.fontWeights.semiBold,
+  },
+  tagSeparator: {
+    marginHorizontal: 6,
+  },
+  // Swipe actions
+  actionsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: theme.spacing.sm,
+  },
+  actionButton: {
+    width: 56,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginLeft: theme.spacing.xs,
+    gap: 4,
+  },
+  actionText: {
+    // color is set dynamically from swipeColors
+    fontSize: 10,
+    fontWeight: '600',
   },
 });

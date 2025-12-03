@@ -4,6 +4,7 @@ import { Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '../theme';
 import { brandColors, primaryColor } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 export type BadgeVariant =
   | 'default'
@@ -129,7 +130,27 @@ export const Badge: React.FC<BadgeProps> = ({
   removable = false,
   onRemove,
 }) => {
-  const style = selected ? selectedStyles[variant] : variantStyles[variant];
+  const { currentTheme } = usePersonalization();
+
+  // Replace brandColors references with personalized colors for primary/default variants
+  const getVariantStyles = () => {
+    const baseStyle = selected ? selectedStyles[variant] : variantStyles[variant];
+    if ((variant === 'primary' || variant === 'default') && !selected) {
+      return {
+        ...baseStyle,
+        textColor: currentTheme.primary,
+      };
+    }
+    if ((variant === 'primary' || variant === 'default') && selected) {
+      return {
+        ...baseStyle,
+        colors: currentTheme.gradient,
+      };
+    }
+    return baseStyle;
+  };
+
+  const style = getVariantStyles();
   const sizeStyle = sizeStyles[size];
 
   if (outlined && !selected) {

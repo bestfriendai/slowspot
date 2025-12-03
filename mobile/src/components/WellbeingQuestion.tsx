@@ -15,6 +15,7 @@ import {
 import theme from '../theme';
 import { brandColors, primaryColor } from '../theme/colors';
 import { WellbeingQuestion as QuestionType } from '../types/wellbeing';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 interface Props {
   question: QuestionType;
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export const WellbeingQuestion: React.FC<Props> = ({ question, value, onChange }) => {
+  const { currentTheme } = usePersonalization();
   const [textValue, setTextValue] = useState(typeof value === 'string' ? value : '');
 
   const renderScaleQuestion = () => {
@@ -161,8 +163,8 @@ const styles = StyleSheet.create<any>({
     borderColor: theme.colors.neutral.gray[300],
   },
   scaleButtonActive: {
-    backgroundColor: brandColors.purple.primary,
-    borderColor: brandColors.purple.dark,
+    backgroundColor: '#8B5CF6',
+    borderColor: '#7C3AED',
   },
   scaleButtonText: {
     fontSize: theme.typography.fontSizes.md,
@@ -186,15 +188,15 @@ const styles = StyleSheet.create<any>({
     borderColor: theme.colors.neutral.gray[300],
   },
   emotionButtonActive: {
-    backgroundColor: primaryColor.transparent[10],
-    borderColor: brandColors.purple.primary,
+    backgroundColor: 'rgba(139, 92, 246, 0.1)',
+    borderColor: '#8B5CF6',
   },
   emotionButtonText: {
     fontSize: theme.typography.fontSizes.md,
     color: theme.colors.neutral.gray[700],
   },
   emotionButtonTextActive: {
-    color: brandColors.purple.primary,
+    color: '#8B5CF6',
     fontWeight: theme.typography.fontWeights.medium,
   },
   textInput: {

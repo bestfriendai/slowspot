@@ -539,11 +539,11 @@
     "reflections": "反思",
     "noMoodRecorded": "未记录心情",
     "noNotesRecorded": "未记录笔记",
-    "mood1": "很不好",
-    "mood2": "不好",
+    "mood1": "非常差",
+    "mood2": "差",
     "mood3": "一般",
     "mood4": "好",
-    "mood5": "很好",
+    "mood5": "非常好",
     "showMore": "显示更多"
   },
   "calendar": {

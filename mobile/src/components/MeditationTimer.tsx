@@ -17,6 +17,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import theme, { getThemeColors } from '../theme';
 import { brandColors } from '../theme/colors';
 import { ChimePoint } from '../types/customSession';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 import { ConfirmationModal } from './ConfirmationModal';
 import { BreathingPattern, CustomBreathingPattern } from '../services/customSessionStorage';
 
@@ -42,6 +43,7 @@ interface MeditationTimerProps {
   isDark?: boolean;
   breathingPattern?: BreathingPattern;
   customBreathing?: CustomBreathingPattern;
+  vibrationEnabled?: boolean;
 }
 
 export const MeditationTimer: React.FC<MeditationTimerProps> = ({
@@ -54,8 +56,10 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   isDark = false,
   breathingPattern = 'box', // Default to box breathing for backward compatibility
   customBreathing,
+  vibrationEnabled = true, // Default to enabled for backward compatibility
 }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
 
   // Get breathing timing from pattern or custom config
   const breathingTiming = useMemo(() => {
@@ -125,7 +129,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
       backgroundColor: isDark ? colors.neutral.gray[300] : theme.colors.neutral.gray[400],
     },
     progressRingBg: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)',
-    progressRingFg: brandColors.purple.primary,
+    progressRingFg: currentTheme.primary,
     timerText: {
       color: isDark ? colors.neutral.white : theme.colors.neutral.gray[700],
     },
@@ -294,7 +298,10 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
 
   // Play chime
   const playChime = async () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    // Only vibrate if vibration is enabled
+    if (vibrationEnabled) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
 
     if (audioEnabled && chimeSound.current) {
       try {
@@ -530,7 +537,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           activeOpacity={0.8}
         >
           <LinearGradient
-            colors={[brandColors.purple.light, brandColors.purple.primary]}
+            colors={currentTheme.gradient}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.primaryButton}
@@ -746,7 +753,7 @@ const styles = StyleSheet.create({
   },
   primaryButtonWrapper: {
     flex: 1,
-    shadowColor: brandColors.purple.primary,
+    shadowColor: '#8B5CF6', // Use a neutral shadow color
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 12,

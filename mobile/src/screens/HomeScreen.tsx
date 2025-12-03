@@ -1,6 +1,6 @@
 import { logger } from '../utils/logger';
-import React, { useMemo } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import React, { useMemo, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -11,10 +11,18 @@ import Animated, {
   withTiming,
   withSequence,
   Easing,
+  FadeIn,
+  FadeInDown,
+  interpolate,
 } from 'react-native-reanimated';
 import { GradientBackground } from '../components/GradientBackground';
-import theme, { getThemeColors, getThemeGradients } from '../theme';
-import { brandColors, brandGradients, getSectionColors } from '../theme/colors';
+import { AnimatedPressable } from '../components/AnimatedPressable';
+import { StreakBadge } from '../components/StreakBadge';
+import theme, { getThemeColors, getThemeGradients, getCardStyles } from '../theme';
+import { getSectionColors } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
+import { getGreetingKey, getSuggestionKey, getTimeIcon } from '../utils/greetings';
+import { getProgressStats, ProgressStats } from '../services/progressTracker';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -34,186 +42,242 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onNavigateToInstructions,
 }) => {
   const { t } = useTranslation();
+  const [stats, setStats] = useState<ProgressStats | null>(null);
 
-  // Theme-aware colors and gradients
+  const { currentTheme, settings } = usePersonalization();
+
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
+  const globalCardStyles = useMemo(() => getCardStyles(isDark), [isDark]);
   const sectionThemeColors = useMemo(() => getSectionColors(isDark), [isDark]);
 
-  // Subtle breathing animation for main button
-  const breatheScale = useSharedValue(1);
-  const glowOpacity = useSharedValue(0.3);
+  const greetingKey = useMemo(() => getGreetingKey(), []);
+  const suggestionKey = useMemo(() => getSuggestionKey(), []);
+  const timeIcon = useMemo(() => getTimeIcon(), []);
 
-  React.useEffect(() => {
-    breatheScale.value = withRepeat(
-      withSequence(
-        withTiming(1.02, { duration: 2000, easing: Easing.inOut(Easing.ease) }),
-        withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.ease) })
-      ),
-      -1,
-      true
-    );
-    glowOpacity.value = withRepeat(
-      withSequence(
-        withTiming(0.5, { duration: 2000, easing: Easing.inOut(Easing.ease) }),
-        withTiming(0.3, { duration: 2000, easing: Easing.inOut(Easing.ease) })
-      ),
-      -1,
-      true
-    );
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const progressStats = await getProgressStats();
+        setStats(progressStats);
+      } catch (error) {
+        logger.error('Failed to load stats:', error);
+      }
+    };
+    loadStats();
   }, []);
 
+  // Breathing animation for decorative rings
+  const breatheProgress = useSharedValue(0);
+
+  useEffect(() => {
+    if (settings.animationsEnabled) {
+      breatheProgress.value = withRepeat(
+        withSequence(
+          withTiming(1, { duration: 4000, easing: Easing.inOut(Easing.ease) }),
+          withTiming(0, { duration: 4000, easing: Easing.inOut(Easing.ease) })
+        ),
+        -1,
+        true
+      );
+    } else {
+      breatheProgress.value = 0;
+    }
+  }, [settings.animationsEnabled]);
+
+  // Animated style for the card itself
   const breatheStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: breatheScale.value }],
+    transform: [{ scale: interpolate(breatheProgress.value, [0, 1], [1, 1.01]) }],
   }));
 
-  const glowStyle = useAnimatedStyle(() => ({
-    opacity: glowOpacity.value,
+  // Animated styles for decorative rings
+  const ring1Style = useAnimatedStyle(() => ({
+    transform: [{ scale: interpolate(breatheProgress.value, [0, 1], [1, 1.15]) }],
+    opacity: interpolate(breatheProgress.value, [0, 1], [0.15, 0.08]),
   }));
 
-  // Dynamic styles based on theme
+  const ring2Style = useAnimatedStyle(() => ({
+    transform: [{ scale: interpolate(breatheProgress.value, [0, 1], [1, 1.25]) }],
+    opacity: interpolate(breatheProgress.value, [0, 1], [0.1, 0.04]),
+  }));
+
   const dynamicStyles = useMemo(() => ({
-    title: { color: colors.text.primary },
-    tagline: { color: colors.text.secondary },
-    // Main button shadow - purple brand color
-    mainButtonShadow: isDark ? {
-      shadowColor: brandColors.purple.primary,
-      shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.4,
-      shadowRadius: 16,
-      elevation: 10,
-    } : {
-      shadowColor: brandColors.purple.dark,
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.3,
-      shadowRadius: 20,
-      elevation: 12,
+    // Main CTA card shadow - uses global primaryCta style with dynamic shadow color from currentTheme
+    mainCardShadow: {
+      ...globalCardStyles.primaryCta,
+      shadowColor: currentTheme.gradient[0], // Use theme gradient color for glow effect
     },
-    // Secondary button shadow
-    secondaryButtonShadow: isDark ? {
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.3,
-      shadowRadius: 12,
-      elevation: 6,
-    } : {
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 6 },
-      shadowOpacity: 0.15,
-      shadowRadius: 20,
-      elevation: 8,
-    },
-    secondaryButtonBg: isDark
-      ? colors.neutral.charcoal[200]
-      : colors.neutral.white,
-    secondaryButtonText: { color: colors.text.primary },
-    secondaryButtonSubtext: { color: colors.text.secondary },
-  }), [colors, isDark]);
+    // Secondary card styles now come from globalCardStyles.secondary
+    greetingText: { color: colors.text.primary },
+    suggestionText: { color: colors.text.secondary },
+  }), [colors, isDark, currentTheme, globalCardStyles]);
 
   return (
     <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
-      <View style={styles.content}>
-        {/* Header - Centered and elegant with Slow Spot.me branding */}
-        <View style={styles.header}>
-          <View style={styles.titleContainer}>
-            <Text style={[styles.titleLight, dynamicStyles.title]}>Slow</Text>
-            <Text style={[styles.titleBold, { color: brandColors.purple.primary }]}>Spot</Text>
-            <Text style={[styles.titleAccent, { color: brandColors.accent.gold }]}>.me</Text>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header - Calm/Headspace inspired minimalist greeting */}
+        <Animated.View
+          entering={settings.animationsEnabled ? FadeInDown.delay(100).duration(600) : undefined}
+          style={styles.header}
+        >
+          <View style={styles.greetingContainer}>
+            {/* Time-based suggestion - subtle accent */}
+            <View style={styles.suggestionPill}>
+              <Ionicons
+                name={timeIcon as any}
+                size={14}
+                color={currentTheme.primary}
+              />
+              <Text style={[styles.suggestionText, { color: currentTheme.primary }]}>
+                {t(suggestionKey, 'Czas na chwilę spokoju')}
+              </Text>
+            </View>
+            {/* Main greeting - hero typography */}
+            <Text style={[styles.greetingText, dynamicStyles.greetingText]}>
+              {t(greetingKey, 'Witaj')}
+            </Text>
           </View>
-          <Text style={[styles.tagline, dynamicStyles.tagline]}>{t('app.tagline')}</Text>
-        </View>
 
-        {/* Main CTA - MEDYTUJ */}
-        <View style={styles.mainButtonContainer}>
-          <Animated.View style={[styles.mainButtonWrapper, breatheStyle]}>
-            <TouchableOpacity
-              style={[styles.mainButton, dynamicStyles.mainButtonShadow]}
+          {stats && stats.currentStreak > 0 && (
+            <Animated.View
+              entering={settings.animationsEnabled ? FadeIn.delay(400).duration(500) : undefined}
+            >
+              <StreakBadge
+                streak={stats.currentStreak}
+                isDark={isDark}
+                size="md"
+                showLabel={true}
+              />
+            </Animated.View>
+          )}
+        </Animated.View>
+
+        {/* Main CTA Card - Headspace style with decorative rings */}
+        <Animated.View
+          entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(700) : undefined}
+          style={styles.mainCardContainer}
+        >
+          {/* Decorative animated rings behind the card */}
+          {settings.animationsEnabled && (
+            <>
+              <Animated.View
+                style={[
+                  styles.decorativeRing,
+                  styles.ring1,
+                  { borderColor: currentTheme.gradient[0] },
+                  ring1Style
+                ]}
+              />
+              <Animated.View
+                style={[
+                  styles.decorativeRing,
+                  styles.ring2,
+                  { borderColor: currentTheme.gradient[1] },
+                  ring2Style
+                ]}
+              />
+            </>
+          )}
+
+          <Animated.View style={breatheStyle}>
+            <AnimatedPressable
               onPress={onNavigateToMeditation}
-              activeOpacity={0.9}
+              style={[styles.mainCard, dynamicStyles.mainCardShadow]}
+              pressScale={0.98}
+              hapticType="medium"
+              accessibilityLabel={t('home.meditate', 'Medytuj')}
             >
               <LinearGradient
-                colors={[...brandGradients.primary]}
+                colors={[...currentTheme.gradient]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
-                style={styles.mainButtonGradient}
+                style={styles.mainCardGradient}
               >
-                {/* Decorative circles */}
-                <View style={styles.decorativeCircle1} />
-                <View style={styles.decorativeCircle2} />
-
-                {/* Content */}
-                <View style={styles.mainButtonContent}>
-                  <View style={styles.mainButtonIcon}>
-                    <Ionicons name="leaf" size={32} color={colors.neutral.white} />
-                  </View>
-                  <View style={styles.mainButtonTextContainer}>
-                    <Text style={styles.mainButtonTitle}>
-                      {t('home.meditate') || 'Medytuj'}
+                <View style={styles.mainCardContent}>
+                  <View style={styles.mainCardTextSection}>
+                    <Text style={styles.mainCardLabel}>
+                      {t('home.readyToMeditate', 'Gotowy na medytację?')}
                     </Text>
-                    <Text style={styles.mainButtonSubtitle}>
-                      {t('home.meditateDesc') || 'Rozpocznij swoją praktykę'}
+                    <Text style={styles.mainCardTitle}>
+                      {t('home.meditate', 'Medytuj')}
                     </Text>
+                    <View style={styles.mainCardCta}>
+                      <Text style={styles.mainCardCtaText}>
+                        {t('home.startNow', 'Rozpocznij')}
+                      </Text>
+                      <Ionicons name="arrow-forward" size={16} color="rgba(255,255,255,0.9)" />
+                    </View>
                   </View>
-                  <View style={styles.mainButtonArrow}>
-                    <Ionicons name="arrow-forward" size={24} color="rgba(255,255,255,0.9)" />
+                  <View style={styles.mainCardIconSection}>
+                    {/* Decorative circles around the icon */}
+                    <View style={styles.iconRingsContainer}>
+                      <View style={[styles.iconRing, styles.iconRing1]} />
+                      <View style={[styles.iconRing, styles.iconRing2]} />
+                      <View style={styles.mainCardIconBg}>
+                        <Ionicons name="leaf" size={36} color="rgba(255,255,255,0.95)" />
+                      </View>
+                    </View>
                   </View>
                 </View>
               </LinearGradient>
-            </TouchableOpacity>
+            </AnimatedPressable>
           </Animated.View>
-        </View>
+        </Animated.View>
 
-        {/* Secondary options */}
-        <View style={styles.secondaryButtons}>
-          {/* Instrukcje - Blue/Indigo */}
-          <TouchableOpacity
-            style={[
-              styles.secondaryButton,
-              dynamicStyles.secondaryButtonShadow,
-              { backgroundColor: dynamicStyles.secondaryButtonBg }
-            ]}
-            onPress={onNavigateToInstructions}
-            activeOpacity={0.8}
+        {/* Section title */}
+        <Animated.View
+          entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(500) : undefined}
+          style={styles.sectionHeader}
+        >
+          <Text style={[styles.sectionTitle, { color: colors.text.secondary }]}>
+            {t('home.explore', 'Odkrywaj')}
+          </Text>
+        </Animated.View>
+
+        {/* Secondary Cards */}
+        <Animated.View
+          entering={settings.animationsEnabled ? FadeInDown.delay(250).duration(500) : undefined}
+          style={styles.secondaryCards}
+        >
+          {/* Instructions Card - uses global cardStyles.secondary */}
+          <AnimatedPressable
+            onPress={onNavigateToInstructions || (() => {})}
+            style={[styles.secondaryCard, globalCardStyles.secondary]}
+            pressScale={0.98}
+            hapticType="light"
+            accessibilityLabel={t('home.instructions', 'Instrukcje')}
           >
-            <View style={[styles.secondaryIcon, { backgroundColor: sectionThemeColors.instructions.background }]}>
-              <Ionicons name="book-outline" size={28} color={sectionThemeColors.instructions.icon} />
+            <View style={[styles.secondaryCardIcon, { backgroundColor: sectionThemeColors.instructions.background }]}>
+              <Ionicons name="book-outline" size={22} color={sectionThemeColors.instructions.icon} />
             </View>
-            <View style={styles.secondaryTextContainer}>
-              <Text style={[styles.secondaryTitle, dynamicStyles.secondaryButtonText]}>
-                {t('home.instructions') || 'Instrukcje'}
-              </Text>
-              <Text style={[styles.secondarySubtitle, dynamicStyles.secondaryButtonSubtext]}>
-                {t('home.instructionsDesc') || 'Jak medytować'}
-              </Text>
-            </View>
-            <Ionicons name="chevron-forward" size={22} color={colors.text.secondary} />
-          </TouchableOpacity>
+            <Text style={[styles.secondaryCardTitle, { color: colors.text.primary }]}>
+              {t('home.instructions', 'Instrukcje')}
+            </Text>
+            <Ionicons name="chevron-forward" size={18} color={colors.text.tertiary} />
+          </AnimatedPressable>
 
-          {/* Inspiracje */}
-          <TouchableOpacity
-            style={[
-              styles.secondaryButton,
-              dynamicStyles.secondaryButtonShadow,
-              { backgroundColor: dynamicStyles.secondaryButtonBg }
-            ]}
+          {/* Inspirations Card - uses global cardStyles.secondary */}
+          <AnimatedPressable
             onPress={onNavigateToQuotes}
-            activeOpacity={0.8}
+            style={[styles.secondaryCard, globalCardStyles.secondary]}
+            pressScale={0.98}
+            hapticType="light"
+            accessibilityLabel={t('home.inspirations', 'Inspiracje')}
           >
-            <View style={[styles.secondaryIcon, { backgroundColor: sectionThemeColors.inspirations.background }]}>
-              <Ionicons name="sparkles-outline" size={28} color={sectionThemeColors.inspirations.icon} />
+            <View style={[styles.secondaryCardIcon, { backgroundColor: sectionThemeColors.inspirations.background }]}>
+              <Ionicons name="sparkles-outline" size={22} color={sectionThemeColors.inspirations.icon} />
             </View>
-            <View style={styles.secondaryTextContainer}>
-              <Text style={[styles.secondaryTitle, dynamicStyles.secondaryButtonText]}>
-                {t('home.inspirations') || 'Inspiracje'}
-              </Text>
-              <Text style={[styles.secondarySubtitle, dynamicStyles.secondaryButtonSubtext]}>
-                {t('home.inspirationsDesc') || 'Cytaty i motywacja'}
-              </Text>
-            </View>
-            <Ionicons name="chevron-forward" size={22} color={colors.text.secondary} />
-          </TouchableOpacity>
-        </View>
-      </View>
+            <Text style={[styles.secondaryCardTitle, { color: colors.text.primary }]}>
+              {t('home.inspirations', 'Inspiracje')}
+            </Text>
+            <Ionicons name="chevron-forward" size={18} color={colors.text.tertiary} />
+          </AnimatedPressable>
+        </Animated.View>
+      </ScrollView>
     </GradientBackground>
   );
 };
@@ -222,144 +286,173 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  content: {
+  scrollView: {
     flex: 1,
+  },
+  scrollContent: {
     paddingHorizontal: theme.layout.screenPadding,
-    paddingTop: theme.spacing.xl,
-    paddingBottom: theme.spacing.xxl,
+    paddingTop: theme.spacing.lg,
+    paddingBottom: theme.spacing.xxxl,
+  },
+
+  // Header - Modern minimalist style
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: theme.spacing.xl,
+    paddingTop: theme.spacing.sm,
+  },
+  greetingContainer: {
+    flex: 1,
+  },
+  suggestionPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
+    marginBottom: theme.spacing.sm,
+  },
+  suggestionText: {
+    fontSize: theme.typography.fontSizes.xs,
+    fontWeight: theme.typography.fontWeights.semiBold,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  greetingText: {
+    fontSize: theme.typography.fontSizes.hero,
+    fontWeight: theme.typography.fontWeights.light,
+    letterSpacing: -1,
+    lineHeight: theme.typography.fontSizes.hero * 1.1,
+  },
+
+  // Main Card - Headspace inspired with decorative elements
+  mainCardContainer: {
+    marginBottom: theme.spacing.xl,
+    position: 'relative',
+  },
+  // Decorative animated rings behind the card
+  decorativeRing: {
+    position: 'absolute',
+    borderWidth: 1.5,
+    borderRadius: 28,
+  },
+  ring1: {
+    top: -8,
+    left: -8,
+    right: -8,
+    bottom: -8,
+  },
+  ring2: {
+    top: -16,
+    left: -16,
+    right: -16,
+    bottom: -16,
+  },
+  mainCard: {
+    // borderRadius, overflow, and shadows come from globalCardStyles.primaryCta via dynamicStyles.mainCardShadow
+  },
+  mainCardGradient: {
+    paddingVertical: theme.spacing.xl,
+    paddingHorizontal: theme.spacing.lg,
+  },
+  mainCardContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
-  header: {
-    alignItems: 'center',
-    marginTop: theme.spacing.lg,
+  mainCardTextSection: {
+    flex: 1,
+    paddingRight: theme.spacing.md,
   },
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 8,
+  mainCardLabel: {
+    fontSize: theme.typography.fontSizes.sm,
+    color: 'rgba(255, 255, 255, 0.7)',
     marginBottom: theme.spacing.xs,
   },
-  titleLight: {
-    fontSize: 42,
-    fontWeight: '200',
-    letterSpacing: 1,
+  mainCardTitle: {
+    fontSize: theme.typography.fontSizes.xxxl,
+    fontWeight: theme.typography.fontWeights.semiBold,
+    color: theme.colors.neutral.white,
+    marginBottom: theme.spacing.md,
   },
-  titleBold: {
-    fontSize: 42,
-    fontWeight: '700',
-    letterSpacing: 0.5,
+  mainCardCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.xs,
   },
-  titleAccent: {
-    fontSize: 42,
-    fontWeight: '700',
-    letterSpacing: 0.5,
-  },
-  tagline: {
+  mainCardCtaText: {
     fontSize: theme.typography.fontSizes.md,
-    fontWeight: '400',
-    letterSpacing: 0.5,
+    fontWeight: theme.typography.fontWeights.medium,
+    color: 'rgba(255, 255, 255, 0.9)',
   },
-
-  // Main button
-  mainButtonContainer: {
-    flex: 1,
+  mainCardIconSection: {
+    alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: theme.spacing.lg,
   },
-  mainButtonWrapper: {
-    width: '100%',
+  // Icon rings container for layered effect
+  iconRingsContainer: {
+    width: 88,
+    height: 88,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  mainButton: {
-    borderRadius: theme.borderRadius.xxl,
-    overflow: 'hidden',
-  },
-  mainButtonGradient: {
-    paddingVertical: theme.spacing.xl * 1.5,
-    paddingHorizontal: theme.spacing.xl,
-    borderRadius: theme.borderRadius.xxl,
-    overflow: 'hidden',
-  },
-  decorativeCircle1: {
+  iconRing: {
     position: 'absolute',
-    top: -40,
-    right: -40,
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
-  decorativeCircle2: {
-    position: 'absolute',
-    bottom: -30,
-    left: -30,
+  iconRing1: {
+    width: 88,
+    height: 88,
+  },
+  iconRing2: {
     width: 100,
     height: 100,
-    borderRadius: 50,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderColor: 'rgba(255, 255, 255, 0.05)',
   },
-  mainButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing.lg,
-  },
-  mainButtonIcon: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  mainButtonTextContainer: {
-    flex: 1,
-  },
-  mainButtonTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: theme.colors.neutral.white,
-    letterSpacing: 0.5,
-    marginBottom: 4,
-  },
-  mainButtonSubtitle: {
-    fontSize: theme.typography.fontSizes.md,
-    color: 'rgba(255, 255, 255, 0.85)',
-  },
-  mainButtonArrow: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+  mainCardIconBg: {
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  // Secondary buttons
-  secondaryButtons: {
+  // Section
+  sectionHeader: {
+    marginBottom: theme.spacing.md,
+  },
+  sectionTitle: {
+    fontSize: theme.typography.fontSizes.md,
+    fontWeight: theme.typography.fontWeights.semiBold,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+
+  // Secondary Cards
+  secondaryCards: {
     gap: theme.spacing.md,
   },
-  secondaryButton: {
+  secondaryCard: {
+    // backgroundColor, borderRadius, and shadows come from globalCardStyles.secondary
     flexDirection: 'row',
     alignItems: 'center',
-    padding: theme.spacing.lg,
-    borderRadius: theme.borderRadius.xl,
+    paddingVertical: theme.spacing.lg,
+    paddingHorizontal: theme.spacing.lg,
     gap: theme.spacing.md,
   },
-  secondaryIcon: {
-    width: 56,
-    height: 56,
-    borderRadius: 16,
+  secondaryCardIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  secondaryTextContainer: {
+  secondaryCardTitle: {
     flex: 1,
-  },
-  secondaryTitle: {
     fontSize: theme.typography.fontSizes.lg,
-    fontWeight: '600',
-    marginBottom: 2,
-  },
-  secondarySubtitle: {
-    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: theme.typography.fontWeights.medium,
   },
 });

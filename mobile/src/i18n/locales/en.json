@@ -51,6 +51,27 @@
     }
   },
   "home": {
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening",
+      "night": "Good night"
+    },
+    "greetingMorning": "Good morning",
+    "greetingAfternoon": "Welcome back",
+    "greetingEvening": "Good evening",
+    "greetingNight": "Peaceful night",
+    "suggestionMorning": "Start your day with clarity",
+    "suggestionAfternoon": "Time for a moment of peace",
+    "suggestionEvening": "Wind down before evening",
+    "suggestionNight": "Prepare for restful sleep",
+    "streakStart": "Start your streak!",
+    "streakFirst": "First day of your streak!",
+    "streakBuilding": "Building a habit!",
+    "streakWeek": "A week straight!",
+    "streakTwoWeeks": "Amazing progress!",
+    "streakMonth": "Master of calm!",
+    "streakMaster": "Meditation legend!",
     "welcome": "Welcome",
     "dailyQuote": "Daily Quote",
     "startMeditation": "Start Meditation",
@@ -65,7 +86,7 @@
     "totalMinutes": "total min",
     "sessions": "sessions",
     "meditate": "Meditate",
-    "meditateDesc": "Start your practice",
+    "meditateDesc": "Begin your session",
     "instructions": "Instructions",
     "instructionsDesc": "How to meditate",
     "inspirations": "Inspirations",
@@ -73,7 +94,7 @@
   },
   "meditation": {
     "title": "Meditation",
-    "subtitle": "Choose your practice",
+    "subtitle": "Choose your session",
     "createSession": "Create session",
     "createSessionDesc": "Customize time, sounds and intervals",
     "yourSessions": "Your sessions",
@@ -122,7 +143,7 @@
       "evening": "Good evening",
       "night": "Good night",
       "morningRecommendation": "Morning meditations set the tone for your day. Try breath counting or visualization.",
-      "afternoonRecommendation": "Afternoon practice refreshes your mind. Consider loving-kindness or a walking meditation.",
+      "afternoonRecommendation": "Afternoon meditation refreshes your mind. Consider loving-kindness or a walking meditation.",
       "eveningRecommendation": "Evening sessions help you unwind. Body scan or gentle breath awareness work beautifully.",
       "nightRecommendation": "Late night meditation can prepare you for restful sleep. Body scan is highly recommended."
     },
@@ -136,7 +157,7 @@
       "stepProgress": "Step {{current}} of {{total}}",
       "alwaysSkipInstructions": "Always skip instructions (for experienced meditators)",
       "skipInstructionsNote": "You can change this later in Settings",
-      "greeting": "You're about to practice {{technique}}. Let's prepare mindfully.",
+      "greeting": "You're about to begin {{technique}}. Let's prepare mindfully.",
       "focusToday": "Your Focus Today",
       "remember": "Remember",
       "reminders": "Some reminders to keep in mind:",
@@ -163,7 +184,7 @@
     },
     "level1_breath": {
       "title": "Introduction to Meditation",
-      "subtitle": "Learn the fundamentals of mindful practice",
+      "subtitle": "Learn the fundamentals of mindful meditation",
       "intention": "Simply notice your breath without trying to change it",
       "focusPoint": "The natural rhythm of breathing in and out",
       "challenges": {
@@ -198,7 +219,7 @@
       "sessionTips": {
         "1": "Start with just noticing when you breathe in and when you breathe out",
         "2": "When your mind wanders, gently bring attention back to your breath",
-        "3": "Be patient and kind with yourself—this is a practice",
+        "3": "Be patient and kind with yourself—this is a skill that develops over time",
         "4": "Every moment of awareness counts, no matter how brief"
       },
       "breathingPrep": {
@@ -333,7 +354,7 @@
       "focus": "Deep Focus",
       "anxiety": "Anxiety Release",
       "grief": "Grief & Loss",
-      "gratitude": "Gratitude Practice",
+      "gratitude": "Gratitude Meditation",
       "creativity": "Creative Inspiration"
     },
     "cultures": {
@@ -346,11 +367,14 @@
     }
   },
   "quotes": {
-    "title": "Inspirational Quotes",
+    "title": "Inspirations",
+    "subtitle": "Daily wisdom for your journey",
     "author": "by {{author}}",
-    "next": "Next Quote",
-    "previous": "Previous Quote",
-    "random": "Random Quote"
+    "next": "Next",
+    "previous": "Previous",
+    "random": "Shuffle",
+    "swipe": "Swipe",
+    "empty": "No quotes available"
   },
   "settings": {
     "title": "Settings",
@@ -404,11 +428,11 @@
   },
   "introGuide": {
     "title": "Introduction to Meditation",
-    "subtitle": "Learn the fundamentals of mindful practice",
+    "subtitle": "Learn the fundamentals of mindful meditation",
     "startMeditation": "Start Meditation",
     "greetings": {
       "morning": "Good morning",
-      "morningContext": "Great time for morning practice",
+      "morningContext": "Great time for morning meditation",
       "afternoon": "Good afternoon",
       "afternoonContext": "Time for a moment of calm",
       "evening": "Good evening",
@@ -418,15 +442,15 @@
     },
     "slides": {
       "welcome": {
-        "text": "Meditation is a simple way to quiet your mind and find inner peace. Whether you have 5 minutes or an hour, every moment of mindfulness matters."
+        "text": "Meditation is a training of attention and awareness. Research suggests that regular sessions (at least 10-12 minutes daily for 8 weeks) can support stress reduction and improved focus."
       },
       "whatIs": {
         "title": "What is meditation?",
-        "text": "Meditation is the practice of consciously focusing your attention. It's not about silencing thoughts, but about noticing them without judgment. It's mental training that anyone can master."
+        "text": "Meditation is the training of consciously focusing your attention. It's not about silencing thoughts, but about noticing them without judgment. It's mental training that anyone can learn."
       },
       "benefits": {
-        "title": "Benefits of practice",
-        "text": "Regular meditation brings many benefits for body and mind:",
+        "title": "Benefits of meditation",
+        "text": "Research suggests regular meditation can support mental and physical well-being:",
         "bullets": {
           "1": "Reduced stress and anxiety",
           "2": "Better concentration and mental clarity",
@@ -451,11 +475,11 @@
   "sessionsList": {
     "morningAwakening": {
       "title": "Morning Awakening",
-      "description": "Start your day with clarity and focus. A gentle 5-minute practice to center yourself."
+      "description": "Start your day with clarity and focus. A gentle session to center yourself before the day begins."
     },
     "breathAwareness": {
       "title": "Breath Awareness",
-      "description": "Focus on your natural breath. A foundational practice for beginners."
+      "description": "Focus on your natural breath. A foundational technique for beginners."
     },
     "bodyScanRelaxation": {
       "title": "Body Scan Relaxation",
@@ -467,7 +491,7 @@
     },
     "deepMeditation": {
       "title": "Deep Meditation",
-      "description": "Extended practice for experienced meditators. Dive into stillness."
+      "description": "Extended session for experienced meditators. Dive into stillness."
     },
     "morningEnergyBoost": {
       "title": "Morning Energy Boost",
@@ -479,7 +503,7 @@
     },
     "quickStressRelief": {
       "title": "Quick Stress Relief",
-      "description": "Release tension in just 5 minutes. Perfect for work breaks."
+      "description": "A brief session to release tension and reset. Perfect for work breaks."
     },
     "deepStressRelease": {
       "title": "Deep Stress Release",
@@ -506,7 +530,7 @@
       "description": "Soothe anxious thoughts with gentle breath awareness."
     },
     "anxietyReleasePractice": {
-      "title": "Anxiety Release Practice",
+      "title": "Anxiety Release Session",
       "description": "Ground yourself and release worry through body awareness."
     },
     "healingThroughGrief": {
@@ -543,7 +567,7 @@
     },
     "beginnerZazen": {
       "title": "Beginner Zazen",
-      "description": "Introduction to Zen sitting meditation practice."
+      "description": "Introduction to Zen sitting meditation technique."
     },
     "vipassanaBodyScan": {
       "title": "Vipassana Body Scan",
@@ -555,7 +579,7 @@
     },
     "beginnerVipassana": {
       "title": "Beginner Vipassana",
-      "description": "Introduction to insight meditation practice."
+      "description": "Introduction to insight meditation technique."
     },
     "omMeditation": {
       "title": "Om Meditation",
@@ -563,7 +587,7 @@
     },
     "transcendentalMeditation": {
       "title": "Transcendental Meditation",
-      "description": "Settle into deep inner silence with mantra practice."
+      "description": "Settle into deep inner silence with mantra meditation."
     },
     "chakraAwareness": {
       "title": "Chakra Awareness",
@@ -574,7 +598,7 @@
       "description": "Cultivate Qi energy through breath and visualization."
     },
     "innerSmilePractice": {
-      "title": "Inner Smile Practice",
+      "title": "Inner Smile Meditation",
       "description": "Taoist meditation for cultivating inner peace and joy."
     },
     "wuWeiEffortlessBeing": {
@@ -591,7 +615,7 @@
     },
     "breathOfCompassion": {
       "title": "Breath of Compassion",
-      "description": "Sufi breathing practice for opening the heart."
+      "description": "Sufi breathing technique for opening the heart."
     },
     "centeringPrayer": {
       "title": "Centering Prayer",
@@ -638,10 +662,26 @@
     "ambient528hz": "528 Hz",
     "intervalBell": "Interval Bell",
     "intervalBellDescription": "Gentle reminder during your session",
+    "intervalBellHint": "Mindful moment during session",
     "intervalEvery": "Bell every:",
+    "intervalWarning": "Interval must be shorter than session duration",
+    "customInterval": "Custom:",
     "min": "min",
-    "wakeUpChime": "Wake-up Chime",
+    "bells": "Bells",
+    "bellsDescription": "Sound signals during your session",
+    "wakeUpChime": "End Bell",
     "wakeUpChimeDescription": "Gentle chime at the end of your session",
+    "wakeUpChimeHint": "Gentle signal at the end",
+    "vibration": "Vibration",
+    "vibrationHint": "Vibrate with bells",
+    "sounds": {
+      "silence": "Silence",
+      "nature": "Nature",
+      "ocean": "Ocean",
+      "forest": "Forest",
+      "432hz": "432 Hz",
+      "528hz": "528 Hz"
+    },
     "voiceGuidance": "Voice Guidance",
     "voiceGuidanceDescription": "Spoken guidance during meditation",
     "startSession": "Start Session",
@@ -720,11 +760,11 @@
     "noNotesRecorded": "No notes recorded",
     "sessionIntention": "Session Intention",
     "noIntentionRecorded": "No intention recorded",
-    "mood1": "Very bad",
+    "mood1": "Very Bad",
     "mood2": "Bad",
     "mood3": "Neutral",
     "mood4": "Good",
-    "mood5": "Very good",
+    "mood5": "Very Good",
     "showMore": "Show more"
   },
   "calendar": {
@@ -744,7 +784,7 @@
   },
   "instructionsScreen": {
     "title": "Meditation Guides",
-    "subtitle": "Learn techniques and how to build your practice",
+    "subtitle": "Learn techniques and how to build your meditation sessions",
     "featuredIntro": {
       "title": "Introduction to Meditation",
       "description": "Interactive step-by-step guide. Perfect for beginners or when you want to refresh the basics.",
@@ -796,7 +836,7 @@
           "Quick exhale through mouth for 2 seconds",
           "Maintain a dynamic rhythm",
           "Feel the energy surge",
-          "Practice for 1-2 minutes"
+          "Continue for 1-2 minutes"
         ]
       },
       "readyMessage": "When you're ready, press the button below to start the exercise."
@@ -823,7 +863,7 @@
       },
       "breathFocus": {
         "name": "Breath Focus",
-        "description": "Concentration practice using the breath as an anchor",
+        "description": "Concentration technique using the breath as an anchor",
         "duration": "5-15 minutes",
         "steps": [
           "Sit comfortably with a straight back",
@@ -867,7 +907,7 @@
     },
     "sessionGuides": {
       "simple12Min": {
-        "title": "Simple 12-Minute Practice",
+        "title": "Simple 12-Minute Session",
         "description": "Recommended structure from \"Sharpen Your Mind\"",
         "structure": [
           "2 min - Settle in, breath awareness",
@@ -901,7 +941,7 @@
       "description": "Complete your first meditation session"
     },
     "tenSessions": {
-      "title": "Dedicated Practitioner",
+      "title": "Dedicated Meditator",
       "description": "Complete 10 meditation sessions"
     },
     "fiftySessions": {
@@ -944,8 +984,8 @@
       "title": "Zen Explorer",
       "description": "Complete 5 Zen meditation sessions"
     },
-    "vipassanaPractitioner": {
-      "title": "Vipassana Practitioner",
+    "vipassanaExplorer": {
+      "title": "Vipassana Explorer",
       "description": "Complete 5 Vipassana meditation sessions"
     },
     "vedicMaster": {
@@ -977,7 +1017,7 @@
       "description": "Reach Level 3"
     },
     "advanced": {
-      "title": "Advanced Practitioner",
+      "title": "Advanced Meditator",
       "description": "Reach Level 4"
     },
     "master": {
@@ -1035,6 +1075,41 @@
     "reflectionMaster": {
       "title": "Reflection Master",
       "description": "Add notes to 25 meditation sessions"
+    }
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "getStarted": "Get Started",
+    "slide1": {
+      "title": "Find Peace",
+      "subtitle": "Slow Spot is your space for daily meditation. Research suggests 10-12 minutes daily for 8 weeks can bring measurable benefits."
+    },
+    "slide2": {
+      "title": "Simple & Effective",
+      "subtitle": "No complicated techniques. Choose a session, set your time, and immerse yourself in silence. We'll take care of the rest."
+    },
+    "slide3": {
+      "title": "Your Journey",
+      "subtitle": "Track your progress, build a habit, and enjoy the benefits of regular meditation. Ready to begin?"
+    }
+  },
+  "personalization": {
+    "title": "Personalization",
+    "subtitle": "Customize the app to your preferences",
+    "colorTheme": "Color Theme",
+    "colorThemeDescription": "Choose a color that best matches your mood",
+    "animations": "Animations",
+    "animationsDescription": "Enable or disable animations in the app",
+    "hapticFeedback": "Haptic Feedback",
+    "hapticFeedbackDescription": "Subtle touch feedback on interactions",
+    "themes": {
+      "purple": "Calm Purple",
+      "teal": "Harmonious Teal",
+      "indigo": "Deep Indigo",
+      "rose": "Gentle Rose",
+      "amber": "Warm Amber",
+      "emerald": "Fresh Emerald"
     }
   }
 }

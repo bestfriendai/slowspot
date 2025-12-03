@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Achievement, AchievementProgress } from '../types/achievements';
 import theme from '../theme';
 import { brandColors, primaryColor } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 interface AchievementBadgeProps {
   achievement: Achievement;
@@ -24,12 +25,13 @@ export const AchievementBadge: React.FC<AchievementBadgeProps> = ({
   compact = false,
 }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
 
   // Get rarity color - using brand colors for consistency
   const rarityColors = {
     common: theme.colors.text.tertiary,
-    uncommon: brandColors.purple.primary, // Primary brand color for uncommon
-    rare: brandColors.purple.light,
+    uncommon: currentTheme.primary, // Primary brand color for uncommon
+    rare: currentTheme.gradient[0],
     epic: theme.colors.accent.purple[600],
     legendary: '#FFB02E', // Gold color for legendary achievements
   };
@@ -157,7 +159,7 @@ const styles = StyleSheet.create({
   },
   unlockedBadge: {
     alignSelf: 'flex-start',
-    backgroundColor: primaryColor.transparent[15],
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
     paddingHorizontal: theme.spacing.sm,
     paddingVertical: theme.spacing.xs / 2,
     borderRadius: theme.borderRadius.sm,
@@ -166,7 +168,7 @@ const styles = StyleSheet.create({
   xpText: {
     fontSize: theme.typography.fontSizes.xs,
     fontWeight: theme.typography.fontWeights.semiBold,
-    color: brandColors.purple.primary,
+    color: '#8B5CF6',
   },
   // Compact variant styles
   compactContainer: {
@@ -187,7 +189,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -4,
     right: -4,
-    backgroundColor: brandColors.purple.primary,
+    backgroundColor: '#8B5CF6',
     borderRadius: 12,
     minWidth: 24,
     height: 24,

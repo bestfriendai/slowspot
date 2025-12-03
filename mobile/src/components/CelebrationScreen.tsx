@@ -1,58 +1,240 @@
 /**
- * CelebrationScreen Component
+ * CelebrationScreen Component - Premium Edition
  *
- * Beautiful post-meditation celebration screen with mood tracking and notes.
- * Follows the app's consistent design language with white cards, mint accents,
- * and shadows matching HomeScreen and PreSessionInstructions.
+ * Beautiful post-meditation celebration with:
+ * - Reanimated smooth animations
+ * - Confetti effect for achievements
+ * - Streak celebration
+ * - Personalized theme integration
+ * - Subtle, elegant feedback
  */
 
 import { logger } from '../utils/logger';
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Animated,
   ScrollView,
   TextInput,
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+  withTiming,
+  withDelay,
+  withSequence,
+  withRepeat,
+  Easing,
+  FadeIn,
+  FadeInUp,
+  FadeInDown,
+  ZoomIn,
+  interpolate,
+  runOnJS,
+} from 'react-native-reanimated';
+import * as Haptics from 'expo-haptics';
 import { GradientBackground } from './GradientBackground';
 import { GradientCard } from './GradientCard';
-import { GradientButton } from './GradientButton';
+import { MoodIcon, getMoodColors } from './MoodIcon';
 import { api, Quote } from '../services/api';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
-import { brandColors, primaryColor } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
+import { AnimatedPressable } from './AnimatedPressable';
+import { StreakBadge } from './StreakBadge';
+import { getProgressStats, ProgressStats } from '../services/progressTracker';
+
+const { width, height } = Dimensions.get('window');
 
 interface CelebrationScreenProps {
   durationMinutes: number;
   sessionTitle: string;
-  userIntention?: string; // User's intention from pre-session
+  userIntention?: string;
   onContinue: (mood?: MoodRating, notes?: string) => void;
   isDark?: boolean;
 }
 
 type MoodRating = 1 | 2 | 3 | 4 | 5;
 
-const moodEmojis: Record<MoodRating, string> = {
-  1: '😔',
-  2: '😐',
-  3: '🙂',
-  4: '😊',
-  5: '😄',
+// Confetti particle component
+const ConfettiParticle: React.FC<{
+  delay: number;
+  color: string;
+  startX: number;
+  animationsEnabled: boolean;
+}> = ({ delay, color, startX, animationsEnabled }) => {
+  const translateY = useSharedValue(-50);
+  const translateX = useSharedValue(startX);
+  const rotate = useSharedValue(0);
+  const opacity = useSharedValue(1);
+
+  useEffect(() => {
+    if (animationsEnabled) {
+      translateY.value = withDelay(
+        delay,
+        withTiming(height + 100, {
+          duration: 3000,
+          easing: Easing.out(Easing.cubic),
+        })
+      );
+      translateX.value = withDelay(
+        delay,
+        withTiming(startX + (Math.random() - 0.5) * 100, {
+          duration: 3000,
+          easing: Easing.inOut(Easing.ease),
+        })
+      );
+      rotate.value = withDelay(
+        delay,
+        withTiming(Math.random() * 720, {
+          duration: 3000,
+          easing: Easing.linear,
+        })
+      );
+      opacity.value = withDelay(
+        delay + 2000,
+        withTiming(0, { duration: 1000 })
+      );
+    }
+  }, [animationsEnabled]);
+
+  const particleStyle = useAnimatedStyle(() => ({
+    transform: [
+      { translateY: translateY.value },
+      { translateX: translateX.value },
+      { rotate: `${rotate.value}deg` },
+    ],
+    opacity: opacity.value,
+  }));
+
+  if (!animationsEnabled) return null;
+
+  return (
+    <Animated.View
+      style={[
+        styles.confettiParticle,
+        { backgroundColor: color },
+        particleStyle,
+      ]}
+    />
+  );
 };
 
-const moodLabels: Record<MoodRating, { en: string; pl: string }> = {
-  1: { en: 'Difficult', pl: 'Trudno' },
-  2: { en: 'Okay', pl: 'W porządku' },
-  3: { en: 'Good', pl: 'Dobrze' },
-  4: { en: 'Great', pl: 'Świetnie' },
-  5: { en: 'Excellent', pl: 'Wspaniale' },
+// Celebration checkmark with glow effect
+const CelebrationCheckmark: React.FC<{
+  gradient: string[];
+  animationsEnabled: boolean;
+}> = ({ gradient, animationsEnabled }) => {
+  const scale = useSharedValue(0);
+  const glowOpacity = useSharedValue(0);
+
+  useEffect(() => {
+    scale.value = withSpring(1, {
+      damping: 12,
+      stiffness: 150,
+    });
+    if (animationsEnabled) {
+      glowOpacity.value = withRepeat(
+        withSequence(
+          withTiming(0.6, { duration: 1500, easing: Easing.inOut(Easing.ease) }),
+          withTiming(0.3, { duration: 1500, easing: Easing.inOut(Easing.ease) })
+        ),
+        -1,
+        true
+      );
+    }
+  }, [animationsEnabled]);
+
+  const containerStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const glowStyle = useAnimatedStyle(() => ({
+    opacity: glowOpacity.value,
+    transform: [{ scale: 1.3 }],
+  }));
+
+  return (
+    <Animated.View style={[styles.checkmarkWrapper, containerStyle]}>
+      {animationsEnabled && (
+        <Animated.View style={[styles.checkmarkGlow, glowStyle, { backgroundColor: gradient[0] }]} />
+      )}
+      <LinearGradient
+        colors={gradient as [string, string, ...string[]]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.checkmarkCircle}
+      >
+        <Ionicons name="checkmark" size={44} color="#FFF" />
+      </LinearGradient>
+    </Animated.View>
+  );
+};
+
+// Animated mood button with MoodIcon
+const MoodButton: React.FC<{
+  mood: MoodRating;
+  label: string;
+  isSelected: boolean;
+  gradient: string[];
+  onSelect: (mood: MoodRating) => void;
+  dynamicStyles: any;
+  animationsEnabled: boolean;
+}> = ({ mood, label, isSelected, gradient, onSelect, dynamicStyles, animationsEnabled }) => {
+  const scale = useSharedValue(1);
+  const moodColors = getMoodColors(mood);
+
+  const handlePress = useCallback(() => {
+    if (animationsEnabled) {
+      scale.value = withSequence(
+        withSpring(1.2, { damping: 10, stiffness: 400 }),
+        withSpring(1, { damping: 10, stiffness: 200 })
+      );
+    }
+    onSelect(mood);
+  }, [mood, onSelect, animationsEnabled]);
+
+  const buttonStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  return (
+    <Pressable onPress={handlePress} style={styles.moodOption}>
+      <Animated.View style={buttonStyle}>
+        {isSelected ? (
+          <LinearGradient
+            colors={gradient as [string, string, ...string[]]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={[styles.moodCircle, styles.moodCircleGradient]}
+          >
+            <MoodIcon mood={mood} size="large" showBackground={false} />
+          </LinearGradient>
+        ) : (
+          <View style={[styles.moodCircle, dynamicStyles.moodCircle, { backgroundColor: moodColors.bg }]}>
+            <MoodIcon mood={mood} size="large" showBackground={false} />
+          </View>
+        )}
+      </Animated.View>
+      <Text
+        style={[
+          styles.moodLabel,
+          dynamicStyles.moodLabel,
+          isSelected && [styles.moodLabelSelected, dynamicStyles.moodLabelSelected],
+        ]}
+      >
+        {label}
+      </Text>
+    </Pressable>
+  );
 };
 
 export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
@@ -63,12 +245,41 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
   isDark = false,
 }) => {
   const { t, i18n } = useTranslation();
+  const { currentTheme, settings } = usePersonalization();
 
   // Theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
 
-  // Dynamic styles based on theme - matching PreSessionInstructions
+  const [quote, setQuote] = useState<Quote | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedMood, setSelectedMood] = useState<MoodRating | null>(null);
+  const [notes, setNotes] = useState('');
+  const [stats, setStats] = useState<ProgressStats | null>(null);
+  const [showConfetti, setShowConfetti] = useState(true);
+
+  // Confetti colors based on theme
+  const confettiColors = useMemo(() => [
+    currentTheme.primary,
+    currentTheme.gradient[0],
+    currentTheme.gradient[1],
+    '#FFD700', // Gold
+    '#FF6B6B', // Coral
+    '#4ECDC4', // Teal
+  ], [currentTheme]);
+
+  // Generate confetti particles
+  const confettiParticles = useMemo(() => {
+    if (!settings.animationsEnabled) return [];
+    return Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      delay: Math.random() * 500,
+      color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+      startX: Math.random() * width,
+    }));
+  }, [confettiColors, settings.animationsEnabled]);
+
+  // Dynamic styles
   const dynamicStyles = useMemo(() => ({
     title: { color: colors.text.primary },
     subtitle: { color: colors.text.secondary },
@@ -91,54 +302,33 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
     statLabel: { color: colors.text.secondary },
     moodCircle: {
       backgroundColor: isDark ? 'rgba(80, 80, 90, 0.6)' : 'rgba(255, 255, 255, 0.95)',
-      borderColor: isDark ? 'rgba(120, 120, 130, 0.8)' : 'rgba(139, 92, 246, 0.2)',
+      borderColor: isDark ? 'rgba(120, 120, 130, 0.8)' : `${currentTheme.primary}30`,
     },
     moodLabel: { color: colors.text.secondary },
-    moodLabelSelected: { color: brandColors.purple.primary },
+    moodLabelSelected: { color: currentTheme.primary },
     inputBg: isDark ? colors.neutral.charcoal[200] : 'rgba(255, 255, 255, 0.9)',
-    inputBorder: isDark ? 'rgba(139, 92, 246, 0.3)' : 'rgba(139, 92, 246, 0.15)',
+    inputBorder: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}20`,
     inputText: { color: colors.text.primary },
     inputPlaceholder: isDark ? colors.neutral.gray[500] : theme.colors.neutral.gray[400],
     quoteText: { color: colors.text.primary },
     quoteAuthor: { color: colors.text.secondary },
-    iconBoxBg: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
-    iconColor: brandColors.purple.primary,
-  }), [colors, isDark]);
-
-  const [quote, setQuote] = useState<Quote | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedMood, setSelectedMood] = useState<MoodRating | null>(null);
-  const [notes, setNotes] = useState('');
-  const [scaleAnim] = useState(new Animated.Value(0));
-  const [fadeAnim] = useState(new Animated.Value(0));
-
-  // Mood button animations
-  const moodAnims = useRef<Record<MoodRating, Animated.Value>>({
-    1: new Animated.Value(1),
-    2: new Animated.Value(1),
-    3: new Animated.Value(1),
-    4: new Animated.Value(1),
-    5: new Animated.Value(1),
-  }).current;
+    iconBoxBg: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}20`,
+    iconColor: currentTheme.primary,
+    quoteBorder: currentTheme.primary,
+  }), [colors, isDark, currentTheme]);
 
   useEffect(() => {
     loadQuote();
+    loadStats();
 
-    // Animate checkmark entrance
-    Animated.spring(scaleAnim, {
-      toValue: 1,
-      tension: 40,
-      friction: 8,
-      useNativeDriver: true,
-    }).start();
+    // Haptic feedback on celebration start
+    if (settings.hapticEnabled) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
 
-    // Fade in content
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 600,
-      delay: 200,
-      useNativeDriver: true,
-    }).start();
+    // Hide confetti after 4 seconds
+    const timer = setTimeout(() => setShowConfetti(false), 4000);
+    return () => clearTimeout(timer);
   }, []);
 
   const loadQuote = async () => {
@@ -153,30 +343,46 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
     }
   };
 
-  const handleMoodSelect = (mood: MoodRating) => {
-    // Animate selected mood button
-    Animated.sequence([
-      Animated.timing(moodAnims[mood], {
-        toValue: 1.15,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.spring(moodAnims[mood], {
-        toValue: 1,
-        tension: 200,
-        friction: 8,
-        useNativeDriver: true,
-      }),
-    ]).start();
-    setSelectedMood(mood);
+  const loadStats = async () => {
+    try {
+      const progressStats = await getProgressStats();
+      setStats(progressStats);
+    } catch (error) {
+      logger.error('Failed to load stats:', error);
+    }
   };
 
-  const handleContinue = () => {
+  const handleMoodSelect = useCallback((mood: MoodRating) => {
+    if (settings.hapticEnabled) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    setSelectedMood(mood);
+  }, [settings.hapticEnabled]);
+
+  const handleContinue = useCallback(() => {
+    if (settings.hapticEnabled) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
     onContinue(selectedMood || undefined, notes || undefined);
-  };
+  }, [selectedMood, notes, onContinue, settings.hapticEnabled]);
 
   return (
     <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
+      {/* Confetti overlay */}
+      {showConfetti && settings.animationsEnabled && (
+        <View style={styles.confettiContainer} pointerEvents="none">
+          {confettiParticles.map((particle) => (
+            <ConfettiParticle
+              key={particle.id}
+              delay={particle.delay}
+              color={particle.color}
+              startX={particle.startX}
+              animationsEnabled={settings.animationsEnabled}
+            />
+          ))}
+        </View>
+      )}
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
@@ -188,37 +394,42 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
           bounces={true}
           keyboardShouldPersistTaps="handled"
         >
-          {/* Header with checkmark and congratulations */}
-          <Animated.View style={[styles.header, { opacity: fadeAnim }]}>
-            <Animated.View
-              style={[
-                styles.checkmarkContainer,
-                { transform: [{ scale: scaleAnim }] },
-              ]}
-            >
-              <LinearGradient
-                colors={[brandColors.purple.light, brandColors.purple.primary]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.checkmarkCircle}
-              >
-                <Ionicons
-                  name="checkmark"
-                  size={40}
-                  color={theme.colors.neutral.white}
-                />
-              </LinearGradient>
-            </Animated.View>
+          {/* Header with celebration */}
+          <Animated.View
+            entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(600) : undefined}
+            style={styles.header}
+          >
+            <CelebrationCheckmark
+              gradient={currentTheme.gradient}
+              animationsEnabled={settings.animationsEnabled}
+            />
             <Text style={[styles.title, dynamicStyles.title]}>
               {t('meditation.wellDone', 'Świetna robota!')}
             </Text>
             <Text style={[styles.subtitle, dynamicStyles.subtitle]}>
               {t('meditation.completedSession', 'Ukończyłeś sesję medytacji')}
             </Text>
+
+            {/* Streak badge if applicable */}
+            {stats && stats.currentStreak > 0 && (
+              <Animated.View
+                entering={settings.animationsEnabled ? ZoomIn.delay(600).duration(400) : undefined}
+                style={styles.streakContainer}
+              >
+                <StreakBadge
+                  streak={stats.currentStreak}
+                  isDark={isDark}
+                  size="lg"
+                  showLabel={true}
+                />
+              </Animated.View>
+            )}
           </Animated.View>
 
           {/* Session Stats Card */}
-          <Animated.View style={{ opacity: fadeAnim }}>
+          <Animated.View
+            entering={settings.animationsEnabled ? FadeInUp.delay(300).duration(500) : undefined}
+          >
             <GradientCard
               gradient={themeGradients.card.whiteCard}
               style={[styles.card, dynamicStyles.cardShadow]}
@@ -241,7 +452,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
                         {t('meditation.session', 'Sesja')}
                       </Text>
                     </View>
-                    <View style={styles.statDivider} />
+                    <View style={[styles.statDivider, { backgroundColor: `${currentTheme.primary}20` }]} />
                     <View style={styles.statItem}>
                       <Text style={[styles.statValue, dynamicStyles.statValue]}>
                         {t('meditation.minutes', { count: durationMinutes })}
@@ -256,9 +467,11 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
             </GradientCard>
           </Animated.View>
 
-          {/* User Intention Card - Only show if user set an intention */}
+          {/* User Intention Card */}
           {userIntention && userIntention.trim() && (
-            <Animated.View style={{ opacity: fadeAnim }}>
+            <Animated.View
+              entering={settings.animationsEnabled ? FadeInUp.delay(400).duration(500) : undefined}
+            >
               <GradientCard
                 gradient={themeGradients.card.whiteCard}
                 style={[styles.card, dynamicStyles.cardShadow]}
@@ -277,7 +490,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
                     </Text>
                   </View>
                 </View>
-                <View style={styles.intentionContent}>
+                <View style={[styles.intentionContent, { borderLeftColor: dynamicStyles.quoteBorder }]}>
                   <Text style={[styles.intentionText, dynamicStyles.quoteText]}>
                     "{userIntention}"
                   </Text>
@@ -287,7 +500,9 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
           )}
 
           {/* Mood Rating Card */}
-          <Animated.View style={{ opacity: fadeAnim }}>
+          <Animated.View
+            entering={settings.animationsEnabled ? FadeInUp.delay(500).duration(500) : undefined}
+          >
             <GradientCard
               gradient={themeGradients.card.whiteCard}
               style={[styles.card, dynamicStyles.cardShadow]}
@@ -307,50 +522,26 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
                 </View>
               </View>
               <View style={styles.moodOptions}>
-                {([1, 2, 3, 4, 5] as MoodRating[]).map((mood) => (
-                  <Pressable
-                    key={mood}
-                    style={styles.moodOption}
-                    onPress={() => handleMoodSelect(mood)}
-                  >
-                    <Animated.View style={{ transform: [{ scale: moodAnims[mood] }] }}>
-                      {selectedMood === mood ? (
-                        <LinearGradient
-                          colors={[brandColors.purple.light, brandColors.purple.primary]}
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 1 }}
-                          style={[styles.moodCircle, styles.moodCircleGradient]}
-                        >
-                          <Text style={styles.moodEmoji}>{moodEmojis[mood]}</Text>
-                        </LinearGradient>
-                      ) : (
-                        <View
-                          style={[
-                            styles.moodCircle,
-                            dynamicStyles.moodCircle,
-                          ]}
-                        >
-                          <Text style={styles.moodEmoji}>{moodEmojis[mood]}</Text>
-                        </View>
-                      )}
-                    </Animated.View>
-                    <Text
-                      style={[
-                        styles.moodLabel,
-                        dynamicStyles.moodLabel,
-                        selectedMood === mood && [styles.moodLabelSelected, dynamicStyles.moodLabelSelected],
-                      ]}
-                    >
-                      {moodLabels[mood][i18n.language as 'en' | 'pl'] || moodLabels[mood].en}
-                    </Text>
-                  </Pressable>
+                {([1, 2, 3, 4, 5] as MoodRating[]).map((moodValue) => (
+                  <MoodButton
+                    key={moodValue}
+                    mood={moodValue}
+                    label={t(`profile.mood${moodValue}`)}
+                    isSelected={selectedMood === moodValue}
+                    gradient={currentTheme.gradient}
+                    onSelect={handleMoodSelect}
+                    dynamicStyles={dynamicStyles}
+                    animationsEnabled={settings.animationsEnabled}
+                  />
                 ))}
               </View>
             </GradientCard>
           </Animated.View>
 
           {/* Notes Card */}
-          <Animated.View style={{ opacity: fadeAnim }}>
+          <Animated.View
+            entering={settings.animationsEnabled ? FadeInUp.delay(600).duration(500) : undefined}
+          >
             <GradientCard
               gradient={themeGradients.card.whiteCard}
               style={[styles.card, dynamicStyles.cardShadow]}
@@ -392,7 +583,9 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
 
           {/* Inspirational Quote Card */}
           {!loading && quote && quote.text && (
-            <Animated.View style={{ opacity: fadeAnim }}>
+            <Animated.View
+              entering={settings.animationsEnabled ? FadeInUp.delay(700).duration(500) : undefined}
+            >
               <GradientCard
                 gradient={themeGradients.card.whiteCard}
                 style={[styles.card, dynamicStyles.cardShadow]}
@@ -408,7 +601,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
                     </Text>
                   </View>
                 </View>
-                <View style={styles.quoteContent}>
+                <View style={[styles.quoteContent, { borderLeftColor: dynamicStyles.quoteBorder }]}>
                   <Text style={[styles.quoteText, dynamicStyles.quoteText]}>
                     "{quote.text}"
                   </Text>
@@ -423,13 +616,28 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
           )}
 
           {/* Continue Button */}
-          <Animated.View style={[styles.buttonContainer, { opacity: fadeAnim }]}>
-            <GradientButton
-              title={t('meditation.continue', 'Kontynuuj')}
-              gradient={themeGradients.button.primary}
+          <Animated.View
+            entering={settings.animationsEnabled ? FadeInUp.delay(800).duration(500) : undefined}
+            style={styles.buttonContainer}
+          >
+            <AnimatedPressable
               onPress={handleContinue}
-              size="lg"
-            />
+              style={styles.continueButton}
+              pressScale={0.96}
+              hapticType="medium"
+            >
+              <LinearGradient
+                colors={currentTheme.gradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.continueButtonGradient}
+              >
+                <Text style={styles.continueButtonText}>
+                  {t('meditation.continue', 'Kontynuuj')}
+                </Text>
+                <Ionicons name="arrow-forward" size={20} color="#FFF" />
+              </LinearGradient>
+            </AnimatedPressable>
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -441,6 +649,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  confettiContainer: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 100,
+    pointerEvents: 'none',
+  },
+  confettiParticle: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    borderRadius: 3,
+  },
   scrollView: {
     flex: 1,
   },
@@ -451,34 +670,47 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: theme.spacing.sm,
+    marginBottom: theme.spacing.md,
     marginTop: theme.spacing.lg,
   },
-  checkmarkContainer: {
+  checkmarkWrapper: {
+    position: 'relative',
     marginBottom: theme.spacing.lg,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkmarkGlow: {
+    position: 'absolute',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
   },
   checkmarkCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 88,
+    height: 88,
+    borderRadius: 44,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: brandColors.purple.primary,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.35,
+    shadowOpacity: 0.25,
     shadowRadius: 16,
     elevation: 12,
   },
+  streakContainer: {
+    marginTop: theme.spacing.lg,
+  },
   title: {
-    fontSize: theme.typography.fontSizes.xxxl,
-    fontWeight: theme.typography.fontWeights.bold,
+    fontSize: 28,
+    fontWeight: '700',
     textAlign: 'center',
     marginBottom: theme.spacing.xs,
+    letterSpacing: -0.5,
   },
   subtitle: {
     fontSize: theme.typography.fontSizes.md,
     textAlign: 'center',
-    fontWeight: theme.typography.fontWeights.medium,
+    fontWeight: '500',
   },
   card: {
     // padding handled by GradientCard
@@ -491,7 +723,7 @@ const styles = StyleSheet.create({
   iconBox: {
     width: 48,
     height: 48,
-    borderRadius: 16,
+    borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -526,7 +758,6 @@ const styles = StyleSheet.create({
   statDivider: {
     width: 1,
     height: 32,
-    backgroundColor: theme.colors.neutral.lightGray[200],
     marginHorizontal: theme.spacing.md,
   },
   moodOptions: {
@@ -546,14 +777,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    ...theme.shadows.sm,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   moodCircleGradient: {
     borderWidth: 0,
-    ...theme.shadows.md,
-  },
-  moodEmoji: {
-    fontSize: 26,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
   },
   moodLabel: {
     fontSize: theme.typography.fontSizes.xs,
@@ -564,7 +800,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   notesInput: {
-    borderRadius: 16,
+    borderRadius: 14,
     borderWidth: 1.5,
     padding: theme.spacing.md,
     paddingTop: theme.spacing.md,
@@ -578,7 +814,6 @@ const styles = StyleSheet.create({
     paddingLeft: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     borderLeftWidth: 3,
-    borderLeftColor: brandColors.purple.primary,
     backgroundColor: 'rgba(139, 92, 246, 0.04)',
     borderRadius: 4,
   },
@@ -597,7 +832,6 @@ const styles = StyleSheet.create({
     paddingLeft: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     borderLeftWidth: 3,
-    borderLeftColor: brandColors.purple.primary,
     backgroundColor: 'rgba(139, 92, 246, 0.04)',
     borderRadius: 4,
   },
@@ -608,6 +842,29 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     marginTop: theme.spacing.md,
+  },
+  continueButton: {
+    borderRadius: 16,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  continueButtonGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 18,
+    paddingHorizontal: 32,
+    gap: 8,
+  },
+  continueButtonText: {
+    fontSize: 17,
+    fontWeight: '600',
+    color: '#FFF',
+    letterSpacing: 0.3,
   },
 });
 

@@ -27,6 +27,7 @@ import Reanimated, {
 import theme, { getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, primaryColor, neutralColors, backgrounds } from '../theme/colors';
 import { MeditationIntroGuide } from '../components/MeditationIntroGuide';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 // Using primaryColor.transparent for consistent brand color opacity
 
 // Pattern configuration for breathing animations
@@ -87,6 +88,7 @@ interface Props {
 
 const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const insets = useSafeAreaInsets();
 
   // Breathing exercise modal state
@@ -124,17 +126,17 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
       shadowColor: isDark ? '#000' : '#000',
       shadowOpacity: isDark ? 0.3 : 0.1,
     },
-    cardTitle: { color: brandColors.purple.primary },
+    cardTitle: { color: currentTheme.primary },
     cardDescription: { color: colors.text.secondary },
     duration: { color: colors.text.tertiary },
     stepNumber: {
-      backgroundColor: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10],
+      backgroundColor: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A`,
     },
-    stepNumberText: { color: brandColors.purple.primary },
+    stepNumberText: { color: currentTheme.primary },
     stepText: { color: colors.text.primary },
     buildingIntro: { color: colors.text.secondary },
     structureText: { color: colors.text.primary },
-  }), [colors, isDark]);
+  }), [colors, isDark, currentTheme]);
 
   return (
     <View style={styles.container}>
@@ -159,7 +161,7 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
             activeOpacity={0.8}
           >
             <LinearGradient
-              colors={[brandColors.purple.light, brandColors.purple.primary]}
+              colors={currentTheme.gradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.featuredGradient}
@@ -215,8 +217,8 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
             return (
               <View key={pattern.id} style={[styles.card, dynamicStyles.card]}>
                 <View style={styles.cardHeader}>
-                  <View style={[styles.breathingIconBox, { backgroundColor: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10] }]}>
-                    <Ionicons name={pattern.icon as any} size={24} color={brandColors.purple.primary} />
+                  <View style={[styles.breathingIconBox, { backgroundColor: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A` }]}>
+                    <Ionicons name={pattern.icon as any} size={24} color={currentTheme.primary} />
                   </View>
                   <View style={styles.breathingTitleContainer}>
                     <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -244,14 +246,14 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
 
                 {/* Try it button */}
                 <TouchableOpacity
-                  style={[styles.tryButton, { backgroundColor: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10] }]}
+                  style={[styles.tryButton, { backgroundColor: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A` }]}
                   onPress={() => openBreathingModal(pattern.id)}
                 >
-                  <Ionicons name="play-circle" size={20} color={brandColors.purple.primary} />
-                  <Text style={[styles.tryButtonText, { color: brandColors.purple.primary }]}>
+                  <Ionicons name="play-circle" size={20} color={currentTheme.primary} />
+                  <Text style={[styles.tryButtonText, { color: currentTheme.primary }]}>
                     {t('instructionsScreen.tryExercise', 'Wypróbuj')}
                   </Text>
-                  <Ionicons name="chevron-forward" size={16} color={brandColors.purple.primary} />
+                  <Ionicons name="chevron-forward" size={16} color={currentTheme.primary} />
                 </TouchableOpacity>
               </View>
             );
@@ -323,7 +325,7 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
                           {
                             backgroundColor: isDark ? colors.neutral.charcoal[100] : colors.neutral.gray[50],
                             borderColor: selectedPattern === pattern.id
-                              ? brandColors.purple.primary
+                              ? currentTheme.primary
                               : isDark ? colors.neutral.charcoal[50] : colors.neutral.gray[200],
                           },
                           selectedPattern === pattern.id && styles.patternCardSelected,
@@ -332,12 +334,12 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
                       >
                         <View style={[
                           styles.patternIconBox,
-                          { backgroundColor: selectedPattern === pattern.id ? brandColors.purple.primary : (isDark ? primaryColor.transparent[20] : primaryColor.transparent[10]) }
+                          { backgroundColor: selectedPattern === pattern.id ? currentTheme.primary : (isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A`) }
                         ]}>
                           <Ionicons
                             name={pattern.icon as any}
                             size={18}
-                            color={selectedPattern === pattern.id ? neutralColors.white : brandColors.purple.primary}
+                            color={selectedPattern === pattern.id ? neutralColors.white : currentTheme.primary}
                           />
                         </View>
                         <View style={styles.patternTextContainer}>
@@ -349,7 +351,7 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
                           </Text>
                         </View>
                         {selectedPattern === pattern.id && (
-                          <Ionicons name="checkmark-circle" size={22} color={brandColors.purple.primary} />
+                          <Ionicons name="checkmark-circle" size={22} color={currentTheme.primary} />
                         )}
                       </TouchableOpacity>
                     ))}
@@ -374,7 +376,7 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
                       onPress={() => setBreathingActive(true)}
                     >
                       <LinearGradient
-                        colors={[brandColors.purple.light, brandColors.purple.primary]}
+                        colors={currentTheme.gradient}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 1 }}
                         style={styles.modalButtonGradient}
@@ -477,7 +479,6 @@ const styles = StyleSheet.create<any>({
   cardTitle: {
     fontSize: theme.typography.fontSizes.lg,
     fontWeight: theme.typography.fontWeights.semiBold,
-    color: brandColors.purple.primary,
     marginBottom: theme.spacing.xs,
   },
   cardDescription: {
@@ -510,7 +511,6 @@ const styles = StyleSheet.create<any>({
   },
   stepNumberText: {
     fontSize: theme.typography.fontSizes.sm,
-    color: brandColors.purple.primary,
     fontWeight: theme.typography.fontWeights.semiBold,
   },
   stepText: {
@@ -574,7 +574,6 @@ const styles = StyleSheet.create<any>({
     borderRadius: theme.borderRadius.xl,
     marginBottom: theme.spacing.xl,
     overflow: 'hidden',
-    shadowColor: brandColors.purple.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 12,
@@ -766,9 +765,7 @@ const styles = StyleSheet.create<any>({
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: brandColors.transparent.light25,
     borderWidth: 3,
-    borderColor: brandColors.purple.primary,
   },
   breathingText: {
     position: 'absolute',
@@ -784,6 +781,7 @@ const AnimatedBreathingCircle: React.FC<{
   isDark?: boolean;
   t: any;
 }> = ({ isRunning, pattern, isDark, t }) => {
+  const { currentTheme } = usePersonalization();
   const scale = useSharedValue(1);
   const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
 
@@ -846,10 +844,13 @@ const AnimatedBreathingCircle: React.FC<{
   return (
     <View style={styles.breathingContainer}>
       <Reanimated.View style={[styles.breathingCircleWrapper, animatedStyle]}>
-        <View style={styles.breathingCircle} />
+        <View style={[styles.breathingCircle, {
+          backgroundColor: `${currentTheme.primary}40`,
+          borderColor: currentTheme.primary,
+        }]} />
       </Reanimated.View>
       {isRunning && (
-        <Text style={[styles.breathingText, { color: brandColors.purple.primary }]}>
+        <Text style={[styles.breathingText, { color: currentTheme.primary }]}>
           {getPhaseText()}
         </Text>
       )}

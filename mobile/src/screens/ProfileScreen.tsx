@@ -17,16 +17,14 @@ import {
   StyleSheet,
   RefreshControl,
   ActivityIndicator,
-  Alert,
-  Linking,
   Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import { GradientBackground } from '../components/GradientBackground';
 import { GradientCard } from '../components/GradientCard';
-import { ScheduleReminderModal } from '../components/ScheduleReminderModal';
 import { Badge } from '../components/Badge';
+import { MoodIcon, getMoodColors } from '../components/MoodIcon';
 import theme, { gradients, getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, primaryColor, featureColorPalettes, semanticColors } from '../theme/colors';
 import {
@@ -36,13 +34,7 @@ import {
   CompletedSession,
 } from '../services/progressTracker';
 import { getAllCustomSessions } from '../services/customSessionStorage';
-import {
-  requestCalendarPermissions,
-  createRecurringReminder,
-  cancelRecurringReminder,
-  getReminderSettings,
-  ReminderSettings,
-} from '../services/calendarService';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 interface ProfileScreenProps {
   isDark?: boolean;
@@ -58,6 +50,7 @@ interface GroupedSessions {
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, onNavigateToCustom }) => {
   const { t, i18n } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const currentLocale = i18n.language;
 
   // Theme-aware colors and gradients
@@ -80,9 +73,9 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     sessionDuration: { color: colors.text.secondary },
     sessionTimeAgo: { color: colors.text.tertiary },
     sessionIcon: {
-      backgroundColor: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10],
+      backgroundColor: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A`,
     },
-    iconColor: brandColors.purple.primary,
+    iconColor: currentTheme.primary,
     // New consistent card styling
     cardShadow: isDark ? {
       shadowColor: '#000',
@@ -118,15 +111,15 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     iconBoxBg: isDark ? `rgba(${featureColorPalettes.emerald.rgb}, 0.25)` : `rgba(${featureColorPalettes.emerald.rgb}, 0.15)`,
     iconBoxBgBlue: isDark ? `rgba(${featureColorPalettes.indigo.rgb}, 0.25)` : `rgba(${featureColorPalettes.indigo.rgb}, 0.15)`,
     iconBoxBgOrange: isDark ? `rgba(${featureColorPalettes.amber.rgb}, 0.25)` : `rgba(${featureColorPalettes.amber.rgb}, 0.15)`,
-    iconBoxBgPurple: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
+    iconBoxBgPurple: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}26`,
     // Icon colors for different sections
     iconEmerald: isDark ? featureColorPalettes.emerald.darkIcon : featureColorPalettes.emerald.lightIcon,
     iconBlue: isDark ? featureColorPalettes.indigo.darkIcon : featureColorPalettes.indigo.lightIcon,
     iconOrange: isDark ? featureColorPalettes.amber.darkIcon : featureColorPalettes.amber.lightIcon,
-    iconPurple: brandColors.purple.primary,
+    iconPurple: currentTheme.primary,
     cardTitle: { color: colors.text.primary },
     cardDescription: { color: colors.text.secondary },
-  }), [colors, isDark]);
+  }), [colors, isDark, currentTheme]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [stats, setStats] = useState<ProgressStats>({
@@ -138,8 +131,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
   });
   const [sessions, setSessions] = useState<CompletedSession[]>([]);
   const [customSessionCount, setCustomSessionCount] = useState(0);
-  const [reminderSettings, setReminderSettings] = useState<ReminderSettings | null>(null);
-  const [showReminderModal, setShowReminderModal] = useState(false);
   const [selectedSession, setSelectedSession] = useState<CompletedSession | null>(null);
   const [visibleSessionsCount, setVisibleSessionsCount] = useState(5); // Initial limit
   const SESSIONS_PER_PAGE = 5;
@@ -149,17 +140,15 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
    */
   const loadProfileData = useCallback(async () => {
     try {
-      const [progressStats, completedSessions, customSessions, reminder] = await Promise.all([
+      const [progressStats, completedSessions, customSessions] = await Promise.all([
         getProgressStats(),
         getCompletedSessions(),
         getAllCustomSessions(),
-        getReminderSettings(),
       ]);
 
       setStats(progressStats);
       setSessions(completedSessions.reverse()); // Most recent first
       setCustomSessionCount(customSessions.length);
-      setReminderSettings(reminder);
     } catch (error) {
       logger.error('Error loading profile data:', error);
     } finally {
@@ -182,98 +171,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     setRefreshing(true);
     loadProfileData();
   }, [loadProfileData]);
-
-  /**
-   * Handle schedule reminder button press
-   */
-  const handleScheduleReminder = async () => {
-    try {
-      const hasPermission = await requestCalendarPermissions();
-
-      if (!hasPermission) {
-        Alert.alert(
-          t('calendar.permissionDenied'),
-          t('calendar.permissionMessage'),
-          [
-            { text: t('calendar.cancel'), style: 'cancel' },
-            {
-              text: t('settings.title'),
-              onPress: () => Linking.openSettings(),
-            },
-          ]
-        );
-        return;
-      }
-
-      setShowReminderModal(true);
-    } catch (error) {
-      logger.error('Error requesting calendar permission:', error);
-      Alert.alert(
-        t('calendar.permissionDenied'),
-        t('calendar.permissionMessage')
-      );
-    }
-  };
-
-  /**
-   * Handle saving reminder from modal
-   */
-  const handleSaveReminder = async (time: string) => {
-    try {
-      const newSettings = await createRecurringReminder(time);
-
-      if (newSettings) {
-        await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        setReminderSettings(newSettings);
-        setShowReminderModal(false);
-
-        Alert.alert(
-          t('calendar.reminderSet'),
-          `${t('calendar.daily')} ${t('calendar.at')} ${time}`
-        );
-      } else {
-        throw new Error('Failed to create reminder');
-      }
-    } catch (error) {
-      logger.error('Error creating reminder:', error);
-      await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-      Alert.alert(
-        t('calendar.permissionDenied'),
-        t('calendar.permissionMessage')
-      );
-    }
-  };
-
-  /**
-   * Handle canceling reminder
-   */
-  const handleCancelReminder = async () => {
-    Alert.alert(
-      t('calendar.reminderCanceled'),
-      t('calendar.noReminder'),
-      [
-        { text: t('calendar.cancel'), style: 'cancel' },
-        {
-          text: t('calendar.reminderCanceled'),
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              const success = await cancelRecurringReminder();
-
-              if (success) {
-                await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-                setReminderSettings(null);
-                Alert.alert(t('calendar.reminderCanceled'));
-              }
-            } catch (error) {
-              logger.error('Error canceling reminder:', error);
-              await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-            }
-          },
-        },
-      ]
-    );
-  };
 
   /**
    * Group sessions by date categories
@@ -385,20 +282,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
   };
 
   /**
-   * Get mood emoji
-   */
-  const getMoodEmoji = (mood?: 1 | 2 | 3 | 4 | 5): string => {
-    switch (mood) {
-      case 1: return '😔';
-      case 2: return '😕';
-      case 3: return '😐';
-      case 4: return '🙂';
-      case 5: return '😊';
-      default: return '—';
-    }
-  };
-
-  /**
    * Get mood label
    */
   const getMoodLabel = (mood?: 1 | 2 | 3 | 4 | 5): string => {
@@ -465,12 +348,12 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <Ionicons
             name="flag"
             size={14}
-            color={brandColors.purple.primary}
+            color={currentTheme.primary}
             style={styles.sessionIntentionBadge}
           />
         )}
         {session.mood && (
-          <Text style={styles.sessionMoodBadge}>{getMoodEmoji(session.mood)}</Text>
+          <MoodIcon mood={session.mood} size="small" />
         )}
         <Ionicons
           name="chevron-forward"
@@ -544,14 +427,14 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
 
         {hasMoreSessions && (
           <TouchableOpacity
-            style={[styles.showMoreButton, { backgroundColor: isDark ? colors.background.tertiary : primaryColor.transparent[10] }]}
+            style={[styles.showMoreButton, { backgroundColor: isDark ? colors.background.tertiary : `${currentTheme.primary}1A` }]}
             onPress={handleShowMore}
             activeOpacity={0.7}
           >
-            <Text style={[styles.showMoreText, { color: brandColors.purple.primary }]}>
+            <Text style={[styles.showMoreText, { color: currentTheme.primary }]}>
               {t('profile.showMore') || 'Pokaż więcej'} ({sessions.length - visibleSessionsCount})
             </Text>
-            <Ionicons name="chevron-down" size={18} color={brandColors.purple.primary} />
+            <Ionicons name="chevron-down" size={18} color={currentTheme.primary} />
           </TouchableOpacity>
         )}
       </>
@@ -578,7 +461,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     return (
       <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={brandColors.purple.primary} />
+          <ActivityIndicator size="large" color={currentTheme.primary} />
         </View>
       </GradientBackground>
     );
@@ -594,7 +477,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <RefreshControl
             refreshing={refreshing}
             onRefresh={handleRefresh}
-            tintColor={brandColors.purple.primary}
+            tintColor={currentTheme.primary}
           />
         }
       >
@@ -603,7 +486,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           <Ionicons
             name="person-circle"
             size={64}
-            color={brandColors.purple.primary}
+            color={currentTheme.primary}
             style={styles.avatar}
           />
           <Text style={[styles.title, dynamicStyles.title]}>{t('profile.title')}</Text>
@@ -629,22 +512,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               dynamicStyles.iconBlue,
               dynamicStyles.iconBoxBgBlue
             )}
-            {renderStatCard(
-              'flame',
-              stats.currentStreak,
-              t('profile.currentStreak'),
-              t('profile.days'),
-              dynamicStyles.iconOrange,
-              dynamicStyles.iconBoxBgOrange
-            )}
-            {renderStatCard(
-              'trophy',
-              stats.longestStreak,
-              t('profile.longestStreak'),
-              t('profile.days'),
-              dynamicStyles.iconPurple,
-              dynamicStyles.iconBoxBgPurple
-            )}
           </View>
         </View>
 
@@ -662,95 +529,13 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           )}
         </View>
 
-        {/* Calendar Integration */}
-        <View style={styles.calendarContainer}>
-          <Text style={[styles.sectionTitle, dynamicStyles.sectionTitle]}>{t('calendar.title')}</Text>
-          <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.calendarCard, dynamicStyles.cardShadow]} isDark={isDark}>
-            <View style={styles.cardRow}>
-              <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-                <Ionicons name="calendar" size={24} color={dynamicStyles.iconEmerald} />
-              </View>
-              <View style={styles.cardTextContainer}>
-                <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
-                  {t('calendar.scheduleReminder')}
-                </Text>
-                {reminderSettings?.enabled ? (
-                  <View style={styles.reminderStatus}>
-                    <Ionicons
-                      name="checkmark-circle"
-                      size={14}
-                      color={dynamicStyles.iconEmerald}
-                    />
-                    <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
-                      {t('calendar.currentReminder')}: {reminderSettings.time}
-                    </Text>
-                  </View>
-                ) : (
-                  <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
-                    {t('calendar.noReminder')}
-                  </Text>
-                )}
-              </View>
-            </View>
-
-            <View style={styles.calendarActions}>
-              {reminderSettings?.enabled ? (
-                <>
-                  <TouchableOpacity
-                    style={[styles.calendarSecondaryButton, { backgroundColor: dynamicStyles.iconBoxBg }]}
-                    onPress={handleCancelReminder}
-                    accessibilityLabel={t('calendar.cancel')}
-                    accessibilityRole="button"
-                  >
-                    <Ionicons
-                      name="trash-outline"
-                      size={18}
-                      color={dynamicStyles.iconEmerald}
-                    />
-                    <Text style={[styles.calendarSecondaryButtonText, { color: dynamicStyles.iconEmerald }]}>
-                      {t('calendar.cancel')}
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={styles.calendarPrimaryButton}
-                    onPress={handleScheduleReminder}
-                    accessibilityLabel={t('calendar.selectTime')}
-                    accessibilityRole="button"
-                  >
-                    <Ionicons
-                      name="time"
-                      size={18}
-                      color={theme.colors.neutral.white}
-                    />
-                    <Text style={styles.calendarPrimaryButtonText}>
-                      {t('calendar.selectTime')}
-                    </Text>
-                  </TouchableOpacity>
-                </>
-              ) : (
-                <TouchableOpacity
-                  style={[styles.calendarPrimaryButton, styles.calendarPrimaryButtonFull]}
-                  onPress={handleScheduleReminder}
-                  accessibilityLabel={t('calendar.scheduleReminder')}
-                  accessibilityRole="button"
-                >
-                  <Ionicons name="add-circle-outline" size={20} color={theme.colors.neutral.white} />
-                  <Text style={styles.calendarPrimaryButtonText}>
-                    {t('calendar.scheduleReminder')}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </View>
-          </GradientCard>
-        </View>
-
         {/* Custom Sessions */}
         <View style={styles.customContainer}>
           <Text style={[styles.sectionTitle, dynamicStyles.sectionTitle]}>{t('profile.customSessions')}</Text>
           <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.customCard, dynamicStyles.cardShadow]} isDark={isDark}>
             <View style={styles.cardRow}>
               <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
-                <Ionicons name="construct" size={24} color={brandColors.purple.primary} />
+                <Ionicons name="construct" size={24} color={currentTheme.primary} />
               </View>
               <View style={styles.cardTextContainer}>
                 <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -763,7 +548,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
             </View>
             {onNavigateToCustom && (
               <TouchableOpacity
-                style={styles.customButton}
+                style={[styles.customButton, { backgroundColor: currentTheme.primary }]}
                 onPress={onNavigateToCustom}
                 accessibilityLabel={t('profile.manageCustomSessions')}
                 accessibilityRole="button"
@@ -777,14 +562,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           </GradientCard>
         </View>
       </ScrollView>
-
-      {/* Schedule Reminder Modal */}
-      <ScheduleReminderModal
-        visible={showReminderModal}
-        onClose={() => setShowReminderModal(false)}
-        onSave={handleSaveReminder}
-        initialTime={reminderSettings?.time}
-      />
 
       {/* Session Details Modal */}
       <Modal
@@ -814,7 +591,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.detailCard, dynamicStyles.cardShadow]} isDark={isDark}>
                 <View style={styles.cardRow}>
                   <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
-                    <Ionicons name="leaf" size={24} color={brandColors.purple.primary} />
+                    <Ionicons name="leaf" size={24} color={currentTheme.primary} />
                   </View>
                   <View style={styles.cardTextContainer}>
                     <Text style={[styles.detailTitle, { color: colors.text.primary }]}>
@@ -841,7 +618,10 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
                         </Text>
                       </View>
                     </View>
-                    <View style={styles.intentionTextContainer}>
+                    <View style={[styles.intentionTextContainer, {
+                      borderLeftColor: currentTheme.primary,
+                      backgroundColor: `${currentTheme.primary}0A`,
+                    }]}>
                       <Text style={[styles.intentionText, { color: colors.text.primary }]}>
                         "{selectedSession.intention}"
                       </Text>
@@ -870,8 +650,8 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               {/* Mood Card */}
               <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.detailCard, dynamicStyles.cardShadow]} isDark={isDark}>
                 <View style={styles.cardRow}>
-                  <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgOrange }]}>
-                    <Text style={styles.moodEmojiLarge}>{getMoodEmoji(selectedSession.mood)}</Text>
+                  <View style={[styles.iconBox, { backgroundColor: getMoodColors(selectedSession.mood).bg }]}>
+                    <MoodIcon mood={selectedSession.mood} size="large" showBackground={false} />
                   </View>
                   <View style={styles.cardTextContainer}>
                     <Text style={[styles.detailLabel, { color: colors.text.secondary }]}>
@@ -1061,10 +841,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  sessionMoodBadge: {
-    fontSize: 20,
-    marginRight: theme.spacing.xs,
-  },
   sessionIntentionBadge: {
     marginRight: theme.spacing.xs,
   },
@@ -1172,7 +948,6 @@ const styles = StyleSheet.create({
     gap: theme.spacing.sm,
     paddingVertical: theme.spacing.md,
     paddingHorizontal: theme.spacing.xl,
-    backgroundColor: brandColors.purple.primary,
     borderRadius: theme.borderRadius.lg,
     marginTop: theme.spacing.md,
   },
@@ -1180,58 +955,6 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.md,
     fontWeight: theme.typography.fontWeights.semiBold,
     color: theme.colors.neutral.white,
-  },
-  calendarContainer: {
-    gap: theme.spacing.md,
-  },
-  calendarCard: {
-    padding: theme.spacing.lg,
-    borderRadius: theme.borderRadius.xl,
-    gap: theme.spacing.md,
-  },
-  reminderStatus: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing.xs,
-  },
-  calendarActions: {
-    flexDirection: 'row',
-    gap: theme.spacing.sm,
-    marginTop: theme.spacing.md,
-  },
-  calendarPrimaryButton: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: theme.spacing.sm,
-    paddingVertical: theme.spacing.md,
-    paddingHorizontal: theme.spacing.xl,
-    backgroundColor: brandColors.purple.primary,
-    borderRadius: theme.borderRadius.lg,
-  },
-  calendarPrimaryButtonFull: {
-    flex: 0,
-    width: '100%',
-  },
-  calendarPrimaryButtonText: {
-    fontSize: theme.typography.fontSizes.md,
-    fontWeight: theme.typography.fontWeights.semiBold,
-    color: theme.colors.neutral.white,
-  },
-  calendarSecondaryButton: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: theme.spacing.xs,
-    paddingVertical: theme.spacing.md,
-    paddingHorizontal: theme.spacing.lg,
-    borderRadius: theme.borderRadius.lg,
-  },
-  calendarSecondaryButtonText: {
-    fontSize: theme.typography.fontSizes.md,
-    fontWeight: theme.typography.fontWeights.semiBold,
   },
   sessionMood: {
     fontSize: theme.typography.fontSizes.sm,
@@ -1283,9 +1006,6 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.lg,
     fontWeight: theme.typography.fontWeights.semiBold,
   },
-  moodEmojiLarge: {
-    fontSize: 24,
-  },
   notesCardContent: {
     gap: theme.spacing.md,
   },
@@ -1306,8 +1026,6 @@ const styles = StyleSheet.create({
     paddingLeft: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     borderLeftWidth: 3,
-    borderLeftColor: brandColors.purple.primary,
-    backgroundColor: 'rgba(139, 92, 246, 0.04)',
     borderRadius: 4,
   },
   intentionText: {

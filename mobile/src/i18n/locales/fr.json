@@ -22,17 +22,17 @@
     "totalMinutes": "min totales",
     "sessions": "sessions",
     "meditate": "Méditer",
-    "meditateDesc": "Commencez votre pratique",
+    "meditateDesc": "Commencez votre séance",
     "instructions": "Instructions",
     "instructionsDesc": "Comment méditer",
     "inspirations": "Inspirations",
     "inspirationsDesc": "Citations et motivation",
     "quickStart": "Démarrage Rapide",
-    "quickStartDesc": "Commencez une méditation de 5 minutes maintenant"
+    "quickStartDesc": "Commencez votre méditation maintenant"
   },
   "meditation": {
     "title": "Méditation",
-    "subtitle": "Choisissez votre pratique",
+    "subtitle": "Choisissez votre séance",
     "createSession": "Créer une session",
     "createSessionDesc": "Personnalisez le temps, les sons et les intervalles",
     "yourSessions": "Vos sessions",
@@ -89,7 +89,7 @@
       "evening": "Bonsoir",
       "night": "Bonne nuit",
       "morningRecommendation": "Les méditations matinales donnent le ton de votre journée. Essayez le comptage des respirations ou la visualisation.",
-      "afternoonRecommendation": "La pratique de l'après-midi rafraîchit votre esprit. Envisagez la bienveillance ou une méditation en marchant.",
+      "afternoonRecommendation": "La méditation de l'après-midi rafraîchit votre esprit. Envisagez la bienveillance ou une méditation en marchant.",
       "eveningRecommendation": "Les sessions du soir vous aident à vous détendre. Le scan corporel ou la conscience douce de la respiration fonctionnent merveilleusement.",
       "nightRecommendation": "La méditation nocturne peut vous préparer à un sommeil réparateur. Le scan corporel est fortement recommandé."
     },
@@ -153,7 +153,7 @@
       "sessionTips": {
         "1": "Commencez par simplement remarquer quand vous inspirez et quand vous expirez",
         "2": "Quand votre esprit erre, ramenez doucement l'attention vers votre respiration",
-        "3": "Soyez patient et bienveillant envers vous-même—c'est une pratique",
+        "3": "Soyez patient et bienveillant envers vous-même—chaque séance est un pas en avant",
         "4": "Chaque moment de conscience compte, peu importe sa brièveté"
       },
       "breathingPrep": {
@@ -283,7 +283,7 @@
       "focus": "Concentration Profonde",
       "anxiety": "Libération de l'Anxiété",
       "grief": "Deuil et Perte",
-      "gratitude": "Pratique de Gratitude",
+      "gratitude": "Méditation de Gratitude",
       "creativity": "Inspiration Créative"
     },
     "cultures": {
@@ -344,11 +344,11 @@
   "sessionsList": {
     "morningAwakening": {
       "title": "Réveil Matinal",
-      "description": "Commencez votre journée avec clarté et concentration. Une pratique douce de 5 minutes pour vous recentrer."
+      "description": "Commencez votre journée avec clarté et concentration. Une séance douce pour vous recentrer avant de commencer."
     },
     "breathAwareness": {
       "title": "Conscience de la Respiration",
-      "description": "Concentrez-vous sur votre respiration naturelle. Une pratique fondamentale pour les débutants."
+      "description": "Concentrez-vous sur votre respiration naturelle. Une technique fondamentale pour les débutants."
     },
     "bodyScanRelaxation": {
       "title": "Relaxation par Scan Corporel",
@@ -360,7 +360,7 @@
     },
     "deepMeditation": {
       "title": "Méditation Profonde",
-      "description": "Pratique prolongée pour les méditants expérimentés. Plongez dans l'immobilité."
+      "description": "Séance prolongée pour les méditants expérimentés. Plongez dans l'immobilité."
     },
     "morningEnergyBoost": {
       "title": "Boost d'Énergie Matinale",
@@ -372,7 +372,7 @@
     },
     "quickStressRelief": {
       "title": "Soulagement Rapide du Stress",
-      "description": "Relâchez les tensions en seulement 5 minutes. Parfait pour les pauses au travail."
+      "description": "Une courte séance pour relâcher les tensions et se ressourcer. Parfait pour les pauses au travail."
     },
     "deepStressRelease": {
       "title": "Libération Profonde du Stress",
@@ -399,7 +399,7 @@
       "description": "Calmez les pensées anxieuses avec une conscience douce de la respiration."
     },
     "anxietyReleasePractice": {
-      "title": "Pratique de Libération de l'Anxiété",
+      "title": "Séance de Libération de l'Anxiété",
       "description": "Ancrez-vous et libérez les inquiétudes grâce à la conscience corporelle."
     },
     "healingThroughGrief": {
@@ -436,7 +436,7 @@
     },
     "beginnerZazen": {
       "title": "Zazen pour Débutants",
-      "description": "Introduction à la pratique de méditation assise Zen."
+      "description": "Introduction à la technique de méditation assise Zen."
     },
     "vipassanaBodyScan": {
       "title": "Scan Corporel Vipassana",
@@ -448,7 +448,7 @@
     },
     "beginnerVipassana": {
       "title": "Vipassana pour Débutants",
-      "description": "Introduction à la pratique de méditation de vision profonde."
+      "description": "Introduction à la technique de méditation de vision profonde."
     },
     "omMeditation": {
       "title": "Méditation Om",
@@ -456,7 +456,7 @@
     },
     "transcendentalMeditation": {
       "title": "Méditation Transcendantale",
-      "description": "Installez-vous dans un silence intérieur profond avec la pratique du mantra."
+      "description": "Installez-vous dans un silence intérieur profond avec la méditation mantra."
     },
     "chakraAwareness": {
       "title": "Conscience des Chakras",
@@ -467,7 +467,7 @@
       "description": "Cultivez l'énergie Qi par la respiration et la visualisation."
     },
     "innerSmilePractice": {
-      "title": "Pratique du Sourire Intérieur",
+      "title": "Méditation du Sourire Intérieur",
       "description": "Méditation taoïste pour cultiver la paix intérieure et la joie."
     },
     "wuWeiEffortlessBeing": {
@@ -484,7 +484,7 @@
     },
     "breathOfCompassion": {
       "title": "Souffle de Compassion",
-      "description": "Pratique respiratoire soufie pour ouvrir le cœur."
+      "description": "Technique respiratoire soufie pour ouvrir le cœur."
     },
     "centeringPrayer": {
       "title": "Prière Centrante",
@@ -560,7 +560,7 @@
       "description": "Complétez 5 séances de méditation Zen"
     },
     "vipassanaPractitioner": {
-      "title": "Pratiquant Vipassana",
+      "title": "Explorateur Vipassana",
       "description": "Complétez 5 séances de méditation Vipassana"
     },
     "vedicMaster": {
@@ -592,7 +592,7 @@
       "description": "Atteignez le Niveau 3"
     },
     "advanced": {
-      "title": "Pratiquant Avancé",
+      "title": "Méditant Avancé",
       "description": "Atteignez le Niveau 4"
     },
     "master": {
@@ -710,7 +710,7 @@
     "addToCalendar": "Ajouter au Calendrier",
     "removeFromCalendar": "Retirer du Calendrier",
     "reminderTitle": "Rappel de Méditation",
-    "reminderDescription": "Temps pour votre pratique quotidienne de méditation avec Slow Spot",
+    "reminderDescription": "Temps pour votre séance quotidienne de méditation avec Slow Spot",
     "selectTime": "Sélectionner l'Heure",
     "selectDays": "Sélectionner les Jours",
     "everyday": "Chaque Jour",

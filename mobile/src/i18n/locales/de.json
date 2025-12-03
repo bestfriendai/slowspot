@@ -11,7 +11,7 @@
     "welcome": "Willkommen",
     "dailyQuote": "Tägliches Zitat",
     "quickStart": "Schnellstart",
-    "quickStartDesc": "Starte jetzt eine 5-minütige Meditation",
+    "quickStartDesc": "Beginne jetzt deine Meditation",
     "startMeditation": "Meditation Beginnen",
     "exploreSessions": "Sitzungen Erkunden",
     "exploreFeatures": "Funktionen Entdecken",
@@ -24,7 +24,7 @@
     "totalMinutes": "Gesamt Min",
     "sessions": "Sitzungen",
     "meditate": "Meditieren",
-    "meditateDesc": "Beginne deine Praxis",
+    "meditateDesc": "Beginne deine Sitzung",
     "instructions": "Anleitungen",
     "instructionsDesc": "Wie man meditiert",
     "inspirations": "Inspirationen",
@@ -32,7 +32,7 @@
   },
   "meditation": {
     "title": "Meditation",
-    "subtitle": "Wähle deine Praxis",
+    "subtitle": "Wähle deine Sitzung",
     "createSession": "Sitzung erstellen",
     "createSessionDesc": "Zeit, Klänge und Intervalle anpassen",
     "yourSessions": "Deine Sitzungen",
@@ -89,7 +89,7 @@
       "evening": "Guten Abend",
       "night": "Gute Nacht",
       "morningRecommendation": "Morgenmeditationen geben den Ton für deinen Tag an. Versuche Atemzählen oder Visualisierung.",
-      "afternoonRecommendation": "Nachmittagspraxis erfrischt deinen Geist. Erwäge liebende Güte oder Gehmeditation.",
+      "afternoonRecommendation": "Nachmittagsmeditation erfrischt deinen Geist. Erwäge liebende Güte oder Gehmeditation.",
       "eveningRecommendation": "Abendsitzungen helfen dir zu entspannen. Body-Scan oder sanfte Atemwahrnehmung funktionieren wunderbar.",
       "nightRecommendation": "Spätabendmeditation kann dich auf erholsamen Schlaf vorbereiten. Body-Scan wird sehr empfohlen."
     },
@@ -105,7 +105,7 @@
       "stepProgress": "Schritt {{current}} von {{total}}",
       "alwaysSkipInstructions": "Anleitung immer überspringen (für erfahrene Meditierende)",
       "skipInstructionsNote": "Sie können dies später in den Einstellungen ändern",
-      "greeting": "Du bist dabei, {{technique}} zu praktizieren. Lass uns achtsam vorbereiten.",
+      "greeting": "Du bist dabei, {{technique}} zu beginnen. Lass uns achtsam vorbereiten.",
       "focusToday": "Dein heutiger Fokus",
       "remember": "Erinnere dich",
       "reminders": "Einige Erinnerungen, die du beachten solltest:",
@@ -296,7 +296,7 @@
       "focus": "Tiefe Konzentration",
       "anxiety": "Angstlösung",
       "grief": "Trauer & Verlust",
-      "gratitude": "Dankbarkeitspraxis",
+      "gratitude": "Dankbarkeitsmeditation",
       "creativity": "Kreative Inspiration"
     },
     "cultures": {
@@ -352,7 +352,7 @@
   "sessionsList": {
     "morningAwakening": {
       "title": "Morgendliches Erwachen",
-      "description": "Beginne deinen Tag mit Klarheit und Fokus. Eine sanfte 5-Minuten-Praxis, um dich zu zentrieren."
+      "description": "Beginne deinen Tag mit Klarheit und Fokus. Eine sanfte Sitzung, um dich zu zentrieren."
     },
     "breathAwareness": {
       "title": "Atembewusstsein",
@@ -368,7 +368,7 @@
     },
     "deepMeditation": {
       "title": "Tiefe Meditation",
-      "description": "Erweiterte Praxis für erfahrene Meditierende. Tauche ein in die Stille."
+      "description": "Erweiterte Sitzung für erfahrene Meditierende. Tauche ein in die Stille."
     },
     "morningEnergyBoost": {
       "title": "Morgendliche Energie",
@@ -380,7 +380,7 @@
     },
     "quickStressRelief": {
       "title": "Schneller Stressabbau",
-      "description": "Löse Spannungen in nur 5 Minuten. Perfekt für Arbeitspausen."
+      "description": "Eine kurze Sitzung um Spannungen zu lösen. Perfekt für Arbeitspausen."
     },
     "deepStressRelease": {
       "title": "Tiefe Stresslösung",
@@ -407,7 +407,7 @@
       "description": "Beruhige ängstliche Gedanken mit sanftem Atembewusstsein."
     },
     "anxietyReleasePractice": {
-      "title": "Angstlösungs-Praxis",
+      "title": "Angstlösungs-Sitzung",
       "description": "Erde dich und löse Sorgen durch Körperbewusstsein."
     },
     "healingThroughGrief": {
@@ -444,7 +444,7 @@
     },
     "beginnerZazen": {
       "title": "Zazen für Anfänger",
-      "description": "Einführung in die Zen-Sitz-Meditationspraxis."
+      "description": "Einführung in die Zen-Sitz-Meditationstechnik."
     },
     "vipassanaBodyScan": {
       "title": "Vipassana Körper-Scan",
@@ -456,7 +456,7 @@
     },
     "beginnerVipassana": {
       "title": "Vipassana für Anfänger",
-      "description": "Einführung in die Einsichts-Meditationspraxis."
+      "description": "Einführung in die Einsichts-Meditationstechnik."
     },
     "omMeditation": {
       "title": "Om-Meditation",
@@ -464,7 +464,7 @@
     },
     "transcendentalMeditation": {
       "title": "Transzendentale Meditation",
-      "description": "Gelange in tiefe innere Stille mit Mantra-Praxis."
+      "description": "Gelange in tiefe innere Stille mit Mantra-Meditation."
     },
     "chakraAwareness": {
       "title": "Chakra-Bewusstsein",
@@ -492,7 +492,7 @@
     },
     "breathOfCompassion": {
       "title": "Atem des Mitgefühls",
-      "description": "Sufi-Atempraxis zum Öffnen des Herzens."
+      "description": "Sufi-Atemtechnik zum Öffnen des Herzens."
     },
     "centeringPrayer": {
       "title": "Zentrierendes Gebet",
@@ -643,7 +643,7 @@
       "description": "Schließe deine erste Meditationssitzung ab"
     },
     "tenSessions": {
-      "title": "Engagierter Praktizierender",
+      "title": "Engagierter Meditierender",
       "description": "Schließe 10 Meditationssitzungen ab"
     },
     "fiftySessions": {
@@ -687,7 +687,7 @@
       "description": "Schließe 5 Zen-Meditationssitzungen ab"
     },
     "vipassanaPractitioner": {
-      "title": "Vipassana-Praktizierender",
+      "title": "Vipassana-Entdecker",
       "description": "Schließe 5 Vipassana-Meditationssitzungen ab"
     },
     "vedicMaster": {
@@ -719,7 +719,7 @@
       "description": "Erreiche Level 3"
     },
     "advanced": {
-      "title": "Fortgeschrittener Praktizierender",
+      "title": "Fortgeschrittener Meditierender",
       "description": "Erreiche Level 4"
     },
     "master": {

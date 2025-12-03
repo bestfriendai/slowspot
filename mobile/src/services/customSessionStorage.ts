@@ -32,6 +32,7 @@ export interface CustomSessionConfig {
   intervalBellMinutes: number;
   wakeUpChimeEnabled: boolean;
   voiceGuidanceEnabled: boolean;
+  vibrationEnabled: boolean;
   breathingPattern?: BreathingPattern;
   customBreathing?: CustomBreathingPattern;
   name?: string;

@@ -36,92 +36,9 @@ import { MeditationIntroGuide } from './MeditationIntroGuide';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, backgrounds } from '../theme/colors';
 import { userPreferences } from '../services/userPreferences';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
-
-// ══════════════════════════════════════════════════════════════
-// Scroll Indicator Component
-// Shows animated chevron when content is scrollable
-// ══════════════════════════════════════════════════════════════
-
-interface ScrollIndicatorProps {
-  isVisible: boolean;
-  isDark: boolean;
-}
-
-const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({ isVisible, isDark }) => {
-  const opacity = useSharedValue(0);
-  const translateY = useSharedValue(0);
-
-  useEffect(() => {
-    if (isVisible) {
-      opacity.value = withTiming(1, { duration: 300 });
-      translateY.value = withRepeat(
-        withSequence(
-          withTiming(6, { duration: 800, easing: Easing.inOut(Easing.ease) }),
-          withTiming(0, { duration: 800, easing: Easing.inOut(Easing.ease) })
-        ),
-        -1, // infinite
-        false
-      );
-    } else {
-      opacity.value = withTiming(0, { duration: 300 });
-    }
-  }, [isVisible]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-    transform: [{ translateY: translateY.value }],
-  }));
-
-  const gradientColors = isDark
-    ? ['transparent', 'rgba(28, 28, 30, 0.95)', 'rgba(28, 28, 30, 1)']
-    : ['transparent', 'rgba(255, 255, 255, 0.95)', 'rgba(255, 255, 255, 1)'];
-
-  return (
-    <Reanimated.View style={[scrollIndicatorStyles.container, animatedStyle]} pointerEvents="none">
-      <LinearGradient
-        colors={gradientColors}
-        style={scrollIndicatorStyles.gradient}
-      />
-      <View style={scrollIndicatorStyles.chevronContainer}>
-        <Ionicons
-          name="chevron-down"
-          size={18}
-          color={brandColors.purple.primary}
-        />
-      </View>
-    </Reanimated.View>
-  );
-};
-
-const scrollIndicatorStyles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 48,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingBottom: 4,
-  },
-  gradient: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 48,
-  },
-  chevronContainer: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: brandColors.transparent.light15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 interface IntentionScreenProps {
   onBegin: (intention: string) => void;
@@ -145,6 +62,7 @@ const AnimatedBreathingCircle: React.FC<AnimatedBreathingCircleProps> = ({
   isDark,
 }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const scale = useSharedValue(1);
   const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
 
@@ -228,13 +146,13 @@ const AnimatedBreathingCircle: React.FC<AnimatedBreathingCircleProps> = ({
       <Reanimated.View style={[breathingStyles.breathingCircleWrapper, animatedStyle]}>
         <View style={[
           breathingStyles.breathingCircle,
-          { borderColor: brandColors.purple.primary }
+          { borderColor: currentTheme.primary }
         ]} />
       </Reanimated.View>
       {isRunning && (
         <Text style={[
           breathingStyles.breathingText,
-          { color: brandColors.purple.primary }
+          { color: currentTheme.primary }
         ]}>
           {getPhaseText()}
         </Text>
@@ -258,7 +176,7 @@ const breathingStyles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: brandColors.transparent.light25,
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
     borderWidth: 3,
   },
   breathingText: {
@@ -278,6 +196,7 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
   sessionName,
 }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const [intention, setIntention] = useState('');
   const [skipForever, setSkipForever] = useState(false);
   const [showBreathingModal, setShowBreathingModal] = useState(false);
@@ -285,7 +204,6 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
   const [breathingTime, setBreathingTime] = useState(60); // 1 minute default
   const [selectedPattern, setSelectedPattern] = useState<'box' | '4-7-8' | 'equal' | 'calm'>('box');
   const [showIntroGuideModal, setShowIntroGuideModal] = useState(false);
-  const [showScrollIndicator, setShowScrollIndicator] = useState(true);
 
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
@@ -313,11 +231,11 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
       shadowRadius: 16,
       elevation: 8,
     },
-    iconBoxBg: isDark ? brandColors.transparent.light25 : brandColors.transparent.light15,
-    checkboxColor: brandColors.purple.primary,
+    iconBoxBg: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}26`,
+    checkboxColor: currentTheme.primary,
     skipText: { color: colors.text.secondary },
     modalBg: isDark ? colors.neutral.charcoal[300] : colors.neutral.white,
-  }), [colors, isDark]);
+  }), [colors, isDark, currentTheme]);
 
   // Breathing timer
   useEffect(() => {
@@ -369,16 +287,6 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
   const handleStopBreathing = () => {
     setBreathingActive(false);
     setBreathingTime(60);
-  };
-
-  // Handle scroll to show/hide scroll indicator
-  const handleScroll = (event: { nativeEvent: { contentOffset: { y: number }, contentSize: { height: number }, layoutMeasurement: { height: number } } }) => {
-    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
-    const scrolledToBottom = contentOffset.y + layoutMeasurement.height >= contentSize.height - 50;
-    const hasScrollableContent = contentSize.height > layoutMeasurement.height + 20;
-
-    // Hide indicator when scrolled to bottom or if content doesn't need scrolling
-    setShowScrollIndicator(hasScrollableContent && !scrolledToBottom);
   };
 
   // Get time-based greeting
@@ -478,7 +386,7 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
                         backgroundColor: isDark ? colors.neutral.charcoal[200] : colors.neutral.gray[50],
                         borderWidth: 1.5,
                         borderColor: selectedPattern === pattern.id
-                          ? brandColors.purple.primary
+                          ? currentTheme.primary
                           : isDark ? colors.neutral.charcoal[100] : colors.neutral.gray[200],
                       },
                       selectedPattern === pattern.id && {
@@ -489,12 +397,12 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
                   >
                     <View style={[
                       modalStyles.patternIcon,
-                      { backgroundColor: selectedPattern === pattern.id ? brandColors.purple.primary : dynamicStyles.iconBoxBg }
+                      { backgroundColor: selectedPattern === pattern.id ? currentTheme.primary : dynamicStyles.iconBoxBg }
                     ]}>
                       <Ionicons
                         name={pattern.icon}
                         size={20}
-                        color={selectedPattern === pattern.id ? colors.neutral.white : brandColors.purple.primary}
+                        color={selectedPattern === pattern.id ? colors.neutral.white : currentTheme.primary}
                       />
                     </View>
                     <View style={modalStyles.patternInfo}>
@@ -506,7 +414,7 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
                       </Text>
                     </View>
                     {selectedPattern === pattern.id && (
-                      <Ionicons name="checkmark-circle" size={24} color={brandColors.purple.primary} />
+                      <Ionicons name="checkmark-circle" size={24} color={currentTheme.primary} />
                     )}
                   </TouchableOpacity>
                 ))}
@@ -524,7 +432,7 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
 
             {/* Timer */}
             {breathingActive && (
-              <Text style={[modalStyles.timer, { color: brandColors.purple.primary }]}>
+              <Text style={[modalStyles.timer, { color: currentTheme.primary }]}>
                 {formatTime(breathingTime)}
               </Text>
             )}
@@ -562,13 +470,11 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
-            onScroll={handleScroll}
-            scrollEventThrottle={16}
           >
           {/* Header */}
           <View style={styles.header}>
             <View style={[styles.iconCircle, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="leaf" size={32} color={brandColors.purple.primary} />
+              <Ionicons name="leaf" size={32} color={currentTheme.primary} />
             </View>
             <Text style={[styles.greeting, dynamicStyles.subtitle]}>{getTimeGreeting()}</Text>
             <Text style={[styles.title, dynamicStyles.title]}>
@@ -586,7 +492,7 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
               style={[styles.breathingButton, { backgroundColor: dynamicStyles.iconBoxBg }]}
               onPress={() => setShowIntroGuideModal(true)}
             >
-              <View style={[styles.breathingButtonIcon, { backgroundColor: brandColors.purple.primary }]}>
+              <View style={[styles.breathingButtonIcon, { backgroundColor: currentTheme.primary }]}>
                 <Ionicons name="sparkles" size={20} color={colors.neutral.white} />
               </View>
               <View style={styles.breathingButtonText}>
@@ -594,30 +500,12 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
                   {t('introGuide.title', 'Wprowadzenie do Medytacji')}
                 </Text>
                 <Text style={[styles.breathingButtonSubtitle, { color: colors.text.secondary }]}>
-                  {t('introGuide.subtitle', 'Poznaj podstawy uważnej praktyki')}
+                  {t('introGuide.subtitle', 'Poznaj podstawy uważności')}
                 </Text>
               </View>
               <Ionicons name="chevron-forward" size={20} color={colors.text.secondary} />
             </TouchableOpacity>
 
-            {/* Breathing Exercise Button */}
-            <TouchableOpacity
-              style={[styles.breathingButton, { backgroundColor: dynamicStyles.iconBoxBg }]}
-              onPress={handleOpenBreathing}
-            >
-              <View style={[styles.breathingButtonIcon, { backgroundColor: brandColors.purple.primary }]}>
-                <Ionicons name="fitness" size={20} color={colors.neutral.white} />
-              </View>
-              <View style={styles.breathingButtonText}>
-                <Text style={[styles.breathingButtonTitle, { color: colors.text.primary }]}>
-                  {t('intention.breathing.buttonTitle', 'Ćwiczenie oddechowe')}
-                </Text>
-                <Text style={[styles.breathingButtonSubtitle, { color: colors.text.secondary }]}>
-                  {t('intention.breathing.buttonSubtitle', 'Przygotuj ciało i umysł')}
-                </Text>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color={colors.text.secondary} />
-            </TouchableOpacity>
           </View>
 
           {/* Intention Input Card */}
@@ -673,7 +561,6 @@ export const IntentionScreen: React.FC<IntentionScreenProps> = ({
             </TouchableOpacity>
           </View>
           </ScrollView>
-          <ScrollIndicator isVisible={showScrollIndicator} isDark={isDark} />
         </View>
       </KeyboardAvoidingView>
     </GradientBackground>

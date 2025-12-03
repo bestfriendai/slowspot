@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useTranslation } from 'react-i18next';
 import Svg, { Path, G, Defs, RadialGradient, Stop, Circle } from 'react-native-svg';
 import { brandColors } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -113,6 +114,7 @@ const FloatingParticle: React.FC<{
 
 export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.85)).current;
   const titleFade = useRef(new Animated.Value(0)).current;
@@ -235,8 +237,8 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#5B4FCF', '#7C3AED', '#9333EA', '#A855F7']}
-        locations={[0, 0.35, 0.7, 1]}
+        colors={currentTheme.gradient}
+        locations={[0, 0.5, 1]}
         start={{ x: 0.2, y: 0 }}
         end={{ x: 0.8, y: 1 }}
         style={styles.gradient}

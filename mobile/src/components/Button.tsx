@@ -18,7 +18,7 @@ import {
   View,
 } from 'react-native';
 import theme from '../theme';
-import { brandColors } from '../theme/colors';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'destructive';
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -64,6 +64,7 @@ export const Button: React.FC<ButtonProps> = ({
   rightIcon,
 }) => {
   const sizeStyles = theme.buttonSizes[size];
+  const { currentTheme } = usePersonalization();
 
   const getVariantStyles = () => {
     const baseStyle: ViewStyle = {
@@ -77,7 +78,7 @@ export const Button: React.FC<ButtonProps> = ({
         return {
           container: {
             ...baseStyle,
-            backgroundColor: brandColors.purple.primary,
+            backgroundColor: currentTheme.primary,
           },
           text: {
             color: theme.colors.neutral.white,
@@ -112,7 +113,7 @@ export const Button: React.FC<ButtonProps> = ({
             backgroundColor: 'transparent',
           },
           text: {
-            color: brandColors.purple.primary,
+            color: currentTheme.primary,
           },
         };
       case 'destructive':

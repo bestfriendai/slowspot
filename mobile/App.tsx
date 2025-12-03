@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, TouchableOpacity, Platform, useColorScheme, Alert } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,7 +10,7 @@ import * as Haptics from 'expo-haptics';
 import * as SplashScreen from 'expo-splash-screen';
 import './src/i18n';
 import { logger } from './src/utils/logger';
-import { brandColors } from './src/theme/colors';
+import { AnimatedScreenContainer } from './src/components/AnimatedScreenContainer';
 
 // Keep the splash screen visible while we load resources
 SplashScreen.preventAutoHideAsync();
@@ -24,11 +25,13 @@ import { SettingsScreen, THEME_STORAGE_KEY, ThemeMode } from './src/screens/Sett
 import { CustomSessionBuilderScreen, CustomSessionConfig } from './src/screens/CustomSessionBuilderScreen';
 import { ProfileScreen } from './src/screens/ProfileScreen';
 import InstructionsScreen from './src/screens/InstructionsScreen';
+import { PersonalizationScreen } from './src/screens/PersonalizationScreen';
 import { MeditationSession } from './src/services/api';
 import { SplashScreen as CustomSplashScreen } from './src/components/SplashScreen';
 import { ensureStorageSchema } from './src/services/storage';
+import { PersonalizationProvider, usePersonalization } from './src/contexts/PersonalizationContext';
 
-type Screen = 'home' | 'meditation' | 'quotes' | 'settings' | 'custom' | 'profile' | 'instructions';
+type Screen = 'home' | 'meditation' | 'quotes' | 'settings' | 'custom' | 'profile' | 'instructions' | 'personalization';
 
 // Meditation session state for persistence across navigation
 export interface ActiveMeditationState {
@@ -44,10 +47,18 @@ function AppContent() {
   const [editSessionId, setEditSessionId] = useState<string | undefined>();
   const [editSessionConfig, setEditSessionConfig] = useState<CustomSessionConfig | undefined>();
   const [activeMeditationState, setActiveMeditationState] = useState<ActiveMeditationState | null>(null);
+  const [sessionRefreshKey, setSessionRefreshKey] = useState(0);
   const [appIsReady, setAppIsReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
   const systemColorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
+
+  // Get personalized colors from context
+  const { currentTheme } = usePersonalization();
+  const primaryColor = currentTheme.primary;
+  // Dynamic active button background with personalized color
+  const activeButtonBgLight = `${primaryColor}26`; // 15% opacity
+  const activeButtonBgDark = `${primaryColor}40`; // 25% opacity
 
   // Calculate actual dark mode based on theme mode and system preference
   const isDark = themeMode === 'system'
@@ -149,6 +160,8 @@ function AppContent() {
   const handleBackFromCustomBuilder = () => {
     setEditSessionId(undefined);
     setEditSessionConfig(undefined);
+    // Increment refresh key to trigger session reload in MeditationScreen
+    setSessionRefreshKey(prev => prev + 1);
     setCurrentScreen('home');
   };
 
@@ -168,6 +181,7 @@ function AppContent() {
       case 'meditation':
         return (
           <MeditationScreen
+            key={sessionRefreshKey}
             isDark={isDark}
             onEditSession={handleEditSession}
             onNavigateToCustom={() => setCurrentScreen('custom')}
@@ -184,6 +198,14 @@ function AppContent() {
             themeMode={themeMode}
             onThemeChange={handleThemeChange}
             onNavigateToProfile={() => setCurrentScreen('profile')}
+            onNavigateToPersonalization={() => setCurrentScreen('personalization')}
+          />
+        );
+      case 'personalization':
+        return (
+          <PersonalizationScreen
+            isDark={isDark}
+            onBack={() => setCurrentScreen('settings')}
           />
         );
       case 'profile':
@@ -213,8 +235,17 @@ function AppContent() {
         <StatusBar style={isDark ? 'light' : 'dark'} />
 
         <View style={styles.mainContent}>
-        {/* Main Content */}
-        <View style={styles.screenContainer}>{renderScreen()}</View>
+        {/* Main Content with animated transitions */}
+        <View style={styles.screenContainer}>
+          <AnimatedScreenContainer
+            screenKey={currentScreen}
+            onNavigate={handleNavigate}
+            enableSwipe={currentScreen !== 'meditation' || !activeMeditationState}
+            transitionDuration={350}
+          >
+            {renderScreen()}
+          </AnimatedScreenContainer>
+        </View>
 
         {/* Bottom Navigation - Glassmorphism Effect */}
         <BlurView
@@ -226,7 +257,7 @@ function AppContent() {
             <TouchableOpacity
             style={[
               styles.navButton,
-              currentScreen === 'home' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
+              currentScreen === 'home' && { backgroundColor: isDark ? activeButtonBgDark : activeButtonBgLight },
             ]}
             onPress={() => handleNavigate('home')}
             accessibilityLabel="Home"
@@ -238,7 +269,7 @@ function AppContent() {
               size={24}
               color={
                 currentScreen === 'home'
-                  ? brandColors.purple.primary
+                  ? primaryColor
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -248,7 +279,7 @@ function AppContent() {
           <TouchableOpacity
             style={[
               styles.navButton,
-              currentScreen === 'meditation' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
+              currentScreen === 'meditation' && { backgroundColor: isDark ? activeButtonBgDark : activeButtonBgLight },
             ]}
             onPress={() => handleNavigate('meditation')}
             accessibilityLabel="Meditation"
@@ -260,7 +291,7 @@ function AppContent() {
               size={24}
               color={
                 currentScreen === 'meditation'
-                  ? brandColors.purple.primary
+                  ? primaryColor
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -270,7 +301,7 @@ function AppContent() {
           <TouchableOpacity
             style={[
               styles.navButton,
-              currentScreen === 'quotes' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
+              currentScreen === 'quotes' && { backgroundColor: isDark ? activeButtonBgDark : activeButtonBgLight },
             ]}
             onPress={() => handleNavigate('quotes')}
             accessibilityLabel="Quotes"
@@ -282,7 +313,7 @@ function AppContent() {
               size={24}
               color={
                 currentScreen === 'quotes'
-                  ? brandColors.purple.primary
+                  ? primaryColor
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -292,7 +323,7 @@ function AppContent() {
           <TouchableOpacity
             style={[
               styles.navButton,
-              currentScreen === 'settings' && (isDark ? styles.activeButtonDark : styles.activeButtonLight),
+              currentScreen === 'settings' && { backgroundColor: isDark ? activeButtonBgDark : activeButtonBgLight },
             ]}
             onPress={() => handleNavigate('settings')}
             accessibilityLabel="Settings"
@@ -304,7 +335,7 @@ function AppContent() {
               size={24}
               color={
                 currentScreen === 'settings'
-                  ? brandColors.purple.primary
+                  ? primaryColor
                   : isDark
                   ? '#8E8E93'
                   : '#3A3A3C'
@@ -320,13 +351,20 @@ function AppContent() {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <AppContent />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={styles.gestureRoot}>
+      <SafeAreaProvider>
+        <PersonalizationProvider>
+          <AppContent />
+        </PersonalizationProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
+  gestureRoot: {
+    flex: 1,
+  },
   container: {
     flex: 1,
   },
@@ -363,11 +401,5 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  activeButtonLight: {
-    backgroundColor: brandColors.transparent.light15, // Subtle purple tint - consistent with brand
-  },
-  activeButtonDark: {
-    backgroundColor: brandColors.transparent.light25, // Subtle purple tint for dark mode
   },
 });

@@ -6,7 +6,7 @@
  */
 
 import { logger } from '../utils/logger';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -16,9 +16,9 @@ import {
   StyleSheet,
   Share,
   Alert,
-  Switch,
   Linking,
 } from 'react-native';
+import * as Haptics from 'expo-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GradientBackground } from '../components/GradientBackground';
@@ -29,7 +29,7 @@ import { exportAllData, clearAllData } from '../services/storage';
 import { clearAllCustomSessions } from '../services/customSessionStorage';
 import { clearProgress } from '../services/progressTracker';
 import { clearAllQuoteHistory } from '../services/quoteHistory';
-import { userPreferences } from '../services/userPreferences';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 export const LANGUAGE_STORAGE_KEY = 'user_language_preference';
 export const THEME_STORAGE_KEY = 'user_theme_preference';
@@ -56,6 +56,7 @@ interface SettingsScreenProps {
   themeMode: ThemeMode;
   onThemeChange: (mode: ThemeMode) => void;
   onNavigateToProfile?: () => void;
+  onNavigateToPersonalization?: () => void;
 }
 
 export const SettingsScreen: React.FC<SettingsScreenProps> = ({
@@ -63,18 +64,10 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   themeMode,
   onThemeChange,
   onNavigateToProfile,
+  onNavigateToPersonalization,
 }) => {
   const { t, i18n } = useTranslation();
-  const [skipInstructions, setSkipInstructions] = useState(false);
-
-  // Load user preferences
-  useEffect(() => {
-    const loadPreferences = async () => {
-      const skip = await userPreferences.shouldSkipPreSessionInstructions();
-      setSkipInstructions(skip);
-    };
-    loadPreferences();
-  }, []);
+  const { currentTheme } = usePersonalization();
 
   // Get theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
@@ -100,7 +93,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       elevation: 8,
     },
     // Icon box backgrounds - using feature color palettes for beautiful, consistent look
-    iconBoxBgPurple: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10],
+    iconBoxBgPurple: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A`,
     iconBoxBgBlue: isDark ? `rgba(${featureColorPalettes.indigo.rgb}, 0.2)` : `rgba(${featureColorPalettes.indigo.rgb}, 0.1)`,
     iconBoxBgRed: isDark ? `rgba(${featureColorPalettes.rose.rgb}, 0.2)` : `rgba(${featureColorPalettes.rose.rgb}, 0.1)`,
     iconBoxBgGreen: isDark ? `rgba(${featureColorPalettes.emerald.rgb}, 0.2)` : `rgba(${featureColorPalettes.emerald.rgb}, 0.1)`,
@@ -110,14 +103,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     optionBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.lightGray[50],
     optionBorder: isDark ? colors.neutral.charcoal[100] : colors.neutral.lightGray[200],
     optionText: { color: colors.text.primary },
-    optionSelectedBg: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
-    optionSelectedBorder: isDark ? primaryColor.transparent[40] : primaryColor.transparent[30],
-    optionSelectedText: { color: brandColors.purple.primary },
-    // Switch colors - using primary/brand
-    switchTrackFalse: isDark ? colors.neutral.charcoal[100] : colors.neutral.lightGray[300],
-    switchTrackTrue: brandColors.purple.primary,
-    switchThumbFalse: isDark ? colors.neutral.gray[400] : colors.neutral.white,
-    switchThumbTrue: colors.neutral.white,
+    optionSelectedBg: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}26`,
+    optionSelectedBorder: isDark ? `${currentTheme.primary}66` : `${currentTheme.primary}4D`,
+    optionSelectedText: { color: currentTheme.primary },
     // Icon colors for different sections
     iconPurple: isDark ? featureColorPalettes.violet.darkIcon : featureColorPalettes.violet.lightIcon,
     iconBlue: isDark ? featureColorPalettes.indigo.darkIcon : featureColorPalettes.indigo.lightIcon,
@@ -136,15 +124,6 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, languageCode);
     } catch (error) {
       logger.error('Failed to save language preference:', error);
-    }
-  };
-
-  const handleSkipInstructionsChange = async (value: boolean) => {
-    try {
-      setSkipInstructions(value);
-      await userPreferences.setSkipPreSessionInstructions(value);
-    } catch (error) {
-      logger.error('Failed to save skip instructions preference:', error);
     }
   };
 
@@ -230,6 +209,31 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </GradientCard>
         )}
 
+        {/* Personalization Card */}
+        {onNavigateToPersonalization && (
+          <GradientCard
+            gradient={themeGradients.card.whiteCard}
+            style={[styles.card, dynamicStyles.cardShadow]}
+            onPress={onNavigateToPersonalization}
+            isDark={isDark}
+          >
+            <View style={styles.cardRow}>
+              <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgAmber }]}>
+                <Ionicons name="color-wand" size={24} color={dynamicStyles.iconAmber} />
+              </View>
+              <View style={styles.cardTextContainer}>
+                <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
+                  {t('settings.personalization', 'Personalizacja')}
+                </Text>
+                <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
+                  {t('settings.personalizationDescription', 'Dostosuj kolory aplikacji')}
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={22} color={colors.text.tertiary} />
+            </View>
+          </GradientCard>
+        )}
+
         {/* Language Selection Card */}
         <GradientCard
           gradient={themeGradients.card.whiteCard}
@@ -275,7 +279,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                     {lang.name}
                   </Text>
                   {isSelected && (
-                    <Ionicons name="checkmark-circle" size={18} color={brandColors.purple.primary} />
+                    <Ionicons name="checkmark-circle" size={18} color={currentTheme.primary} />
                   )}
                 </TouchableOpacity>
               );
@@ -321,7 +325,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                   <Ionicons
                     name={option.icon}
                     size={24}
-                    color={isSelected ? brandColors.purple.primary : colors.text.secondary}
+                    color={isSelected ? currentTheme.primary : colors.text.secondary}
                   />
                   <Text
                     style={[
@@ -334,66 +338,6 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                 </TouchableOpacity>
               );
             })}
-          </View>
-        </GradientCard>
-
-        {/* Meditation Preferences Card */}
-        <GradientCard
-          gradient={themeGradients.card.whiteCard}
-          style={[styles.card, dynamicStyles.cardShadow]}
-          isDark={isDark}
-        >
-          <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgGreen }]}>
-              <Ionicons name="leaf" size={24} color={dynamicStyles.iconGreen} />
-            </View>
-            <View style={styles.cardTextContainer}>
-              <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
-                {t('settings.meditation', 'Medytacja')}
-              </Text>
-              <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
-                {t('settings.meditationDescription', 'Preferencje sesji medytacyjnych')}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.switchContainer}>
-            <TouchableOpacity
-              style={[
-                styles.switchRow,
-                {
-                  backgroundColor: dynamicStyles.optionBg,
-                  borderColor: dynamicStyles.optionBorder,
-                },
-              ]}
-              onPress={() => handleSkipInstructionsChange(!skipInstructions)}
-              activeOpacity={0.8}
-            >
-              <View style={styles.switchContent}>
-                <Ionicons
-                  name="flash"
-                  size={20}
-                  color={skipInstructions ? brandColors.purple.primary : colors.text.tertiary}
-                />
-                <View style={styles.switchTextContainer}>
-                  <Text style={[styles.switchLabel, dynamicStyles.optionText]}>
-                    {t('settings.skipInstructions', 'Pomijaj instrukcje')}
-                  </Text>
-                  <Text style={[styles.switchDescription, dynamicStyles.cardDescription]}>
-                    {t('settings.skipInstructionsDescription', 'Dla doświadczonych medytujących')}
-                  </Text>
-                </View>
-              </View>
-              <Switch
-                value={skipInstructions}
-                onValueChange={handleSkipInstructionsChange}
-                trackColor={{
-                  false: dynamicStyles.switchTrackFalse,
-                  true: dynamicStyles.switchTrackTrue,
-                }}
-                thumbColor={skipInstructions ? dynamicStyles.switchThumbTrue : dynamicStyles.switchThumbFalse}
-                ios_backgroundColor={dynamicStyles.switchTrackFalse}
-              />
-            </TouchableOpacity>
           </View>
         </GradientCard>
 
@@ -418,7 +362,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </View>
           <View style={styles.dataButtons}>
             <TouchableOpacity
-              style={[styles.dataButton, { backgroundColor: brandColors.purple.primary }]}
+              style={[styles.dataButton, { backgroundColor: currentTheme.primary }]}
               onPress={handleExportData}
               activeOpacity={0.8}
             >
@@ -440,7 +384,78 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
           </View>
         </GradientCard>
 
-        {/* About Card */}
+        {/* Legal & Support Card - Required for App Store / Google Play */}
+        <GradientCard
+          gradient={themeGradients.card.whiteCard}
+          style={[styles.card, dynamicStyles.cardShadow]}
+          isDark={isDark}
+        >
+          <View style={styles.cardRow}>
+            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
+              <Ionicons name="document-text" size={24} color={currentTheme.primary} />
+            </View>
+            <View style={styles.cardTextContainer}>
+              <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
+                {t('settings.legalTitle', 'Informacje prawne')}
+              </Text>
+              <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
+                {t('settings.legalDescription', 'Regulamin, polityka prywatności i wsparcie')}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.legalLinks}>
+            <TouchableOpacity
+              style={[styles.legalLink, { backgroundColor: dynamicStyles.optionBg }]}
+              onPress={() => {
+                const locale = i18n.language === 'pl' ? 'pl' : 'en';
+                Linking.openURL(`https://slowspot.me/${locale}/privacy`);
+              }}
+              activeOpacity={0.7}
+            >
+              <View style={styles.legalLinkContent}>
+                <Ionicons name="shield-checkmark" size={20} color={currentTheme.primary} />
+                <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
+                  {t('settings.privacyPolicy', 'Polityka prywatności')}
+                </Text>
+              </View>
+              <Ionicons name="open-outline" size={18} color={dynamicStyles.chevronColor} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.legalLink, { backgroundColor: dynamicStyles.optionBg }]}
+              onPress={() => {
+                const locale = i18n.language === 'pl' ? 'pl' : 'en';
+                Linking.openURL(`https://slowspot.me/${locale}/terms`);
+              }}
+              activeOpacity={0.7}
+            >
+              <View style={styles.legalLinkContent}>
+                <Ionicons name="document" size={20} color={currentTheme.primary} />
+                <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
+                  {t('settings.termsOfService', 'Regulamin')}
+                </Text>
+              </View>
+              <Ionicons name="open-outline" size={18} color={dynamicStyles.chevronColor} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.legalLink, { backgroundColor: dynamicStyles.optionBg }]}
+              onPress={() => {
+                const locale = i18n.language === 'pl' ? 'pl' : 'en';
+                Linking.openURL(`https://slowspot.me/${locale}/support`);
+              }}
+              activeOpacity={0.7}
+            >
+              <View style={styles.legalLinkContent}>
+                <Ionicons name="help-circle" size={20} color={currentTheme.primary} />
+                <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
+                  {t('settings.support', 'Wsparcie')}
+                </Text>
+              </View>
+              <Ionicons name="open-outline" size={18} color={dynamicStyles.chevronColor} />
+            </TouchableOpacity>
+          </View>
+        </GradientCard>
+
+        {/* About Card - At the very bottom */}
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -465,95 +480,24 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </Text>
             <View style={styles.aboutFeatures}>
               <View style={styles.aboutFeature}>
-                <Ionicons name="checkmark-circle" size={16} color={brandColors.purple.primary} />
+                <Ionicons name="checkmark-circle" size={16} color={currentTheme.primary} />
                 <Text style={[styles.aboutFeatureText, dynamicStyles.cardDescription]}>
                   {t('settings.featureOffline', 'Działa offline')}
                 </Text>
               </View>
               <View style={styles.aboutFeature}>
-                <Ionicons name="checkmark-circle" size={16} color={brandColors.purple.primary} />
+                <Ionicons name="checkmark-circle" size={16} color={currentTheme.primary} />
                 <Text style={[styles.aboutFeatureText, dynamicStyles.cardDescription]}>
                   {t('settings.featurePrivacy', 'Bez reklam i śledzenia')}
                 </Text>
               </View>
               <View style={styles.aboutFeature}>
-                <Ionicons name="checkmark-circle" size={16} color={brandColors.purple.primary} />
+                <Ionicons name="checkmark-circle" size={16} color={currentTheme.primary} />
                 <Text style={[styles.aboutFeatureText, dynamicStyles.cardDescription]}>
                   {t('settings.featureLocal', 'Dane na urządzeniu')}
                 </Text>
               </View>
             </View>
-          </View>
-        </GradientCard>
-
-        {/* Legal & Support Card - Required for App Store / Google Play */}
-        <GradientCard
-          gradient={themeGradients.card.whiteCard}
-          style={[styles.card, dynamicStyles.cardShadow]}
-          isDark={isDark}
-        >
-          <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBg }]}>
-              <Ionicons name="document-text" size={24} color={brandColors.purple.primary} />
-            </View>
-            <View style={styles.cardTextContainer}>
-              <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
-                {t('settings.legalTitle', 'Informacje prawne')}
-              </Text>
-              <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
-                {t('settings.legalDescription', 'Regulamin, polityka prywatności i wsparcie')}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.legalLinks}>
-            <TouchableOpacity
-              style={[styles.legalLink, { backgroundColor: dynamicStyles.optionBg }]}
-              onPress={() => {
-                const locale = i18n.language === 'pl' ? 'pl' : 'en';
-                Linking.openURL(`https://slowspot.me/${locale}/privacy`);
-              }}
-              activeOpacity={0.7}
-            >
-              <View style={styles.legalLinkContent}>
-                <Ionicons name="shield-checkmark" size={20} color={brandColors.purple.primary} />
-                <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
-                  {t('settings.privacyPolicy', 'Polityka prywatności')}
-                </Text>
-              </View>
-              <Ionicons name="open-outline" size={18} color={dynamicStyles.chevronColor} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.legalLink, { backgroundColor: dynamicStyles.optionBg }]}
-              onPress={() => {
-                const locale = i18n.language === 'pl' ? 'pl' : 'en';
-                Linking.openURL(`https://slowspot.me/${locale}/terms`);
-              }}
-              activeOpacity={0.7}
-            >
-              <View style={styles.legalLinkContent}>
-                <Ionicons name="document" size={20} color={brandColors.purple.primary} />
-                <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
-                  {t('settings.termsOfService', 'Regulamin')}
-                </Text>
-              </View>
-              <Ionicons name="open-outline" size={18} color={dynamicStyles.chevronColor} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.legalLink, { backgroundColor: dynamicStyles.optionBg }]}
-              onPress={() => {
-                const locale = i18n.language === 'pl' ? 'pl' : 'en';
-                Linking.openURL(`https://slowspot.me/${locale}/support`);
-              }}
-              activeOpacity={0.7}
-            >
-              <View style={styles.legalLinkContent}>
-                <Ionicons name="help-circle" size={20} color={brandColors.purple.primary} />
-                <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
-                  {t('settings.support', 'Wsparcie')}
-                </Text>
-              </View>
-              <Ionicons name="open-outline" size={18} color={dynamicStyles.chevronColor} />
-            </TouchableOpacity>
           </View>
         </GradientCard>
       </ScrollView>
@@ -645,35 +589,6 @@ const styles = StyleSheet.create({
   themeOptionText: {
     fontSize: theme.typography.fontSizes.xs,
     fontWeight: '600',
-  },
-  // Switch
-  switchContainer: {
-    marginTop: theme.spacing.md,
-  },
-  switchRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing.md,
-    borderRadius: theme.borderRadius.lg,
-    borderWidth: 1,
-  },
-  switchContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    gap: theme.spacing.sm,
-  },
-  switchTextContainer: {
-    flex: 1,
-  },
-  switchLabel: {
-    fontSize: theme.typography.fontSizes.sm,
-    fontWeight: '600',
-  },
-  switchDescription: {
-    fontSize: theme.typography.fontSizes.xs,
-    marginTop: 2,
   },
   // Data buttons
   dataButtons: {

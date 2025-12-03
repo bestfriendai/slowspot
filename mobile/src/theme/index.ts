@@ -181,6 +181,44 @@ export const buttonSizes = {
 };
 
 /**
+ * Swipe action colors - for swipeable cards with Edit/Delete actions
+ * Soft pastel backgrounds with colored icons (matching app icon style)
+ */
+export const swipeActionColors = {
+  edit: {
+    background: 'rgba(99, 102, 241, 0.1)',  // Soft indigo/violet background
+    icon: '#6366F1',  // Indigo-500 icon
+    text: '#6366F1',  // Indigo-500 text
+  },
+  delete: {
+    background: 'rgba(239, 68, 68, 0.1)',  // Soft rose/red background
+    icon: '#EF4444',  // Red-500 icon
+    text: '#EF4444',  // Red-500 text
+  },
+};
+
+/**
+ * Dark mode swipe action colors
+ */
+export const darkSwipeActionColors = {
+  edit: {
+    background: 'rgba(129, 140, 248, 0.15)',  // Soft indigo background for dark
+    icon: '#818CF8',  // Indigo-400 icon
+    text: '#818CF8',  // Indigo-400 text
+  },
+  delete: {
+    background: 'rgba(248, 113, 113, 0.15)',  // Soft rose background for dark
+    icon: '#F87171',  // Red-400 icon
+    text: '#F87171',  // Red-400 text
+  },
+};
+
+/**
+ * Helper function to get swipe action colors based on theme
+ */
+export const getSwipeActionColors = (isDark: boolean) => isDark ? darkSwipeActionColors : swipeActionColors;
+
+/**
  * Card styles
  */
 export const cardStyles = {
@@ -200,6 +238,34 @@ export const cardStyles = {
     padding: spacing.lg,
     borderRadius: borderRadius.xl,
     backgroundColor: colors.background.secondary,
+  },
+  /**
+   * Primary CTA card style - used for hero gradient cards like "Medytuj", "Stwórz sesję"
+   * Beautiful shadow effect with theme color glow
+   */
+  primaryCta: {
+    borderRadius: 24,
+    shadowColor: brandColors.purple.primary,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 12,
+    overflow: 'hidden' as const, // Required for gradient to clip to border radius
+  },
+  /**
+   * Secondary card style - used for list items like Instrukcje, Inspiracje, SessionCard
+   * Consistent shadow and background across the app
+   * IMPORTANT: overflow: 'visible' is required to show shadows outside card bounds
+   */
+  secondary: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: borderRadius.lg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 8,
+    overflow: 'visible' as const,
   },
 };
 
@@ -320,6 +386,34 @@ export const darkCardStyles = {
     borderRadius: borderRadius.xl,
     backgroundColor: '#2C2C2E', // darkBackgrounds.secondary
   },
+  /**
+   * Primary CTA card style - dark mode version
+   * More pronounced glow effect for dark backgrounds
+   */
+  primaryCta: {
+    borderRadius: 24,
+    shadowColor: brandColors.purple.primary,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 24,
+    elevation: 12,
+    overflow: 'hidden' as const,
+  },
+  /**
+   * Secondary card style - dark mode version for list items
+   * Matches light mode secondary but with dark backgrounds
+   * IMPORTANT: overflow: 'visible' is required to show shadows outside card bounds
+   */
+  secondary: {
+    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+    borderRadius: borderRadius.lg,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
+    overflow: 'visible' as const,
+  },
 };
 
 /**
@@ -366,6 +460,11 @@ export const darkTheme = {
  * Helper function to get complete theme based on mode
  */
 export const getTheme = (isDark: boolean) => isDark ? darkTheme : theme;
+
+/**
+ * Helper function to get card styles based on mode
+ */
+export const getCardStyles = (isDark: boolean) => isDark ? darkCardStyles : cardStyles;
 
 export type Theme = typeof theme;
 

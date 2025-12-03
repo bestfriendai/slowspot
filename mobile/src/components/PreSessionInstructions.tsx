@@ -25,6 +25,7 @@ import { GradientButton } from './GradientButton';
 import theme, { gradients, getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, primaryColor, featureColorPalettes, neutralColors, backgrounds } from '../theme/colors';
 import { userPreferences } from '../services/userPreferences';
+import { usePersonalization } from '../contexts/PersonalizationContext';
 
 // ══════════════════════════════════════════════════════════════
 // Icon Mapping Helper
@@ -84,6 +85,7 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
   isDark = false,
 }) => {
   const { t } = useTranslation();
+  const { currentTheme } = usePersonalization();
   const insets = useSafeAreaInsets();
 
   // Theme-aware colors and gradients
@@ -96,7 +98,7 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
     subtitle: { color: colors.text.secondary },
     cardTitle: { color: colors.text.primary },
     cardDescription: { color: colors.text.secondary },
-    listBullet: { color: brandColors.purple.primary },
+    listBullet: { color: currentTheme.primary },
     listText: { color: colors.text.secondary },
     skipButtonText: { color: colors.text.secondary },
     inputLabel: { color: colors.text.secondary },
@@ -105,8 +107,8 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
       color: colors.text.primary,
       backgroundColor: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
     },
-    timerText: { color: brandColors.purple.primary },
-    breathingText: { color: brandColors.purple.primary },
+    timerText: { color: currentTheme.primary },
+    breathingText: { color: currentTheme.primary },
     checklistTitle: { color: colors.text.primary },
     checklistDescription: { color: colors.text.secondary },
     optionalBadge: { color: colors.text.tertiary },
@@ -131,16 +133,16 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
     },
     cardBg: isDark ? colors.neutral.charcoal[200] : colors.neutral.white,
     // Icon box backgrounds - using primary color palette
-    iconBoxBg: isDark ? primaryColor.transparent[25] : primaryColor.transparent[15],
-    iconBoxBgCompleted: brandColors.purple.primary,
+    iconBoxBg: isDark ? `${currentTheme.primary}40` : `${currentTheme.primary}26`,
+    iconBoxBgCompleted: currentTheme.primary,
     // Icon colors
-    iconColor: brandColors.purple.primary,
+    iconColor: currentTheme.primary,
     iconColorCompleted: colors.neutral.white,
     // Checkbox and progress colors
-    checkboxColor: brandColors.purple.primary,
-    checkboxColorUnchecked: isDark ? brandColors.purple.light : brandColors.transparent.light25,
-    progressActiveColor: brandColors.purple.primary,
-  }), [colors, isDark]);
+    checkboxColor: currentTheme.primary,
+    checkboxColorUnchecked: isDark ? `${currentTheme.primary}CC` : `${currentTheme.primary}40`,
+    progressActiveColor: currentTheme.primary,
+  }), [colors, isDark, currentTheme]);
   const [currentStep, setCurrentStep] = useState<'overview' | 'setup' | 'breathing' | 'intention'>('overview');
   const [setupChecklist, setSetupChecklist] = useState<ChecklistItem[]>([]);
   const [breathingPrepComplete, setBreathingPrepComplete] = useState(false);
@@ -259,7 +261,7 @@ export const PreSessionInstructions: React.FC<PreSessionInstructionsProps> = ({
                 style={styles.modalButton}
               >
                 <LinearGradient
-                  colors={[brandColors.purple.light, brandColors.purple.primary]}
+                  colors={currentTheme.gradient}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                   style={styles.modalButtonGradient}
@@ -996,7 +998,7 @@ const StepProgress: React.FC<{ currentStep: string; t: any; isDark?: boolean }> 
               <LinearGradient
                 colors={
                   isComplete || isActive
-                    ? [brandColors.purple.light, brandColors.purple.primary]
+                    ? currentTheme.gradient
                     : isDark
                       ? ['#3A3A4A', '#2A2A3A']
                       : [neutralColors.gray[200], neutralColors.gray[300]]
@@ -1024,7 +1026,7 @@ const StepProgress: React.FC<{ currentStep: string; t: any; isDark?: boolean }> 
                 />
                 {/* Filled portion of line for completed steps */}
                 <LinearGradient
-                  colors={[brandColors.purple.light, brandColors.purple.primary]}
+                  colors={currentTheme.gradient}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 0 }}
                   style={[
@@ -1120,7 +1122,7 @@ const styles = StyleSheet.create({
     gap: theme.spacing.xs,
   },
   listBullet: {
-    color: brandColors.purple.primary,
+    color: '#8B5CF6',
     fontWeight: theme.typography.fontWeights.semiBold,
     fontSize: theme.typography.fontSizes.md,
   },
@@ -1155,7 +1157,7 @@ const styles = StyleSheet.create({
   },
   checklistCardCompleted: {
     borderWidth: 2,
-    borderColor: brandColors.purple.primary,
+    borderColor: '#8B5CF6',
   },
   checklistContent: {
     flexDirection: 'row',
@@ -1232,20 +1234,20 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
-    backgroundColor: brandColors.transparent.light25,
+    backgroundColor: 'rgba(139, 92, 246, 0.15)',
     borderWidth: 3,
-    borderColor: brandColors.purple.primary,
+    borderColor: '#8B5CF6',
   },
   breathingText: {
     position: 'absolute',
     fontSize: theme.typography.fontSizes.lg,
     fontWeight: theme.typography.fontWeights.semiBold,
-    color: brandColors.purple.primary,
+    color: '#8B5CF6',
   },
   timerText: {
     fontSize: 48,
     fontWeight: theme.typography.fontWeights.bold,
-    color: brandColors.purple.primary,
+    color: '#8B5CF6',
     marginVertical: theme.spacing.md,
     textAlign: 'center',
   },
@@ -1376,7 +1378,7 @@ const styles = StyleSheet.create({
   modalButtonSecondary: {
     backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: brandColors.transparent.light25,
+    borderColor: 'rgba(139, 92, 246, 0.25)',
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: theme.spacing.md,
