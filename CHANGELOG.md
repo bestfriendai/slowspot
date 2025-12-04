@@ -1,3 +1,10 @@
+## [1.4.0](https://github.com/Slow-Spot/app/compare/v1.3.0...v1.4.0) (2025-12-04)
+
+### Features
+
+* Enhance user profile management and onboarding experience ([8ff7f19](https://github.com/Slow-Spot/app/commit/8ff7f190fc4955969169c3cd6f3a713d90e8eda8))
+* Improve UX/UI with animations, haptics, and screen wake lock ([efde887](https://github.com/Slow-Spot/app/commit/efde88739f8a69bb314b5eab335e9e8718880fec))
+
 ## [1.3.0](https://github.com/Slow-Spot/app/compare/v1.2.0...v1.3.0) (2025-12-03)
 
 ### Features
