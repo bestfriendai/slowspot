@@ -779,6 +779,34 @@
     "removeFromFavorites": "Retirer des Favoris",
     "duplicate": "Dupliquer",
     "share": "Partager",
-    "sessionDuplicated": "Session dupliquée"
+    "sessionDuplicated": "Session dupliquée",
+    "breathing": {
+      "none": "Sans instructions",
+      "noneDesc": "Méditez sans schéma respiratoire",
+      "box": "Respiration Carrée",
+      "boxDesc": "Active le système parasympathique, réduit le cortisol",
+      "478": "4-7-8",
+      "478Desc": "Sédatif naturel pour le système nerveux",
+      "equal": "Respiration Égale",
+      "equalDesc": "Équilibre le système nerveux, augmente la concentration",
+      "calm": "Respiration Calme",
+      "calmDesc": "L'expiration plus longue active la réponse de relaxation"
+    },
+    "breathingTitle": "Schéma Respiratoire",
+    "breathingDescription": "Choisissez une technique de respiration scientifiquement prouvée (optionnel)",
+    "breathingPattern": "Schéma Respiratoire",
+    "breathingPatternDescription": "Ajoutez une respiration guidée à votre session",
+    "breathingNone": "Aucun",
+    "breathingNoneDesc": "Pas de guide respiratoire",
+    "breathingBox": "Carrée",
+    "breathingBoxDesc": "4-4-4-4 contre le stress",
+    "breathing478": "4-7-8",
+    "breathing478Desc": "Relaxation profonde",
+    "breathingEqual": "Égale",
+    "breathingEqualDesc": "4-4 pour débutants",
+    "breathingCalm": "Calme",
+    "breathingCalmDesc": "2-2 énergisant",
+    "breathingCustom": "Personnalisée",
+    "breathingCustomDesc": "Votre propre schéma"
   }
 }

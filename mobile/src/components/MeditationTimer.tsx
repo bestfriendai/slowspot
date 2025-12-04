@@ -1,6 +1,7 @@
 import { logger } from '../utils/logger';
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Pressable } from 'react-native';
+import { useKeepAwake } from 'expo-keep-awake';
 import { useTranslation } from 'react-i18next';
 import { createAudioPlayer, AudioPlayer } from 'expo-audio';
 import { Ionicons } from '@expo/vector-icons';
@@ -59,7 +60,39 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   vibrationEnabled = true, // Default to enabled for backward compatibility
 }) => {
   const { t } = useTranslation();
-  const { currentTheme } = usePersonalization();
+  const { currentTheme, settings } = usePersonalization();
+
+  // Haptic feedback for breathing phase transitions
+  // Uses both prop and global settings
+  const isHapticEnabled = vibrationEnabled && settings.hapticEnabled;
+  const lastBreathingPhaseRef = useRef<string>('');
+
+  const triggerBreathingHaptic = useCallback((phase: string) => {
+    if (!isHapticEnabled) return;
+
+    // Only trigger if phase actually changed
+    if (phase === lastBreathingPhaseRef.current) return;
+    lastBreathingPhaseRef.current = phase;
+
+    switch (phase) {
+      case 'inhale':
+        // Gentle rising haptic for inhale
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        break;
+      case 'hold':
+      case 'rest':
+        // Soft haptic for hold phases
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+        break;
+      case 'exhale':
+        // Medium haptic for exhale
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        break;
+    }
+  }, [isHapticEnabled]);
+
+  // Keep screen awake during meditation
+  useKeepAwake();
 
   // Get breathing timing from pattern or custom config
   const breathingTiming = useMemo(() => {
@@ -155,8 +188,68 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
   const [adjustableChimes, setAdjustableChimes] = useState<ChimePoint[]>(chimePoints);
   const [showEndConfirmation, setShowEndConfirmation] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
   const playedChimes = useRef<Set<number>>(new Set());
   const chimeSound = useRef<AudioPlayer | null>(null);
+  const hideControlsTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Focus Mode: Animated opacity for controls
+  const controlsOpacity = useSharedValue(1);
+
+  // Auto-hide controls after 5 seconds of inactivity when running
+  const CONTROLS_HIDE_DELAY = 5000;
+
+  // Reset hide timer on any interaction
+  const resetHideTimer = useCallback(() => {
+    if (hideControlsTimeout.current) {
+      clearTimeout(hideControlsTimeout.current);
+    }
+
+    // Show controls immediately
+    setControlsVisible(true);
+    controlsOpacity.value = withTiming(1, { duration: 200 });
+
+    // Only auto-hide if meditation is running
+    if (isRunning) {
+      hideControlsTimeout.current = setTimeout(() => {
+        setControlsVisible(false);
+        controlsOpacity.value = withTiming(0.15, { duration: 500 });
+      }, CONTROLS_HIDE_DELAY);
+    }
+  }, [isRunning, controlsOpacity]);
+
+  // Handle screen touch to show controls
+  const handleScreenTouch = useCallback(() => {
+    if (!controlsVisible) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
+    resetHideTimer();
+  }, [controlsVisible, resetHideTimer]);
+
+  // Manage auto-hide based on running state
+  useEffect(() => {
+    if (isRunning) {
+      resetHideTimer();
+    } else {
+      // When paused, always show controls
+      if (hideControlsTimeout.current) {
+        clearTimeout(hideControlsTimeout.current);
+      }
+      setControlsVisible(true);
+      controlsOpacity.value = withTiming(1, { duration: 200 });
+    }
+
+    return () => {
+      if (hideControlsTimeout.current) {
+        clearTimeout(hideControlsTimeout.current);
+      }
+    };
+  }, [isRunning, resetHideTimer, controlsOpacity]);
+
+  // Animated style for controls
+  const controlsAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: controlsOpacity.value,
+  }));
 
   // Handle end session button press
   const handleEndSessionPress = () => {
@@ -224,6 +317,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
       const animateBreathing = () => {
         // INHALE - grow but stay inside the ring
         setBreathingPhase('inhale');
+        triggerBreathingHaptic('inhale');
         breathingScale.value = withTiming(0.95, {
           duration: inhaleDuration,
           easing: Easing.inOut(Easing.ease),
@@ -241,11 +335,13 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           // HOLD 1 - maintain (only if duration > 0)
           if (hold1Duration > 0) {
             setBreathingPhase('hold');
+            triggerBreathingHaptic('hold');
           }
 
           timeoutId = setTimeout(() => {
             // EXHALE - shrink
             setBreathingPhase('exhale');
+            triggerBreathingHaptic('exhale');
             breathingScale.value = withTiming(0.7, {
               duration: exhaleDuration,
               easing: Easing.inOut(Easing.ease),
@@ -263,6 +359,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
               // REST / HOLD 2 (only if duration > 0)
               if (hold2Duration > 0) {
                 setBreathingPhase('rest');
+                triggerBreathingHaptic('rest');
               }
 
               timeoutId = setTimeout(() => {
@@ -289,7 +386,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         chimeSound.current.pause();
       }
     }
-  }, [isRunning, breathingScale, breathingOpacity, breathingGlow, showBreathingGuide, breathingTiming]);
+  }, [isRunning, breathingScale, breathingOpacity, breathingGlow, showBreathingGuide, breathingTiming, triggerBreathingHaptic]);
 
   const breathingAnimatedStyle = useAnimatedStyle(() => ({
     opacity: breathingOpacity.value,
@@ -365,12 +462,13 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const svgOffset = 25; // Center offset
 
   return (
-    <View style={styles.container}>
-      {/* Top controls - Audio & Ambient */}
-      <View style={styles.topControls}>
+    <Pressable style={styles.container} onPress={handleScreenTouch}>
+      {/* Top controls - Audio & Ambient - Animated for Focus Mode */}
+      <Animated.View style={[styles.topControls, controlsAnimatedStyle]}>
         <TouchableOpacity
           style={[styles.audioButton, dynamicStyles.audioButton, !audioEnabled && dynamicStyles.audioButtonMuted]}
           onPress={() => {
+            resetHideTimer();
             const newState = !audioEnabled;
             setAudioEnabled(newState);
             if (onAudioToggle) onAudioToggle(newState);
@@ -400,7 +498,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
             </Text>
           </View>
         )}
-      </View>
+      </Animated.View>
 
       {/* Breathing guidance - only show if breathing pattern is enabled */}
       {showBreathingGuide ? (
@@ -525,15 +623,24 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         </View>
       )}
 
-      {/* Bottom controls */}
-      <View style={styles.controls}>
-        <TouchableOpacity style={[styles.secondaryButton, dynamicStyles.secondaryButton]} onPress={handleEndSessionPress}>
+      {/* Bottom controls - Animated for Focus Mode */}
+      <Animated.View style={[styles.controls, controlsAnimatedStyle]}>
+        <TouchableOpacity
+          style={[styles.secondaryButton, dynamicStyles.secondaryButton]}
+          onPress={() => {
+            resetHideTimer();
+            handleEndSessionPress();
+          }}
+        >
           <Text style={[styles.secondaryButtonText, dynamicStyles.secondaryButtonText]}>{t('meditation.finish')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.primaryButtonWrapper}
-          onPress={() => setIsRunning(!isRunning)}
+          onPress={() => {
+            resetHideTimer();
+            setIsRunning(!isRunning);
+          }}
           activeOpacity={0.8}
         >
           <LinearGradient
@@ -547,7 +654,16 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
             </Text>
           </LinearGradient>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
+
+      {/* Focus mode hint - shown when controls are hidden */}
+      {!controlsVisible && isRunning && (
+        <Animated.View style={[styles.focusModeHint, controlsAnimatedStyle]}>
+          <Text style={[styles.focusModeHintText, { color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)' }]}>
+            {t('meditation.tapToShowControls', 'Tap to show controls')}
+          </Text>
+        </Animated.View>
+      )}
 
       {/* End Session Confirmation Modal */}
       <ConfirmationModal
@@ -561,7 +677,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
         icon="pause-circle-outline"
         isDark={isDark}
       />
-    </View>
+    </Pressable>
   );
 };
 
@@ -769,5 +885,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: theme.colors.neutral.white,
+  },
+
+  // Focus Mode hint
+  focusModeHint: {
+    position: 'absolute',
+    bottom: 120,
+    alignSelf: 'center',
+  },
+  focusModeHintText: {
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.5,
+    opacity: 0.7,
   },
 });

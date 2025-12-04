@@ -643,7 +643,35 @@
       "ocean": "Océano",
       "forest": "Bosque",
       "silence": "Silencio"
-    }
+    },
+    "breathing": {
+      "none": "Sin instrucciones",
+      "noneDesc": "Medita sin patrón de respiración",
+      "box": "Respiración Cuadrada",
+      "boxDesc": "Activa el sistema parasimpático, reduce el cortisol",
+      "478": "4-7-8",
+      "478Desc": "Sedante natural para el sistema nervioso",
+      "equal": "Respiración Igual",
+      "equalDesc": "Equilibra el sistema nervioso, aumenta el enfoque",
+      "calm": "Respiración Calmante",
+      "calmDesc": "Exhalación más larga activa la respuesta de relajación"
+    },
+    "breathingTitle": "Patrón de Respiración",
+    "breathingDescription": "Elige una técnica de respiración respaldada por la ciencia (opcional)",
+    "breathingPattern": "Patrón de Respiración",
+    "breathingPatternDescription": "Añade respiración guiada a tu sesión",
+    "breathingNone": "Ninguno",
+    "breathingNoneDesc": "Sin guía de respiración",
+    "breathingBox": "Cuadrada",
+    "breathingBoxDesc": "4-4-4-4 para el estrés",
+    "breathing478": "4-7-8",
+    "breathing478Desc": "Relajación profunda",
+    "breathingEqual": "Igual",
+    "breathingEqualDesc": "4-4 para principiantes",
+    "breathingCalm": "Calmante",
+    "breathingCalmDesc": "2-2 energizante",
+    "breathingCustom": "Personalizado",
+    "breathingCustomDesc": "Tu propio patrón"
   },
   "achievements": {
     "title": "Logros",

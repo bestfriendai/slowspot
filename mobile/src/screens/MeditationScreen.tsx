@@ -4,7 +4,8 @@ import { View, Text, ActivityIndicator, FlatList, StyleSheet, Alert, TouchableOp
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
+import { screenElementAnimation } from '../utils/animations';
 import { SessionCard } from '../components/SessionCard';
 import { GradientButton } from '../components/GradientButton';
 import { AnimatedPressable } from '../components/AnimatedPressable';
@@ -16,7 +17,7 @@ import { GradientBackground } from '../components/GradientBackground';
 import { api, MeditationSession } from '../services/api';
 import { audioEngine } from '../services/audio';
 import { saveSessionCompletion } from '../services/progressTracker';
-import { getAllCustomSessions, deleteCustomSession, SavedCustomSession, BreathingPattern, CustomBreathingPattern } from '../services/customSessionStorage';
+import { getAllCustomSessions, deleteCustomSession, SavedCustomSession, BreathingPattern, CustomBreathingPattern, ensureDefaultSessionExists } from '../services/customSessionStorage';
 import { userPreferences } from '../services/userPreferences';
 import { ChimePoint } from '../types/customSession';
 import { CustomSessionConfig } from './CustomSessionBuilderScreen';
@@ -124,6 +125,9 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
   const loadSessions = async () => {
     try {
       setLoading(true);
+
+      // Ensure default evidence-based session exists on first launch
+      await ensureDefaultSessionExists();
 
       // Load only custom sessions from storage (no presets)
       const customSessions = await getAllCustomSessions();
@@ -349,7 +353,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
 
   // FlatList optimization - Memoized render functions
   const renderItem = useCallback(
-    ({ item }: { item: MeditationSession }) => {
+    ({ item, index }: { item: MeditationSession; index: number }) => {
       const customSession = item as SavedCustomSession;
       return (
         <SessionCard
@@ -359,6 +363,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
           onDelete={customSession.isCustom ? () => handleDeleteSession(customSession) : undefined}
           isCustom={customSession.isCustom || false}
           isDark={isDark}
+          animationIndex={index}
         />
       );
     },
@@ -373,7 +378,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
         <View style={styles.header}>
           {/* Hero title section */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInDown.delay(100).duration(600) : undefined}
+            entering={settings.animationsEnabled ? screenElementAnimation(0) : undefined}
           >
             <Text style={[styles.title, dynamicStyles.title]}>{t('meditation.title')}</Text>
             <Text style={[styles.subtitle, dynamicStyles.subtitle]}>{t('meditation.subtitle')}</Text>
@@ -381,7 +386,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
 
           {/* Main CTA Card - Headspace style */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(600) : undefined}
+            entering={settings.animationsEnabled ? screenElementAnimation(1) : undefined}
             style={styles.mainCardContainer}
           >
             <AnimatedPressable
@@ -427,7 +432,7 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
 
           {sessions.length > 0 && (
             <Animated.View
-              entering={settings.animationsEnabled ? FadeInDown.delay(300).duration(500) : undefined}
+              entering={settings.animationsEnabled ? screenElementAnimation(2) : undefined}
               style={styles.sessionsHeader}
             >
               <Text style={[styles.sessionsHeaderText, { color: colors.text.secondary }]}>

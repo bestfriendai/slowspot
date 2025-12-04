@@ -638,7 +638,35 @@
       "ocean": "海洋",
       "forest": "森林",
       "silence": "静默"
-    }
+    },
+    "breathing": {
+      "none": "无指导",
+      "noneDesc": "无呼吸模式的冥想",
+      "box": "方形呼吸",
+      "boxDesc": "激活副交感神经系统，降低皮质醇",
+      "478": "4-7-8",
+      "478Desc": "神经系统的天然镇静剂",
+      "equal": "等比呼吸",
+      "equalDesc": "平衡神经系统，提高专注力",
+      "calm": "平静呼吸",
+      "calmDesc": "较长的呼气激活放松反应"
+    },
+    "breathingTitle": "呼吸模式",
+    "breathingDescription": "选择有科学依据的呼吸技巧（可选）",
+    "breathingPattern": "呼吸模式",
+    "breathingPatternDescription": "为您的课程添加引导呼吸",
+    "breathingNone": "无",
+    "breathingNoneDesc": "无呼吸指导",
+    "breathingBox": "方形",
+    "breathingBoxDesc": "4-4-4-4缓解压力",
+    "breathing478": "4-7-8",
+    "breathing478Desc": "深度放松",
+    "breathingEqual": "等比",
+    "breathingEqualDesc": "4-4适合初学者",
+    "breathingCalm": "平静",
+    "breathingCalmDesc": "2-2提神醒脑",
+    "breathingCustom": "自定义",
+    "breathingCustomDesc": "您自己的模式"
   },
   "achievements": {
     "title": "成就",

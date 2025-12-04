@@ -20,6 +20,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  AccessibilityInfo,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -39,6 +40,7 @@ import Animated, {
   FadeIn,
   FadeInUp,
   FadeInDown,
+  SharedValue,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import theme from '../theme';
@@ -216,12 +218,13 @@ const AnimatedIcon: React.FC<{
 const OnboardingSlide: React.FC<{
   item: Slide;
   index: number;
-  scrollX: Animated.SharedValue<number>;
+  scrollX: SharedValue<number>;
   primaryColor: string;
   animationsEnabled: boolean;
   nameInputValue?: string;
   onNameChange?: (name: string) => void;
-}> = ({ item, index, scrollX, primaryColor, animationsEnabled, nameInputValue, onNameChange }) => {
+  showDisclaimer?: boolean;
+}> = ({ item, index, scrollX, primaryColor, animationsEnabled, nameInputValue, onNameChange, showDisclaimer }) => {
   const { t } = useTranslation();
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -248,9 +251,12 @@ const OnboardingSlide: React.FC<{
       Extrapolation.CLAMP
     );
 
-    return {
+    return animationsEnabled ? {
       opacity,
       transform: [{ translateY }, { scale }],
+    } : {
+      opacity: 1,
+      transform: [{ translateY: 0 }, { scale: 1 }],
     };
   });
 
@@ -258,11 +264,15 @@ const OnboardingSlide: React.FC<{
     <View style={styles.slide}>
       <StatusBar barStyle="dark-content" />
 
-      {/* Floating particles */}
-      <FloatingParticle delay={0} size={8} left={15} top={20} animationsEnabled={animationsEnabled} />
-      <FloatingParticle delay={500} size={6} left={80} top={15} animationsEnabled={animationsEnabled} />
-      <FloatingParticle delay={1000} size={10} left={70} top={35} animationsEnabled={animationsEnabled} />
-      <FloatingParticle delay={1500} size={5} left={25} top={40} animationsEnabled={animationsEnabled} />
+      {/* Floating particles - only show if animations enabled */}
+      {animationsEnabled && (
+        <>
+          <FloatingParticle delay={0} size={8} left={15} top={20} animationsEnabled={animationsEnabled} />
+          <FloatingParticle delay={500} size={6} left={80} top={15} animationsEnabled={animationsEnabled} />
+          <FloatingParticle delay={1000} size={10} left={70} top={35} animationsEnabled={animationsEnabled} />
+          <FloatingParticle delay={1500} size={5} left={25} top={40} animationsEnabled={animationsEnabled} />
+        </>
+      )}
 
       <Animated.View style={[styles.slideContent, animatedStyle]}>
         {/* Icon */}
@@ -283,6 +293,16 @@ const OnboardingSlide: React.FC<{
           </Text>
         </View>
 
+        {/* Health disclaimer on first slide */}
+        {showDisclaimer && (
+          <View style={styles.disclaimerContainer}>
+            <Ionicons name="information-circle-outline" size={16} color="#9CA3AF" />
+            <Text style={styles.disclaimerText}>
+              {t('onboarding.healthDisclaimer', 'This app supports mindfulness practice and is not a substitute for professional healthcare.')}
+            </Text>
+          </View>
+        )}
+
         {/* Name input for slide 4 */}
         {item.isNameSlide && (
           <View style={styles.nameInputContainer}>
@@ -295,6 +315,7 @@ const OnboardingSlide: React.FC<{
               autoCapitalize="words"
               returnKeyType="done"
               maxLength={30}
+              accessibilityLabel={t('onboarding.slide4.placeholder', 'Your name (optional)')}
             />
             <Text style={styles.nameInputHint}>
               {t('onboarding.slide4.hint', 'You can change this later in Profile')}
@@ -309,7 +330,7 @@ const OnboardingSlide: React.FC<{
 // Pagination dots
 const PaginationDots: React.FC<{
   data: Slide[];
-  scrollX: Animated.SharedValue<number>;
+  scrollX: SharedValue<number>;
   primaryColor: string;
 }> = ({ data, scrollX, primaryColor }) => {
   return (
@@ -350,6 +371,64 @@ const PaginationDots: React.FC<{
   );
 };
 
+// Success celebration component with confetti-like animation
+const SuccessCelebration: React.FC<{
+  primaryColor: string;
+  onComplete: () => void;
+  animationsEnabled: boolean;
+}> = ({ primaryColor, onComplete, animationsEnabled }) => {
+  const { t } = useTranslation();
+  const scale = useSharedValue(0);
+  const checkOpacity = useSharedValue(0);
+
+  React.useEffect(() => {
+    if (animationsEnabled) {
+      scale.value = withSpring(1, { damping: 12, stiffness: 100 });
+      checkOpacity.value = withDelay(300, withTiming(1, { duration: 400 }));
+    } else {
+      scale.value = 1;
+      checkOpacity.value = 1;
+    }
+
+    // Auto-complete after animation
+    const timeout = setTimeout(() => {
+      onComplete();
+    }, animationsEnabled ? 1800 : 500);
+
+    return () => clearTimeout(timeout);
+  }, [animationsEnabled]);
+
+  const circleStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const checkStyle = useAnimatedStyle(() => ({
+    opacity: checkOpacity.value,
+  }));
+
+  return (
+    <View style={styles.successContainer}>
+      <Animated.View style={[styles.successCircle, { backgroundColor: `${primaryColor}20` }, circleStyle]}>
+        <Animated.View style={[styles.successInnerCircle, { backgroundColor: primaryColor }, checkStyle]}>
+          <Ionicons name="checkmark" size={48} color="#FFF" />
+        </Animated.View>
+      </Animated.View>
+      <Animated.Text
+        style={[styles.successTitle, { color: primaryColor }]}
+        entering={FadeInUp.delay(400).duration(400)}
+      >
+        {t('onboarding.successTitle', "You're All Set!")}
+      </Animated.Text>
+      <Animated.Text
+        style={styles.successSubtitle}
+        entering={FadeInUp.delay(600).duration(400)}
+      >
+        {t('onboarding.successSubtitle', 'Your meditation journey begins now')}
+      </Animated.Text>
+    </View>
+  );
+};
+
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
   const { t } = useTranslation();
   const { currentTheme, settings } = usePersonalization();
@@ -358,7 +437,28 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nameInput, setNameInput] = useState(existingUserName || '');
   const [hasUserEdited, setHasUserEdited] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const scrollX = useSharedValue(0);
+
+  // Check for reduced motion preference
+  React.useEffect(() => {
+    const checkReduceMotion = async () => {
+      const isReduceMotionEnabled = await AccessibilityInfo.isReduceMotionEnabled();
+      setReduceMotion(isReduceMotionEnabled);
+    };
+    checkReduceMotion();
+
+    const subscription = AccessibilityInfo.addEventListener(
+      'reduceMotionChanged',
+      (isEnabled) => setReduceMotion(isEnabled)
+    );
+
+    return () => subscription.remove();
+  }, []);
+
+  // Effective animations enabled (respects both user preference and system setting)
+  const effectiveAnimationsEnabled = settings.animationsEnabled && !reduceMotion;
 
   // Sync nameInput with context when context changes (e.g., when re-opening onboarding)
   // but only if user hasn't manually edited the field
@@ -386,13 +486,26 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
       logger.log('IntroScreen: Saving name:', trimmedName || '(empty/clearing)');
       await setUserName(trimmedName || undefined);
       await AsyncStorage.setItem(INTRO_COMPLETED_KEY, 'true');
-      // onDone callback will refresh profile from storage before navigating
-      onDone();
+      // Show success animation before navigating
+      setShowSuccess(true);
     } catch (error) {
       logger.error('Error saving intro completion:', error);
       onDone();
     }
   };
+
+  const handleSuccessComplete = useCallback(() => {
+    onDone();
+  }, [onDone]);
+
+  const handleBack = useCallback(() => {
+    if (currentIndex > 0) {
+      if (settings.hapticEnabled) {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      }
+      flatListRef.current?.scrollToIndex({ index: currentIndex - 1 });
+    }
+  }, [currentIndex, settings.hapticEnabled]);
 
   const handleNext = useCallback(() => {
     if (currentIndex < slides.length - 1) {
@@ -423,12 +536,30 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
   }), []);
 
   const isLastSlide = currentIndex === slides.length - 1;
+  const isFirstSlide = currentIndex === 0;
 
   const buttonAnimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{ scale: withSpring(1) }],
     };
   });
+
+  // Show success celebration screen
+  if (showSuccess) {
+    return (
+      <View style={styles.container}>
+        <LinearGradient
+          colors={['#FAFBFC', '#F0F2F5', '#E8ECF0']}
+          style={StyleSheet.absoluteFillObject}
+        />
+        <SuccessCelebration
+          primaryColor={primaryColor}
+          onComplete={handleSuccessComplete}
+          animationsEnabled={effectiveAnimationsEnabled}
+        />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -437,10 +568,30 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
         style={StyleSheet.absoluteFillObject}
       />
 
+      {/* Back button - shown from slide 2 onwards */}
+      {!isFirstSlide && (
+        <Animated.View
+          entering={effectiveAnimationsEnabled ? FadeInDown.delay(300).duration(400) : undefined}
+          style={styles.backContainer}
+        >
+          <AnimatedPressable
+            onPress={handleBack}
+            style={styles.backButton}
+            hapticType="light"
+            accessibilityLabel={t('onboarding.back', 'Back')}
+          >
+            <Ionicons name="chevron-back" size={20} color={primaryColor} />
+            <Text style={[styles.backText, { color: primaryColor }]}>
+              {t('onboarding.back', 'Wstecz')}
+            </Text>
+          </AnimatedPressable>
+        </Animated.View>
+      )}
+
       {/* Skip button */}
       {!isLastSlide && (
         <Animated.View
-          entering={FadeInDown.delay(300).duration(400)}
+          entering={effectiveAnimationsEnabled ? FadeInDown.delay(300).duration(400) : undefined}
           style={styles.skipContainer}
         >
           <AnimatedPressable
@@ -476,9 +627,10 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
             index={index}
             scrollX={scrollX}
             primaryColor={primaryColor}
-            animationsEnabled={settings.animationsEnabled}
+            animationsEnabled={effectiveAnimationsEnabled}
             nameInputValue={nameInput}
             onNameChange={handleNameChange}
+            showDisclaimer={index === 0}
           />
         )}
       />
@@ -720,5 +872,75 @@ const styles = StyleSheet.create({
   },
   buttonIcon: {
     marginLeft: 4,
+  },
+  // Back button styles
+  backContainer: {
+    position: 'absolute',
+    top: 60,
+    left: 24,
+    zIndex: 10,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    gap: 4,
+  },
+  backText: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  // Health disclaimer styles
+  disclaimerContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginTop: 24,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: '#F3F4F6',
+    borderRadius: 12,
+    gap: 8,
+  },
+  disclaimerText: {
+    flex: 1,
+    fontSize: 12,
+    color: '#6B7280',
+    lineHeight: 18,
+  },
+  // Success celebration styles
+  successContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 32,
+  },
+  successCircle: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 32,
+  },
+  successInnerCircle: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  successTitle: {
+    fontSize: 28,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 12,
+    letterSpacing: -0.5,
+  },
+  successSubtitle: {
+    fontSize: 17,
+    color: '#6B7280',
+    textAlign: 'center',
+    lineHeight: 24,
   },
 });

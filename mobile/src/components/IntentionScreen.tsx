@@ -4,7 +4,7 @@
 // With optional breathing exercise modal
 // ══════════════════════════════════════════════════════════════
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import * as Haptics from 'expo-haptics';
 import Reanimated, {
   useAnimatedStyle,
   useSharedValue,
@@ -54,17 +55,48 @@ interface AnimatedBreathingCircleProps {
   isRunning: boolean;
   pattern: 'box' | '4-7-8' | 'equal' | 'calm';
   isDark?: boolean;
+  hapticEnabled?: boolean;
 }
 
 const AnimatedBreathingCircle: React.FC<AnimatedBreathingCircleProps> = ({
   isRunning,
   pattern,
   isDark,
+  hapticEnabled = true,
 }) => {
   const { t } = useTranslation();
-  const { currentTheme } = usePersonalization();
+  const { currentTheme, settings } = usePersonalization();
+
+  // Use component prop or fall back to global settings
+  const isHapticEnabled = hapticEnabled && settings.hapticEnabled;
   const scale = useSharedValue(1);
   const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
+  const lastPhaseRef = useRef<string>('');
+
+  // Haptic feedback for breathing phase transitions
+  const triggerBreathingHaptic = (phase: string) => {
+    if (!isHapticEnabled) return;
+
+    // Only trigger if phase actually changed
+    if (phase === lastPhaseRef.current) return;
+    lastPhaseRef.current = phase;
+
+    switch (phase) {
+      case 'inhale':
+        // Gentle rising haptic for inhale
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        break;
+      case 'hold':
+      case 'rest':
+        // Soft haptic for hold phases
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+        break;
+      case 'exhale':
+        // Medium haptic for exhale
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        break;
+    }
+  };
 
   useEffect(() => {
     if (isRunning) {
@@ -105,6 +137,7 @@ const AnimatedBreathingCircle: React.FC<AnimatedBreathingCircleProps> = ({
         const currentPhaseDuration = config.durations[phaseIndex];
 
         setBreathingPhase(currentPhase);
+        triggerBreathingHaptic(currentPhase);
         animatePhase(currentPhase, currentPhaseDuration);
 
         timeoutId = setTimeout(() => {
@@ -119,8 +152,9 @@ const AnimatedBreathingCircle: React.FC<AnimatedBreathingCircleProps> = ({
     } else {
       scale.value = withTiming(1, { duration: 500 });
       setBreathingPhase('inhale');
+      lastPhaseRef.current = '';
     }
-  }, [isRunning, pattern]);
+  }, [isRunning, pattern, isHapticEnabled]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

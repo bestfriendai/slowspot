@@ -310,6 +310,9 @@ export interface PersonalizationSettings {
   hapticEnabled: boolean;
   soundEffectsEnabled: boolean;
   animationsEnabled: boolean;
+  // Accessibility options
+  highContrastMode: boolean;
+  largerTextMode: boolean;
 }
 
 // Default settings
@@ -318,6 +321,8 @@ const DEFAULT_SETTINGS: PersonalizationSettings = {
   hapticEnabled: true,
   soundEffectsEnabled: false,
   animationsEnabled: true,
+  highContrastMode: false,
+  largerTextMode: false,
 };
 
 // Helper function to generate gradient from primary color
@@ -360,6 +365,8 @@ interface PersonalizationContextType {
   setHapticEnabled: (enabled: boolean) => Promise<void>;
   setSoundEffectsEnabled: (enabled: boolean) => Promise<void>;
   setAnimationsEnabled: (enabled: boolean) => Promise<void>;
+  setHighContrastMode: (enabled: boolean) => Promise<void>;
+  setLargerTextMode: (enabled: boolean) => Promise<void>;
   resetToDefaults: () => Promise<void>;
   isLoading: boolean;
 }
@@ -439,6 +446,16 @@ export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = 
     await saveSettings({ ...settings, animationsEnabled: enabled });
   }, [settings, saveSettings]);
 
+  // Set high contrast mode
+  const setHighContrastMode = useCallback(async (enabled: boolean) => {
+    await saveSettings({ ...settings, highContrastMode: enabled });
+  }, [settings, saveSettings]);
+
+  // Set larger text mode
+  const setLargerTextMode = useCallback(async (enabled: boolean) => {
+    await saveSettings({ ...settings, largerTextMode: enabled });
+  }, [settings, saveSettings]);
+
   // Reset to defaults
   const resetToDefaults = useCallback(async () => {
     await saveSettings(DEFAULT_SETTINGS);
@@ -473,6 +490,8 @@ export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = 
         setHapticEnabled,
         setSoundEffectsEnabled,
         setAnimationsEnabled,
+        setHighContrastMode,
+        setLargerTextMode,
         resetToDefaults,
         isLoading,
       }}
@@ -505,6 +524,55 @@ export const usePersonalizedColors = () => {
       light25: `${currentTheme.primary}40`, // 25% opacity
     },
   };
+};
+
+// High contrast color adjustments for accessibility
+export const HIGH_CONTRAST_ADJUSTMENTS = {
+  light: {
+    text: '#000000',
+    textSecondary: '#1C1C1E',
+    background: '#FFFFFF',
+    border: '#000000',
+    // Increased contrast for UI elements
+    cardBackground: '#FFFFFF',
+    divider: '#000000',
+  },
+  dark: {
+    text: '#FFFFFF',
+    textSecondary: '#F5F5F5',
+    background: '#000000',
+    border: '#FFFFFF',
+    // Increased contrast for UI elements
+    cardBackground: '#1C1C1E',
+    divider: '#FFFFFF',
+  },
+};
+
+// Hook to get accessibility-adjusted colors
+export const useAccessibilityColors = (isDark: boolean) => {
+  const { settings, currentTheme } = usePersonalization();
+
+  if (settings.highContrastMode) {
+    const contrastColors = isDark
+      ? HIGH_CONTRAST_ADJUSTMENTS.dark
+      : HIGH_CONTRAST_ADJUSTMENTS.light;
+
+    return {
+      ...contrastColors,
+      primary: currentTheme.primary,
+      gradient: currentTheme.gradient,
+      isHighContrast: true,
+    };
+  }
+
+  // Return null to indicate standard colors should be used
+  return null;
+};
+
+// Hook to get text size multiplier for larger text mode
+export const useTextSizeMultiplier = () => {
+  const { settings } = usePersonalization();
+  return settings.largerTextMode ? 1.2 : 1.0;
 };
 
 export default PersonalizationContext;

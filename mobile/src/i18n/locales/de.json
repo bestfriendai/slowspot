@@ -643,7 +643,35 @@
       "ocean": "Ozean",
       "forest": "Wald",
       "silence": "Stille"
-    }
+    },
+    "breathing": {
+      "none": "Ohne Anleitung",
+      "noneDesc": "Meditiere ohne Atemmuster",
+      "box": "Box-Atmung",
+      "boxDesc": "Aktiviert das parasympathische System, reduziert Cortisol",
+      "478": "4-7-8",
+      "478Desc": "Natürliches Beruhigungsmittel für das Nervensystem",
+      "equal": "Gleichmäßige Atmung",
+      "equalDesc": "Balanciert das Nervensystem, erhöht die Konzentration",
+      "calm": "Ruhige Atmung",
+      "calmDesc": "Längeres Ausatmen aktiviert die Entspannungsreaktion"
+    },
+    "breathingTitle": "Atemmuster",
+    "breathingDescription": "Wähle eine wissenschaftlich fundierte Atemtechnik (optional)",
+    "breathingPattern": "Atemmuster",
+    "breathingPatternDescription": "Füge geführtes Atmen zu deiner Sitzung hinzu",
+    "breathingNone": "Keine",
+    "breathingNoneDesc": "Kein Atemführung",
+    "breathingBox": "Box",
+    "breathingBoxDesc": "4-4-4-4 gegen Stress",
+    "breathing478": "4-7-8",
+    "breathing478Desc": "Tiefe Entspannung",
+    "breathingEqual": "Gleich",
+    "breathingEqualDesc": "4-4 für Anfänger",
+    "breathingCalm": "Ruhig",
+    "breathingCalmDesc": "2-2 energetisierend",
+    "breathingCustom": "Benutzerdefiniert",
+    "breathingCustomDesc": "Dein eigenes Muster"
   },
   "achievements": {
     "title": "Errungenschaften",

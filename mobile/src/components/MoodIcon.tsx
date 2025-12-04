@@ -29,7 +29,7 @@ const MOOD_ICONS: Record<1 | 2 | 3 | 4 | 5, keyof typeof Ionicons.glyphMap> = {
 
 interface MoodIconProps {
   mood?: 1 | 2 | 3 | 4 | 5;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'card';
   showBackground?: boolean;
 }
 
@@ -38,15 +38,15 @@ export const MoodIcon: React.FC<MoodIconProps> = ({
   size = 'small',
   showBackground = true,
 }) => {
-  if (!mood) return null;
-
-  const colors = MOOD_COLORS[mood];
-  const icon = MOOD_ICONS[mood];
+  // Default colors and icon for sessions without mood
+  const colors = mood ? MOOD_COLORS[mood] : { bg: '#F3F4F6', icon: '#9CA3AF' };
+  const icon = mood ? MOOD_ICONS[mood] : 'leaf-outline' as keyof typeof Ionicons.glyphMap;
 
   const sizeConfig = {
     small: { box: 28, icon: 16, radius: 8 },
     medium: { box: 36, icon: 20, radius: 10 },
     large: { box: 48, icon: 24, radius: 14 },
+    card: { box: 44, icon: 22, radius: 12 }, // Matches session card icon box
   };
 
   const config = sizeConfig[size];

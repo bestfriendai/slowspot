@@ -16,7 +16,10 @@ import {
   StyleSheet,
   Share,
   Linking,
+  Switch,
 } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { screenElementAnimation } from '../utils/animations';
 import * as Haptics from 'expo-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -69,7 +72,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   onRestartOnboarding,
 }) => {
   const { t, i18n } = useTranslation();
-  const { currentTheme } = usePersonalization();
+  const { currentTheme, settings, setHighContrastMode, setLargerTextMode } = usePersonalization();
 
   // Modal states
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
@@ -125,6 +128,9 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
     // For legal section
     iconBoxBg: isDark ? primaryColor.transparent[20] : primaryColor.transparent[10],
     chevronColor: isDark ? colors.neutral.gray[400] : colors.neutral.gray[500],
+    // For scientific sources section
+    iconBoxBgCyan: isDark ? `rgba(${featureColorPalettes.teal.rgb}, 0.25)` : `rgba(${featureColorPalettes.teal.rgb}, 0.12)`,
+    iconCyan: isDark ? featureColorPalettes.teal.darkIcon : featureColorPalettes.teal.lightIcon,
   }), [colors, isDark, featureColors]);
 
   const handleLanguageChange = async (languageCode: string) => {
@@ -191,12 +197,16 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={[styles.title, dynamicStyles.title]}>
+        <Animated.Text
+          entering={settings.animationsEnabled ? screenElementAnimation(0) : undefined}
+          style={[styles.title, dynamicStyles.title]}
+        >
           {t('settings.title')}
-        </Text>
+        </Animated.Text>
 
         {/* Profile Card */}
         {onNavigateToProfile && (
+          <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(1) : undefined}>
           <GradientCard
             gradient={themeGradients.card.whiteCard}
             style={[styles.card, dynamicStyles.cardShadow]}
@@ -204,8 +214,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             isDark={isDark}
           >
             <View style={styles.cardRow}>
-              <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
-                <Ionicons name="person" size={24} color={dynamicStyles.iconBlue} />
+              <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+                <Ionicons name="person" size={24} color={currentTheme.primary} />
               </View>
               <View style={styles.cardTextContainer}>
                 <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -218,10 +228,12 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               <Ionicons name="chevron-forward" size={22} color={colors.text.tertiary} />
             </View>
           </GradientCard>
+          </Animated.View>
         )}
 
         {/* Personalization Card */}
         {onNavigateToPersonalization && (
+          <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(2) : undefined}>
           <GradientCard
             gradient={themeGradients.card.whiteCard}
             style={[styles.card, dynamicStyles.cardShadow]}
@@ -229,8 +241,8 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             isDark={isDark}
           >
             <View style={styles.cardRow}>
-              <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgAmber }]}>
-                <Ionicons name="color-wand" size={24} color={dynamicStyles.iconAmber} />
+              <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+                <Ionicons name="color-wand" size={24} color={currentTheme.primary} />
               </View>
               <View style={styles.cardTextContainer}>
                 <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -243,17 +255,19 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               <Ionicons name="chevron-forward" size={22} color={colors.text.tertiary} />
             </View>
           </GradientCard>
+          </Animated.View>
         )}
 
         {/* Language Selection Card */}
+        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(3) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgTeal }]}>
-              <Ionicons name="globe" size={24} color={dynamicStyles.iconTeal} />
+            <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+              <Ionicons name="globe" size={24} color={currentTheme.primary} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -297,16 +311,18 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             })}
           </View>
         </GradientCard>
+        </Animated.View>
 
         {/* Theme Selection Card */}
+        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(4) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgPurple }]}>
-              <Ionicons name="color-palette" size={24} color={dynamicStyles.iconPurple} />
+            <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+              <Ionicons name="color-palette" size={24} color={currentTheme.primary} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -351,16 +367,89 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             })}
           </View>
         </GradientCard>
+        </Animated.View>
 
-        {/* Data & Privacy Card */}
+        {/* Accessibility Card */}
+        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(5) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgGreen }]}>
-              <Ionicons name="shield-checkmark" size={24} color={dynamicStyles.iconGreen} />
+            <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+              <Ionicons name="accessibility" size={24} color={currentTheme.primary} />
+            </View>
+            <View style={styles.cardTextContainer}>
+              <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
+                {t('settings.accessibility')}
+              </Text>
+              <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
+                {t('settings.accessibilityDescription')}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.accessibilityOptions}>
+            {/* High Contrast Mode */}
+            <View style={[styles.accessibilityOption, { backgroundColor: dynamicStyles.optionBg }]}>
+              <View style={styles.accessibilityOptionContent}>
+                <Ionicons name="contrast" size={20} color={currentTheme.primary} />
+                <View style={styles.accessibilityOptionText}>
+                  <Text style={[styles.accessibilityOptionTitle, dynamicStyles.cardTitle]}>
+                    {t('settings.highContrastMode')}
+                  </Text>
+                  <Text style={[styles.accessibilityOptionDesc, dynamicStyles.cardDescription]}>
+                    {t('settings.highContrastModeDescription')}
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={settings.highContrastMode}
+                onValueChange={(value) => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setHighContrastMode(value);
+                }}
+                trackColor={{ false: colors.neutral.gray[300], true: `${currentTheme.primary}80` }}
+                thumbColor={settings.highContrastMode ? currentTheme.primary : colors.neutral.white}
+              />
+            </View>
+            {/* Larger Text Mode */}
+            <View style={[styles.accessibilityOption, { backgroundColor: dynamicStyles.optionBg }]}>
+              <View style={styles.accessibilityOptionContent}>
+                <Ionicons name="text" size={20} color={currentTheme.primary} />
+                <View style={styles.accessibilityOptionText}>
+                  <Text style={[styles.accessibilityOptionTitle, dynamicStyles.cardTitle]}>
+                    {t('settings.largerTextMode')}
+                  </Text>
+                  <Text style={[styles.accessibilityOptionDesc, dynamicStyles.cardDescription]}>
+                    {t('settings.largerTextModeDescription')}
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={settings.largerTextMode}
+                onValueChange={(value) => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setLargerTextMode(value);
+                }}
+                trackColor={{ false: colors.neutral.gray[300], true: `${currentTheme.primary}80` }}
+                thumbColor={settings.largerTextMode ? currentTheme.primary : colors.neutral.white}
+              />
+            </View>
+          </View>
+        </GradientCard>
+        </Animated.View>
+
+        {/* Data & Privacy Card */}
+        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(6) : undefined}>
+        <GradientCard
+          gradient={themeGradients.card.whiteCard}
+          style={[styles.card, dynamicStyles.cardShadow]}
+          isDark={isDark}
+        >
+          <View style={styles.cardRow}>
+            <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+              <Ionicons name="shield-checkmark" size={24} color={currentTheme.primary} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -394,8 +483,10 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </TouchableOpacity>
           </View>
         </GradientCard>
+        </Animated.View>
 
         {/* Legal & Support Card - Required for App Store / Google Play */}
+        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(7) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -465,16 +556,18 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </TouchableOpacity>
           </View>
         </GradientCard>
+        </Animated.View>
 
         {/* About Card - At the very bottom */}
+        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(8) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
           isDark={isDark}
         >
           <View style={styles.cardRow}>
-            <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgPurple }]}>
-              <Ionicons name="information-circle" size={24} color={dynamicStyles.iconPurple} />
+            <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+              <Ionicons name="information-circle" size={24} color={currentTheme.primary} />
             </View>
             <View style={styles.cardTextContainer}>
               <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
@@ -525,6 +618,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             <Ionicons name="chevron-forward" size={18} color={dynamicStyles.chevronColor} />
           </TouchableOpacity>
         </GradientCard>
+        </Animated.View>
       </ScrollView>
 
       {/* Restart Onboarding Modal */}
@@ -749,5 +843,98 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
     borderRadius: theme.borderRadius.lg,
     marginTop: theme.spacing.md,
+  },
+  // Scientific sources section
+  scienceIntro: {
+    marginTop: theme.spacing.md,
+    paddingHorizontal: theme.spacing.xs,
+  },
+  scienceIntroText: {
+    fontSize: theme.typography.fontSizes.sm,
+    lineHeight: theme.typography.lineHeights.relaxed * theme.typography.fontSizes.sm,
+  },
+  sourcesList: {
+    marginTop: theme.spacing.md,
+    gap: theme.spacing.sm,
+  },
+  sourceItem: {
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.lg,
+  },
+  sourceHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: theme.spacing.sm,
+  },
+  sourceIcon: {
+    marginTop: 2,
+  },
+  sourceTitleContainer: {
+    flex: 1,
+  },
+  sourceTitle: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '600',
+    lineHeight: theme.typography.lineHeights.normal * theme.typography.fontSizes.sm,
+  },
+  sourceAuthors: {
+    fontSize: theme.typography.fontSizes.xs,
+    marginTop: 4,
+  },
+  sourceContent: {
+    marginTop: 2,
+    marginLeft: 26,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
+    borderBottomLeftRadius: theme.borderRadius.lg,
+    borderBottomRightRadius: theme.borderRadius.lg,
+  },
+  sourceDescription: {
+    fontSize: theme.typography.fontSizes.sm,
+    lineHeight: theme.typography.lineHeights.relaxed * theme.typography.fontSizes.sm,
+  },
+  learnMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: theme.spacing.xs,
+    marginTop: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.borderRadius.md,
+    alignSelf: 'flex-start',
+  },
+  learnMoreText: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '600',
+  },
+  // Accessibility options section
+  accessibilityOptions: {
+    marginTop: theme.spacing.md,
+    gap: theme.spacing.sm,
+  },
+  accessibilityOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.lg,
+  },
+  accessibilityOptionContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    gap: theme.spacing.sm,
+  },
+  accessibilityOptionText: {
+    flex: 1,
+  },
+  accessibilityOptionTitle: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '500',
+  },
+  accessibilityOptionDesc: {
+    fontSize: theme.typography.fontSizes.xs,
+    marginTop: 2,
   },
 });

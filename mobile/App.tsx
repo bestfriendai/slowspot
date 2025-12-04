@@ -275,7 +275,6 @@ function AppContent() {
             screenKey={currentScreen}
             onNavigate={handleNavigate}
             enableSwipe={currentScreen !== 'meditation' || !activeMeditationState}
-            transitionDuration={350}
           >
             {renderScreen()}
           </AnimatedScreenContainer>

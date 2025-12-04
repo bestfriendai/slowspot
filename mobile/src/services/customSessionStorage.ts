@@ -216,3 +216,83 @@ export const clearAllCustomSessions = async (): Promise<void> => {
     throw error;
   }
 };
+
+/**
+ * Default session configuration based on scientific research
+ *
+ * Evidence-based settings:
+ * - 10 minutes: Optimal for beginners, research shows similar benefits to longer sessions (MBSR studies)
+ * - Box breathing (4-4-4-4): Proven to activate parasympathetic nervous system, reduce cortisol
+ * - Silence: Minimizes distractions for focus training
+ * - 5-minute interval bell: Helps maintain attention without disruption
+ * - Wake-up chime: Gentle transition out of meditation state
+ */
+export const DEFAULT_EVIDENCE_BASED_SESSION: CustomSessionConfig = {
+  durationMinutes: 10,
+  ambientSound: 'silence',
+  intervalBellEnabled: true,
+  intervalBellMinutes: 5,
+  wakeUpChimeEnabled: true,
+  voiceGuidanceEnabled: false,
+  vibrationEnabled: true,
+  breathingPattern: 'box',
+  name: 'custom.defaultSession.name', // Translation key
+};
+
+const DEFAULT_SESSION_STORAGE_KEY = '@slow_spot_default_session_created_v3';
+const DEFAULT_SESSION_ID = 'default-mindful-breathing';
+const CORRECT_DEFAULT_SESSION_NAME = 'Mindful Breathing';
+
+/**
+ * Check if the default evidence-based session should be created
+ * Creates a default session as an example for all users
+ * Also migrates old sessions to remove emojis from name
+ */
+export const ensureDefaultSessionExists = async (): Promise<void> => {
+  try {
+    // Check if we've already created the default session
+    const defaultCreated = await AsyncStorage.getItem(DEFAULT_SESSION_STORAGE_KEY);
+    if (defaultCreated === 'true') {
+      return;
+    }
+
+    // Check if default session already exists (by ID)
+    const existingSessions = await getAllCustomSessions();
+    const existingDefaultIndex = existingSessions.findIndex(s => s.id === DEFAULT_SESSION_ID);
+
+    if (existingDefaultIndex >= 0) {
+      // Default session exists - update its name to remove any emoji
+      const existingSession = existingSessions[existingDefaultIndex];
+      if (existingSession.title !== CORRECT_DEFAULT_SESSION_NAME ||
+          existingSession.config?.name !== CORRECT_DEFAULT_SESSION_NAME) {
+        existingSession.title = CORRECT_DEFAULT_SESSION_NAME;
+        if (existingSession.config) {
+          existingSession.config.name = CORRECT_DEFAULT_SESSION_NAME;
+        }
+        await AsyncStorage.setItem(CUSTOM_SESSIONS_KEY, JSON.stringify(existingSessions));
+        logger.log('Updated default session name to remove emoji');
+      }
+      await AsyncStorage.setItem(DEFAULT_SESSION_STORAGE_KEY, 'true');
+      return;
+    }
+
+    // Create the default session with fixed ID so it's recognizable
+    const defaultSession = configToMeditationSession(
+      {
+        ...DEFAULT_EVIDENCE_BASED_SESSION,
+        name: CORRECT_DEFAULT_SESSION_NAME,
+      },
+      DEFAULT_SESSION_ID
+    );
+
+    // Prepend to beginning of sessions list
+    existingSessions.unshift(defaultSession);
+    await AsyncStorage.setItem(CUSTOM_SESSIONS_KEY, JSON.stringify(existingSessions));
+
+    // Mark as created
+    await AsyncStorage.setItem(DEFAULT_SESSION_STORAGE_KEY, 'true');
+    logger.log('Default evidence-based meditation session created');
+  } catch (error) {
+    logger.error('Error ensuring default session exists:', error);
+  }
+};

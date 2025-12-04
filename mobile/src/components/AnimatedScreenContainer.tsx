@@ -8,6 +8,7 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import { DURATION_SCREEN, DURATION_MICRO } from '../utils/animations';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SWIPE_THRESHOLD = SCREEN_WIDTH * 0.25;
@@ -30,7 +31,7 @@ export const AnimatedScreenContainer: React.FC<AnimatedScreenContainerProps> = (
   screenKey,
   onNavigate,
   enableSwipe = true,
-  transitionDuration = 300,
+  transitionDuration = DURATION_SCREEN,
 }) => {
   const opacity = useSharedValue(0);
   const translateX = useSharedValue(0);

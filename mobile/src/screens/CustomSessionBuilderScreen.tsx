@@ -109,6 +109,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
   const [intervalBellMinutes, setIntervalBellMinutes] = useState(initialConfig?.intervalBellMinutes ?? 5);
   const [wakeUpChimeEnabled, setWakeUpChimeEnabled] = useState(initialConfig?.wakeUpChimeEnabled ?? true);
   const [vibrationEnabled, setVibrationEnabled] = useState(initialConfig?.vibrationEnabled ?? true);
+  const [breathingPattern, setBreathingPattern] = useState<BreathingPattern>(initialConfig?.breathingPattern || 'none');
   const [sessionName, setSessionName] = useState(initialConfig?.name || '');
 
   // Local editing state
@@ -147,6 +148,57 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
     { id: '528hz', icon: 'radio-outline' as const, label: t('custom.sounds.528hz'), color: iconColors.rose },
   ];
 
+  // Breathing pattern options with scientific descriptions
+  const breathingPatternOptions: Array<{
+    id: BreathingPattern;
+    icon: keyof typeof Ionicons.glyphMap;
+    label: string;
+    description: string;
+    timing: string;
+    color: { bg: string; icon: string };
+  }> = [
+    {
+      id: 'none',
+      icon: 'pause-outline',
+      label: t('custom.breathing.none', 'Bez instrukcji'),
+      description: t('custom.breathing.noneDesc', 'Medytuj bez wzorca oddechowego'),
+      timing: '',
+      color: iconColors.purple,
+    },
+    {
+      id: 'box',
+      icon: 'square-outline',
+      label: t('custom.breathing.box', 'Box Breathing'),
+      description: t('custom.breathing.boxDesc', 'Aktywuje układ przywspółczulny, redukuje kortyzol'),
+      timing: '4-4-4-4',
+      color: iconColors.emerald,
+    },
+    {
+      id: '4-7-8',
+      icon: 'moon-outline',
+      label: t('custom.breathing.478', '4-7-8'),
+      description: t('custom.breathing.478Desc', 'Naturalny środek uspokajający dla układu nerwowego'),
+      timing: '4-7-8',
+      color: iconColors.indigo,
+    },
+    {
+      id: 'equal',
+      icon: 'swap-horizontal-outline',
+      label: t('custom.breathing.equal', 'Equal Breathing'),
+      description: t('custom.breathing.equalDesc', 'Równoważy układ nerwowy, zwiększa skupienie'),
+      timing: '4-4',
+      color: iconColors.teal,
+    },
+    {
+      id: 'calm',
+      icon: 'water-outline',
+      label: t('custom.breathing.calm', 'Calm Breathing'),
+      description: t('custom.breathing.calmDesc', 'Dłuższy wydech aktywuje reakcję relaksacyjną'),
+      timing: '4-6',
+      color: iconColors.sky,
+    },
+  ];
+
   const getCurrentConfig = (): CustomSessionConfig => ({
     durationMinutes,
     ambientSound,
@@ -155,7 +207,7 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
     wakeUpChimeEnabled,
     voiceGuidanceEnabled: false,
     vibrationEnabled,
-    breathingPattern: 'none',
+    breathingPattern,
     name: sessionName || undefined,
   });
 
@@ -519,6 +571,76 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
           )}
         </GradientCard>
 
+        {/* Breathing Pattern Selection */}
+        <GradientCard gradient={themeGradients.card.lightCard} style={styles.section} isDark={isDark}>
+          <View style={styles.sectionHeader}>
+            {renderIconBox('pulse-outline', iconColors.emerald)}
+            <View style={styles.sectionHeaderText}>
+              <Text style={[styles.sectionTitle, dynamicStyles.sectionTitle]}>
+                {t('custom.breathingTitle', 'Wzorzec oddechowy')}
+              </Text>
+              <Text style={[styles.sectionDescription, dynamicStyles.sectionDescription]}>
+                {t('custom.breathingDescription', 'Wybierz technikę wspieraną badaniami naukowymi')}
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.breathingGrid}>
+            {breathingPatternOptions.map((option) => {
+              const isActive = breathingPattern === option.id;
+              return (
+                <Pressable
+                  key={option.id}
+                  onPress={() => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                    setBreathingPattern(option.id);
+                  }}
+                  style={[
+                    styles.breathingOption,
+                    {
+                      backgroundColor: isActive ? dynamicStyles.optionSelectedBg : dynamicStyles.optionBg,
+                      borderColor: isActive ? dynamicStyles.optionSelectedBorder : dynamicStyles.optionBorder,
+                    }
+                  ]}
+                >
+                  <View style={styles.breathingOptionHeader}>
+                    <View style={[styles.breathingIconBox, { backgroundColor: option.color.bg }]}>
+                      <Ionicons name={option.icon} size={20} color={isActive ? currentTheme.primary : option.color.icon} />
+                    </View>
+                    <View style={styles.breathingOptionTitleContainer}>
+                      <Text style={[
+                        styles.breathingOptionLabel,
+                        { color: isActive ? currentTheme.primary : colors.text.primary }
+                      ]} numberOfLines={1}>
+                        {option.label}
+                      </Text>
+                      {option.timing && (
+                        <Text style={[
+                          styles.breathingTiming,
+                          { color: isActive ? currentTheme.primary : colors.text.secondary }
+                        ]}>
+                          {option.timing}
+                        </Text>
+                      )}
+                    </View>
+                    {isActive && (
+                      <View style={[styles.selectedIndicator, { backgroundColor: currentTheme.primary }]}>
+                        <Ionicons name="checkmark" size={10} color="white" />
+                      </View>
+                    )}
+                  </View>
+                  <Text style={[
+                    styles.breathingOptionDesc,
+                    { color: colors.text.tertiary }
+                  ]} numberOfLines={2}>
+                    {option.description}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        </GradientCard>
+
         {/* Action Buttons */}
         <View style={styles.buttonContainer}>
           <GradientButton
@@ -751,6 +873,45 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.xs,
     textAlign: 'center',
     marginTop: theme.spacing.sm,
+  },
+  // Breathing pattern styles
+  breathingGrid: {
+    gap: theme.spacing.sm,
+  },
+  breathingOption: {
+    borderRadius: theme.borderRadius.lg,
+    borderWidth: 1.5,
+    padding: theme.spacing.md,
+  },
+  breathingOptionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing.xs,
+  },
+  breathingIconBox: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  breathingOptionTitleContainer: {
+    flex: 1,
+    marginLeft: theme.spacing.sm,
+  },
+  breathingOptionLabel: {
+    fontSize: theme.typography.fontSizes.md,
+    fontWeight: theme.typography.fontWeights.semiBold,
+  },
+  breathingTiming: {
+    fontSize: theme.typography.fontSizes.xs,
+    fontWeight: theme.typography.fontWeights.medium,
+    marginTop: 1,
+  },
+  breathingOptionDesc: {
+    fontSize: theme.typography.fontSizes.xs,
+    marginLeft: 36 + theme.spacing.sm, // Align with title
+    lineHeight: 16,
   },
   // Buttons
   buttonContainer: {

@@ -35,12 +35,11 @@ import Animated, {
   withRepeat,
   Easing,
   FadeIn,
-  FadeInUp,
-  FadeInDown,
   ZoomIn,
   interpolate,
   runOnJS,
 } from 'react-native-reanimated';
+import { celebrationAnimation, celebrationHeaderAnimation } from '../utils/animations';
 import * as Haptics from 'expo-haptics';
 import { GradientBackground } from './GradientBackground';
 import { GradientCard } from './GradientCard';
@@ -64,13 +63,13 @@ interface CelebrationScreenProps {
 
 type MoodRating = 1 | 2 | 3 | 4 | 5;
 
-// Confetti particle component
-const ConfettiParticle: React.FC<{
+// Confetti particle component - memoized for performance (30 instances rendered)
+const ConfettiParticle = React.memo<{
   delay: number;
   color: string;
   startX: number;
   animationsEnabled: boolean;
-}> = ({ delay, color, startX, animationsEnabled }) => {
+}>(({ delay, color, startX, animationsEnabled }) => {
   const translateY = useSharedValue(-50);
   const translateX = useSharedValue(startX);
   const rotate = useSharedValue(0);
@@ -126,13 +125,13 @@ const ConfettiParticle: React.FC<{
       ]}
     />
   );
-};
+});
 
-// Celebration checkmark with glow effect
-const CelebrationCheckmark: React.FC<{
+// Celebration checkmark with glow effect - memoized for performance
+const CelebrationCheckmark = React.memo<{
   gradient: string[];
   animationsEnabled: boolean;
-}> = ({ gradient, animationsEnabled }) => {
+}>(({ gradient, animationsEnabled }) => {
   const scale = useSharedValue(0);
   const glowOpacity = useSharedValue(0);
 
@@ -177,10 +176,10 @@ const CelebrationCheckmark: React.FC<{
       </LinearGradient>
     </Animated.View>
   );
-};
+});
 
-// Animated mood button with MoodIcon
-const MoodButton: React.FC<{
+// Animated mood button with MoodIcon - memoized for performance (5 instances rendered)
+const MoodButton = React.memo<{
   mood: MoodRating;
   label: string;
   isSelected: boolean;
@@ -188,7 +187,7 @@ const MoodButton: React.FC<{
   onSelect: (mood: MoodRating) => void;
   dynamicStyles: any;
   animationsEnabled: boolean;
-}> = ({ mood, label, isSelected, gradient, onSelect, dynamicStyles, animationsEnabled }) => {
+}>(({ mood, label, isSelected, gradient, onSelect, dynamicStyles, animationsEnabled }) => {
   const scale = useSharedValue(1);
   const moodColors = getMoodColors(mood);
 
@@ -235,7 +234,7 @@ const MoodButton: React.FC<{
       </Text>
     </Pressable>
   );
-};
+});
 
 export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
   durationMinutes,
@@ -396,7 +395,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
         >
           {/* Header with celebration */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(600) : undefined}
+            entering={settings.animationsEnabled ? celebrationHeaderAnimation(0) : undefined}
             style={styles.header}
           >
             <CelebrationCheckmark
@@ -428,7 +427,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
 
           {/* Session Stats Card */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInUp.delay(300).duration(500) : undefined}
+            entering={settings.animationsEnabled ? celebrationAnimation(1) : undefined}
           >
             <GradientCard
               gradient={themeGradients.card.whiteCard}
@@ -470,7 +469,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
           {/* User Intention Card */}
           {userIntention && userIntention.trim() && (
             <Animated.View
-              entering={settings.animationsEnabled ? FadeInUp.delay(400).duration(500) : undefined}
+              entering={settings.animationsEnabled ? celebrationAnimation(2) : undefined}
             >
               <GradientCard
                 gradient={themeGradients.card.whiteCard}
@@ -501,7 +500,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
 
           {/* Mood Rating Card */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInUp.delay(500).duration(500) : undefined}
+            entering={settings.animationsEnabled ? celebrationAnimation(3) : undefined}
           >
             <GradientCard
               gradient={themeGradients.card.whiteCard}
@@ -540,7 +539,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
 
           {/* Notes Card */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInUp.delay(600).duration(500) : undefined}
+            entering={settings.animationsEnabled ? celebrationAnimation(4) : undefined}
           >
             <GradientCard
               gradient={themeGradients.card.whiteCard}
@@ -584,7 +583,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
           {/* Inspirational Quote Card */}
           {!loading && quote && quote.text && (
             <Animated.View
-              entering={settings.animationsEnabled ? FadeInUp.delay(700).duration(500) : undefined}
+              entering={settings.animationsEnabled ? celebrationAnimation(5) : undefined}
             >
               <GradientCard
                 gradient={themeGradients.card.whiteCard}
@@ -617,7 +616,7 @@ export const CelebrationScreen: React.FC<CelebrationScreenProps> = ({
 
           {/* Continue Button */}
           <Animated.View
-            entering={settings.animationsEnabled ? FadeInUp.delay(800).duration(500) : undefined}
+            entering={settings.animationsEnabled ? celebrationAnimation(6) : undefined}
             style={styles.buttonContainer}
           >
             <AnimatedPressable

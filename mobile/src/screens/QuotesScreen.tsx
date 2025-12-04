@@ -4,12 +4,11 @@ import { View, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-nat
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, {
-  FadeInDown,
-  FadeIn,
   useSharedValue,
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
+import { screenElementAnimation, secondaryElementAnimation } from '../utils/animations';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SwipeableQuoteCard } from '../components/SwipeableQuoteCard';
 import { AnimatedPressable } from '../components/AnimatedPressable';
@@ -144,7 +143,7 @@ export const QuotesScreen: React.FC<QuotesScreenProps> = ({ isDark = false }) =>
       <GradientBackground gradient={themeGradients.screen.home} style={styles.container}>
         {/* Header */}
         <Animated.View
-          entering={settings.animationsEnabled ? FadeInDown.delay(100).duration(500) : undefined}
+          entering={settings.animationsEnabled ? screenElementAnimation(0) : undefined}
           style={styles.header}
         >
           <View style={styles.headerContent}>
@@ -159,7 +158,7 @@ export const QuotesScreen: React.FC<QuotesScreenProps> = ({ isDark = false }) =>
           {/* Quote counter */}
           {quotes.length > 0 && (
             <Animated.View
-              entering={settings.animationsEnabled ? FadeIn.delay(300).duration(400) : undefined}
+              entering={settings.animationsEnabled ? secondaryElementAnimation(1) : undefined}
               style={[styles.counterContainer, dynamicStyles.counterContainer, counterAnimatedStyle]}
             >
               <Text style={[styles.counterText, dynamicStyles.counterText]}>
@@ -180,7 +179,10 @@ export const QuotesScreen: React.FC<QuotesScreenProps> = ({ isDark = false }) =>
         ) : quotes.length > 0 ? (
           <>
             {/* Quote Card */}
-            <View style={styles.cardsContainer}>
+            <Animated.View
+              entering={settings.animationsEnabled ? screenElementAnimation(1) : undefined}
+              style={styles.cardsContainer}
+            >
               {currentQuote && (
                 <SwipeableQuoteCard
                   key={`${cardKey}-${currentQuote.id}`}
@@ -192,11 +194,11 @@ export const QuotesScreen: React.FC<QuotesScreenProps> = ({ isDark = false }) =>
                   onSwipeRight={handleSwipeRight}
                 />
               )}
-            </View>
+            </Animated.View>
 
             {/* Bottom controls - shuffle only */}
             <Animated.View
-              entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(500) : undefined}
+              entering={settings.animationsEnabled ? screenElementAnimation(2) : undefined}
               style={styles.bottomControls}
             >
               <AnimatedPressable
@@ -211,12 +213,15 @@ export const QuotesScreen: React.FC<QuotesScreenProps> = ({ isDark = false }) =>
             </Animated.View>
           </>
         ) : (
-          <View style={styles.emptyState}>
+          <Animated.View
+            entering={settings.animationsEnabled ? screenElementAnimation(1) : undefined}
+            style={styles.emptyState}
+          >
             <Ionicons name="book-outline" size={64} color={colors.text.tertiary} />
             <Text style={[styles.emptyText, { color: colors.text.secondary }]}>
               {t('quotes.empty', 'Brak cytatów do wyświetlenia')}
             </Text>
-          </View>
+          </Animated.View>
         )}
       </GradientBackground>
     </GestureHandlerRootView>

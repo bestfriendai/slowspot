@@ -139,7 +139,8 @@
     "yourIntention": "Your Intention",
     "intentionDescription": "What you set for yourself before the session",
     "meditationInProgress": "MEDITATION IN PROGRESS",
-    "breatheNaturally": "Breathe naturally"
+    "breatheNaturally": "Breathe naturally",
+    "tapToShowControls": "Tap to show controls"
   },
   "instructions": {
     "timeOfDay": {
@@ -419,7 +420,38 @@
     "restartOnboardingTitle": "Restart onboarding?",
     "restartOnboardingBody": "The app will restart and you will see the welcome screen.",
     "restartRequired": "Restart required",
-    "restartRequiredBody": "Close and reopen the app to see the onboarding."
+    "restartRequiredBody": "Close and reopen the app to see the onboarding.",
+    "scientificSources": "Scientific Sources",
+    "scientificSourcesDescription": "Research behind the benefits of meditation",
+    "scienceIntro": "The benefits of meditation have been confirmed in numerous scientific studies. Here are key publications:",
+    "source1Title": "Mindfulness practice leads to increases in regional brain gray matter density",
+    "source1Authors": "Hölzel et al., 2011 - Psychiatry Research",
+    "source1Desc": "8-week MBSR program increased gray matter density in brain regions associated with memory and emotional regulation.",
+    "source2Title": "A randomized controlled trial of mindfulness meditation versus relaxation training",
+    "source2Authors": "Jain et al., 2007 - Annals of Behavioral Medicine",
+    "source2Desc": "Mindfulness significantly reduced anxiety and rumination compared to other relaxation techniques.",
+    "source3Title": "Mindfulness-Based Stress Reduction and Health Benefits",
+    "source3Authors": "Grossman et al., 2004 - Journal of Psychosomatic Research",
+    "source3Desc": "Meta-analysis of 20 studies confirmed positive effects of MBSR on mental and physical health.",
+    "breathingScience": "Breathing Science",
+    "breathingScienceDescription": "Research on breathing techniques",
+    "breathingIntro": "Controlled breathing affects the autonomic nervous system. Research shows slow, rhythmic breathing activates the parasympathetic response. Note: optimal breathing patterns vary between individuals based on factors like lung capacity and heart rate.",
+    "breathSource1Title": "How Breath-Control Can Change Your Life: A Systematic Review on Psycho-Physiological Correlates of Slow Breathing",
+    "breathSource1Authors": "Zaccaro et al., 2018 - Frontiers in Human Neuroscience",
+    "breathSource1Desc": "Comprehensive review of 15 studies showing slow breathing (under 10 breaths/min) increases parasympathetic activity, improves emotional control, and enhances psychological well-being.",
+    "breathSource2Title": "The Effect of Diaphragmatic Breathing on Attention, Negative Affect and Stress in Healthy Adults",
+    "breathSource2Authors": "Ma et al., 2017 - Frontiers in Psychology",
+    "breathSource2Desc": "Study of 40 participants showed deep diaphragmatic breathing significantly reduced cortisol levels and improved sustained attention compared to control group.",
+    "breathSource3Title": "Cardiac vagal control, emotion regulation, and executive function in youth with anxiety disorders",
+    "breathSource3Authors": "Vasilev et al., 2018 - Journal of Affective Disorders",
+    "breathSource3Desc": "Research demonstrating the link between respiratory sinus arrhythmia (heart rate variability during breathing) and emotional regulation capacity.",
+    "learnMore": "Learn more",
+    "accessibility": "Accessibility",
+    "accessibilityDescription": "Options for better visual experience",
+    "highContrastMode": "High Contrast Mode",
+    "highContrastModeDescription": "Increases contrast for better visibility",
+    "largerTextMode": "Larger Text",
+    "largerTextModeDescription": "Increases text size throughout the app"
   },
   "navigation": {
     "home": "Home",
@@ -737,7 +769,21 @@
     "inhale": "Inhale",
     "hold": "Hold",
     "exhale": "Exhale",
-    "cycle": "cycle"
+    "cycle": "cycle",
+    "breathing": {
+      "none": "No Guidance",
+      "noneDesc": "Meditate without a breathing pattern",
+      "box": "Box Breathing",
+      "boxDesc": "Activates parasympathetic system, reduces cortisol",
+      "478": "4-7-8",
+      "478Desc": "Natural sedative for the nervous system",
+      "equal": "Equal Breathing",
+      "equalDesc": "Balances nervous system, increases focus",
+      "calm": "Calm Breathing",
+      "calmDesc": "Longer exhale activates relaxation response"
+    },
+    "breathingTitle": "Breathing Pattern",
+    "breathingDescription": "Choose a science-backed breathing technique (optional)"
   },
   "profile": {
     "title": "Your Profile",
@@ -777,7 +823,19 @@
     "mood3": "Neutral",
     "mood4": "Good",
     "mood5": "Very Good",
-    "showMore": "Show more"
+    "showMore": "Show more",
+    "weeklyActivity": "Weekly Activity",
+    "weeklyActivityDescription": "Your meditation pattern this week",
+    "sessions": "sessions",
+    "minutes": "min",
+    "noActivity": "No activity",
+    "dayMon": "Mon",
+    "dayTue": "Tue",
+    "dayWed": "Wed",
+    "dayThu": "Thu",
+    "dayFri": "Fri",
+    "daySat": "Sat",
+    "daySun": "Sun"
   },
   "calendar": {
     "title": "Calendar Integration",
@@ -1092,6 +1150,7 @@
   "onboarding": {
     "skip": "Skip",
     "next": "Next",
+    "back": "Back",
     "getStarted": "Get Started",
     "slide1": {
       "title": "Find Peace",
@@ -1110,7 +1169,10 @@
       "subtitle": "Tell us your name and we'll greet you personally each time you visit.",
       "placeholder": "Your name (optional)",
       "hint": "You can change this later in Profile"
-    }
+    },
+    "healthDisclaimer": "This app supports mindfulness practice and is not a substitute for professional healthcare. Consult a doctor for health concerns.",
+    "successTitle": "You're All Set!",
+    "successSubtitle": "Your meditation journey begins now"
   },
   "personalization": {
     "title": "Personalization",

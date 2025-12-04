@@ -12,9 +12,9 @@ import Animated, {
   withTiming,
   withSequence,
   Easing,
-  FadeInDown,
   interpolate,
 } from 'react-native-reanimated';
+import { screenElementAnimation, DURATION_STANDARD, DELAY_FIRST, DELAY_SECOND, DELAY_STAGGER } from '../utils/animations';
 import { GradientBackground } from '../components/GradientBackground';
 import { AnimatedPressable } from '../components/AnimatedPressable';
 import theme, { getThemeColors, getThemeGradients, getCardStyles } from '../theme';
@@ -105,7 +105,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       >
         {/* Header - Calm/Headspace inspired minimalist greeting */}
         <Animated.View
-          entering={settings.animationsEnabled ? FadeInDown.delay(100).duration(600) : undefined}
+          entering={settings.animationsEnabled ? screenElementAnimation(0) : undefined}
           style={styles.header}
         >
           <View style={styles.greetingContainer}>
@@ -145,7 +145,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
         {/* Main CTA Card - Headspace style with decorative rings */}
         <Animated.View
-          entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(700) : undefined}
+          entering={settings.animationsEnabled ? screenElementAnimation(1) : undefined}
           style={styles.mainCardContainer}
         >
           {/* Decorative animated rings behind the card */}
@@ -217,7 +217,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
         {/* Section title */}
         <Animated.View
-          entering={settings.animationsEnabled ? FadeInDown.delay(200).duration(500) : undefined}
+          entering={settings.animationsEnabled ? screenElementAnimation(2) : undefined}
           style={styles.sectionHeader}
         >
           <Text style={[styles.sectionTitle, { color: colors.text.secondary }]}>
@@ -227,7 +227,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
         {/* Secondary Cards */}
         <Animated.View
-          entering={settings.animationsEnabled ? FadeInDown.delay(250).duration(500) : undefined}
+          entering={settings.animationsEnabled ? screenElementAnimation(3) : undefined}
           style={styles.secondaryCards}
         >
           {/* Instructions Card - uses global cardStyles.secondary */}

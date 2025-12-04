@@ -150,7 +150,8 @@
     "yourIntention": "Twoja intencja",
     "intentionDescription": "To, co sobie założyłeś przed sesją",
     "meditationInProgress": "Medytacja w trakcie",
-    "breatheNaturally": "Oddychaj naturalnie"
+    "breatheNaturally": "Oddychaj naturalnie",
+    "tapToShowControls": "Dotknij, aby pokazać kontrolki"
   },
   "instructions": {
     "timeOfDay": {
@@ -434,7 +435,38 @@
     "restartOnboardingTitle": "Uruchomić ponownie onboarding?",
     "restartOnboardingBody": "Aplikacja zostanie ponownie uruchomiona i zobaczysz ekran powitalny.",
     "restartRequired": "Wymagane ponowne uruchomienie",
-    "restartRequiredBody": "Zamknij i otwórz aplikację ponownie, aby zobaczyć onboarding."
+    "restartRequiredBody": "Zamknij i otwórz aplikację ponownie, aby zobaczyć onboarding.",
+    "scientificSources": "Źródła naukowe",
+    "scientificSourcesDescription": "Badania naukowe stojące za korzyściami z medytacji",
+    "scienceIntro": "Korzyści medytacji zostały potwierdzone w wielu badaniach naukowych. Oto kluczowe publikacje:",
+    "source1Title": "Mindfulness practice leads to increases in regional brain gray matter density",
+    "source1Authors": "Hölzel i wsp., 2011 - Psychiatry Research",
+    "source1Desc": "8-tygodniowy program MBSR zwiększył gęstość istoty szarej w obszarach mózgu odpowiedzialnych za pamięć i regulację emocji.",
+    "source2Title": "A randomized controlled trial of mindfulness meditation versus relaxation training",
+    "source2Authors": "Jain i wsp., 2007 - Annals of Behavioral Medicine",
+    "source2Desc": "Mindfulness znacząco zmniejszyło poziom niepokoju i ruminacji w porównaniu z innymi technikami relaksacyjnymi.",
+    "source3Title": "Mindfulness-Based Stress Reduction and Health Benefits",
+    "source3Authors": "Grossman i wsp., 2004 - Journal of Psychosomatic Research",
+    "source3Desc": "Meta-analiza 20 badań potwierdziła pozytywny wpływ MBSR na zdrowie psychiczne i fizyczne.",
+    "learnMore": "Dowiedz się więcej",
+    "breathingScience": "Nauka o oddychaniu",
+    "breathingScienceDescription": "Badania nad technikami oddechowymi",
+    "breathingIntro": "Kontrolowane oddychanie wpływa na autonomiczny układ nerwowy. Badania pokazują, że wolne, rytmiczne oddychanie aktywuje reakcję przywspółczulną. Uwaga: optymalne wzorce oddechowe różnią się między osobami w zależności od pojemności płuc i rytmu serca.",
+    "breathSource1Title": "Jak kontrola oddechu może zmienić Twoje życie: systematyczny przegląd psychofizjologicznych korelatów wolnego oddychania",
+    "breathSource1Authors": "Zaccaro i wsp., 2018 - Frontiers in Human Neuroscience",
+    "breathSource1Desc": "Kompleksowy przegląd 15 badań pokazujących, że wolne oddychanie (poniżej 10 oddechów/min) zwiększa aktywność przywspółczulną, poprawia kontrolę emocji i wzmacnia dobrostan psychiczny.",
+    "breathSource2Title": "Wpływ oddychania przeponowego na uwagę, negatywny afekt i stres u zdrowych dorosłych",
+    "breathSource2Authors": "Ma i wsp., 2017 - Frontiers in Psychology",
+    "breathSource2Desc": "Badanie 40 uczestników wykazało, że głębokie oddychanie przeponowe znacząco obniżyło poziom kortyzolu i poprawiło koncentrację uwagi w porównaniu z grupą kontrolną.",
+    "breathSource3Title": "Kontrola nerwu błędnego serca, regulacja emocji i funkcje wykonawcze u młodzieży z zaburzeniami lękowymi",
+    "breathSource3Authors": "Vasilev i wsp., 2018 - Journal of Affective Disorders",
+    "breathSource3Desc": "Badania wykazujące związek między arytmią zatokową oddechową (zmienność rytmu serca podczas oddychania) a zdolnością regulacji emocji.",
+    "accessibility": "Dostępność",
+    "accessibilityDescription": "Opcje dla lepszego doświadczenia wizualnego",
+    "highContrastMode": "Tryb wysokiego kontrastu",
+    "highContrastModeDescription": "Zwiększa kontrast dla lepszej widoczności",
+    "largerTextMode": "Większy tekst",
+    "largerTextModeDescription": "Zwiększa rozmiar tekstu w całej aplikacji"
   },
   "navigation": {
     "home": "Główna",
@@ -535,7 +567,19 @@
     "mood5": "Bardzo dobrze",
     "showMore": "Pokaż więcej",
     "enterYourName": "Wpisz swoje imię",
-    "tapToAddName": "Dotknij, aby dodać imię"
+    "tapToAddName": "Dotknij, aby dodać imię",
+    "weeklyActivity": "Aktywność tygodniowa",
+    "weeklyActivityDescription": "Twój wzorzec medytacji w tym tygodniu",
+    "sessions": "sesje",
+    "minutes": "min",
+    "noActivity": "Brak aktywności",
+    "dayMon": "Pon",
+    "dayTue": "Wt",
+    "dayWed": "Śr",
+    "dayThu": "Czw",
+    "dayFri": "Pt",
+    "daySat": "Sob",
+    "daySun": "Ndz"
   },
   "calendar": {
     "title": "Integracja z kalendarzem",
@@ -808,6 +852,20 @@
     "hold": "Zatrzymaj",
     "exhale": "Wydech",
     "cycle": "cykl",
+    "breathing": {
+      "none": "Bez instrukcji",
+      "noneDesc": "Medytuj bez wzorca oddechowego",
+      "box": "Box Breathing",
+      "boxDesc": "Aktywuje układ przywspółczulny, redukuje kortyzol",
+      "478": "4-7-8",
+      "478Desc": "Naturalny środek uspokajający dla układu nerwowego",
+      "equal": "Equal Breathing",
+      "equalDesc": "Równoważy układ nerwowy, zwiększa skupienie",
+      "calm": "Calm Breathing",
+      "calmDesc": "Dłuższy wydech aktywuje reakcję relaksacyjną"
+    },
+    "breathingTitle": "Wzorzec oddechowy",
+    "breathingDescription": "Wybierz technikę wspieraną badaniami naukowymi (opcjonalne)",
     "sounds": {
       "nature": "Natura",
       "rain": "Deszcz",
@@ -1114,6 +1172,7 @@
   "onboarding": {
     "skip": "Pomiń",
     "next": "Dalej",
+    "back": "Wstecz",
     "getStarted": "Rozpocznij",
     "slide1": {
       "title": "Znajdź spokój",
@@ -1132,7 +1191,10 @@
       "subtitle": "Podaj swoje imię, a będziemy się do Ciebie zwracać osobiście przy każdej wizycie.",
       "placeholder": "Twoje imię (opcjonalnie)",
       "hint": "Możesz to zmienić później w Profilu"
-    }
+    },
+    "healthDisclaimer": "Aplikacja wspiera praktykę mindfulness i nie zastępuje profesjonalnej opieki zdrowotnej. W przypadku problemów zdrowotnych skonsultuj się z lekarzem.",
+    "successTitle": "Wszystko gotowe!",
+    "successSubtitle": "Twoja podróż z medytacją właśnie się zaczyna"
   },
   "personalization": {
     "title": "Personalizacja",

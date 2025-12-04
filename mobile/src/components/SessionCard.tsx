@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { Swipeable } from 'react-native-gesture-handler';
 import * as Haptics from 'expo-haptics';
+import Animated from 'react-native-reanimated';
+import { screenElementAnimation } from '../utils/animations';
 import { MeditationSession } from '../services/api';
 import { SavedCustomSession } from '../services/customSessionStorage';
 import { AnimatedPressable } from './AnimatedPressable';
@@ -18,6 +20,8 @@ interface SessionCardProps {
   onDelete?: () => void;
   isCustom?: boolean;
   isDark?: boolean;
+  /** Index for staggered entry animation (starts at 0) */
+  animationIndex?: number;
 }
 
 const formatDuration = (seconds: number): string => {
@@ -62,10 +66,11 @@ export const SessionCard = React.memo<SessionCardProps>(({
   onEdit,
   onDelete,
   isCustom,
-  isDark = false
+  isDark = false,
+  animationIndex = 0
 }) => {
   const { t } = useTranslation();
-  const { currentTheme } = usePersonalization();
+  const { currentTheme, settings } = usePersonalization();
   const swipeableRef = useRef<Swipeable>(null);
 
   // Theme-aware colors and styles from global theme
@@ -76,6 +81,9 @@ export const SessionCard = React.memo<SessionCardProps>(({
 
   // Get custom session config for displaying details
   const customConfig = isCustom ? (session as SavedCustomSession).config : null;
+
+  // Check if this is the default evidence-based session
+  const isDefaultSession = session.id === 'default-mindful-breathing';
 
   // Use translation keys if available, otherwise fall back to direct values
   const title = session.titleKey ? t(session.titleKey) : session.title;
@@ -170,8 +178,19 @@ export const SessionCard = React.memo<SessionCardProps>(({
       accessibilityLabel={`${title}, ${formatDuration(session.durationSeconds)}`}
     >
       {/* Icon Section */}
-      <View style={[styles.iconContainer, { backgroundColor: sectionColors.meditation.background }]}>
-        <Ionicons name="leaf-outline" size={22} color={sectionColors.meditation.icon} />
+      <View style={[
+        styles.iconContainer,
+        {
+          backgroundColor: isDefaultSession
+            ? '#FCE7F3' // Pink background for default session (flower theme)
+            : sectionColors.meditation.background
+        }
+      ]}>
+        <Ionicons
+          name={isDefaultSession ? 'flower-outline' : 'leaf-outline'}
+          size={22}
+          color={isDefaultSession ? '#EC4899' : sectionColors.meditation.icon}
+        />
       </View>
 
       {/* Middle Section - Title and Tags */}
@@ -218,27 +237,40 @@ export const SessionCard = React.memo<SessionCardProps>(({
     </AnimatedPressable>
   );
 
+  // Animation offset: cards start after header items (which use indices 0, 1, 2)
+  const cardAnimationIndex = animationIndex + 3;
+
   // If swipe actions available, wrap in Swipeable
   if (isCustom && (onEdit || onDelete)) {
     return (
-      <View style={styles.swipeableWrapper}>
-        <Swipeable
-          ref={swipeableRef}
-          renderRightActions={renderRightActions}
-          friction={2}
-          rightThreshold={40}
-          overshootRight={false}
-          containerStyle={styles.swipeableContainer}
-          childrenContainerStyle={styles.swipeableContent}
-          onSwipeableOpen={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
-        >
-          {CardContent}
-        </Swipeable>
-      </View>
+      <Animated.View
+        entering={settings.animationsEnabled ? screenElementAnimation(cardAnimationIndex) : undefined}
+      >
+        <View style={styles.swipeableWrapper}>
+          <Swipeable
+            ref={swipeableRef}
+            renderRightActions={renderRightActions}
+            friction={2}
+            rightThreshold={40}
+            overshootRight={false}
+            containerStyle={styles.swipeableContainer}
+            childrenContainerStyle={styles.swipeableContent}
+            onSwipeableOpen={() => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)}
+          >
+            {CardContent}
+          </Swipeable>
+        </View>
+      </Animated.View>
     );
   }
 
-  return CardContent;
+  return (
+    <Animated.View
+      entering={settings.animationsEnabled ? screenElementAnimation(cardAnimationIndex) : undefined}
+    >
+      {CardContent}
+    </Animated.View>
+  );
 });
 
 const styles = StyleSheet.create({

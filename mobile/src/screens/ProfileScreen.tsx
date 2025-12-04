@@ -33,6 +33,7 @@ import { brandColors, primaryColor, featureColorPalettes, semanticColors } from 
 import {
   getProgressStats,
   getCompletedSessions,
+  getSessionsInRange,
   ProgressStats,
   CompletedSession,
 } from '../services/progressTracker';
@@ -50,6 +51,14 @@ interface GroupedSessions {
   yesterday: CompletedSession[];
   thisWeek: CompletedSession[];
   earlier: CompletedSession[];
+}
+
+interface WeeklyActivityData {
+  dayKey: string;
+  dayLabel: string;
+  sessions: number;
+  minutes: number;
+  date: Date;
 }
 
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, onNavigateToCustom }) => {
@@ -140,32 +149,75 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     lastSessionDate: null,
   });
   const [sessions, setSessions] = useState<CompletedSession[]>([]);
+  const [weeklyActivity, setWeeklyActivity] = useState<WeeklyActivityData[]>([]);
   const [customSessionCount, setCustomSessionCount] = useState(0);
   const [selectedSession, setSelectedSession] = useState<CompletedSession | null>(null);
   const [visibleSessionsCount, setVisibleSessionsCount] = useState(5); // Initial limit
   const SESSIONS_PER_PAGE = 5;
 
   /**
+   * Get day labels for weekly activity chart
+   */
+  const getDayLabel = useCallback((dayIndex: number): string => {
+    const dayKeys = ['daySun', 'dayMon', 'dayTue', 'dayWed', 'dayThu', 'dayFri', 'daySat'];
+    return t(`profile.${dayKeys[dayIndex]}`);
+  }, [t]);
+
+  /**
+   * Calculate weekly activity data
+   */
+  const calculateWeeklyActivity = useCallback(async (): Promise<WeeklyActivityData[]> => {
+    const today = new Date();
+    const weekData: WeeklyActivityData[] = [];
+
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      date.setHours(0, 0, 0, 0);
+
+      const endDate = new Date(date);
+      endDate.setHours(23, 59, 59, 999);
+
+      const daySessions = await getSessionsInRange(date, endDate);
+      const dayMinutes = Math.floor(
+        daySessions.reduce((sum, s) => sum + s.durationSeconds, 0) / 60
+      );
+
+      weekData.push({
+        dayKey: `day${date.getDay()}`,
+        dayLabel: getDayLabel(date.getDay()),
+        sessions: daySessions.length,
+        minutes: dayMinutes,
+        date: date,
+      });
+    }
+
+    return weekData;
+  }, [getDayLabel]);
+
+  /**
    * Load all profile data
    */
   const loadProfileData = useCallback(async () => {
     try {
-      const [progressStats, completedSessions, customSessions] = await Promise.all([
+      const [progressStats, completedSessions, customSessions, weeklyData] = await Promise.all([
         getProgressStats(),
         getCompletedSessions(),
         getAllCustomSessions(),
+        calculateWeeklyActivity(),
       ]);
 
       setStats(progressStats);
       setSessions(completedSessions.reverse()); // Most recent first
       setCustomSessionCount(customSessions.length);
+      setWeeklyActivity(weeklyData);
     } catch (error) {
       logger.error('Error loading profile data:', error);
     } finally {
       setLoading(false);
       setRefreshing(false);
     }
-  }, []);
+  }, [calculateWeeklyActivity]);
 
   /**
    * Initial data load
@@ -359,8 +411,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
    * Render a session item as a nice card
    */
   const renderSessionItem = (session: CompletedSession) => {
-    const isCustom = typeof session.id === 'string' && session.id.startsWith('custom-');
-
     return (
       <TouchableOpacity
         key={`${session.id}-${session.date}`}
@@ -374,13 +424,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
         onPress={() => handleSessionPress(session)}
         activeOpacity={0.7}
       >
-        <View style={[styles.sessionIconBox, { backgroundColor: isCustom ? dynamicStyles.iconBoxBgBlue : dynamicStyles.iconBoxBg }]}>
-          <Ionicons
-            name={isCustom ? 'construct' : 'leaf'}
-            size={20}
-            color={isCustom ? dynamicStyles.iconBlue : dynamicStyles.iconEmerald}
-          />
-        </View>
+        <MoodIcon mood={session.mood} size="card" />
         <View style={styles.sessionInfo}>
           <Text style={[styles.sessionTitle, dynamicStyles.sessionTitle]} numberOfLines={1}>{session.title}</Text>
           <View style={styles.sessionMeta}>
@@ -396,9 +440,6 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
             color={currentTheme.primary}
             style={styles.sessionIntentionBadge}
           />
-        )}
-        {session.mood && (
-          <MoodIcon mood={session.mood} size="small" />
         )}
         <Ionicons
           name="chevron-forward"
@@ -614,7 +655,97 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
               dynamicStyles.iconBlue,
               dynamicStyles.iconBoxBgBlue
             )}
+            {renderStatCard(
+              'flame',
+              stats.currentStreak,
+              t('profile.currentStreak'),
+              t('profile.days'),
+              dynamicStyles.iconOrange,
+              dynamicStyles.iconBoxBgOrange
+            )}
+            {renderStatCard(
+              'trophy',
+              stats.longestStreak,
+              t('profile.longestStreak'),
+              t('profile.days'),
+              dynamicStyles.iconPurple,
+              dynamicStyles.iconBoxBgPurple
+            )}
           </View>
+        </View>
+
+        {/* Weekly Activity Chart */}
+        <View style={styles.weeklyActivityContainer}>
+          <Text style={[styles.sectionTitle, dynamicStyles.sectionTitle]}>{t('profile.weeklyActivity')}</Text>
+          <GradientCard gradient={themeGradients.card.whiteCard} style={[styles.weeklyActivityCard, dynamicStyles.cardShadow]} isDark={isDark}>
+            <View style={styles.weeklyActivityHeader}>
+              <View style={[styles.iconBox, { backgroundColor: dynamicStyles.iconBoxBgBlue }]}>
+                <Ionicons name="bar-chart" size={24} color={dynamicStyles.iconBlue} />
+              </View>
+              <View style={styles.cardTextContainer}>
+                <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>{t('profile.weeklyActivity')}</Text>
+                <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>{t('profile.weeklyActivityDescription')}</Text>
+              </View>
+            </View>
+
+            {/* Chart */}
+            <View style={styles.chartContainer}>
+              {weeklyActivity.map((day, index) => {
+                const maxMinutes = Math.max(...weeklyActivity.map(d => d.minutes), 1);
+                const barHeight = day.minutes > 0 ? Math.max((day.minutes / maxMinutes) * 100, 8) : 4;
+                const isToday = index === weeklyActivity.length - 1;
+
+                return (
+                  <View key={day.dayKey + index} style={styles.chartBar}>
+                    <View style={styles.chartBarContainer}>
+                      <View
+                        style={[
+                          styles.chartBarFill,
+                          {
+                            height: `${barHeight}%`,
+                            backgroundColor: day.minutes > 0
+                              ? isToday
+                                ? currentTheme.primary
+                                : `${currentTheme.primary}99`
+                              : isDark ? colors.background.tertiary : '#E5E5E7',
+                          },
+                        ]}
+                      />
+                    </View>
+                    <Text style={[styles.chartDayLabel, { color: isToday ? currentTheme.primary : colors.text.secondary }]}>
+                      {day.dayLabel}
+                    </Text>
+                    {day.minutes > 0 && (
+                      <Text style={[styles.chartMinuteLabel, { color: colors.text.tertiary }]}>
+                        {day.minutes}
+                      </Text>
+                    )}
+                  </View>
+                );
+              })}
+            </View>
+
+            {/* Weekly Summary */}
+            <View style={[styles.weeklySummary, { borderTopColor: isDark ? colors.border.light : '#E5E5E7' }]}>
+              <View style={styles.weeklySummaryItem}>
+                <Text style={[styles.weeklySummaryValue, { color: colors.text.primary }]}>
+                  {weeklyActivity.reduce((sum, d) => sum + d.sessions, 0)}
+                </Text>
+                <Text style={[styles.weeklySummaryLabel, { color: colors.text.secondary }]}>
+                  {t('profile.sessions')}
+                </Text>
+              </View>
+              <View style={[styles.weeklySummaryDivider, { backgroundColor: isDark ? colors.border.light : '#E5E5E7' }]} />
+              <View style={styles.weeklySummaryItem}>
+                <Text style={[styles.weeklySummaryValue, { color: colors.text.primary }]}>
+                  {weeklyActivity.reduce((sum, d) => sum + d.minutes, 0)}
+                </Text>
+                <Text style={[styles.weeklySummaryLabel, { color: colors.text.secondary }]}>
+                  {t('profile.minutes')}
+                </Text>
+              </View>
+            </View>
+          </GradientCard>
         </View>
 
         {/* Recent Sessions */}
@@ -998,13 +1129,6 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
     borderRadius: theme.borderRadius.xl,
   },
-  sessionIconBox: {
-    width: 44,
-    height: 44,
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   sessionIntentionBadge: {
     marginRight: theme.spacing.xs,
   },
@@ -1196,5 +1320,79 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.fontSizes.md,
     fontStyle: 'italic',
     lineHeight: 24,
+  },
+  // Weekly Activity Chart styles
+  weeklyActivityContainer: {
+    gap: theme.spacing.md,
+  },
+  weeklyActivityCard: {
+    padding: theme.spacing.lg,
+    borderRadius: theme.borderRadius.xl,
+  },
+  weeklyActivityHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.spacing.md,
+    marginBottom: theme.spacing.lg,
+  },
+  chartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    height: 120,
+    paddingHorizontal: theme.spacing.xs,
+  },
+  chartBar: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 4,
+  },
+  chartBarContainer: {
+    flex: 1,
+    width: '70%',
+    maxWidth: 32,
+    justifyContent: 'flex-end',
+    borderRadius: 6,
+    overflow: 'hidden',
+  },
+  chartBarFill: {
+    width: '100%',
+    borderRadius: 6,
+    minHeight: 4,
+  },
+  chartDayLabel: {
+    fontSize: theme.typography.fontSizes.xs,
+    fontWeight: theme.typography.fontWeights.medium,
+    marginTop: 4,
+  },
+  chartMinuteLabel: {
+    fontSize: 10,
+    fontWeight: theme.typography.fontWeights.regular,
+  },
+  weeklySummary: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: theme.spacing.lg,
+    paddingTop: theme.spacing.md,
+    borderTopWidth: 1,
+    gap: theme.spacing.xl,
+  },
+  weeklySummaryItem: {
+    alignItems: 'center',
+    gap: 2,
+  },
+  weeklySummaryValue: {
+    fontSize: theme.typography.fontSizes.xl,
+    fontWeight: theme.typography.fontWeights.bold,
+  },
+  weeklySummaryLabel: {
+    fontSize: theme.typography.fontSizes.xs,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  weeklySummaryDivider: {
+    width: 1,
+    height: 32,
   },
 });

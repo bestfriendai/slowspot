@@ -4,7 +4,8 @@ import { logger } from '../utils/logger';
  * Meditation techniques and session building guides
  */
 
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useRef } from 'react';
+import * as Haptics from 'expo-haptics';
 import {
   View,
   Text,
@@ -13,6 +14,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  Linking,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -86,9 +88,53 @@ interface Props {
   navigation: any;
 }
 
+// Breathing techniques research - scientific evidence
+const BREATHING_SOURCES = [
+  {
+    titleKey: 'settings.breathSource1Title',
+    authorsKey: 'settings.breathSource1Authors',
+    descKey: 'settings.breathSource1Desc',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/29167722/',
+  },
+  {
+    titleKey: 'settings.breathSource2Title',
+    authorsKey: 'settings.breathSource2Authors',
+    descKey: 'settings.breathSource2Desc',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/28666128/',
+  },
+  {
+    titleKey: 'settings.breathSource3Title',
+    authorsKey: 'settings.breathSource3Authors',
+    descKey: 'settings.breathSource3Desc',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/30033524/',
+  },
+];
+
+// Meditation research - scientific evidence
+const MEDITATION_SOURCES = [
+  {
+    titleKey: 'settings.source1Title',
+    authorsKey: 'settings.source1Authors',
+    descKey: 'settings.source1Desc',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/21071182/',
+  },
+  {
+    titleKey: 'settings.source2Title',
+    authorsKey: 'settings.source2Authors',
+    descKey: 'settings.source2Desc',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/24395196/',
+  },
+  {
+    titleKey: 'settings.source3Title',
+    authorsKey: 'settings.source3Authors',
+    descKey: 'settings.source3Desc',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/25783612/',
+  },
+];
+
 const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => {
   const { t } = useTranslation();
-  const { currentTheme } = usePersonalization();
+  const { currentTheme, settings } = usePersonalization();
   const insets = useSafeAreaInsets();
 
   // Breathing exercise modal state
@@ -98,6 +144,11 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
 
   // Full intro modal state
   const [fullIntroModalVisible, setFullIntroModalVisible] = useState(false);
+
+  // Scientific sources expand state - breathing
+  const [expandedSource, setExpandedSource] = useState<number | null>(null);
+  // Scientific sources expand state - meditation
+  const [expandedMeditationSource, setExpandedMeditationSource] = useState<number | null>(null);
 
   // Theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
@@ -114,6 +165,18 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
   const closeBreathingModal = () => {
     setBreathingActive(false);
     setBreathingModalVisible(false);
+  };
+
+  // Toggle scientific source expansion - breathing
+  const toggleSource = (sourceIndex: number) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setExpandedSource(expandedSource === sourceIndex ? null : sourceIndex);
+  };
+
+  // Toggle scientific source expansion - meditation
+  const toggleMeditationSource = (sourceIndex: number) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setExpandedMeditationSource(expandedMeditationSource === sourceIndex ? null : sourceIndex);
   };
 
   // Dynamic styles based on theme
@@ -136,6 +199,9 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
     stepText: { color: colors.text.primary },
     buildingIntro: { color: colors.text.secondary },
     structureText: { color: colors.text.primary },
+    // Scientific sources styles
+    optionBg: isDark ? colors.neutral.charcoal[100] : colors.neutral.gray[50],
+    chevronColor: isDark ? colors.neutral.gray[400] : colors.neutral.gray[500],
   }), [colors, isDark, currentTheme]);
 
   return (
@@ -258,6 +324,158 @@ const InstructionsScreen: React.FC<Props> = ({ isDark = false, navigation }) => 
               </View>
             );
           })}
+
+          {/* Breathing Science Section - Scientific sources */}
+          <View style={[styles.card, dynamicStyles.card, { marginTop: theme.spacing.lg }]}>
+            <View style={styles.cardHeader}>
+              <View style={[styles.breathingIconBox, { backgroundColor: '#E0F2FE' }]}>
+                <Ionicons name="flask" size={24} color="#0284C7" />
+              </View>
+              <View style={styles.breathingTitleContainer}>
+                <Text style={[styles.cardTitle, { color: '#0284C7' }]}>
+                  {t('settings.breathingScience', 'Nauka o oddychaniu')}
+                </Text>
+                <Text style={[styles.breathingPattern, dynamicStyles.duration]}>
+                  {t('settings.breathingScienceDescription', 'Badania nad technikami oddychania')}
+                </Text>
+              </View>
+            </View>
+            <Text style={[styles.cardDescription, dynamicStyles.cardDescription, { marginTop: theme.spacing.sm }]}>
+              {t('settings.breathingIntro', 'Kontrolowany oddech wpływa na autonomiczny układ nerwowy. Badania pokazują, że wolne, rytmiczne oddychanie aktywuje reakcję przywspółczulną, ale optymalne wzorce różnią się w zależności od osoby.')}
+            </Text>
+
+            <View style={styles.sourcesList}>
+              {BREATHING_SOURCES.map((source, index) => {
+                const isExpanded = expandedSource === index;
+                return (
+                  <View key={index}>
+                    <TouchableOpacity
+                      style={[styles.sourceItem, { backgroundColor: dynamicStyles.optionBg }]}
+                      onPress={() => toggleSource(index)}
+                      activeOpacity={0.7}
+                      accessibilityLabel={t(source.titleKey)}
+                      accessibilityHint={isExpanded ? t('common.tapToCollapse', 'Stuknij, aby zwinąć') : t('common.tapToExpand', 'Stuknij, aby rozwinąć')}
+                    >
+                      <View style={styles.sourceHeader}>
+                        <Ionicons
+                          name="document-text"
+                          size={18}
+                          color="#0284C7"
+                          style={styles.sourceIcon}
+                        />
+                        <View style={styles.sourceTitleContainer}>
+                          <Text style={[styles.sourceTitle, dynamicStyles.cardTitle]} numberOfLines={isExpanded ? undefined : 2}>
+                            {t(source.titleKey)}
+                          </Text>
+                          <Text style={[styles.sourceAuthors, dynamicStyles.cardDescription]}>
+                            {t(source.authorsKey)}
+                          </Text>
+                        </View>
+                        <Ionicons
+                          name={isExpanded ? 'chevron-up' : 'chevron-down'}
+                          size={20}
+                          color={dynamicStyles.chevronColor}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                    {isExpanded && (
+                      <View style={[styles.sourceContent, { backgroundColor: dynamicStyles.optionBg }]}>
+                        <Text style={[styles.sourceDescription, dynamicStyles.cardDescription]}>
+                          {t(source.descKey)}
+                        </Text>
+                        <TouchableOpacity
+                          style={[styles.learnMoreButton, { backgroundColor: '#E0F2FE' }]}
+                          onPress={() => Linking.openURL(source.url)}
+                          activeOpacity={0.7}
+                        >
+                          <Ionicons name="open-outline" size={16} color="#0284C7" />
+                          <Text style={[styles.learnMoreText, { color: '#0284C7' }]}>
+                            {t('settings.learnMore', 'Przeczytaj badanie')}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+
+          {/* Meditation Science Section - Scientific sources */}
+          <View style={[styles.card, dynamicStyles.card, { marginTop: theme.spacing.md }]}>
+            <View style={styles.cardHeader}>
+              <View style={[styles.breathingIconBox, { backgroundColor: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A` }]}>
+                <Ionicons name="flask" size={24} color={currentTheme.primary} />
+              </View>
+              <View style={styles.breathingTitleContainer}>
+                <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
+                  {t('settings.scientificSources', 'Źródła naukowe')}
+                </Text>
+                <Text style={[styles.breathingPattern, dynamicStyles.duration]}>
+                  {t('settings.scientificSourcesDescription', 'Badania nad medytacją')}
+                </Text>
+              </View>
+            </View>
+            <Text style={[styles.cardDescription, dynamicStyles.cardDescription, { marginTop: theme.spacing.sm }]}>
+              {t('settings.scienceIntro', 'Korzyści z medytacji zostały potwierdzone w licznych badaniach naukowych. Oto kilka kluczowych publikacji:')}
+            </Text>
+
+            <View style={styles.sourcesList}>
+              {MEDITATION_SOURCES.map((source, index) => {
+                const isExpanded = expandedMeditationSource === index;
+                return (
+                  <View key={index}>
+                    <TouchableOpacity
+                      style={[styles.sourceItem, { backgroundColor: dynamicStyles.optionBg }]}
+                      onPress={() => toggleMeditationSource(index)}
+                      activeOpacity={0.7}
+                      accessibilityLabel={t(source.titleKey)}
+                      accessibilityHint={isExpanded ? t('common.tapToCollapse', 'Stuknij, aby zwinąć') : t('common.tapToExpand', 'Stuknij, aby rozwinąć')}
+                    >
+                      <View style={styles.sourceHeader}>
+                        <Ionicons
+                          name="document-text"
+                          size={18}
+                          color={currentTheme.primary}
+                          style={styles.sourceIcon}
+                        />
+                        <View style={styles.sourceTitleContainer}>
+                          <Text style={[styles.sourceTitle, dynamicStyles.cardTitle]} numberOfLines={isExpanded ? undefined : 2}>
+                            {t(source.titleKey)}
+                          </Text>
+                          <Text style={[styles.sourceAuthors, dynamicStyles.cardDescription]}>
+                            {t(source.authorsKey)}
+                          </Text>
+                        </View>
+                        <Ionicons
+                          name={isExpanded ? 'chevron-up' : 'chevron-down'}
+                          size={20}
+                          color={dynamicStyles.chevronColor}
+                        />
+                      </View>
+                    </TouchableOpacity>
+                    {isExpanded && (
+                      <View style={[styles.sourceContent, { backgroundColor: dynamicStyles.optionBg }]}>
+                        <Text style={[styles.sourceDescription, dynamicStyles.cardDescription]}>
+                          {t(source.descKey)}
+                        </Text>
+                        <TouchableOpacity
+                          style={[styles.learnMoreButton, { backgroundColor: isDark ? `${currentTheme.primary}33` : `${currentTheme.primary}1A` }]}
+                          onPress={() => Linking.openURL(source.url)}
+                          activeOpacity={0.7}
+                        >
+                          <Ionicons name="open-outline" size={16} color={currentTheme.primary} />
+                          <Text style={[styles.learnMoreText, { color: currentTheme.primary }]}>
+                            {t('settings.learnMore', 'Przeczytaj badanie')}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
+            </View>
+          </View>
 
           {/* Techniques Section */}
           <Text style={[styles.sectionTitle, dynamicStyles.sectionTitle, { marginTop: theme.spacing.xl }]}>{t('instructionsScreen.techniquesSection')}</Text>
@@ -772,6 +990,62 @@ const styles = StyleSheet.create<any>({
     fontSize: theme.typography.fontSizes.lg,
     fontWeight: theme.typography.fontWeights.semiBold,
   },
+  // Scientific sources styles
+  sourcesList: {
+    marginTop: theme.spacing.md,
+    gap: theme.spacing.sm,
+  },
+  sourceItem: {
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.lg,
+  },
+  sourceHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: theme.spacing.sm,
+  },
+  sourceIcon: {
+    marginTop: 2,
+  },
+  sourceTitleContainer: {
+    flex: 1,
+  },
+  sourceTitle: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: theme.typography.fontWeights.semiBold,
+    lineHeight: theme.typography.lineHeights.normal * theme.typography.fontSizes.sm,
+  },
+  sourceAuthors: {
+    fontSize: theme.typography.fontSizes.xs,
+    marginTop: 4,
+  },
+  sourceContent: {
+    marginTop: 2,
+    marginLeft: 26,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
+    borderBottomLeftRadius: theme.borderRadius.lg,
+    borderBottomRightRadius: theme.borderRadius.lg,
+  },
+  sourceDescription: {
+    fontSize: theme.typography.fontSizes.sm,
+    lineHeight: theme.typography.lineHeights.relaxed * theme.typography.fontSizes.sm,
+  },
+  learnMoreButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: theme.spacing.xs,
+    marginTop: theme.spacing.md,
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.borderRadius.md,
+    alignSelf: 'flex-start',
+  },
+  learnMoreText: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: theme.typography.fontWeights.semiBold,
+  },
 });
 
 // Animated Breathing Circle Component
@@ -781,9 +1055,32 @@ const AnimatedBreathingCircle: React.FC<{
   isDark?: boolean;
   t: any;
 }> = ({ isRunning, pattern, isDark, t }) => {
-  const { currentTheme } = usePersonalization();
+  const { currentTheme, settings } = usePersonalization();
   const scale = useSharedValue(1);
   const [breathingPhase, setBreathingPhase] = useState<'inhale' | 'hold' | 'exhale' | 'rest'>('inhale');
+  const lastPhaseRef = useRef<string>('');
+
+  // Haptic feedback for breathing phase transitions
+  const triggerBreathingHaptic = (phase: string) => {
+    if (!settings.hapticEnabled) return;
+
+    // Only trigger if phase actually changed
+    if (phase === lastPhaseRef.current) return;
+    lastPhaseRef.current = phase;
+
+    switch (phase) {
+      case 'inhale':
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        break;
+      case 'hold':
+      case 'rest':
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+        break;
+      case 'exhale':
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        break;
+    }
+  };
 
   useEffect(() => {
     if (isRunning) {
@@ -805,6 +1102,7 @@ const AnimatedBreathingCircle: React.FC<{
         const currentPhaseDuration = config.durations[phaseIndex];
 
         setBreathingPhase(currentPhase);
+        triggerBreathingHaptic(currentPhase);
         animatePhase(currentPhase, currentPhaseDuration);
 
         timeoutId = setTimeout(() => {
@@ -819,8 +1117,9 @@ const AnimatedBreathingCircle: React.FC<{
     } else {
       scale.value = withTiming(1, { duration: 500 });
       setBreathingPhase('inhale');
+      lastPhaseRef.current = '';
     }
-  }, [isRunning, pattern]);
+  }, [isRunning, pattern, settings.hapticEnabled]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
