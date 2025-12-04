@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/Slow-Spot/app/compare/v1.4.0...v1.5.0) (2025-12-04)
+
+### Features
+
+* **mobile:** add missing translations for all languages ([31cf274](https://github.com/Slow-Spot/app/commit/31cf27458d2cf2b0b73048adc1c1732ffe7085d0))
+
 ## [1.4.0](https://github.com/Slow-Spot/app/compare/v1.3.0...v1.4.0) (2025-12-04)
 
 ### Features
