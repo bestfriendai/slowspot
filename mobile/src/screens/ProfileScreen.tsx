@@ -7,7 +7,7 @@ import { logger } from '../utils/logger';
  * Uses existing services for data and follows the app's design patterns.
  */
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -18,6 +18,9 @@ import {
   RefreshControl,
   ActivityIndicator,
   Modal,
+  TextInput,
+  Keyboard,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
@@ -35,6 +38,7 @@ import {
 } from '../services/progressTracker';
 import { getAllCustomSessions } from '../services/customSessionStorage';
 import { usePersonalization } from '../contexts/PersonalizationContext';
+import { useUserProfile } from '../contexts/UserProfileContext';
 
 interface ProfileScreenProps {
   isDark?: boolean;
@@ -51,7 +55,13 @@ interface GroupedSessions {
 export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, onNavigateToCustom }) => {
   const { t, i18n } = useTranslation();
   const { currentTheme } = usePersonalization();
+  const { userName, setUserName, isLoading: isProfileLoading } = useUserProfile();
   const currentLocale = i18n.language;
+
+  // Name editing state
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editedName, setEditedName] = useState('');
+  const nameInputRef = useRef<TextInput>(null);
 
   // Theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
@@ -171,6 +181,41 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
     setRefreshing(true);
     loadProfileData();
   }, [loadProfileData]);
+
+  /**
+   * Start editing name
+   */
+  const handleStartEditName = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    setEditedName(userName || '');
+    setIsEditingName(true);
+    // Focus input after state update
+    setTimeout(() => nameInputRef.current?.focus(), 100);
+  }, [userName]);
+
+  /**
+   * Save edited name
+   */
+  const handleSaveName = useCallback(async () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    Keyboard.dismiss();
+    try {
+      await setUserName(editedName.trim() || undefined);
+      setIsEditingName(false);
+    } catch (error) {
+      logger.error('Failed to save name:', error);
+    }
+  }, [editedName, setUserName]);
+
+  /**
+   * Cancel editing name
+   */
+  const handleCancelEditName = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Keyboard.dismiss();
+    setIsEditingName(false);
+    setEditedName('');
+  }, []);
 
   /**
    * Group sessions by date categories
@@ -481,15 +526,72 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({ isDark = false, on
           />
         }
       >
-        {/* Header */}
+        {/* Header with editable name */}
         <View style={styles.header}>
-          <Ionicons
-            name="person-circle"
-            size={64}
-            color={currentTheme.primary}
-            style={styles.avatar}
-          />
-          <Text style={[styles.title, dynamicStyles.title]}>{t('profile.title')}</Text>
+          <TouchableOpacity
+            onPress={handleStartEditName}
+            activeOpacity={0.8}
+            style={styles.avatarContainer}
+          >
+            <Ionicons
+              name="person-circle"
+              size={64}
+              color={currentTheme.primary}
+              style={styles.avatar}
+            />
+            <View style={[styles.editBadge, { backgroundColor: currentTheme.primary }]}>
+              <Ionicons name="pencil" size={12} color="#FFFFFF" />
+            </View>
+          </TouchableOpacity>
+
+          {isEditingName ? (
+            <View style={styles.nameEditContainer}>
+              <TextInput
+                ref={nameInputRef}
+                style={[
+                  styles.nameInput,
+                  {
+                    color: colors.text.primary,
+                    backgroundColor: isDark ? colors.background.secondary : '#F5F5F7',
+                    borderColor: currentTheme.primary,
+                  },
+                ]}
+                value={editedName}
+                onChangeText={setEditedName}
+                placeholder={t('profile.enterYourName')}
+                placeholderTextColor={colors.text.tertiary}
+                maxLength={30}
+                returnKeyType="done"
+                onSubmitEditing={handleSaveName}
+                autoCapitalize="words"
+              />
+              <View style={styles.nameEditButtons}>
+                <TouchableOpacity
+                  style={[styles.nameEditButton, styles.cancelButton, { backgroundColor: isDark ? colors.background.tertiary : '#E5E5E7' }]}
+                  onPress={handleCancelEditName}
+                >
+                  <Ionicons name="close" size={18} color={colors.text.secondary} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.nameEditButton, styles.saveButton, { backgroundColor: currentTheme.primary }]}
+                  onPress={handleSaveName}
+                >
+                  <Ionicons name="checkmark" size={18} color="#FFFFFF" />
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : (
+            <TouchableOpacity onPress={handleStartEditName} style={styles.nameDisplayContainer}>
+              {userName ? (
+                <Text style={[styles.userName, dynamicStyles.title]}>{userName}</Text>
+              ) : (
+                <Text style={[styles.addNameHint, { color: colors.text.tertiary }]}>
+                  {t('profile.tapToAddName')}
+                </Text>
+              )}
+              <Text style={[styles.title, dynamicStyles.title]}>{t('profile.title')}</Text>
+            </TouchableOpacity>
+          )}
         </View>
 
         {/* Statistics Grid */}
@@ -713,9 +815,71 @@ const styles = StyleSheet.create({
     gap: theme.spacing.md,
     paddingTop: theme.spacing.md,
   },
+  avatarContainer: {
+    position: 'relative',
+  },
   avatar: {
     marginBottom: theme.spacing.sm,
   },
+  editBadge: {
+    position: 'absolute',
+    bottom: 8,
+    right: -4,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 4,
+  },
+  nameDisplayContainer: {
+    alignItems: 'center',
+    gap: 4,
+  },
+  userName: {
+    fontSize: 28,
+    fontWeight: theme.typography.fontWeights.semiBold,
+  },
+  addNameHint: {
+    fontSize: theme.typography.fontSizes.md,
+    fontStyle: 'italic',
+  },
+  nameEditContainer: {
+    width: '100%',
+    alignItems: 'center',
+    gap: theme.spacing.md,
+  },
+  nameInput: {
+    width: '80%',
+    height: 48,
+    borderRadius: theme.borderRadius.lg,
+    borderWidth: 2,
+    paddingHorizontal: theme.spacing.lg,
+    fontSize: theme.typography.fontSizes.lg,
+    textAlign: 'center',
+  },
+  nameEditButtons: {
+    flexDirection: 'row',
+    gap: theme.spacing.md,
+  },
+  nameEditButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  cancelButton: {},
+  saveButton: {},
   title: {
     fontSize: theme.typography.fontSizes.hero,
     fontWeight: theme.typography.fontWeights.light,

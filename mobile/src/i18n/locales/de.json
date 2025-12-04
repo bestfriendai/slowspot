@@ -28,7 +28,20 @@
     "instructions": "Anleitungen",
     "instructionsDesc": "Wie man meditiert",
     "inspirations": "Inspirationen",
-    "inspirationsDesc": "Zitate & Motivation"
+    "inspirationsDesc": "Zitate & Motivation",
+    "greetingMorning": "Guten Morgen",
+    "greetingAfternoon": "Willkommen zurück",
+    "greetingEvening": "Guten Abend",
+    "greetingNight": "Gute Nacht",
+    "greetingMorningPersonal": "Guten Morgen, {{name}}!",
+    "greetingAfternoonPersonal": "Willkommen zurück, {{name}}!",
+    "greetingEveningPersonal": "Guten Abend, {{name}}!",
+    "greetingNightPersonal": "Gute Nacht, {{name}}!",
+    "greetingPersonal": "Hallo, {{name}}!",
+    "suggestionMorning": "Beginne deinen Tag mit Klarheit",
+    "suggestionAfternoon": "Zeit für einen Moment der Ruhe",
+    "suggestionEvening": "Entspanne dich vor dem Abend",
+    "suggestionNight": "Bereite dich auf einen ruhigen Schlaf vor"
   },
   "meditation": {
     "title": "Meditation",
@@ -549,7 +562,9 @@
     "mood3": "Neutral",
     "mood4": "Gut",
     "mood5": "Sehr gut",
-    "showMore": "Mehr anzeigen"
+    "showMore": "Mehr anzeigen",
+    "enterYourName": "Gib deinen Namen ein",
+    "tapToAddName": "Tippe, um deinen Namen hinzuzufügen"
   },
   "calendar": {
     "title": "Kalenderintegration",

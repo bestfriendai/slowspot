@@ -61,6 +61,11 @@
     "greetingAfternoon": "Witaj ponownie",
     "greetingEvening": "Dobry wieczór",
     "greetingNight": "Spokojnej nocy",
+    "greetingMorningPersonal": "Dzień dobry, {{name}}!",
+    "greetingAfternoonPersonal": "Witaj ponownie, {{name}}!",
+    "greetingEveningPersonal": "Dobry wieczór, {{name}}!",
+    "greetingNightPersonal": "Spokojnej nocy, {{name}}!",
+    "greetingPersonal": "Cześć, {{name}}!",
     "suggestionMorning": "Rozpocznij dzień z klarownością",
     "suggestionAfternoon": "Czas na chwilę spokoju",
     "suggestionEvening": "Wycisz się przed wieczorem",
@@ -424,7 +429,12 @@
     "legalDescription": "Regulamin, polityka prywatności i wsparcie",
     "privacyPolicy": "Polityka prywatności",
     "termsOfService": "Regulamin",
-    "support": "Wsparcie"
+    "support": "Wsparcie",
+    "restartOnboarding": "Uruchom ponownie onboarding",
+    "restartOnboardingTitle": "Uruchomić ponownie onboarding?",
+    "restartOnboardingBody": "Aplikacja zostanie ponownie uruchomiona i zobaczysz ekran powitalny.",
+    "restartRequired": "Wymagane ponowne uruchomienie",
+    "restartRequiredBody": "Zamknij i otwórz aplikację ponownie, aby zobaczyć onboarding."
   },
   "navigation": {
     "home": "Główna",
@@ -523,7 +533,9 @@
     "mood3": "Neutralnie",
     "mood4": "Dobrze",
     "mood5": "Bardzo dobrze",
-    "showMore": "Pokaż więcej"
+    "showMore": "Pokaż więcej",
+    "enterYourName": "Wpisz swoje imię",
+    "tapToAddName": "Dotknij, aby dodać imię"
   },
   "calendar": {
     "title": "Integracja z kalendarzem",
@@ -1114,6 +1126,12 @@
     "slide3": {
       "title": "Twoja podróż",
       "subtitle": "Śledź swoje postępy, buduj nawyk i ciesz się korzyściami regularnych sesji. Zaczynamy?"
+    },
+    "slide4": {
+      "title": "Jak masz na imię?",
+      "subtitle": "Podaj swoje imię, a będziemy się do Ciebie zwracać osobiście przy każdej wizycie.",
+      "placeholder": "Twoje imię (opcjonalnie)",
+      "hint": "Możesz to zmienić później w Profilu"
     }
   },
   "personalization": {

@@ -6,7 +6,7 @@
  */
 
 import { logger } from '../utils/logger';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ScrollView,
@@ -15,7 +15,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   Share,
-  Alert,
   Linking,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
@@ -23,9 +22,10 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GradientBackground } from '../components/GradientBackground';
 import { GradientCard } from '../components/GradientCard';
+import { AppModal, AppModalButton } from '../components/AppModal';
 import theme, { getThemeColors, getThemeGradients } from '../theme';
 import { brandColors, primaryColor, featureColorPalettes, semanticColors, getFeatureIconColors } from '../theme/colors';
-import { exportAllData, clearAllData } from '../services/storage';
+import { exportAllData, clearAllData, resetOnboarding } from '../services/storage';
 import { clearAllCustomSessions } from '../services/customSessionStorage';
 import { clearProgress } from '../services/progressTracker';
 import { clearAllQuoteHistory } from '../services/quoteHistory';
@@ -57,6 +57,7 @@ interface SettingsScreenProps {
   onThemeChange: (mode: ThemeMode) => void;
   onNavigateToProfile?: () => void;
   onNavigateToPersonalization?: () => void;
+  onRestartOnboarding?: () => void;
 }
 
 export const SettingsScreen: React.FC<SettingsScreenProps> = ({
@@ -65,9 +66,17 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   onThemeChange,
   onNavigateToProfile,
   onNavigateToPersonalization,
+  onRestartOnboarding,
 }) => {
   const { t, i18n } = useTranslation();
   const { currentTheme } = usePersonalization();
+
+  // Modal states
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
+  const [showClearDataModal, setShowClearDataModal] = useState(false);
+  const [showDataClearedModal, setShowDataClearedModal] = useState(false);
+  const [showExportErrorModal, setShowExportErrorModal] = useState(false);
+  const [showClearErrorModal, setShowClearErrorModal] = useState(false);
 
   // Get theme-aware colors and gradients
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
@@ -133,44 +142,46 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
       await Share.share({ message: payload, title: 'Slow Spot backup (JSON)' });
     } catch (error) {
       logger.error('Failed to export data:', error);
-      Alert.alert('Export failed', 'Could not export your data. Please try again.');
+      setShowExportErrorModal(true);
     }
   };
 
-  const handleClearData = async () => {
-    Alert.alert(
-      t('settings.clearDataTitle', 'Clear local data?'),
-      t('settings.clearDataBody', 'This removes your sessions, progress, reminders, and preferences from this device.'),
-      [
-        { text: t('common.cancel', 'Cancel'), style: 'cancel' },
-        {
-          text: t('common.confirm', 'Confirm'),
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await Promise.all([
-                clearAllData(),
-                clearAllCustomSessions(),
-                clearProgress(),
-                clearAllQuoteHistory(),
-                AsyncStorage.removeItem('@wellbeing_assessments'),
-                AsyncStorage.removeItem('@slow_spot_reminder_settings'),
-                AsyncStorage.removeItem('@slow_spot_calendar_id'),
-                AsyncStorage.removeItem('@custom_sessions'),
-              ]);
+  const handleClearData = () => {
+    setShowClearDataModal(true);
+  };
 
-              Alert.alert(
-                t('settings.dataCleared', 'Local data cleared'),
-                t('settings.dataClearedBody', 'You can rebuild your preferences and sessions anytime. No data leaves this device.')
-              );
-            } catch (error) {
-              logger.error('Failed to clear data:', error);
-              Alert.alert('Error', 'Could not clear all local data.');
-            }
-          },
-        },
-      ]
-    );
+  const confirmClearData = async () => {
+    try {
+      await Promise.all([
+        clearAllData(),
+        clearAllCustomSessions(),
+        clearProgress(),
+        clearAllQuoteHistory(),
+        AsyncStorage.removeItem('@wellbeing_assessments'),
+        AsyncStorage.removeItem('@slow_spot_reminder_settings'),
+        AsyncStorage.removeItem('@slow_spot_calendar_id'),
+        AsyncStorage.removeItem('@custom_sessions'),
+      ]);
+      setShowDataClearedModal(true);
+    } catch (error) {
+      logger.error('Failed to clear data:', error);
+      setShowClearErrorModal(true);
+    }
+  };
+
+  const handleRestartOnboarding = () => {
+    setShowOnboardingModal(true);
+  };
+
+  const confirmRestartOnboarding = async () => {
+    try {
+      await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      await resetOnboarding();
+      // Call the callback to show onboarding immediately
+      onRestartOnboarding?.();
+    } catch (error) {
+      logger.error('Failed to restart onboarding:', error);
+    }
   };
 
   return (
@@ -499,8 +510,81 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
               </View>
             </View>
           </View>
+          {/* Restart Onboarding button */}
+          <TouchableOpacity
+            style={[styles.restartOnboardingButton, { backgroundColor: dynamicStyles.optionBg }]}
+            onPress={handleRestartOnboarding}
+            activeOpacity={0.7}
+          >
+            <View style={styles.legalLinkContent}>
+              <Ionicons name="refresh" size={20} color={currentTheme.primary} />
+              <Text style={[styles.legalLinkText, dynamicStyles.cardTitle]}>
+                {t('settings.restartOnboarding', 'Uruchom ponownie onboarding')}
+              </Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={dynamicStyles.chevronColor} />
+          </TouchableOpacity>
         </GradientCard>
       </ScrollView>
+
+      {/* Restart Onboarding Modal */}
+      <AppModal
+        visible={showOnboardingModal}
+        title={t('settings.restartOnboardingTitle', 'Uruchomić ponownie onboarding?')}
+        message={t('settings.restartOnboardingBody', 'Zobaczysz ekran powitalny ponownie.')}
+        icon="refresh"
+        buttons={[
+          { text: t('common.cancel', 'Anuluj'), style: 'cancel' },
+          { text: t('common.confirm', 'Potwierdź'), onPress: confirmRestartOnboarding },
+        ]}
+        onDismiss={() => setShowOnboardingModal(false)}
+      />
+
+      {/* Clear Data Confirmation Modal */}
+      <AppModal
+        visible={showClearDataModal}
+        title={t('settings.clearDataTitle', 'Wyczyścić dane lokalne?')}
+        message={t('settings.clearDataBody', 'Usunie to wszystkie sesje, postęp, przypomnienia i preferencje z tego urządzenia.')}
+        icon="trash"
+        iconColor={semanticColors.error.default}
+        buttons={[
+          { text: t('common.cancel', 'Anuluj'), style: 'cancel' },
+          { text: t('common.confirm', 'Potwierdź'), style: 'destructive', onPress: confirmClearData },
+        ]}
+        onDismiss={() => setShowClearDataModal(false)}
+      />
+
+      {/* Data Cleared Success Modal */}
+      <AppModal
+        visible={showDataClearedModal}
+        title={t('settings.dataCleared', 'Dane lokalne wyczyszczone')}
+        message={t('settings.dataClearedBody', 'Możesz odbudować swoje preferencje i sesje w dowolnym momencie. Żadne dane nie opuściły tego urządzenia.')}
+        icon="checkmark-circle"
+        buttons={[{ text: 'OK' }]}
+        onDismiss={() => setShowDataClearedModal(false)}
+      />
+
+      {/* Export Error Modal */}
+      <AppModal
+        visible={showExportErrorModal}
+        title={t('settings.exportFailed', 'Eksport nie powiódł się')}
+        message={t('settings.exportFailedBody', 'Nie można wyeksportować danych. Spróbuj ponownie.')}
+        icon="warning"
+        iconColor={semanticColors.error.default}
+        buttons={[{ text: 'OK' }]}
+        onDismiss={() => setShowExportErrorModal(false)}
+      />
+
+      {/* Clear Error Modal */}
+      <AppModal
+        visible={showClearErrorModal}
+        title={t('settings.clearError', 'Błąd')}
+        message={t('settings.clearErrorBody', 'Nie można wyczyścić wszystkich danych lokalnych.')}
+        icon="warning"
+        iconColor={semanticColors.error.default}
+        buttons={[{ text: 'OK' }]}
+        onDismiss={() => setShowClearErrorModal(false)}
+      />
     </GradientBackground>
   );
 };
@@ -656,5 +740,14 @@ const styles = StyleSheet.create({
   legalLinkText: {
     fontSize: theme.typography.fontSizes.sm,
     fontWeight: '500',
+  },
+  // Restart onboarding button
+  restartOnboardingButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: theme.spacing.md,
+    borderRadius: theme.borderRadius.lg,
+    marginTop: theme.spacing.md,
   },
 });

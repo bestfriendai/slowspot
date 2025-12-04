@@ -1,9 +1,10 @@
 import { logger } from '../utils/logger';
-import React, { useMemo, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import React, { useMemo, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import MaskedView from '@react-native-masked-view/masked-view';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -11,20 +12,16 @@ import Animated, {
   withTiming,
   withSequence,
   Easing,
-  FadeIn,
   FadeInDown,
   interpolate,
 } from 'react-native-reanimated';
 import { GradientBackground } from '../components/GradientBackground';
 import { AnimatedPressable } from '../components/AnimatedPressable';
-import { StreakBadge } from '../components/StreakBadge';
 import theme, { getThemeColors, getThemeGradients, getCardStyles } from '../theme';
 import { getSectionColors } from '../theme/colors';
 import { usePersonalization } from '../contexts/PersonalizationContext';
-import { getGreetingKey, getSuggestionKey, getTimeIcon } from '../utils/greetings';
-import { getProgressStats, ProgressStats } from '../services/progressTracker';
-
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+import { useUserProfile } from '../contexts/UserProfileContext';
+import { getGreetingKey } from '../utils/greetings';
 
 interface HomeScreenProps {
   isDark?: boolean;
@@ -42,30 +39,17 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onNavigateToInstructions,
 }) => {
   const { t } = useTranslation();
-  const [stats, setStats] = useState<ProgressStats | null>(null);
 
   const { currentTheme, settings } = usePersonalization();
+  const { userName } = useUserProfile();
 
   const colors = useMemo(() => getThemeColors(isDark), [isDark]);
   const themeGradients = useMemo(() => getThemeGradients(isDark), [isDark]);
   const globalCardStyles = useMemo(() => getCardStyles(isDark), [isDark]);
   const sectionThemeColors = useMemo(() => getSectionColors(isDark), [isDark]);
 
+  // Always use base greeting key - name is displayed separately with gradient
   const greetingKey = useMemo(() => getGreetingKey(), []);
-  const suggestionKey = useMemo(() => getSuggestionKey(), []);
-  const timeIcon = useMemo(() => getTimeIcon(), []);
-
-  useEffect(() => {
-    const loadStats = async () => {
-      try {
-        const progressStats = await getProgressStats();
-        setStats(progressStats);
-      } catch (error) {
-        logger.error('Failed to load stats:', error);
-      }
-    };
-    loadStats();
-  }, []);
 
   // Breathing animation for decorative rings
   const breatheProgress = useSharedValue(0);
@@ -125,35 +109,38 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           style={styles.header}
         >
           <View style={styles.greetingContainer}>
-            {/* Time-based suggestion - subtle accent */}
-            <View style={styles.suggestionPill}>
-              <Ionicons
-                name={timeIcon as any}
-                size={14}
-                color={currentTheme.primary}
-              />
-              <Text style={[styles.suggestionText, { color: currentTheme.primary }]}>
-                {t(suggestionKey, 'Czas na chwilę spokoju')}
+            {/* Main greeting - modern split design with highlighted name */}
+            {userName ? (
+              <>
+                <Text style={[styles.greetingTextSmall, dynamicStyles.greetingText]}>
+                  {t(greetingKey, 'Witaj')},
+                </Text>
+                <MaskedView
+                  maskElement={
+                    <Text style={styles.nameText}>
+                      {userName}
+                    </Text>
+                  }
+                >
+                  <LinearGradient
+                    colors={[...currentTheme.gradient]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                    style={styles.nameGradient}
+                  >
+                    <Text style={[styles.nameText, { opacity: 0 }]}>
+                      {userName}
+                    </Text>
+                  </LinearGradient>
+                </MaskedView>
+              </>
+            ) : (
+              <Text style={[styles.greetingText, dynamicStyles.greetingText]}>
+                {t(greetingKey, 'Witaj')}
               </Text>
-            </View>
-            {/* Main greeting - hero typography */}
-            <Text style={[styles.greetingText, dynamicStyles.greetingText]}>
-              {t(greetingKey, 'Witaj')}
-            </Text>
+            )}
           </View>
 
-          {stats && stats.currentStreak > 0 && (
-            <Animated.View
-              entering={settings.animationsEnabled ? FadeIn.delay(400).duration(500) : undefined}
-            >
-              <StreakBadge
-                streak={stats.currentStreak}
-                isDark={isDark}
-                size="md"
-                showLabel={true}
-              />
-            </Animated.View>
-          )}
         </Animated.View>
 
         {/* Main CTA Card - Headspace style with decorative rings */}
@@ -306,23 +293,27 @@ const styles = StyleSheet.create({
   greetingContainer: {
     flex: 1,
   },
-  suggestionPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing.xs,
-    marginBottom: theme.spacing.sm,
-  },
-  suggestionText: {
-    fontSize: theme.typography.fontSizes.xs,
-    fontWeight: theme.typography.fontWeights.semiBold,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
-  },
   greetingText: {
     fontSize: theme.typography.fontSizes.hero,
     fontWeight: theme.typography.fontWeights.light,
     letterSpacing: -1,
     lineHeight: theme.typography.fontSizes.hero * 1.1,
+  },
+  greetingTextSmall: {
+    fontSize: theme.typography.fontSizes.xxl,
+    fontWeight: theme.typography.fontWeights.light,
+    letterSpacing: -0.5,
+    lineHeight: theme.typography.fontSizes.xxl * 1.2,
+    marginBottom: theme.spacing.xs,
+  },
+  nameText: {
+    fontSize: theme.typography.fontSizes.hero * 1.15,
+    fontWeight: theme.typography.fontWeights.bold,
+    letterSpacing: -1.5,
+    lineHeight: theme.typography.fontSizes.hero * 1.3,
+  },
+  nameGradient: {
+    flexDirection: 'row',
   },
 
   // Main Card - Headspace inspired with decorative elements

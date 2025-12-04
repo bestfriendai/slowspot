@@ -44,6 +44,27 @@ export const getGreetingKey = (): string => {
 };
 
 /**
+ * Get personalized greeting translation key based on time of day
+ * Used when user has set their name
+ */
+export const getPersonalizedGreetingKey = (): string => {
+  const timeOfDay = getTimeOfDay();
+
+  switch (timeOfDay) {
+    case 'morning':
+      return 'home.greetingMorningPersonal';
+    case 'afternoon':
+      return 'home.greetingAfternoonPersonal';
+    case 'evening':
+      return 'home.greetingEveningPersonal';
+    case 'night':
+      return 'home.greetingNightPersonal';
+    default:
+      return 'home.greetingPersonal';
+  }
+};
+
+/**
  * Get suggestion based on time of day
  */
 export const getSuggestionKey = (): string => {

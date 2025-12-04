@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, TouchableOpacity, Platform, useColorScheme, Alert } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Platform, useColorScheme } from 'react-native';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BlurView } from 'expo-blur';
@@ -11,6 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import './src/i18n';
 import { logger } from './src/utils/logger';
 import { AnimatedScreenContainer } from './src/components/AnimatedScreenContainer';
+import { AppModal } from './src/components/AppModal';
 
 // Keep the splash screen visible while we load resources
 SplashScreen.preventAutoHideAsync();
@@ -26,10 +27,12 @@ import { CustomSessionBuilderScreen, CustomSessionConfig } from './src/screens/C
 import { ProfileScreen } from './src/screens/ProfileScreen';
 import InstructionsScreen from './src/screens/InstructionsScreen';
 import { PersonalizationScreen } from './src/screens/PersonalizationScreen';
+import { IntroScreen, hasCompletedIntro } from './src/screens/IntroScreen';
 import { MeditationSession } from './src/services/api';
 import { SplashScreen as CustomSplashScreen } from './src/components/SplashScreen';
 import { ensureStorageSchema } from './src/services/storage';
 import { PersonalizationProvider, usePersonalization } from './src/contexts/PersonalizationContext';
+import { UserProfileProvider, useUserProfile } from './src/contexts/UserProfileContext';
 
 type Screen = 'home' | 'meditation' | 'quotes' | 'settings' | 'custom' | 'profile' | 'instructions' | 'personalization';
 
@@ -50,11 +53,17 @@ function AppContent() {
   const [sessionRefreshKey, setSessionRefreshKey] = useState(0);
   const [appIsReady, setAppIsReady] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingChecked, setOnboardingChecked] = useState(false);
+  // Modal state for meditation exit confirmation
+  const [showExitMeditationModal, setShowExitMeditationModal] = useState(false);
+  const [pendingScreen, setPendingScreen] = useState<Screen | null>(null);
   const systemColorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
 
   // Get personalized colors from context
   const { currentTheme } = usePersonalization();
+  const { refreshProfile } = useUserProfile();
   const primaryColor = currentTheme.primary;
   // Dynamic active button background with personalized color
   const activeButtonBgLight = `${primaryColor}26`; // 15% opacity
@@ -79,10 +88,16 @@ function AppContent() {
         // Ensure storage schema and run migrations before using local data
         await ensureStorageSchema();
 
+        // Check if onboarding/intro has been completed
+        const introCompleted = await hasCompletedIntro();
+        setShowOnboarding(!introCompleted);
+        setOnboardingChecked(true);
+
         // Hide native splash screen immediately as we show custom one
         await SplashScreen.hideAsync();
       } catch (error) {
         logger.warn('Error loading app resources:', error);
+        setOnboardingChecked(true);
       } finally {
         setAppIsReady(true);
       }
@@ -104,6 +119,26 @@ function AppContent() {
     return <CustomSplashScreen onFinish={handleSplashFinish} />;
   }
 
+  // Wait for onboarding check to complete
+  if (!onboardingChecked) {
+    return null;
+  }
+
+  // Show onboarding/intro if not completed
+  if (showOnboarding) {
+    return (
+      <IntroScreen
+        onDone={async () => {
+          // Refresh profile from storage to get the latest name value
+          await refreshProfile();
+          setShowOnboarding(false);
+          setCurrentScreen('home'); // Always navigate to home after onboarding
+          Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        }}
+      />
+    );
+  }
+
   const handleThemeChange = async (mode: ThemeMode) => {
     try {
       setThemeMode(mode);
@@ -116,31 +151,29 @@ function AppContent() {
   const handleNavigate = (screen: Screen) => {
     // Prevent navigation away from active meditation without confirmation
     if (activeMeditationState && currentScreen === 'meditation' && screen !== 'meditation') {
-      Alert.alert(
-        'Active Meditation',
-        'You have an active meditation session. Do you want to exit and end the session?',
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-            onPress: () => Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning),
-          },
-          {
-            text: 'Exit',
-            style: 'destructive',
-            onPress: () => {
-              setActiveMeditationState(null);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              setCurrentScreen(screen);
-            },
-          },
-        ]
-      );
+      setPendingScreen(screen);
+      setShowExitMeditationModal(true);
       return;
     }
 
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setCurrentScreen(screen);
+  };
+
+  const handleConfirmExitMeditation = () => {
+    setActiveMeditationState(null);
+    setShowExitMeditationModal(false);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (pendingScreen) {
+      setCurrentScreen(pendingScreen);
+      setPendingScreen(null);
+    }
+  };
+
+  const handleCancelExitMeditation = () => {
+    setShowExitMeditationModal(false);
+    setPendingScreen(null);
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
   };
 
   const handleStartCustomSession = (config: CustomSessionConfig) => {
@@ -199,6 +232,7 @@ function AppContent() {
             onThemeChange={handleThemeChange}
             onNavigateToProfile={() => setCurrentScreen('profile')}
             onNavigateToPersonalization={() => setCurrentScreen('personalization')}
+            onRestartOnboarding={() => setShowOnboarding(true)}
           />
         );
       case 'personalization':
@@ -345,6 +379,27 @@ function AppContent() {
           </View>
         </BlurView>
       </View>
+
+      {/* Exit Meditation Confirmation Modal */}
+      <AppModal
+        visible={showExitMeditationModal}
+        title="Active Meditation"
+        message="You have an active meditation session. Do you want to exit and end the session?"
+        icon="flower-outline"
+        onDismiss={handleCancelExitMeditation}
+        buttons={[
+          {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: handleCancelExitMeditation,
+          },
+          {
+            text: 'Exit',
+            style: 'destructive',
+            onPress: handleConfirmExitMeditation,
+          },
+        ]}
+      />
     </View>
   );
 }
@@ -353,9 +408,11 @@ export default function App() {
   return (
     <GestureHandlerRootView style={styles.gestureRoot}>
       <SafeAreaProvider>
-        <PersonalizationProvider>
-          <AppContent />
-        </PersonalizationProvider>
+        <UserProfileProvider>
+          <PersonalizationProvider>
+            <AppContent />
+          </PersonalizationProvider>
+        </UserProfileProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

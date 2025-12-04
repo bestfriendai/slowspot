@@ -61,6 +61,11 @@
     "greetingAfternoon": "Welcome back",
     "greetingEvening": "Good evening",
     "greetingNight": "Peaceful night",
+    "greetingMorningPersonal": "Good morning, {{name}}!",
+    "greetingAfternoonPersonal": "Welcome back, {{name}}!",
+    "greetingEveningPersonal": "Good evening, {{name}}!",
+    "greetingNightPersonal": "Peaceful night, {{name}}!",
+    "greetingPersonal": "Hello, {{name}}!",
     "suggestionMorning": "Start your day with clarity",
     "suggestionAfternoon": "Time for a moment of peace",
     "suggestionEvening": "Wind down before evening",
@@ -409,7 +414,12 @@
     "legalDescription": "Terms, privacy policy and support",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of Service",
-    "support": "Support"
+    "support": "Support",
+    "restartOnboarding": "Restart onboarding",
+    "restartOnboardingTitle": "Restart onboarding?",
+    "restartOnboardingBody": "The app will restart and you will see the welcome screen.",
+    "restartRequired": "Restart required",
+    "restartRequiredBody": "Close and reopen the app to see the onboarding."
   },
   "navigation": {
     "home": "Home",
@@ -731,6 +741,8 @@
   },
   "profile": {
     "title": "Your Profile",
+    "enterYourName": "Enter your name",
+    "tapToAddName": "Tap to add your name",
     "statistics": "Statistics",
     "totalSessions": "Total Sessions",
     "totalMinutes": "Total Minutes",
@@ -1092,6 +1104,12 @@
     "slide3": {
       "title": "Your Journey",
       "subtitle": "Track your progress, build a habit, and enjoy the benefits of regular meditation. Ready to begin?"
+    },
+    "slide4": {
+      "title": "What's Your Name?",
+      "subtitle": "Tell us your name and we'll greet you personally each time you visit.",
+      "placeholder": "Your name (optional)",
+      "hint": "You can change this later in Profile"
     }
   },
   "personalization": {

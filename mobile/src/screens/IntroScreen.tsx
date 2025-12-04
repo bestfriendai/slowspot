@@ -17,6 +17,9 @@ import {
   StatusBar,
   FlatList,
   ViewToken,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -41,6 +44,7 @@ import * as Haptics from 'expo-haptics';
 import theme from '../theme';
 import { brandColors } from '../theme/colors';
 import { usePersonalization } from '../contexts/PersonalizationContext';
+import { useUserProfile } from '../contexts/UserProfileContext';
 import { AnimatedPressable } from '../components/AnimatedPressable';
 import { logger } from '../utils/logger';
 
@@ -54,6 +58,7 @@ interface Slide {
   subtitleKey: string;
   icon: keyof typeof Ionicons.glyphMap;
   accentIcon?: keyof typeof Ionicons.glyphMap;
+  isNameSlide?: boolean;
 }
 
 const slides: Slide[] = [
@@ -77,6 +82,14 @@ const slides: Slide[] = [
     subtitleKey: 'onboarding.slide3.subtitle',
     icon: 'heart',
     accentIcon: 'trending-up',
+  },
+  {
+    key: '4',
+    titleKey: 'onboarding.slide4.title',
+    subtitleKey: 'onboarding.slide4.subtitle',
+    icon: 'person',
+    accentIcon: 'chatbubble-ellipses',
+    isNameSlide: true,
   },
 ];
 
@@ -206,7 +219,9 @@ const OnboardingSlide: React.FC<{
   scrollX: Animated.SharedValue<number>;
   primaryColor: string;
   animationsEnabled: boolean;
-}> = ({ item, index, scrollX, primaryColor, animationsEnabled }) => {
+  nameInputValue?: string;
+  onNameChange?: (name: string) => void;
+}> = ({ item, index, scrollX, primaryColor, animationsEnabled, nameInputValue, onNameChange }) => {
   const { t } = useTranslation();
 
   const animatedStyle = useAnimatedStyle(() => {
@@ -267,6 +282,25 @@ const OnboardingSlide: React.FC<{
             {t(item.subtitleKey)}
           </Text>
         </View>
+
+        {/* Name input for slide 4 */}
+        {item.isNameSlide && (
+          <View style={styles.nameInputContainer}>
+            <TextInput
+              style={styles.nameInput}
+              placeholder={t('onboarding.slide4.placeholder', 'Your name (optional)')}
+              placeholderTextColor="#9CA3AF"
+              value={nameInputValue}
+              onChangeText={onNameChange}
+              autoCapitalize="words"
+              returnKeyType="done"
+              maxLength={30}
+            />
+            <Text style={styles.nameInputHint}>
+              {t('onboarding.slide4.hint', 'You can change this later in Profile')}
+            </Text>
+          </View>
+        )}
       </Animated.View>
     </View>
   );
@@ -319,9 +353,26 @@ const PaginationDots: React.FC<{
 export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
   const { t } = useTranslation();
   const { currentTheme, settings } = usePersonalization();
+  const { userName: existingUserName, setUserName } = useUserProfile();
   const flatListRef = useRef<FlatList>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [nameInput, setNameInput] = useState(existingUserName || '');
+  const [hasUserEdited, setHasUserEdited] = useState(false);
   const scrollX = useSharedValue(0);
+
+  // Sync nameInput with context when context changes (e.g., when re-opening onboarding)
+  // but only if user hasn't manually edited the field
+  React.useEffect(() => {
+    if (!hasUserEdited) {
+      setNameInput(existingUserName || '');
+    }
+  }, [existingUserName, hasUserEdited]);
+
+  // Track when user manually edits the input
+  const handleNameChange = useCallback((text: string) => {
+    setNameInput(text);
+    setHasUserEdited(true);
+  }, []);
 
   const primaryColor = currentTheme.primary;
 
@@ -330,7 +381,12 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
       if (settings.hapticEnabled) {
         await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       }
+      // Save name (or clear if empty) - setUserName handles persistence
+      const trimmedName = nameInput.trim();
+      logger.log('IntroScreen: Saving name:', trimmedName || '(empty/clearing)');
+      await setUserName(trimmedName || undefined);
       await AsyncStorage.setItem(INTRO_COMPLETED_KEY, 'true');
+      // onDone callback will refresh profile from storage before navigating
       onDone();
     } catch (error) {
       logger.error('Error saving intro completion:', error);
@@ -421,6 +477,8 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
             scrollX={scrollX}
             primaryColor={primaryColor}
             animationsEnabled={settings.animationsEnabled}
+            nameInputValue={nameInput}
+            onNameChange={handleNameChange}
           />
         )}
       />
@@ -585,10 +643,37 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 17,
-    color: '#6B7280',
+    color: '#4B5563',
     textAlign: 'center',
     lineHeight: 26,
     paddingHorizontal: 8,
+  },
+  nameInputContainer: {
+    width: '100%',
+    marginTop: 32,
+    paddingHorizontal: 8,
+  },
+  nameInput: {
+    width: '100%',
+    height: 56,
+    borderRadius: 16,
+    paddingHorizontal: 20,
+    fontSize: 18,
+    backgroundColor: '#FFFFFF',
+    color: '#1F2937',
+    textAlign: 'center',
+    // Card-like shadow (like HomeScreen cards)
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
+  },
+  nameInputHint: {
+    marginTop: 12,
+    fontSize: 14,
+    color: '#9CA3AF',
+    textAlign: 'center',
   },
   bottomSection: {
     paddingBottom: 50,

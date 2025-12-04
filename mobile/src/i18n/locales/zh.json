@@ -28,7 +28,20 @@
     "instructions": "指南",
     "instructionsDesc": "如何冥想",
     "inspirations": "灵感",
-    "inspirationsDesc": "名言与动力"
+    "inspirationsDesc": "名言与动力",
+    "greetingMorning": "早上好",
+    "greetingAfternoon": "欢迎回来",
+    "greetingEvening": "晚上好",
+    "greetingNight": "晚安",
+    "greetingMorningPersonal": "早上好，{{name}}！",
+    "greetingAfternoonPersonal": "欢迎回来，{{name}}！",
+    "greetingEveningPersonal": "晚上好，{{name}}！",
+    "greetingNightPersonal": "晚安，{{name}}！",
+    "greetingPersonal": "你好，{{name}}！",
+    "suggestionMorning": "以清晰开始新的一天",
+    "suggestionAfternoon": "是时候静心片刻",
+    "suggestionEvening": "在夜晚来临前放松",
+    "suggestionNight": "为安稳的睡眠做准备"
   },
   "meditation": {
     "title": "冥想",
@@ -544,7 +557,9 @@
     "mood3": "一般",
     "mood4": "好",
     "mood5": "非常好",
-    "showMore": "显示更多"
+    "showMore": "显示更多",
+    "enterYourName": "输入你的名字",
+    "tapToAddName": "点击添加你的名字"
   },
   "calendar": {
     "title": "日历集成",

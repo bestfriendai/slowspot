@@ -60,11 +60,17 @@ export const saveUserProfile = async (
     const current = await loadUserProfile();
     const updated: UserProfile = {
       ...current,
-      ...profile,
       lastUpdated: new Date().toISOString(),
     };
 
-    await AsyncStorage.setItem(USER_PROFILE_KEY, JSON.stringify(updated));
+    // Explicitly handle each field to properly support undefined/deletion
+    if ('name' in profile) {
+      updated.name = profile.name;
+    }
+
+    const jsonData = JSON.stringify(updated);
+    logger.log('userProfileService: Saving profile:', jsonData);
+    await AsyncStorage.setItem(USER_PROFILE_KEY, jsonData);
   } catch (error) {
     logger.error('Failed to save user profile:', error);
     throw error;

@@ -24,6 +24,9 @@ const STORAGE_KEYS = {
   SCHEMA_VERSION: '@meditation:schema_version',
 } as const;
 
+// Key used by IntroScreen for intro/onboarding flow
+export const INTRO_COMPLETED_KEY = '@slow_spot_intro_completed';
+
 // Increment when storage structure changes; used for lightweight migrations
 const STORAGE_SCHEMA_VERSION = 1;
 
@@ -268,6 +271,21 @@ export const isOnboardingComplete = async (): Promise<boolean> => {
   } catch (error) {
     logger.error('Failed to check onboarding state:', error);
     return false;
+  }
+};
+
+/**
+ * Reset onboarding/intro state so it shows again on next app launch
+ */
+export const resetOnboarding = async (): Promise<void> => {
+  try {
+    await AsyncStorage.multiRemove([
+      STORAGE_KEYS.ONBOARDING_COMPLETE,
+      INTRO_COMPLETED_KEY,
+    ]);
+  } catch (error) {
+    logger.error('Failed to reset onboarding state:', error);
+    throw error;
   }
 };
 
