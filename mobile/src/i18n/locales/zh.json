@@ -7,7 +7,56 @@
     "appName": "Slow Spot.me",
     "tagline": "找到属于你的宁静时刻"
   },
+  "intention": {
+    "greeting": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好",
+      "night": "晚安"
+    },
+    "title": "设定你的意图",
+    "subtitle": "你想在这次课程中培养什么？",
+    "inputLabel": "你的意图（可选）",
+    "placeholder": "例如 \"与我的呼吸保持同在\"",
+    "inspirations": "灵感：",
+    "chip1": "平静",
+    "chip2": "临在",
+    "chip3": "感恩",
+    "chip4": "放下",
+    "skipForever": "冥想前不再显示此屏幕",
+    "begin": "开始冥想",
+    "skip": "跳过",
+    "breathing": {
+      "buttonTitle": "呼吸练习",
+      "buttonSubtitle": "准备身心",
+      "title": "呼吸练习",
+      "subtitle": "为冥想做准备",
+      "choosePattern": "选择一个模式：",
+      "patterns": {
+        "box": "缓解压力",
+        "boxDesc": "4-4-4-4 • 平静并集中注意力",
+        "478": "助眠",
+        "478Desc": "4-7-8 • 睡前深度放松",
+        "equal": "初学者适用",
+        "equalDesc": "4-4 • 简单易学的模式",
+        "calm": "提神醒脑",
+        "calmDesc": "2-2 • 快速激活能量"
+      },
+      "inhale": "吸气",
+      "hold": "屏住",
+      "exhale": "呼气",
+      "breathe": "呼吸",
+      "start": "开始",
+      "stop": "停止"
+    }
+  },
   "home": {
+    "greeting": {
+      "morning": "早上好",
+      "afternoon": "下午好",
+      "evening": "晚上好",
+      "night": "晚安"
+    },
     "welcome": "欢迎",
     "dailyQuote": "每日禅语",
     "quickStart": "快速开始",
@@ -41,7 +90,14 @@
     "suggestionMorning": "以清晰开始新的一天",
     "suggestionAfternoon": "是时候静心片刻",
     "suggestionEvening": "在夜晚来临前放松",
-    "suggestionNight": "为安稳的睡眠做准备"
+    "suggestionNight": "为安稳的睡眠做准备",
+    "streakStart": "开始你的连续记录！",
+    "streakFirst": "连续第一天！",
+    "streakBuilding": "正在养成习惯！",
+    "streakWeek": "连续一周！",
+    "streakTwoWeeks": "惊人的进步！",
+    "streakMonth": "平静大师！",
+    "streakMaster": "冥想传奇！"
   },
   "meditation": {
     "title": "冥想",
@@ -86,7 +142,12 @@
     "endSessionTitle": "结束课程？",
     "endSessionMessage": "你的进度将被保存。确定要结束冥想吗？",
     "endSessionConfirm": "结束",
-    "endSessionCancel": "继续"
+    "endSessionCancel": "继续",
+    "yourIntention": "你的意图",
+    "intentionDescription": "你在课程前为自己设定的目标",
+    "meditationInProgress": "冥想进行中",
+    "breatheNaturally": "自然呼吸",
+    "tapToShowControls": "点击显示控制"
   },
   "instructions": {
     "timeOfDay": {
@@ -106,6 +167,8 @@
     "preparation": {
       "prepareMySpace": "准备我的空间",
       "skip": "跳过",
+      "skipStep": "跳过此步",
+      "skipAll": "跳过准备",
       "continue": "继续",
       "beginMeditation": "开始冥想",
       "stepProgress": "第 {{current}} 步，共 {{total}} 步",
@@ -128,7 +191,21 @@
       "yourIntention": "你的意图（可选）",
       "intentionPlaceholder": "例如 \"与我的呼吸保持同在\"",
       "duringSession": "在你的课程中",
-      "keepInMind": "记住这些提示："
+      "keepInMind": "记住这些提示：",
+      "spaceSetup": "空间设置",
+      "quietPlace": "安静的地方",
+      "quietPlaceDesc": "找一个不会被打扰的安静地方",
+      "comfortablePosition": "舒适的姿势",
+      "comfortablePositionDesc": "坐下或躺下，让身体放松",
+      "timer": "计时器",
+      "timerDesc": "设置你的冥想时长",
+      "ready": "准备好了"
+    },
+    "skipModal": {
+      "title": "进入冥想",
+      "description": "你可以跳过准备阶段，直接开始冥想。",
+      "dontShowAgain": "以后不再显示此介绍",
+      "startMeditation": "开始"
     },
     "level1_breath": {
       "title": "欢迎来到你的第一次冥想",
@@ -478,10 +555,13 @@
   },
   "quotes": {
     "title": "启发性语录",
+    "subtitle": "你旅程中的每日智慧",
     "author": "作者：{{author}}",
     "next": "下一句",
     "previous": "上一句",
-    "random": "随机语录"
+    "random": "随机语录",
+    "swipe": "滑动",
+    "empty": "暂无语录"
   },
   "settings": {
     "title": "设置",
@@ -511,7 +591,48 @@
     "dataClearedBody": "你可以随时重建偏好设置和课程。数据不会离开此设备。",
     "featureOffline": "离线工作",
     "featurePrivacy": "无广告和追踪",
-    "featureLocal": "设备本地数据"
+    "featureLocal": "设备本地数据",
+    "legalTitle": "法律信息",
+    "legalDescription": "条款、隐私政策和支持",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "support": "支持",
+    "restartOnboarding": "重启引导",
+    "restartOnboardingTitle": "重启引导？",
+    "restartOnboardingBody": "应用将重启，你将看到欢迎界面。",
+    "restartRequired": "需要重启",
+    "restartRequiredBody": "关闭并重新打开应用以查看引导。",
+    "scientificSources": "科学来源",
+    "scientificSourcesDescription": "冥想益处背后的研究",
+    "scienceIntro": "冥想的益处已在众多科学研究中得到证实。以下是主要出版物：",
+    "source1Title": "正念练习导致大脑灰质密度增加",
+    "source1Authors": "Hölzel等人，2011年 - 精神病学研究",
+    "source1Desc": "8周MBSR计划增加了与记忆和情绪调节相关的大脑区域的灰质密度。",
+    "source2Title": "正念冥想与放松训练的随机对照试验",
+    "source2Authors": "Jain等人，2007年 - 行为医学年鉴",
+    "source2Desc": "与其他放松技术相比，正念显著减少了焦虑和反刍思维。",
+    "source3Title": "正念减压与健康益处",
+    "source3Authors": "Grossman等人，2004年 - 心身研究杂志",
+    "source3Desc": "对20项研究的荟萃分析证实了MBSR对心理和身体健康的积极影响。",
+    "breathingScience": "呼吸科学",
+    "breathingScienceDescription": "呼吸技术研究",
+    "breathingIntro": "控制呼吸会影响自主神经系统。研究表明缓慢、有节奏的呼吸可以激活副交感神经反应。注意：最佳呼吸模式因人而异，取决于肺活量和心率等因素。",
+    "breathSource1Title": "呼吸控制如何改变你的生活：慢呼吸的心理生理相关性系统综述",
+    "breathSource1Authors": "Zaccaro等人，2018年 - 人类神经科学前沿",
+    "breathSource1Desc": "对15项研究的全面综述表明，慢呼吸（每分钟少于10次）可增加副交感神经活动，改善情绪控制，并增强心理健康。",
+    "breathSource2Title": "腹式呼吸对健康成人注意力、负面情绪和压力的影响",
+    "breathSource2Authors": "Ma等人，2017年 - 心理学前沿",
+    "breathSource2Desc": "对40名参与者的研究表明，与对照组相比，深度腹式呼吸显著降低了皮质醇水平并改善了持续注意力。",
+    "breathSource3Title": "焦虑症青少年的心脏迷走神经控制、情绪调节和执行功能",
+    "breathSource3Authors": "Vasilev等人，2018年 - 情感障碍杂志",
+    "breathSource3Desc": "研究表明呼吸性窦性心律不齐（呼吸时心率变异性）与情绪调节能力之间存在联系。",
+    "learnMore": "了解更多",
+    "accessibility": "无障碍",
+    "accessibilityDescription": "更好视觉体验的选项",
+    "highContrastMode": "高对比度模式",
+    "highContrastModeDescription": "增加对比度以提高可见性",
+    "largerTextMode": "大字体",
+    "largerTextModeDescription": "增加整个应用的文字大小"
   },
   "navigation": {
     "home": "首页",
@@ -521,7 +642,204 @@
   },
   "common": {
     "ok": "确定",
-    "cancel": "取消"
+    "cancel": "取消",
+    "back": "返回",
+    "next": "下一步",
+    "close": "关闭",
+    "skip": "跳过",
+    "continue": "继续"
+  },
+  "introGuide": {
+    "title": "冥想入门",
+    "subtitle": "学习正念冥想的基础知识",
+    "startMeditation": "开始冥想",
+    "greetings": {
+      "morning": "早上好",
+      "morningContext": "晨间冥想的好时机",
+      "afternoon": "下午好",
+      "afternoonContext": "是时候静心片刻",
+      "evening": "晚上好",
+      "eveningContext": "放松的完美时间",
+      "night": "晚安",
+      "nightContext": "为安稳的睡眠做准备"
+    },
+    "slides": {
+      "welcome": {
+        "text": "冥想是注意力和觉察的训练。研究表明，定期练习（每天至少10-12分钟，持续8周）可以支持减压和提高专注力。"
+      },
+      "whatIs": {
+        "title": "什么是冥想？",
+        "text": "冥想是有意识地集中注意力的训练。它不是关于让思绪安静，而是关于不加评判地觉察它们。这是任何人都可以学习的心智训练。"
+      },
+      "benefits": {
+        "title": "冥想的益处",
+        "text": "研究表明，定期冥想可以支持身心健康：",
+        "bullets": {
+          "1": "减轻压力和焦虑",
+          "2": "提高注意力和思维清晰度",
+          "3": "更深沉、更安稳的睡眠"
+        }
+      },
+      "howTo": {
+        "title": "如何开始？",
+        "text": "冥想比你想象的更简单。以下是基本步骤：",
+        "bullets": {
+          "1": "找一个舒适的地方，放松地坐下",
+          "2": "闭上眼睛，专注于你的呼吸",
+          "3": "当思绪游离时，温柔地将注意力带回呼吸"
+        }
+      },
+      "ready": {
+        "title": "准备好了吗？",
+        "text": "没有完美的时刻，也没有完美的冥想。只需开始。每一次练习都是迈向更大平静和正念的一步。"
+      }
+    }
+  },
+  "instructionsScreen": {
+    "title": "冥想指南",
+    "subtitle": "学习技巧以及如何构建你的冥想课程",
+    "featuredIntro": {
+      "title": "冥想入门",
+      "description": "互动式分步指南。非常适合初学者或想要复习基础知识的人。",
+      "duration": "约5分钟"
+    },
+    "techniquesSection": "技巧",
+    "duration": "时长：{{duration}}",
+    "breathingSection": "呼吸练习",
+    "breathingIntro": "呼吸技巧有助于平静心灵并为冥想做准备。选择适合你情况的模式。",
+    "breathingExercises": {
+      "box": {
+        "name": "缓解压力",
+        "description": "平静并集中注意力。非常适合压力和焦虑。",
+        "steps": [
+          "用鼻子吸气4秒",
+          "屏住呼吸4秒",
+          "用嘴呼气4秒",
+          "屏住呼吸4秒",
+          "重复4-5个循环"
+        ]
+      },
+      "478": {
+        "name": "助眠",
+        "description": "睡前深度放松。帮助你入睡。",
+        "steps": [
+          "用鼻子吸气4秒",
+          "屏住呼吸7秒",
+          "用嘴呼气8秒",
+          "重复3-4次",
+          "让身体放松"
+        ]
+      },
+      "equal": {
+        "name": "初学者适用",
+        "description": "适合初学者的简单模式。容易学习。",
+        "steps": [
+          "用鼻子吸气4秒",
+          "用鼻子呼气4秒",
+          "保持均匀、平静的节奏",
+          "专注于自然呼吸",
+          "持续2-3分钟"
+        ]
+      },
+      "calm": {
+        "name": "提神醒脑",
+        "description": "快速激活能量的呼吸。提升精力。",
+        "steps": [
+          "用鼻子快速吸气2秒",
+          "用嘴快速呼气2秒",
+          "保持动态节奏",
+          "感受能量涌动",
+          "持续1-2分钟"
+        ]
+      },
+      "readyMessage": "准备好后，按下面的按钮开始练习。"
+    },
+    "tryExercise": "试一试",
+    "buildSessionSection": "如何构建课程",
+    "buildSessionIntro": "结合技巧创建完整的冥想课程。从安定开始，进行主要技巧，最后整合。",
+    "techniques": {
+      "bodyScan": {
+        "name": "身体扫描",
+        "description": "渐进式放松技巧，将注意力移动至身体各部位",
+        "duration": "10-20分钟",
+        "steps": [
+          "舒适地躺下或以放松的姿势坐下",
+          "闭上眼睛，深呼吸几次",
+          "将注意力带到脚趾，觉察任何感觉",
+          "慢慢将注意力向上移动：脚、脚踝、小腿",
+          "继续扫描：大腿、臀部、腹部",
+          "移动到胸部、肩膀、手臂、手",
+          "扫描颈部、面部和头顶",
+          "保持对整个身体的觉察片刻",
+          "准备好后轻轻睁开眼睛"
+        ]
+      },
+      "breathFocus": {
+        "name": "呼吸专注",
+        "description": "以呼吸为锚点的集中技巧",
+        "duration": "5-15分钟",
+        "steps": [
+          "背部挺直舒适地坐下",
+          "闭上眼睛或柔化视线",
+          "觉察呼吸的自然节奏",
+          "感受鼻孔、胸部或腹部的呼吸",
+          "当思绪游离时，温柔地回到呼吸",
+          "如果有帮助可以数呼吸（1-10，然后重复）",
+          "持续你选择的时长",
+          "以几次深呼吸结束"
+        ]
+      },
+      "lovingKindness": {
+        "name": "慈心禅",
+        "description": "培养对自己和他人的慈悲与善意",
+        "duration": "10-20分钟",
+        "steps": [
+          "舒适地坐下，闭上眼睛",
+          "从自己开始：\"愿我快乐，愿我健康\"",
+          "想象一个你爱的人，向他们发送善意",
+          "想一个中立的人，向他们延伸善意",
+          "考虑一个困难的人，祝愿他们安好",
+          "扩展到所有众生",
+          "安住于普遍慈悲的感觉中"
+        ]
+      },
+      "mindfulObservation": {
+        "name": "正念观察",
+        "description": "通过感官观察进行当下觉察",
+        "duration": "5-10分钟",
+        "steps": [
+          "选择一个物体（花、烛焰等）",
+          "舒适地坐下，将全部注意力带到物体上",
+          "详细觉察颜色、形状、纹理",
+          "不带评判或分析地观察",
+          "当思绪游离时，回到观察",
+          "将觉察扩展到声音和感觉",
+          "以对当下的感恩结束"
+        ]
+      }
+    },
+    "sessionGuides": {
+      "simple12Min": {
+        "title": "简单12分钟课程",
+        "description": "《磨砺心智》推荐的结构",
+        "structure": [
+          "2分钟 - 安定，呼吸觉察",
+          "3分钟 - 身体扫描（快速版）",
+          "5分钟 - 专注呼吸",
+          "2分钟 - 慈心禅"
+        ]
+      },
+      "deepRelaxation": {
+        "title": "深度放松课程",
+        "description": "用于减压和深度休息",
+        "structure": [
+          "3分钟 - 呼吸练习",
+          "10分钟 - 完整身体扫描",
+          "5分钟 - 在静止中休息",
+          "2分钟 - 渐渐回归"
+        ]
+      }
+    }
   },
   "profile": {
     "title": "你的个人资料",
@@ -559,7 +877,21 @@
     "mood5": "非常好",
     "showMore": "显示更多",
     "enterYourName": "输入你的名字",
-    "tapToAddName": "点击添加你的名字"
+    "tapToAddName": "点击添加你的名字",
+    "sessionIntention": "课程意图",
+    "noIntentionRecorded": "未记录意图",
+    "weeklyActivity": "每周活动",
+    "weeklyActivityDescription": "你本周的冥想模式",
+    "sessions": "次课程",
+    "minutes": "分钟",
+    "noActivity": "无活动",
+    "dayMon": "周一",
+    "dayTue": "周二",
+    "dayWed": "周三",
+    "dayThu": "周四",
+    "dayFri": "周五",
+    "daySat": "周六",
+    "daySun": "周日"
   },
   "calendar": {
     "title": "日历集成",
@@ -580,25 +912,38 @@
     "title": "自定义课程",
     "subtitle": "创建符合你需求的冥想",
     "mySavedSessions": "我的保存课程",
-    "sessionName": "课程名称（可选）",
+    "savedSessionsHint": "点击开始，长按查看选项",
+    "sessionName": "课程名称",
+    "sessionNameHint": "可选 - 用于保存",
     "sessionNamePlaceholder": "例如 晨间冥想",
     "duration": "时长",
-    "durationDescription": "你想练习多长时间？",
+    "durationDescription": "选择你的冥想课程时长",
     "minutes": "分钟",
     "minutesWithCount": "{{count}} 分钟",
     "customInterval": "自定义值：",
     "customDuration": "自定义时长：",
     "selected": "已选择",
     "ambientSound": "环境音",
-    "ambientDescription": "选择一个平静的声音帮助你专注",
+    "ambientDescription": "选择帮助你专注的声音",
     "intervalBell": "间隔钟声",
     "intervalBellDescription": "课程期间的温柔提醒",
+    "intervalBellHint": "课程中的正念时刻",
     "intervalEvery": "钟声间隔：",
+    "intervalWarning": "间隔必须短于课程时长",
     "min": "分钟",
-    "awakeningChime": "唤醒钟声",
+    "bells": "钟声",
+    "bellsDescription": "课程期间的声音信号",
+    "awakeningChime": "结束钟声",
     "awakeningChimeSubtitle": "标志练习结束的温柔声音",
+    "wakeUpChime": "结束钟声",
+    "wakeUpChimeDescription": "课程结束时的温柔钟声",
+    "wakeUpChimeHint": "结束时的温柔信号",
+    "vibration": "振动",
+    "vibrationHint": "钟声时振动",
     "guidingVoice": "引导语音",
     "guidingVoiceSubtitle": "练习期间的温柔语音指导",
+    "voiceGuidance": "语音引导",
+    "voiceGuidanceDescription": "冥想期间的语音指导",
     "ambientSilence": "静默",
     "ambientNature": "自然",
     "ambientOcean": "海洋",
@@ -666,7 +1011,12 @@
     "breathingCalm": "平静",
     "breathingCalmDesc": "2-2提神醒脑",
     "breathingCustom": "自定义",
-    "breathingCustomDesc": "您自己的模式"
+    "breathingCustomDesc": "您自己的模式",
+    "customBreathingTitle": "设置你的呼吸模式（秒）：",
+    "inhale": "吸气",
+    "hold": "屏住",
+    "exhale": "呼气",
+    "cycle": "循环"
   },
   "achievements": {
     "title": "成就",
@@ -815,6 +1165,51 @@
     "reflectionMaster": {
       "title": "反思大师",
       "description": "为25次冥想课程添加笔记"
+    }
+  },
+  "onboarding": {
+    "skip": "跳过",
+    "next": "下一步",
+    "back": "返回",
+    "getStarted": "开始使用",
+    "slide1": {
+      "title": "寻找平静",
+      "subtitle": "Slow Spot是你每日冥想的空间。研究表明，每天10-12分钟，持续8周，可以带来可测量的益处。"
+    },
+    "slide2": {
+      "title": "简单有效",
+      "subtitle": "没有复杂的技巧。选择一个课程，设置时间，沉浸在宁静中。我们会处理其余的一切。"
+    },
+    "slide3": {
+      "title": "你的旅程",
+      "subtitle": "追踪你的进度，养成习惯，享受定期冥想的益处。准备好开始了吗？"
+    },
+    "slide4": {
+      "title": "你叫什么名字？",
+      "subtitle": "告诉我们你的名字，每次访问时我们会亲自问候你。",
+      "placeholder": "你的名字（可选）",
+      "hint": "你可以稍后在个人资料中更改"
+    },
+    "healthDisclaimer": "此应用支持正念练习，不能替代专业医疗保健。如有健康问题请咨询医生。",
+    "successTitle": "一切就绪！",
+    "successSubtitle": "你的冥想之旅现在开始"
+  },
+  "personalization": {
+    "title": "个性化",
+    "subtitle": "根据你的喜好自定义应用",
+    "colorTheme": "颜色主题",
+    "colorThemeDescription": "选择最符合你心情的颜色",
+    "animations": "动画",
+    "animationsDescription": "启用或禁用应用中的动画",
+    "hapticFeedback": "触觉反馈",
+    "hapticFeedbackDescription": "交互时的微妙触感反馈",
+    "themes": {
+      "purple": "平静紫",
+      "teal": "和谐青",
+      "indigo": "深邃靛",
+      "rose": "温柔玫瑰",
+      "amber": "温暖琥珀",
+      "emerald": "清新翠绿"
     }
   }
 }

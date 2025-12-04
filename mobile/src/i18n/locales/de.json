@@ -7,7 +7,56 @@
     "appName": "Slow Spot.me",
     "tagline": "Finde deinen Moment der Ruhe"
   },
+  "intention": {
+    "greeting": {
+      "morning": "Guten Morgen",
+      "afternoon": "Guten Tag",
+      "evening": "Guten Abend",
+      "night": "Gute Nacht"
+    },
+    "title": "Setze deine Absicht",
+    "subtitle": "Was möchtest du in dieser Sitzung kultivieren?",
+    "inputLabel": "Deine Absicht (Optional)",
+    "placeholder": "z.B. \"Bei meinem Atem präsent bleiben\"",
+    "inspirations": "Inspirationen:",
+    "chip1": "Ruhe",
+    "chip2": "Präsenz",
+    "chip3": "Dankbarkeit",
+    "chip4": "Loslassen",
+    "skipForever": "Diesen Bildschirm vor der Meditation nicht mehr anzeigen",
+    "begin": "Meditation beginnen",
+    "skip": "Überspringen",
+    "breathing": {
+      "buttonTitle": "Atemübung",
+      "buttonSubtitle": "Körper und Geist vorbereiten",
+      "title": "Atemübung",
+      "subtitle": "Vorbereitung auf die Meditation",
+      "choosePattern": "Wähle ein Muster:",
+      "patterns": {
+        "box": "Gegen Stress",
+        "boxDesc": "4-4-4-4 • Beruhigt und fokussiert den Geist",
+        "478": "Zum Schlafen",
+        "478Desc": "4-7-8 • Tiefe Entspannung vor dem Schlaf",
+        "equal": "Für Anfänger",
+        "equalDesc": "4-4 • Einfaches Muster für Anfänger",
+        "calm": "Für Energie",
+        "calmDesc": "2-2 • Schnell und energetisierend"
+      },
+      "inhale": "Einatmen",
+      "hold": "Halten",
+      "exhale": "Ausatmen",
+      "breathe": "Atmen",
+      "start": "Start",
+      "stop": "Stopp"
+    }
+  },
   "home": {
+    "greeting": {
+      "morning": "Guten Morgen",
+      "afternoon": "Guten Tag",
+      "evening": "Guten Abend",
+      "night": "Gute Nacht"
+    },
     "welcome": "Willkommen",
     "dailyQuote": "Tägliches Zitat",
     "quickStart": "Schnellstart",
@@ -41,7 +90,14 @@
     "suggestionMorning": "Beginne deinen Tag mit Klarheit",
     "suggestionAfternoon": "Zeit für einen Moment der Ruhe",
     "suggestionEvening": "Entspanne dich vor dem Abend",
-    "suggestionNight": "Bereite dich auf einen ruhigen Schlaf vor"
+    "suggestionNight": "Bereite dich auf einen ruhigen Schlaf vor",
+    "streakStart": "Starte deine Serie!",
+    "streakFirst": "Erster Tag deiner Serie!",
+    "streakBuilding": "Eine Gewohnheit aufbauen!",
+    "streakWeek": "Eine Woche am Stück!",
+    "streakTwoWeeks": "Erstaunlicher Fortschritt!",
+    "streakMonth": "Meister der Ruhe!",
+    "streakMaster": "Meditations-Legende!"
   },
   "meditation": {
     "title": "Meditation",
@@ -86,14 +142,22 @@
     "endSessionTitle": "Sitzung beenden?",
     "endSessionMessage": "Dein Fortschritt wird gespeichert. Möchtest du die Meditation wirklich beenden?",
     "endSessionConfirm": "Beenden",
-    "endSessionCancel": "Fortsetzen"
+    "endSessionCancel": "Fortsetzen",
+    "yourIntention": "Deine Absicht",
+    "intentionDescription": "Was du dir vor der Sitzung vorgenommen hast",
+    "meditationInProgress": "MEDITATION LÄUFT",
+    "breatheNaturally": "Atme natürlich",
+    "tapToShowControls": "Tippen für Steuerung"
   },
   "quotes": {
     "title": "Inspirierende Zitate",
+    "subtitle": "Tägliche Weisheit für deine Reise",
     "author": "von {{author}}",
     "next": "Nächstes Zitat",
     "previous": "Vorheriges Zitat",
-    "random": "Zufälliges Zitat"
+    "random": "Zufälliges Zitat",
+    "swipe": "Wischen",
+    "empty": "Keine Zitate verfügbar"
   },
   "instructions": {
     "timeOfDay": {
@@ -113,6 +177,8 @@
     "preparation": {
       "prepareMySpace": "Bereite meinen Raum vor",
       "skip": "Überspringen",
+      "skipStep": "Schritt überspringen",
+      "skipAll": "Vorbereitung überspringen",
       "continue": "Weiter",
       "beginMeditation": "Meditation Beginnen",
       "stepProgress": "Schritt {{current}} von {{total}}",
@@ -135,7 +201,21 @@
       "yourIntention": "Deine Absicht (Optional)",
       "intentionPlaceholder": "z.B. \"Bei meinem Atem präsent bleiben\"",
       "duringSession": "Während deiner Sitzung",
-      "keepInMind": "Behalte diese Tipps im Hinterkopf:"
+      "keepInMind": "Behalte diese Tipps im Hinterkopf:",
+      "spaceSetup": "Raumvorbereitung",
+      "quietPlace": "Ruhiger Ort",
+      "quietPlaceDesc": "Finde einen ruhigen Ort, an dem du nicht gestört wirst",
+      "comfortablePosition": "Bequeme Position",
+      "comfortablePositionDesc": "Setze oder lege dich hin und lasse deinen Körper entspannen",
+      "timer": "Timer",
+      "timerDesc": "Stelle die Dauer deiner Meditation ein",
+      "ready": "Bereit"
+    },
+    "skipModal": {
+      "title": "Zur Meditation gehen",
+      "description": "Du kannst die Vorbereitung überspringen und sofort mit der Meditation beginnen.",
+      "dontShowAgain": "Diese Einführung nicht mehr anzeigen",
+      "startMeditation": "Start"
     },
     "level1_breath": {
       "title": "Willkommen zu deiner ersten Meditation",
@@ -354,7 +434,43 @@
     "legalDescription": "AGB, Datenschutz und Support",
     "privacyPolicy": "Datenschutzrichtlinie",
     "termsOfService": "Nutzungsbedingungen",
-    "support": "Support"
+    "support": "Support",
+    "restartOnboarding": "Onboarding neu starten",
+    "restartOnboardingTitle": "Onboarding neu starten?",
+    "restartOnboardingBody": "Die App wird neu gestartet und du siehst den Willkommensbildschirm.",
+    "restartRequired": "Neustart erforderlich",
+    "restartRequiredBody": "Schließe und öffne die App erneut, um das Onboarding zu sehen.",
+    "scientificSources": "Wissenschaftliche Quellen",
+    "scientificSourcesDescription": "Forschung hinter den Vorteilen der Meditation",
+    "scienceIntro": "Die Vorteile der Meditation wurden in zahlreichen wissenschaftlichen Studien bestätigt. Hier sind die wichtigsten Publikationen:",
+    "source1Title": "Achtsamkeitspraxis führt zu Zunahme der grauen Substanz im Gehirn",
+    "source1Authors": "Hölzel et al., 2011 - Psychiatry Research",
+    "source1Desc": "8-wöchiges MBSR-Programm erhöhte die Dichte der grauen Substanz in Hirnregionen, die mit Gedächtnis und emotionaler Regulation verbunden sind.",
+    "source2Title": "Randomisierte kontrollierte Studie zu Achtsamkeitsmeditation vs. Entspannungstraining",
+    "source2Authors": "Jain et al., 2007 - Annals of Behavioral Medicine",
+    "source2Desc": "Achtsamkeit reduzierte signifikant Angst und Grübeln im Vergleich zu anderen Entspannungstechniken.",
+    "source3Title": "Achtsamkeitsbasierte Stressreduktion und Gesundheitsvorteile",
+    "source3Authors": "Grossman et al., 2004 - Journal of Psychosomatic Research",
+    "source3Desc": "Meta-Analyse von 20 Studien bestätigte positive Auswirkungen von MBSR auf die geistige und körperliche Gesundheit.",
+    "breathingScience": "Atemwissenschaft",
+    "breathingScienceDescription": "Forschung zu Atemtechniken",
+    "breathingIntro": "Kontrolliertes Atmen beeinflusst das autonome Nervensystem. Forschung zeigt, dass langsames, rhythmisches Atmen die parasympathische Reaktion aktiviert. Hinweis: Optimale Atemmuster variieren zwischen Personen basierend auf Faktoren wie Lungenkapazität und Herzfrequenz.",
+    "breathSource1Title": "Wie Atemkontrolle dein Leben verändern kann: Systematische Übersicht zu psycho-physiologischen Korrelaten des langsamen Atmens",
+    "breathSource1Authors": "Zaccaro et al., 2018 - Frontiers in Human Neuroscience",
+    "breathSource1Desc": "Umfassende Übersicht über 15 Studien zeigt, dass langsames Atmen (unter 10 Atemzüge/Min) die parasympathische Aktivität erhöht, die emotionale Kontrolle verbessert und das psychische Wohlbefinden steigert.",
+    "breathSource2Title": "Der Effekt von Zwerchfellatmung auf Aufmerksamkeit, negative Emotionen und Stress bei gesunden Erwachsenen",
+    "breathSource2Authors": "Ma et al., 2017 - Frontiers in Psychology",
+    "breathSource2Desc": "Studie mit 40 Teilnehmern zeigte, dass tiefe Zwerchfellatmung den Cortisolspiegel signifikant senkte und die anhaltende Aufmerksamkeit im Vergleich zur Kontrollgruppe verbesserte.",
+    "breathSource3Title": "Kardiale Vaguskontrolle, Emotionsregulation und Exekutivfunktion bei Jugendlichen mit Angststörungen",
+    "breathSource3Authors": "Vasilev et al., 2018 - Journal of Affective Disorders",
+    "breathSource3Desc": "Forschung, die den Zusammenhang zwischen respiratorischer Sinusarrhythmie (Herzfrequenzvariabilität beim Atmen) und Emotionsregulationsfähigkeit demonstriert.",
+    "learnMore": "Mehr erfahren",
+    "accessibility": "Barrierefreiheit",
+    "accessibilityDescription": "Optionen für bessere visuelle Erfahrung",
+    "highContrastMode": "Hoher Kontrast",
+    "highContrastModeDescription": "Erhöht den Kontrast für bessere Sichtbarkeit",
+    "largerTextMode": "Größerer Text",
+    "largerTextModeDescription": "Erhöht die Textgröße in der gesamten App"
   },
   "navigation": {
     "home": "Startseite",
@@ -526,7 +642,204 @@
   },
   "common": {
     "ok": "OK",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "skip": "Überspringen",
+    "continue": "Fortsetzen"
+  },
+  "introGuide": {
+    "title": "Einführung in die Meditation",
+    "subtitle": "Lerne die Grundlagen der achtsamen Meditation",
+    "startMeditation": "Meditation starten",
+    "greetings": {
+      "morning": "Guten Morgen",
+      "morningContext": "Gute Zeit für Morgenmeditation",
+      "afternoon": "Guten Tag",
+      "afternoonContext": "Zeit für einen Moment der Ruhe",
+      "evening": "Guten Abend",
+      "eveningContext": "Perfekte Zeit zum Entspannen",
+      "night": "Gute Nacht",
+      "nightContext": "Bereite dich auf einen ruhigen Schlaf vor"
+    },
+    "slides": {
+      "welcome": {
+        "text": "Meditation ist ein Training von Aufmerksamkeit und Bewusstheit. Forschung legt nahe, dass regelmäßige Sitzungen (mindestens 10-12 Minuten täglich über 8 Wochen) Stressreduktion und verbesserte Konzentration unterstützen können."
+      },
+      "whatIs": {
+        "title": "Was ist Meditation?",
+        "text": "Meditation ist das Training, bewusst deine Aufmerksamkeit zu fokussieren. Es geht nicht darum, Gedanken zum Schweigen zu bringen, sondern sie ohne Urteil wahrzunehmen. Es ist mentales Training, das jeder lernen kann."
+      },
+      "benefits": {
+        "title": "Vorteile der Meditation",
+        "text": "Forschung legt nahe, dass regelmäßige Meditation geistiges und körperliches Wohlbefinden unterstützen kann:",
+        "bullets": {
+          "1": "Reduzierter Stress und Angst",
+          "2": "Bessere Konzentration und geistige Klarheit",
+          "3": "Tieferer, erholsamerer Schlaf"
+        }
+      },
+      "howTo": {
+        "title": "Wie anfangen?",
+        "text": "Meditation ist einfacher als du denkst. Hier sind die grundlegenden Schritte:",
+        "bullets": {
+          "1": "Finde einen bequemen Platz und sitze entspannt",
+          "2": "Schließe deine Augen und fokussiere dich auf deinen Atem",
+          "3": "Wenn deine Gedanken wandern, bringe die Aufmerksamkeit sanft zum Atem zurück"
+        }
+      },
+      "ready": {
+        "title": "Bereit?",
+        "text": "Es gibt keinen perfekten Moment oder perfekte Meditation. Fang einfach an. Jede Sitzung ist ein Schritt zu mehr Frieden und Achtsamkeit."
+      }
+    }
+  },
+  "instructionsScreen": {
+    "title": "Meditationsanleitungen",
+    "subtitle": "Lerne Techniken und wie du deine Meditationssitzungen aufbaust",
+    "featuredIntro": {
+      "title": "Einführung in die Meditation",
+      "description": "Interaktive Schritt-für-Schritt-Anleitung. Perfekt für Anfänger oder wenn du die Grundlagen auffrischen möchtest.",
+      "duration": "~5 Min"
+    },
+    "techniquesSection": "Techniken",
+    "duration": "Dauer: {{duration}}",
+    "breathingSection": "Atemübungen",
+    "breathingIntro": "Atemtechniken helfen, den Geist zu beruhigen und auf die Meditation vorzubereiten. Wähle das Muster, das zu deiner Situation passt.",
+    "breathingExercises": {
+      "box": {
+        "name": "Gegen Stress",
+        "description": "Beruhigt und fokussiert den Geist. Perfekt bei Stress und Angst.",
+        "steps": [
+          "Atme durch die Nase ein für 4 Sekunden",
+          "Halte den Atem für 4 Sekunden",
+          "Atme durch den Mund aus für 4 Sekunden",
+          "Halte den Atem für 4 Sekunden",
+          "Wiederhole 4-5 Zyklen"
+        ]
+      },
+      "478": {
+        "name": "Zum Schlafen",
+        "description": "Tiefe Entspannung vor dem Schlaf. Hilft beim Einschlafen.",
+        "steps": [
+          "Atme durch die Nase ein für 4 Sekunden",
+          "Halte den Atem für 7 Sekunden",
+          "Atme durch den Mund aus für 8 Sekunden",
+          "Wiederhole 3-4 Mal",
+          "Lass deinen Körper entspannen"
+        ]
+      },
+      "equal": {
+        "name": "Für Anfänger",
+        "description": "Einfaches Muster für Anfänger. Leicht zu lernen.",
+        "steps": [
+          "Atme durch die Nase ein für 4 Sekunden",
+          "Atme durch die Nase aus für 4 Sekunden",
+          "Halte einen gleichmäßigen, ruhigen Rhythmus",
+          "Fokussiere dich auf natürliches Atmen",
+          "Setze fort für 2-3 Minuten"
+        ]
+      },
+      "calm": {
+        "name": "Für Energie",
+        "description": "Schneller und energetisierender Atem. Steigert die Energie.",
+        "steps": [
+          "Schnelles Einatmen durch die Nase für 2 Sekunden",
+          "Schnelles Ausatmen durch den Mund für 2 Sekunden",
+          "Halte einen dynamischen Rhythmus",
+          "Fühle den Energieschub",
+          "Setze fort für 1-2 Minuten"
+        ]
+      },
+      "readyMessage": "Wenn du bereit bist, drücke den Button unten, um die Übung zu starten."
+    },
+    "tryExercise": "Ausprobieren",
+    "buildSessionSection": "Wie man eine Sitzung aufbaut",
+    "buildSessionIntro": "Kombiniere Techniken, um eine vollständige Meditationssitzung zu erstellen. Beginne mit dem Ankommen, wechsle zur Haupttechnik und beende mit Integration.",
+    "techniques": {
+      "bodyScan": {
+        "name": "Körper-Scan",
+        "description": "Progressive Entspannungstechnik, bei der die Aufmerksamkeit durch den Körper wandert",
+        "duration": "10-20 Minuten",
+        "steps": [
+          "Lege dich bequem hin oder sitze in einer entspannten Position",
+          "Schließe deine Augen und nimm ein paar tiefe Atemzüge",
+          "Bringe die Aufmerksamkeit zu deinen Zehen, nimm alle Empfindungen wahr",
+          "Bewege die Aufmerksamkeit langsam aufwärts durch Füße, Knöchel, Waden",
+          "Scanne weiter: Oberschenkel, Hüften, Bauch",
+          "Bewege dich durch Brust, Schultern, Arme, Hände",
+          "Scanne Nacken, Gesicht und Kopfoberfläche",
+          "Halte das Bewusstsein für deinen ganzen Körper einen Moment",
+          "Öffne sanft deine Augen, wenn du bereit bist"
+        ]
+      },
+      "breathFocus": {
+        "name": "Atem-Fokus",
+        "description": "Konzentrationstechnik mit dem Atem als Anker",
+        "duration": "5-15 Minuten",
+        "steps": [
+          "Sitze bequem mit geradem Rücken",
+          "Schließe deine Augen oder weiche den Blick",
+          "Bemerke den natürlichen Rhythmus deines Atmens",
+          "Fühle den Atem an deinen Nasenlöchern, Brust oder Bauch",
+          "Wenn deine Gedanken wandern, bringe die Aufmerksamkeit sanft zum Atem zurück",
+          "Zähle Atemzüge wenn hilfreich (1-10, dann wiederholen)",
+          "Setze fort für die gewählte Dauer",
+          "Beende mit ein paar tieferen Atemzügen"
+        ]
+      },
+      "lovingKindness": {
+        "name": "Liebevolle Güte (Metta)",
+        "description": "Kultivierung von Mitgefühl und Wohlwollen gegenüber sich selbst und anderen",
+        "duration": "10-20 Minuten",
+        "steps": [
+          "Sitze bequem und schließe deine Augen",
+          "Beginne mit dir selbst: \"Möge ich glücklich sein, möge ich gesund sein\"",
+          "Visualisiere jemanden, den du liebst, sende ihm Güte",
+          "Denke an eine neutrale Person, erweitere die Güte auf sie",
+          "Bedenke jemanden Schwierigen, wünsche ihm Wohlergehen",
+          "Erweitere auf alle Wesen überall",
+          "Ruhe im Gefühl universellen Mitgefühls"
+        ]
+      },
+      "mindfulObservation": {
+        "name": "Achtsame Beobachtung",
+        "description": "Gegenwärtige Moment-Bewusstheit durch sensorische Beobachtung",
+        "duration": "5-10 Minuten",
+        "steps": [
+          "Wähle ein Objekt (Blume, Kerzenflamme, etc.)",
+          "Sitze bequem und bringe volle Aufmerksamkeit zum Objekt",
+          "Bemerke Farben, Formen, Texturen im Detail",
+          "Beobachte ohne Urteil oder Analyse",
+          "Wenn deine Gedanken wandern, kehre zum Beobachten zurück",
+          "Erweitere das Bewusstsein auf Klänge und Empfindungen",
+          "Beende mit Dankbarkeit für den gegenwärtigen Moment"
+        ]
+      }
+    },
+    "sessionGuides": {
+      "simple12Min": {
+        "title": "Einfache 12-Minuten-Sitzung",
+        "description": "Empfohlene Struktur aus \"Schärfe deinen Geist\"",
+        "structure": [
+          "2 Min - Ankommen, Atembewusstsein",
+          "3 Min - Körper-Scan (Kurzversion)",
+          "5 Min - Fokus auf den Atem",
+          "2 Min - Liebevolle Güte"
+        ]
+      },
+      "deepRelaxation": {
+        "title": "Tiefe Entspannungs-Sitzung",
+        "description": "Für Stressabbau und tiefe Ruhe",
+        "structure": [
+          "3 Min - Atemübungen",
+          "10 Min - Vollständiger Körper-Scan",
+          "5 Min - Ruhe in Stille",
+          "2 Min - Allmähliche Rückkehr"
+        ]
+      }
+    }
   },
   "profile": {
     "title": "Dein Profil",
@@ -564,7 +877,21 @@
     "mood5": "Sehr gut",
     "showMore": "Mehr anzeigen",
     "enterYourName": "Gib deinen Namen ein",
-    "tapToAddName": "Tippe, um deinen Namen hinzuzufügen"
+    "tapToAddName": "Tippe, um deinen Namen hinzuzufügen",
+    "sessionIntention": "Sitzungs-Absicht",
+    "noIntentionRecorded": "Keine Absicht aufgezeichnet",
+    "weeklyActivity": "Wöchentliche Aktivität",
+    "weeklyActivityDescription": "Dein Meditationsmuster diese Woche",
+    "sessions": "Sitzungen",
+    "minutes": "Min",
+    "noActivity": "Keine Aktivität",
+    "dayMon": "Mo",
+    "dayTue": "Di",
+    "dayWed": "Mi",
+    "dayThu": "Do",
+    "dayFri": "Fr",
+    "daySat": "Sa",
+    "daySun": "So"
   },
   "calendar": {
     "title": "Kalenderintegration",
@@ -585,25 +912,38 @@
     "title": "Eigene Sitzung",
     "subtitle": "Erstelle eine auf deine Bedürfnisse zugeschnittene Meditation",
     "mySavedSessions": "Meine gespeicherten Sitzungen",
-    "sessionName": "Sitzungsname (optional)",
+    "savedSessionsHint": "Tippen zum Starten, halten für Optionen",
+    "sessionName": "Sitzungsname",
+    "sessionNameHint": "Optional - zum Speichern",
     "sessionNamePlaceholder": "Z.B. Morgenmeditation",
     "duration": "Dauer",
-    "durationDescription": "Wie viel Zeit möchtest du für die Übung verwenden?",
+    "durationDescription": "Wähle die Länge deiner Meditationssitzung",
     "minutes": "Min",
     "minutesWithCount": "{{count}} Min",
     "customInterval": "Eigener Wert:",
     "customDuration": "Eigene Dauer:",
     "selected": "Ausgewählt",
     "ambientSound": "Hintergrundgeräusch",
-    "ambientDescription": "Wähle einen beruhigenden Klang, der dir hilft, dich zu konzentrieren",
+    "ambientDescription": "Wähle Klänge, die dir beim Fokussieren helfen",
     "intervalBell": "Intervallglocke",
     "intervalBellDescription": "Sanfte Erinnerung während der Sitzung",
+    "intervalBellHint": "Achtsamer Moment während der Sitzung",
     "intervalEvery": "Glocke alle:",
+    "intervalWarning": "Intervall muss kürzer als Sitzungsdauer sein",
     "min": "Min",
-    "awakeningChime": "Aufweckklang",
+    "bells": "Glocken",
+    "bellsDescription": "Klangsignale während deiner Sitzung",
+    "awakeningChime": "Abschlussklang",
     "awakeningChimeSubtitle": "Sanfter Klang zum Ende der Übung",
+    "wakeUpChime": "Abschlussklang",
+    "wakeUpChimeDescription": "Sanfter Klang am Ende deiner Sitzung",
+    "wakeUpChimeHint": "Sanftes Signal am Ende",
+    "vibration": "Vibration",
+    "vibrationHint": "Vibration mit Glocken",
     "guidingVoice": "Führende Stimme",
     "guidingVoiceSubtitle": "Sanfte Sprachanleitung während der Übung",
+    "voiceGuidance": "Sprachführung",
+    "voiceGuidanceDescription": "Gesprochene Anleitung während der Meditation",
     "ambientSilence": "Stille",
     "ambientNature": "Natur",
     "ambientOcean": "Ozean",
@@ -671,7 +1011,12 @@
     "breathingCalm": "Ruhig",
     "breathingCalmDesc": "2-2 energetisierend",
     "breathingCustom": "Benutzerdefiniert",
-    "breathingCustomDesc": "Dein eigenes Muster"
+    "breathingCustomDesc": "Dein eigenes Muster",
+    "customBreathingTitle": "Lege dein Atemmuster fest (Sekunden):",
+    "inhale": "Einatmen",
+    "hold": "Halten",
+    "exhale": "Ausatmen",
+    "cycle": "Zyklus"
   },
   "achievements": {
     "title": "Errungenschaften",
@@ -820,6 +1165,51 @@
     "reflectionMaster": {
       "title": "Reflexionsmeister",
       "description": "Füge Notizen zu 25 Meditationssitzungen hinzu"
+    }
+  },
+  "onboarding": {
+    "skip": "Überspringen",
+    "next": "Weiter",
+    "back": "Zurück",
+    "getStarted": "Los geht's",
+    "slide1": {
+      "title": "Finde Frieden",
+      "subtitle": "Slow Spot ist dein Raum für tägliche Meditation. Forschung legt nahe, dass 10-12 Minuten täglich über 8 Wochen messbare Vorteile bringen können."
+    },
+    "slide2": {
+      "title": "Einfach & Effektiv",
+      "subtitle": "Keine komplizierten Techniken. Wähle eine Sitzung, stelle deine Zeit ein und tauche in die Stille ein. Wir kümmern uns um den Rest."
+    },
+    "slide3": {
+      "title": "Deine Reise",
+      "subtitle": "Verfolge deinen Fortschritt, baue eine Gewohnheit auf und genieße die Vorteile regelmäßiger Meditation. Bereit zu beginnen?"
+    },
+    "slide4": {
+      "title": "Wie heißt du?",
+      "subtitle": "Sag uns deinen Namen und wir begrüßen dich bei jedem Besuch persönlich.",
+      "placeholder": "Dein Name (optional)",
+      "hint": "Du kannst dies später im Profil ändern"
+    },
+    "healthDisclaimer": "Diese App unterstützt Achtsamkeitspraxis und ersetzt keine professionelle Gesundheitsversorgung. Bei gesundheitlichen Bedenken wende dich an einen Arzt.",
+    "successTitle": "Alles bereit!",
+    "successSubtitle": "Deine Meditationsreise beginnt jetzt"
+  },
+  "personalization": {
+    "title": "Personalisierung",
+    "subtitle": "Passe die App nach deinen Vorlieben an",
+    "colorTheme": "Farbthema",
+    "colorThemeDescription": "Wähle eine Farbe, die am besten zu deiner Stimmung passt",
+    "animations": "Animationen",
+    "animationsDescription": "Aktiviere oder deaktiviere Animationen in der App",
+    "hapticFeedback": "Haptisches Feedback",
+    "hapticFeedbackDescription": "Subtiles Berührungsfeedback bei Interaktionen",
+    "themes": {
+      "purple": "Ruhiges Lila",
+      "teal": "Harmonisches Türkis",
+      "indigo": "Tiefes Indigo",
+      "rose": "Sanftes Rosa",
+      "amber": "Warmer Bernstein",
+      "emerald": "Frisches Smaragd"
     }
   }
 }

@@ -7,7 +7,76 @@
     "appName": "Slow Spot.me",
     "tagline": "Encuentra tu momento de paz"
   },
+  "intention": {
+    "greeting": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas tardes",
+      "night": "Buenas noches"
+    },
+    "title": "Establece Tu Intención",
+    "subtitle": "¿Qué te gustaría cultivar en esta sesión?",
+    "inputLabel": "Tu Intención (Opcional)",
+    "placeholder": "ej. \"Permanecer presente con mi respiración\"",
+    "inspirations": "Inspiraciones:",
+    "chip1": "Calma",
+    "chip2": "Presencia",
+    "chip3": "Gratitud",
+    "chip4": "Soltar",
+    "skipForever": "No mostrar esta pantalla antes de meditar",
+    "begin": "Comenzar Meditación",
+    "skip": "Omitir",
+    "breathing": {
+      "buttonTitle": "Ejercicio de Respiración",
+      "buttonSubtitle": "Prepara cuerpo y mente",
+      "title": "Ejercicio de Respiración",
+      "subtitle": "Prepárate para la meditación",
+      "choosePattern": "Elige un patrón:",
+      "patterns": {
+        "box": "Para el Estrés",
+        "boxDesc": "4-4-4-4 • Calma y enfoca la mente",
+        "478": "Para Dormir",
+        "478Desc": "4-7-8 • Relajación profunda antes de dormir",
+        "equal": "Para Principiantes",
+        "equalDesc": "4-4 • Patrón simple para principiantes",
+        "calm": "Para Energía",
+        "calmDesc": "2-2 • Rápido y energizante"
+      },
+      "inhale": "Inhala",
+      "hold": "Mantén",
+      "exhale": "Exhala",
+      "breathe": "Respira",
+      "start": "Iniciar",
+      "stop": "Detener"
+    }
+  },
   "home": {
+    "greeting": {
+      "morning": "Buenos días",
+      "afternoon": "Buenas tardes",
+      "evening": "Buenas tardes",
+      "night": "Buenas noches"
+    },
+    "greetingMorning": "Buenos días",
+    "greetingAfternoon": "Bienvenido de nuevo",
+    "greetingEvening": "Buenas tardes",
+    "greetingNight": "Buenas noches",
+    "greetingMorningPersonal": "¡Buenos días, {{name}}!",
+    "greetingAfternoonPersonal": "¡Bienvenido de nuevo, {{name}}!",
+    "greetingEveningPersonal": "¡Buenas tardes, {{name}}!",
+    "greetingNightPersonal": "¡Buenas noches, {{name}}!",
+    "greetingPersonal": "¡Hola, {{name}}!",
+    "suggestionMorning": "Comienza tu día con claridad",
+    "suggestionAfternoon": "Tiempo para un momento de calma",
+    "suggestionEvening": "Relájate antes de la noche",
+    "suggestionNight": "Prepárate para un sueño tranquilo",
+    "streakStart": "¡Comienza tu racha!",
+    "streakFirst": "¡Primer día de tu racha!",
+    "streakBuilding": "¡Construyendo un hábito!",
+    "streakWeek": "¡Una semana seguida!",
+    "streakTwoWeeks": "¡Progreso increíble!",
+    "streakMonth": "¡Maestro de la calma!",
+    "streakMaster": "¡Leyenda de la meditación!",
     "welcome": "Bienvenido",
     "dailyQuote": "Cita Diaria",
     "quickStart": "Inicio Rápido",
@@ -28,20 +97,7 @@
     "instructions": "Instrucciones",
     "instructionsDesc": "Cómo meditar",
     "inspirations": "Inspiraciones",
-    "inspirationsDesc": "Citas y motivación",
-    "greetingMorning": "Buenos días",
-    "greetingAfternoon": "Bienvenido de nuevo",
-    "greetingEvening": "Buenas tardes",
-    "greetingNight": "Buenas noches",
-    "greetingMorningPersonal": "Buenos días, {{name}}!",
-    "greetingAfternoonPersonal": "Bienvenido de nuevo, {{name}}!",
-    "greetingEveningPersonal": "Buenas tardes, {{name}}!",
-    "greetingNightPersonal": "Buenas noches, {{name}}!",
-    "greetingPersonal": "Hola, {{name}}!",
-    "suggestionMorning": "Comienza tu día con claridad",
-    "suggestionAfternoon": "Tiempo para un momento de calma",
-    "suggestionEvening": "Relájate antes de la noche",
-    "suggestionNight": "Prepárate para un sueño tranquilo"
+    "inspirationsDesc": "Citas y motivación"
   },
   "meditation": {
     "title": "Meditación",
@@ -71,10 +127,6 @@
     "completedSession": "Completaste tu sesión de meditación",
     "session": "Sesión",
     "continue": "Continuar",
-    "focusOnBreath": "Concéntrate en tu respiración",
-    "breatheIn": "Inhala",
-    "breatheOut": "Exhala",
-    "hold": "Mantén",
     "howDoYouFeel": "¿Cómo te sientes?",
     "moodDescription": "Califica cómo te sientes después de la sesión",
     "sessionDetails": "Detalles de la Sesión",
@@ -82,18 +134,20 @@
     "notesOptional": "Escribe tus pensamientos (opcional)",
     "notesPlaceholder": "¿Cómo te sientes? ¿Qué pensamientos tienes?",
     "inspiration": "Inspiración",
+    "focusOnBreath": "Concéntrate en tu respiración",
+    "breatheIn": "Inhala",
+    "breatheOut": "Exhala",
+    "hold": "Mantén",
+    "yourIntention": "Tu Intención",
+    "intentionDescription": "Lo que estableciste para ti antes de la sesión",
+    "meditationInProgress": "MEDITACIÓN EN PROGRESO",
+    "breatheNaturally": "Respira naturalmente",
+    "tapToShowControls": "Toca para mostrar controles",
     "inProgress": "En Progreso",
     "endSessionTitle": "¿Terminar sesión?",
     "endSessionMessage": "Tu progreso se guardará. ¿Seguro que quieres terminar la meditación?",
     "endSessionConfirm": "Terminar",
     "endSessionCancel": "Continuar"
-  },
-  "quotes": {
-    "title": "Citas Inspiradoras",
-    "author": "por {{author}}",
-    "next": "Siguiente Cita",
-    "previous": "Cita Anterior",
-    "random": "Cita Aleatoria"
   },
   "instructions": {
     "timeOfDay": {
@@ -113,6 +167,8 @@
     "preparation": {
       "prepareMySpace": "Preparar Mi Espacio",
       "skip": "Omitir",
+      "skipStep": "Omitir paso",
+      "skipAll": "Omitir preparación",
       "continue": "Continuar",
       "beginMeditation": "Comenzar Meditación",
       "stepProgress": "Paso {{current}} de {{total}}",
@@ -133,13 +189,19 @@
       "setIntention": "Establece Tu Intención",
       "intentionPrompt": "¿Qué te gustaría cultivar en esta sesión?",
       "yourIntention": "Tu Intención (Opcional)",
-      "intentionPlaceholder": "p.ej. \"Permanecer presente con mi respiración\"",
+      "intentionPlaceholder": "ej. \"Permanecer presente con mi respiración\"",
       "duringSession": "Durante Tu Sesión",
       "keepInMind": "Ten en cuenta estos consejos:"
     },
+    "skipModal": {
+      "title": "Ir a meditación",
+      "description": "Puedes omitir la preparación y comenzar tu meditación de inmediato.",
+      "dontShowAgain": "No mostrar esta introducción de nuevo",
+      "startMeditation": "Comenzar"
+    },
     "level1_breath": {
-      "title": "Bienvenido a Tu Primera Meditación",
-      "subtitle": "Construyamos los cimientos juntos",
+      "title": "Introducción a la Meditación",
+      "subtitle": "Aprende los fundamentos de la meditación consciente",
       "intention": "Simplemente observa tu respiración sin intentar cambiarla",
       "focusPoint": "El ritmo natural de inhalar y exhalar",
       "challenges": {
@@ -174,7 +236,7 @@
       "sessionTips": {
         "1": "Comienza simplemente notando cuándo inhalas y cuándo exhalas",
         "2": "Cuando tu mente divague, trae suavemente la atención de vuelta a tu respiración",
-        "3": "Sé paciente y amable contigo mismo—cada sesión es un paso adelante",
+        "3": "Sé paciente y amable contigo mismo—esta es una habilidad que se desarrolla con el tiempo",
         "4": "Cada momento de conciencia cuenta, sin importar cuán breve sea"
       },
       "breathingPrep": {
@@ -292,6 +354,11 @@
     }
   },
   "sessions": {
+    "filters": {
+      "all": "Todas las sesiones",
+      "showFilters": "Mostrar filtros",
+      "hideFilters": "Ocultar filtros"
+    },
     "categories": {
       "traditional": "Tradicional",
       "occasion": "Ocasión",
@@ -314,12 +381,17 @@
       "taoist": "Taoísta (China)",
       "sufi": "Sufí (Islámica)",
       "christian": "Contemplativa Cristiana"
-    },
-    "filters": {
-      "all": "Todas las sesiones",
-      "showFilters": "Mostrar filtros",
-      "hideFilters": "Ocultar filtros"
     }
+  },
+  "quotes": {
+    "title": "Inspiraciones",
+    "subtitle": "Sabiduría diaria para tu viaje",
+    "author": "por {{author}}",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "random": "Aleatorio",
+    "swipe": "Desliza",
+    "empty": "No hay citas disponibles"
   },
   "settings": {
     "title": "Configuración",
@@ -354,13 +426,104 @@
     "legalDescription": "Términos, política de privacidad y soporte",
     "privacyPolicy": "Política de privacidad",
     "termsOfService": "Términos de servicio",
-    "support": "Soporte"
+    "support": "Soporte",
+    "restartOnboarding": "Reiniciar introducción",
+    "restartOnboardingTitle": "¿Reiniciar introducción?",
+    "restartOnboardingBody": "La aplicación se reiniciará y verás la pantalla de bienvenida.",
+    "restartRequired": "Reinicio requerido",
+    "restartRequiredBody": "Cierra y vuelve a abrir la aplicación para ver la introducción.",
+    "scientificSources": "Fuentes Científicas",
+    "scientificSourcesDescription": "Investigación detrás de los beneficios de la meditación",
+    "scienceIntro": "Los beneficios de la meditación han sido confirmados en numerosos estudios científicos. Aquí están las publicaciones clave:",
+    "source1Title": "La práctica de mindfulness conduce a aumentos en la densidad de materia gris cerebral regional",
+    "source1Authors": "Hölzel et al., 2011 - Psychiatry Research",
+    "source1Desc": "Un programa MBSR de 8 semanas aumentó la densidad de materia gris en regiones cerebrales asociadas con la memoria y la regulación emocional.",
+    "source2Title": "Ensayo controlado aleatorizado de meditación mindfulness versus entrenamiento de relajación",
+    "source2Authors": "Jain et al., 2007 - Annals of Behavioral Medicine",
+    "source2Desc": "El mindfulness redujo significativamente la ansiedad y la rumiación en comparación con otras técnicas de relajación.",
+    "source3Title": "Reducción del Estrés Basada en Mindfulness y Beneficios para la Salud",
+    "source3Authors": "Grossman et al., 2004 - Journal of Psychosomatic Research",
+    "source3Desc": "El metaanálisis de 20 estudios confirmó los efectos positivos del MBSR en la salud mental y física.",
+    "breathingScience": "Ciencia de la Respiración",
+    "breathingScienceDescription": "Investigación sobre técnicas de respiración",
+    "breathingIntro": "La respiración controlada afecta el sistema nervioso autónomo. La investigación muestra que la respiración lenta y rítmica activa la respuesta parasimpática. Nota: los patrones de respiración óptimos varían entre individuos según factores como la capacidad pulmonar y la frecuencia cardíaca.",
+    "breathSource1Title": "Cómo el Control de la Respiración Puede Cambiar Tu Vida: Una Revisión Sistemática sobre Correlatos Psicofisiológicos de la Respiración Lenta",
+    "breathSource1Authors": "Zaccaro et al., 2018 - Frontiers in Human Neuroscience",
+    "breathSource1Desc": "Revisión completa de 15 estudios que muestra que la respiración lenta (menos de 10 respiraciones/min) aumenta la actividad parasimpática, mejora el control emocional y mejora el bienestar psicológico.",
+    "breathSource2Title": "El Efecto de la Respiración Diafragmática en la Atención, el Afecto Negativo y el Estrés en Adultos Sanos",
+    "breathSource2Authors": "Ma et al., 2017 - Frontiers in Psychology",
+    "breathSource2Desc": "Un estudio de 40 participantes mostró que la respiración diafragmática profunda redujo significativamente los niveles de cortisol y mejoró la atención sostenida en comparación con el grupo de control.",
+    "breathSource3Title": "Control vagal cardíaco, regulación emocional y función ejecutiva en jóvenes con trastornos de ansiedad",
+    "breathSource3Authors": "Vasilev et al., 2018 - Journal of Affective Disorders",
+    "breathSource3Desc": "Investigación que demuestra el vínculo entre la arritmia sinusal respiratoria (variabilidad de la frecuencia cardíaca durante la respiración) y la capacidad de regulación emocional.",
+    "learnMore": "Saber más",
+    "accessibility": "Accesibilidad",
+    "accessibilityDescription": "Opciones para una mejor experiencia visual",
+    "highContrastMode": "Modo de Alto Contraste",
+    "highContrastModeDescription": "Aumenta el contraste para mejor visibilidad",
+    "largerTextMode": "Texto Más Grande",
+    "largerTextModeDescription": "Aumenta el tamaño del texto en toda la aplicación"
   },
   "navigation": {
     "home": "Inicio",
     "meditate": "Meditar",
     "quotes": "Citas",
     "settings": "Configuración"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancelar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "close": "Cerrar",
+    "skip": "Omitir",
+    "continue": "Continuar"
+  },
+  "introGuide": {
+    "title": "Introducción a la Meditación",
+    "subtitle": "Aprende los fundamentos de la meditación consciente",
+    "startMeditation": "Comenzar Meditación",
+    "greetings": {
+      "morning": "Buenos días",
+      "morningContext": "Excelente momento para la meditación matutina",
+      "afternoon": "Buenas tardes",
+      "afternoonContext": "Tiempo para un momento de calma",
+      "evening": "Buenas tardes",
+      "eveningContext": "Momento perfecto para relajarse",
+      "night": "Buenas noches",
+      "nightContext": "Prepárate para un sueño tranquilo"
+    },
+    "slides": {
+      "welcome": {
+        "text": "La meditación es un entrenamiento de atención y conciencia. La investigación sugiere que las sesiones regulares (al menos 10-12 minutos diarios durante 8 semanas) pueden apoyar la reducción del estrés y mejorar el enfoque."
+      },
+      "whatIs": {
+        "title": "¿Qué es la meditación?",
+        "text": "La meditación es el entrenamiento de enfocar conscientemente tu atención. No se trata de silenciar pensamientos, sino de notarlos sin juzgar. Es un entrenamiento mental que cualquiera puede aprender."
+      },
+      "benefits": {
+        "title": "Beneficios de la meditación",
+        "text": "La investigación sugiere que la meditación regular puede apoyar el bienestar mental y físico:",
+        "bullets": {
+          "1": "Reducción del estrés y la ansiedad",
+          "2": "Mejor concentración y claridad mental",
+          "3": "Sueño más profundo y tranquilo"
+        }
+      },
+      "howTo": {
+        "title": "¿Cómo empezar?",
+        "text": "La meditación es más simple de lo que piensas. Aquí están los pasos básicos:",
+        "bullets": {
+          "1": "Encuentra un lugar cómodo y siéntate relajado",
+          "2": "Cierra los ojos y concéntrate en tu respiración",
+          "3": "Cuando tu mente divague, vuelve suavemente la atención a la respiración"
+        }
+      },
+      "ready": {
+        "title": "¿Listo?",
+        "text": "No hay un momento perfecto ni una meditación perfecta. Solo empieza. Cada sesión es un paso hacia mayor paz y atención plena."
+      }
+    }
   },
   "sessionsList": {
     "morningAwakening": {
@@ -451,7 +614,7 @@
       "title": "Zazen - Sentada Zen",
       "description": "Meditación Zen tradicional. Solo sentarse, observando la respiración y los pensamientos."
     },
-    "kinhinZenWalking": {
+    "kinthinZenWalking": {
       "title": "Kinhin - Caminata Zen",
       "description": "Caminata lenta y consciente entre períodos de sentada."
     },
@@ -524,12 +687,114 @@
       "description": "Oración rítmica sincronizada con la respiración."
     }
   },
-  "common": {
-    "ok": "OK",
-    "cancel": "Cancelar"
+  "custom": {
+    "title": "Sesión Personalizada",
+    "subtitle": "Crea una meditación adaptada a tus necesidades",
+    "mySavedSessions": "Mis Sesiones Guardadas",
+    "savedSessionsHint": "Toca para iniciar, mantén presionado para opciones",
+    "sessionName": "Nombre de Sesión",
+    "sessionNameHint": "Opcional - para guardar",
+    "sessionNamePlaceholder": "Ej. Meditación matutina",
+    "duration": "Duración",
+    "durationDescription": "Elige la duración de tu sesión de meditación",
+    "customDuration": "Duración personalizada:",
+    "customInterval": "Valor personalizado:",
+    "minutes": "min",
+    "selected": "seleccionado",
+    "ambientSound": "Sonido Ambiental",
+    "ambientDescription": "Elige sonidos que te ayuden a concentrarte",
+    "ambientSilence": "Silencio",
+    "ambientNature": "Naturaleza",
+    "ambientOcean": "Océano",
+    "ambientForest": "Bosque",
+    "ambient432hz": "432 Hz",
+    "ambient528hz": "528 Hz",
+    "intervalBell": "Campana de Intervalo",
+    "intervalBellDescription": "Recordatorio suave durante tu sesión",
+    "intervalBellHint": "Momento de atención durante la sesión",
+    "intervalEvery": "Campana cada:",
+    "intervalWarning": "El intervalo debe ser menor que la duración de la sesión",
+    "min": "min",
+    "bells": "Campanas",
+    "bellsDescription": "Señales sonoras durante tu sesión",
+    "wakeUpChime": "Campana Final",
+    "wakeUpChimeDescription": "Suave timbre al final de tu sesión",
+    "wakeUpChimeHint": "Señal suave al final",
+    "vibration": "Vibración",
+    "vibrationHint": "Vibrar con las campanas",
+    "sounds": {
+      "silence": "Silencio",
+      "nature": "Naturaleza",
+      "ocean": "Océano",
+      "forest": "Bosque",
+      "432hz": "432 Hz",
+      "528hz": "528 Hz"
+    },
+    "voiceGuidance": "Guía de Voz",
+    "voiceGuidanceDescription": "Guía hablada durante la meditación",
+    "startSession": "Iniciar Sesión",
+    "saveSession": "Guardar Sesión",
+    "updateSession": "Actualizar Sesión",
+    "saveAndStart": "Guardar e Iniciar",
+    "startWithoutSaving": "Iniciar sin guardar",
+    "saveError": "Error",
+    "sessionNameRequired": "Por favor ingresa un nombre de sesión antes de guardar",
+    "saveSuccess": "Éxito",
+    "sessionUpdated": "¡Tu sesión ha sido actualizada con éxito!",
+    "sessionSaved": "¡Tu sesión ha sido guardada con éxito!",
+    "startNow": "Iniciar Ahora",
+    "backToList": "Volver a la Lista",
+    "saveFailed": "Error al guardar la sesión. Por favor intenta de nuevo",
+    "sessionOptions": "¿Qué te gustaría hacer?",
+    "editSession": "Editar",
+    "deleteSession": "Eliminar",
+    "editNotImplemented": "La función de edición estará disponible cuando se conecte a la pantalla del constructor",
+    "deleteConfirmTitle": "Eliminar Sesión",
+    "deleteConfirmMessage": "¿Estás seguro de que quieres eliminar esta sesión?",
+    "delete": "Eliminar",
+    "deleteError": "Error",
+    "deleteFailed": "Error al eliminar la sesión. Por favor intenta de nuevo",
+    "sessionDescription": "{{minutes}} min de meditación con {{ambientSound}}",
+    "customSession": "sesión personalizada",
+    "customSessions": "sesiones personalizadas",
+    "breathingPattern": "Patrón de Respiración",
+    "breathingPatternDescription": "Añade respiración guiada a tu sesión",
+    "breathingNone": "Ninguno",
+    "breathingNoneDesc": "Sin guía de respiración",
+    "breathingBox": "Cuadrada",
+    "breathingBoxDesc": "4-4-4-4 para el estrés",
+    "breathing478": "4-7-8",
+    "breathing478Desc": "Relajación profunda",
+    "breathingEqual": "Igual",
+    "breathingEqualDesc": "4-4 para principiantes",
+    "breathingCalm": "Calmante",
+    "breathingCalmDesc": "2-2 energizante",
+    "breathingCustom": "Personalizado",
+    "breathingCustomDesc": "Tu propio patrón",
+    "customBreathingTitle": "Establece tu patrón de respiración (segundos):",
+    "inhale": "Inhalar",
+    "hold": "Mantener",
+    "exhale": "Exhalar",
+    "cycle": "ciclo",
+    "breathing": {
+      "none": "Sin Guía",
+      "noneDesc": "Medita sin patrón de respiración",
+      "box": "Respiración Cuadrada",
+      "boxDesc": "Activa el sistema parasimpático, reduce el cortisol",
+      "478": "4-7-8",
+      "478Desc": "Sedante natural para el sistema nervioso",
+      "equal": "Respiración Igual",
+      "equalDesc": "Equilibra el sistema nervioso, aumenta el enfoque",
+      "calm": "Respiración Calmante",
+      "calmDesc": "Exhalación más larga activa la respuesta de relajación"
+    },
+    "breathingTitle": "Patrón de Respiración",
+    "breathingDescription": "Elige una técnica de respiración respaldada por la ciencia (opcional)"
   },
   "profile": {
     "title": "Tu Perfil",
+    "enterYourName": "Ingresa tu nombre",
+    "tapToAddName": "Toca para agregar tu nombre",
     "statistics": "Estadísticas",
     "totalSessions": "Sesiones Totales",
     "totalMinutes": "Minutos Totales",
@@ -557,14 +822,26 @@
     "reflections": "Reflexiones",
     "noMoodRecorded": "Sin estado de ánimo registrado",
     "noNotesRecorded": "Sin notas registradas",
+    "sessionIntention": "Intención de la Sesión",
+    "noIntentionRecorded": "Sin intención registrada",
     "mood1": "Muy mal",
     "mood2": "Mal",
     "mood3": "Neutral",
     "mood4": "Bien",
     "mood5": "Muy bien",
     "showMore": "Mostrar más",
-    "enterYourName": "Ingresa tu nombre",
-    "tapToAddName": "Toca para agregar tu nombre"
+    "weeklyActivity": "Actividad Semanal",
+    "weeklyActivityDescription": "Tu patrón de meditación esta semana",
+    "sessions": "sesiones",
+    "minutes": "min",
+    "noActivity": "Sin actividad",
+    "dayMon": "Lun",
+    "dayTue": "Mar",
+    "dayWed": "Mié",
+    "dayThu": "Jue",
+    "dayFri": "Vie",
+    "daySat": "Sáb",
+    "daySun": "Dom"
   },
   "calendar": {
     "title": "Integración de Calendario",
@@ -581,97 +858,151 @@
     "noReminder": "Sin recordatorio activo",
     "at": "a las"
   },
-  "custom": {
-    "title": "Sesión Personalizada",
-    "subtitle": "Crea una meditación adaptada a tus necesidades",
-    "mySavedSessions": "Mis Sesiones Guardadas",
-    "sessionName": "Nombre de Sesión (opcional)",
-    "sessionNamePlaceholder": "Ej. Meditación matutina",
-    "duration": "Duración",
-    "durationDescription": "¿Cuánto tiempo quieres dedicar a la sesión?",
-    "minutes": "min",
-    "minutesWithCount": "{{count}} min",
-    "customInterval": "Valor personalizado:",
-    "customDuration": "Duración personalizada:",
-    "selected": "Seleccionado",
-    "ambientSound": "Sonido Ambiental",
-    "ambientDescription": "Elige un sonido relajante que te ayude a concentrarte",
-    "intervalBell": "Campana de Intervalo",
-    "intervalBellDescription": "Recordatorio suave durante la sesión",
-    "intervalEvery": "Campana cada:",
-    "min": "min",
-    "awakeningChime": "Campana de Despertar",
-    "awakeningChimeSubtitle": "Sonido suave para señalar el final de la sesión",
-    "guidingVoice": "Voz Guía",
-    "guidingVoiceSubtitle": "Indicaciones suaves durante la sesión",
-    "ambientSilence": "Silencio",
-    "ambientNature": "Naturaleza",
-    "ambientOcean": "Océano",
-    "ambientForest": "Bosque",
-    "ambient432hz": "432 Hz",
-    "ambient528hz": "528 Hz",
-    "saveSession": "Guardar Sesión",
-    "updateSession": "Actualizar Sesión",
-    "saveAndStart": "Guardar e Iniciar",
-    "startWithoutSaving": "Iniciar sin Guardar",
-    "start": "Iniciar",
-    "longPressToEdit": "Mantén presionado para editar",
-    "editSession": "Editar Sesión",
-    "deleteSession": "Eliminar Sesión",
-    "startSession": "Iniciar Sesión",
-    "saveError": "Error",
-    "sessionNameRequired": "Por favor ingresa un nombre de sesión antes de guardar",
-    "saveSuccess": "Éxito",
-    "sessionUpdated": "¡Tu sesión ha sido actualizada con éxito!",
-    "sessionSaved": "¡Tu sesión ha sido guardada con éxito!",
-    "startNow": "Iniciar Ahora",
-    "backToList": "Volver a la Lista",
-    "saveFailed": "Error al guardar la sesión. Por favor intenta de nuevo",
-    "sessionOptions": "¿Qué te gustaría hacer?",
-    "editNotImplemented": "La función de edición estará disponible cuando se conecte a la pantalla del constructor",
-    "deleteConfirmTitle": "Eliminar Sesión",
-    "deleteConfirmMessage": "¿Estás seguro de que quieres eliminar esta sesión?",
-    "delete": "Eliminar",
-    "deleteError": "Error",
-    "deleteFailed": "Error al eliminar la sesión. Por favor intenta de nuevo",
-    "sessionDescription": "{{minutes}} min de meditación con {{ambientSound}}",
-    "customSession": "sesión personalizada",
-    "customSessions": "sesiones personalizadas",
-    "sounds": {
-      "nature": "Naturaleza",
-      "rain": "Lluvia",
-      "ocean": "Océano",
-      "forest": "Bosque",
-      "silence": "Silencio"
+  "instructionsScreen": {
+    "title": "Guías de Meditación",
+    "subtitle": "Aprende técnicas y cómo construir tus sesiones de meditación",
+    "featuredIntro": {
+      "title": "Introducción a la Meditación",
+      "description": "Guía interactiva paso a paso. Perfecto para principiantes o cuando quieras refrescar los conceptos básicos.",
+      "duration": "~5 min"
     },
-    "breathing": {
-      "none": "Sin instrucciones",
-      "noneDesc": "Medita sin patrón de respiración",
-      "box": "Respiración Cuadrada",
-      "boxDesc": "Activa el sistema parasimpático, reduce el cortisol",
-      "478": "4-7-8",
-      "478Desc": "Sedante natural para el sistema nervioso",
-      "equal": "Respiración Igual",
-      "equalDesc": "Equilibra el sistema nervioso, aumenta el enfoque",
-      "calm": "Respiración Calmante",
-      "calmDesc": "Exhalación más larga activa la respuesta de relajación"
+    "techniquesSection": "Técnicas",
+    "duration": "Duración: {{duration}}",
+    "breathingSection": "Ejercicios de Respiración",
+    "breathingIntro": "Las técnicas de respiración ayudan a calmar la mente y prepararse para la meditación. Elige el patrón que se adapte a tu situación.",
+    "breathingExercises": {
+      "box": {
+        "name": "Para el Estrés",
+        "description": "Calma y enfoca la mente. Perfecto para el estrés y la ansiedad.",
+        "steps": [
+          "Inhala por la nariz durante 4 segundos",
+          "Mantén la respiración durante 4 segundos",
+          "Exhala por la boca durante 4 segundos",
+          "Mantén la respiración durante 4 segundos",
+          "Repite durante 4-5 ciclos"
+        ]
+      },
+      "478": {
+        "name": "Para Dormir",
+        "description": "Relajación profunda antes de acostarse. Te ayuda a conciliar el sueño.",
+        "steps": [
+          "Inhala por la nariz durante 4 segundos",
+          "Mantén la respiración durante 7 segundos",
+          "Exhala por la boca durante 8 segundos",
+          "Repite 3-4 veces",
+          "Permite que tu cuerpo se relaje"
+        ]
+      },
+      "equal": {
+        "name": "Para Principiantes",
+        "description": "Patrón simple para principiantes. Fácil de aprender.",
+        "steps": [
+          "Inhala por la nariz durante 4 segundos",
+          "Exhala por la nariz durante 4 segundos",
+          "Mantén un ritmo uniforme y tranquilo",
+          "Concéntrate en la respiración natural",
+          "Continúa durante 2-3 minutos"
+        ]
+      },
+      "calm": {
+        "name": "Para Energía",
+        "description": "Respiración rápida y energizante. Aumenta la energía.",
+        "steps": [
+          "Inhalación rápida por la nariz durante 2 segundos",
+          "Exhalación rápida por la boca durante 2 segundos",
+          "Mantén un ritmo dinámico",
+          "Siente la oleada de energía",
+          "Continúa durante 1-2 minutos"
+        ]
+      },
+      "readyMessage": "Cuando estés listo, presiona el botón de abajo para comenzar el ejercicio."
     },
-    "breathingTitle": "Patrón de Respiración",
-    "breathingDescription": "Elige una técnica de respiración respaldada por la ciencia (opcional)",
-    "breathingPattern": "Patrón de Respiración",
-    "breathingPatternDescription": "Añade respiración guiada a tu sesión",
-    "breathingNone": "Ninguno",
-    "breathingNoneDesc": "Sin guía de respiración",
-    "breathingBox": "Cuadrada",
-    "breathingBoxDesc": "4-4-4-4 para el estrés",
-    "breathing478": "4-7-8",
-    "breathing478Desc": "Relajación profunda",
-    "breathingEqual": "Igual",
-    "breathingEqualDesc": "4-4 para principiantes",
-    "breathingCalm": "Calmante",
-    "breathingCalmDesc": "2-2 energizante",
-    "breathingCustom": "Personalizado",
-    "breathingCustomDesc": "Tu propio patrón"
+    "tryExercise": "Pruébalo",
+    "buildSessionSection": "Cómo Construir una Sesión",
+    "buildSessionIntro": "Combina técnicas para crear una sesión de meditación completa. Comienza con asentamiento, pasa por una técnica principal y termina con integración.",
+    "techniques": {
+      "bodyScan": {
+        "name": "Escaneo Corporal",
+        "description": "Técnica de relajación progresiva moviendo la atención a través del cuerpo",
+        "duration": "10-20 minutos",
+        "steps": [
+          "Acuéstate cómodamente o siéntate en posición relajada",
+          "Cierra los ojos y toma algunas respiraciones profundas",
+          "Lleva la atención a tus dedos de los pies, nota cualquier sensación",
+          "Mueve lentamente la atención hacia arriba: pies, tobillos, pantorrillas",
+          "Continúa escaneando hacia arriba: muslos, caderas, abdomen",
+          "Pasa por pecho, hombros, brazos, manos",
+          "Escanea cuello, cara y parte superior de la cabeza",
+          "Mantén la conciencia de todo tu cuerpo por un momento",
+          "Abre suavemente los ojos cuando estés listo"
+        ]
+      },
+      "breathFocus": {
+        "name": "Enfoque en la Respiración",
+        "description": "Técnica de concentración usando la respiración como ancla",
+        "duration": "5-15 minutos",
+        "steps": [
+          "Siéntate cómodamente con la espalda recta",
+          "Cierra los ojos o suaviza tu mirada",
+          "Nota el ritmo natural de tu respiración",
+          "Siente la respiración en tus fosas nasales, pecho o abdomen",
+          "Cuando la mente divague, vuelve suavemente a la respiración",
+          "Cuenta las respiraciones si te ayuda (1-10, luego repite)",
+          "Continúa durante la duración elegida",
+          "Termina con algunas respiraciones más profundas"
+        ]
+      },
+      "lovingKindness": {
+        "name": "Bondad Amorosa (Metta)",
+        "description": "Cultivar compasión y buena voluntad hacia uno mismo y los demás",
+        "duration": "10-20 minutos",
+        "steps": [
+          "Siéntate cómodamente y cierra los ojos",
+          "Comienza contigo mismo: \"Que sea feliz, que esté sano\"",
+          "Visualiza a alguien que amas, envíale bondad",
+          "Piensa en una persona neutral, extiéndele bondad",
+          "Considera a alguien difícil, deséale bien",
+          "Expande a todos los seres en todas partes",
+          "Descansa en el sentimiento de compasión universal"
+        ]
+      },
+      "mindfulObservation": {
+        "name": "Observación Consciente",
+        "description": "Conciencia del momento presente a través de la observación sensorial",
+        "duration": "5-10 minutos",
+        "steps": [
+          "Elige un objeto (flor, llama de vela, etc.)",
+          "Siéntate cómodamente y lleva toda tu atención al objeto",
+          "Nota colores, formas, texturas en detalle",
+          "Observa sin juzgar ni analizar",
+          "Cuando la mente divague, vuelve a observar",
+          "Expande la conciencia a sonidos y sensaciones",
+          "Concluye con gratitud por el momento presente"
+        ]
+      }
+    },
+    "sessionGuides": {
+      "simple12Min": {
+        "title": "Sesión Simple de 12 Minutos",
+        "description": "Estructura recomendada de \"Agudiza Tu Mente\"",
+        "structure": [
+          "2 min - Asentamiento, conciencia de la respiración",
+          "3 min - Escaneo corporal (versión rápida)",
+          "5 min - Enfoque en la respiración",
+          "2 min - Bondad amorosa"
+        ]
+      },
+      "deepRelaxation": {
+        "title": "Sesión de Relajación Profunda",
+        "description": "Para alivio del estrés y descanso profundo",
+        "structure": [
+          "3 min - Ejercicios de respiración",
+          "10 min - Escaneo corporal completo",
+          "5 min - Descanso en quietud",
+          "2 min - Retorno gradual"
+        ]
+      }
+    }
   },
   "achievements": {
     "title": "Logros",
@@ -729,7 +1060,7 @@
       "title": "Explorador Zen",
       "description": "Completa 5 sesiones de meditación Zen"
     },
-    "vipassanaPractitioner": {
+    "vipassanaExplorer": {
       "title": "Explorador de Vipassana",
       "description": "Completa 5 sesiones de meditación Vipassana"
     },
@@ -762,7 +1093,7 @@
       "description": "Alcanza el Nivel 3"
     },
     "advanced": {
-      "title": "Practicante Avanzado",
+      "title": "Meditador Avanzado",
       "description": "Alcanza el Nivel 4"
     },
     "master": {
@@ -820,6 +1151,51 @@
     "reflectionMaster": {
       "title": "Maestro de la Reflexión",
       "description": "Agrega notas a 25 sesiones de meditación"
+    }
+  },
+  "onboarding": {
+    "skip": "Omitir",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "getStarted": "Comenzar",
+    "slide1": {
+      "title": "Encuentra la Paz",
+      "subtitle": "Slow Spot es tu espacio para la meditación diaria. La investigación sugiere que 10-12 minutos diarios durante 8 semanas pueden traer beneficios medibles."
+    },
+    "slide2": {
+      "title": "Simple y Efectivo",
+      "subtitle": "Sin técnicas complicadas. Elige una sesión, establece tu tiempo y sumérgete en el silencio. Nosotros nos encargamos del resto."
+    },
+    "slide3": {
+      "title": "Tu Viaje",
+      "subtitle": "Sigue tu progreso, construye un hábito y disfruta de los beneficios de la meditación regular. ¿Listo para comenzar?"
+    },
+    "slide4": {
+      "title": "¿Cuál es Tu Nombre?",
+      "subtitle": "Dinos tu nombre y te saludaremos personalmente cada vez que visites.",
+      "placeholder": "Tu nombre (opcional)",
+      "hint": "Puedes cambiar esto más tarde en Perfil"
+    },
+    "healthDisclaimer": "Esta aplicación apoya la práctica de mindfulness y no sustituye la atención médica profesional. Consulta a un médico para problemas de salud.",
+    "successTitle": "¡Todo Listo!",
+    "successSubtitle": "Tu viaje de meditación comienza ahora"
+  },
+  "personalization": {
+    "title": "Personalización",
+    "subtitle": "Personaliza la aplicación según tus preferencias",
+    "colorTheme": "Tema de Color",
+    "colorThemeDescription": "Elige un color que mejor se adapte a tu estado de ánimo",
+    "animations": "Animaciones",
+    "animationsDescription": "Habilitar o deshabilitar animaciones en la aplicación",
+    "hapticFeedback": "Retroalimentación Háptica",
+    "hapticFeedbackDescription": "Retroalimentación táctil sutil en las interacciones",
+    "themes": {
+      "purple": "Púrpura Calmante",
+      "teal": "Verde Azulado Armonioso",
+      "indigo": "Índigo Profundo",
+      "rose": "Rosa Suave",
+      "amber": "Ámbar Cálido",
+      "emerald": "Esmeralda Fresco"
     }
   }
 }
