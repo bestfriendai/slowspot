@@ -476,7 +476,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
 
   const primaryColor = currentTheme.primary;
 
-  const handleDone = async () => {
+  const handleDone = useCallback(async () => {
     try {
       if (settings.hapticEnabled) {
         await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -492,7 +492,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
       logger.error('Error saving intro completion:', error);
       onDone();
     }
-  };
+  }, [nameInput, settings.hapticEnabled, setUserName, onDone]);
 
   const handleSuccessComplete = useCallback(() => {
     onDone();
@@ -516,14 +516,14 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
     } else {
       handleDone();
     }
-  }, [currentIndex, settings.hapticEnabled]);
+  }, [currentIndex, settings.hapticEnabled, handleDone]);
 
   const handleSkip = useCallback(async () => {
     if (settings.hapticEnabled) {
       await Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
     handleDone();
-  }, [settings.hapticEnabled]);
+  }, [settings.hapticEnabled, handleDone]);
 
   const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
     if (viewableItems.length > 0 && viewableItems[0].index !== null) {
