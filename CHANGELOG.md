@@ -1,3 +1,9 @@
+## [1.8.1](https://github.com/Slow-Spot/app/compare/v1.8.0...v1.8.1) (2025-12-05)
+
+### Bug Fixes
+
+* **web:** ensure white text on purple CTA/footer sections in light mode ([296cd7c](https://github.com/Slow-Spot/app/commit/296cd7c97e4f41180451cdb281f4370ab5d86a8d))
+
 ## [1.8.0](https://github.com/Slow-Spot/app/compare/v1.7.0...v1.8.0) (2025-12-05)
 
 ### Features
