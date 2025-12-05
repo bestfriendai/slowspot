@@ -155,15 +155,35 @@
       "items": [
         {
           "question": "Comment commencer à méditer ?",
-          "answer": "Ouvrez simplement l'application et appuyez sur le bouton \"Méditer\" sur l'écran d'accueil. Choisissez une session prédéfinie ou créez la vôtre."
+          "answer": "Ouvrez simplement l'application et appuyez sur le bouton \"Méditer\" sur l'écran d'accueil. Choisissez une session prédéfinie ou créez la vôtre. L'application vous guidera à travers la méditation avec des cloches optionnelles et des sons d'ambiance."
         },
         {
           "question": "L'application fonctionne-t-elle hors ligne ?",
-          "answer": "Oui ! Slow Spot est conçue pour fonctionner 100% hors ligne."
+          "answer": "Oui ! Slow Spot est conçue pour fonctionner 100% hors ligne. Toutes les sessions de méditation, sons et fonctionnalités sont disponibles sans connexion internet. Vos données sont stockées localement sur votre appareil."
+        },
+        {
+          "question": "Comment configurer des rappels de méditation ?",
+          "answer": "Allez sur votre écran Profil et appuyez sur \"Planifier un rappel\". Vous pouvez choisir votre heure préférée pour les rappels quotidiens de méditation. L'application demandera l'autorisation d'accès au calendrier pour créer ces rappels."
+        },
+        {
+          "question": "Puis-je créer des sessions de méditation personnalisées ?",
+          "answer": "Oui ! Appuyez sur le bouton \"+\" dans l'écran Méditation pour créer une session personnalisée. Vous pouvez personnaliser la durée, les sons d'ambiance, les cloches d'intervalle et plus encore."
+        },
+        {
+          "question": "Comment changer la langue de l'application ?",
+          "answer": "Allez dans Paramètres et trouvez la section Langue. Slow Spot prend en charge l'anglais, le polonais, l'espagnol, l'allemand, le français, l'hindi et le chinois."
+        },
+        {
+          "question": "Comment supprimer mes données ?",
+          "answer": "Allez dans Paramètres > Données et confidentialité > \"Effacer les données\" pour supprimer toutes vos données locales. Alternativement, désinstaller l'application supprimera toutes les données de votre appareil. Comme nous ne stockons aucune donnée sur des serveurs, il n'y a rien d'autre à supprimer."
         },
         {
           "question": "Mes données sont-elles privées ?",
-          "answer": "Absolument. Slow Spot ne collecte, ne transmet ni ne stocke aucune donnée personnelle sur des serveurs externes."
+          "answer": "Absolument. Slow Spot ne collecte, ne transmet ni ne stocke aucune donnée personnelle sur des serveurs externes. Tout votre historique de méditation, vos préférences et votre progression restent uniquement sur votre appareil."
+        },
+        {
+          "question": "L'application ne fonctionne pas correctement. Que dois-je faire ?",
+          "answer": "Essayez ces étapes : 1) Fermez et rouvrez l'application, 2) Redémarrez votre appareil, 3) Assurez-vous d'avoir la dernière version depuis l'App Store ou Google Play. Si le problème persiste, contactez-nous avec les détails du problème."
         }
       ]
     },
@@ -175,7 +195,7 @@
     "appInfo": {
       "title": "Informations sur l'application",
       "version": "Version",
-      "versionNumber": "1.0.0",
+      "versionNumber": "1.5.0",
       "platform": "Plateforme",
       "platformValue": "iOS et Android"
     }

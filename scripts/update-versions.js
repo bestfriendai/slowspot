@@ -60,18 +60,34 @@ console.log(`  - version: ${version}`);
 console.log(`  - iOS buildNumber: ${buildNumber}`);
 console.log(`  - Android versionCode: ${buildNumber}`);
 
-// Update web i18n locale files
-const locales = ['en', 'pl'];
-locales.forEach(locale => {
-  const localePath = path.join(__dirname, '..', 'web', 'app', 'i18n', 'locales', `${locale}.json`);
+// Update web/messages locale files (main translation files for the website)
+const webMessagesLocales = ['en', 'de', 'es', 'fr', 'hi', 'pl', 'zh'];
+console.log('\nUpdating web/messages/ locale files...');
+webMessagesLocales.forEach(locale => {
+  const localePath = path.join(__dirname, '..', 'web', 'messages', `${locale}.json`);
   if (fs.existsSync(localePath)) {
     const localeData = JSON.parse(fs.readFileSync(localePath, 'utf8'));
     if (localeData.supportPage && localeData.supportPage.appInfo) {
       localeData.supportPage.appInfo.versionNumber = version;
       fs.writeFileSync(localePath, JSON.stringify(localeData, null, 2) + '\n');
-      console.log(`[OK] Updated ${localePath}`);
+      console.log(`✓ Updated web/messages/${locale}.json`);
     }
   }
 });
 
-console.log('\nAll versions updated successfully!');
+// Update web/app/i18n/locales/legal/support-*.json files
+const legalSupportLocales = ['de', 'es', 'fr', 'hi', 'zh'];
+console.log('\nUpdating web/app/i18n/locales/legal/support-*.json files...');
+legalSupportLocales.forEach(locale => {
+  const localePath = path.join(__dirname, '..', 'web', 'app', 'i18n', 'locales', 'legal', `support-${locale}.json`);
+  if (fs.existsSync(localePath)) {
+    const localeData = JSON.parse(fs.readFileSync(localePath, 'utf8'));
+    if (localeData.supportPage && localeData.supportPage.appInfo) {
+      localeData.supportPage.appInfo.versionNumber = version;
+      fs.writeFileSync(localePath, JSON.stringify(localeData, null, 2) + '\n');
+      console.log(`✓ Updated web/app/i18n/locales/legal/support-${locale}.json`);
+    }
+  }
+});
+
+console.log('\n✅ All versions updated successfully!');

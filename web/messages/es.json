@@ -155,15 +155,35 @@
       "items": [
         {
           "question": "¿Cómo empiezo a meditar?",
-          "answer": "Simplemente abre la aplicación y toca el botón \"Meditar\" en la pantalla principal. Elige una sesión predefinida o crea la tuya propia."
+          "answer": "Simplemente abre la aplicación y toca el botón \"Meditar\" en la pantalla principal. Elige una sesión predefinida o crea la tuya propia. La aplicación te guiará a través de la meditación con campanas opcionales y sonidos ambientales."
         },
         {
           "question": "¿La aplicación funciona sin conexión?",
-          "answer": "¡Sí! Slow Spot está diseñada para funcionar 100% sin conexión."
+          "answer": "¡Sí! Slow Spot está diseñada para funcionar 100% sin conexión. Todas las sesiones de meditación, sonidos y funciones están disponibles sin conexión a internet. Tus datos se almacenan localmente en tu dispositivo."
+        },
+        {
+          "question": "¿Cómo configuro recordatorios de meditación?",
+          "answer": "Ve a tu pantalla de Perfil y toca \"Programar recordatorio\". Puedes elegir tu hora preferida para los recordatorios diarios de meditación. La aplicación solicitará permiso de calendario para crear estos recordatorios."
+        },
+        {
+          "question": "¿Puedo crear sesiones de meditación personalizadas?",
+          "answer": "¡Sí! Toca el botón \"+\" en la pantalla de Meditación para crear una sesión personalizada. Puedes personalizar la duración, los sonidos ambientales, las campanas de intervalo y más."
+        },
+        {
+          "question": "¿Cómo cambio el idioma de la aplicación?",
+          "answer": "Ve a Configuración y encuentra la sección de Idioma. Slow Spot admite inglés, polaco, español, alemán, francés, hindi y chino."
+        },
+        {
+          "question": "¿Cómo elimino mis datos?",
+          "answer": "Ve a Configuración > Datos y privacidad > \"Borrar datos\" para eliminar todos tus datos locales. Alternativamente, desinstalar la aplicación eliminará todos los datos de tu dispositivo. Como no almacenamos ningún dato en servidores, no hay nada más que eliminar."
         },
         {
           "question": "¿Mis datos son privados?",
-          "answer": "Absolutamente. Slow Spot no recopila, transmite ni almacena ningún dato personal en servidores externos."
+          "answer": "Absolutamente. Slow Spot no recopila, transmite ni almacena ningún dato personal en servidores externos. Todo tu historial de meditación, preferencias y progreso permanecen solo en tu dispositivo."
+        },
+        {
+          "question": "La aplicación no funciona correctamente. ¿Qué debo hacer?",
+          "answer": "Prueba estos pasos: 1) Cierra y vuelve a abrir la aplicación, 2) Reinicia tu dispositivo, 3) Asegúrate de tener la última versión de App Store o Google Play. Si el problema persiste, contáctanos con detalles sobre el problema."
         }
       ]
     },
@@ -175,7 +195,7 @@
     "appInfo": {
       "title": "Información de la aplicación",
       "version": "Versión",
-      "versionNumber": "1.0.0",
+      "versionNumber": "1.5.0",
       "platform": "Plataforma",
       "platformValue": "iOS y Android"
     }

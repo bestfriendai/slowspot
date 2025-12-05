@@ -1,0 +1,124 @@
+{
+  "termsPage": {
+    "title": "Conditions d'Utilisation",
+    "lastUpdated": "Dernière mise à jour : 27 novembre 2024",
+    "summary": {
+      "title": "Résumé Rapide",
+      "items": [
+        "Gratuit pour la pratique de méditation personnelle",
+        "Aucun compte requis",
+        "Votre contenu reste sur votre appareil",
+        "Utilisez de manière responsable et à votre discrétion",
+        "Ne remplace pas un avis médical professionnel"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "1. Acceptation des Conditions",
+        "content": "En téléchargeant, installant ou utilisant l'application mobile Slow Spot (\"Application\"), vous acceptez d'être lié par ces Conditions d'Utilisation (\"Conditions\"). Si vous n'acceptez pas ces Conditions, veuillez ne pas utiliser l'Application."
+      },
+      "description": {
+        "title": "2. Description du Service",
+        "intro": "Slow Spot est une application de méditation et de pleine conscience qui fournit :",
+        "items": [
+          "Sessions de méditation guidées et non guidées",
+          "Sons ambiants pour la relaxation",
+          "Suivi des progrès et statistiques",
+          "Minuteur de méditation personnalisable",
+          "Citations inspirantes et enseignements de sagesse",
+          "Rappels de méditation (optionnel)"
+        ],
+        "offline": "L'Application fonctionne entièrement hors ligne et ne nécessite pas de connexion Internet ni de compte utilisateur."
+      },
+      "license": {
+        "title": "3. Licence d'Utilisation",
+        "intro": "Sous réserve de ces Conditions, nous vous accordons une licence limitée, non exclusive, non transférable et révocable pour utiliser l'Application pour votre pratique de méditation personnelle et non commerciale.",
+        "restrictions": "Vous NE pouvez PAS :",
+        "items": [
+          "Copier, modifier ou distribuer l'Application",
+          "Faire de l'ingénierie inverse, décompiler ou désassembler l'Application",
+          "Utiliser l'Application à des fins commerciales sans permission",
+          "Supprimer les mentions de droits d'auteur ou de propriété",
+          "Transférer la licence à une autre personne"
+        ]
+      },
+      "userContent": {
+        "title": "4. Contenu Utilisateur",
+        "content": "Tout contenu que vous créez dans l'Application (sessions personnalisées, notes personnelles, etc.) reste le vôtre et est stocké uniquement sur votre appareil. Nous n'accédons pas, ne collectons pas et ne stockons pas votre contenu personnel."
+      },
+      "health": {
+        "title": "5. Avertissement Santé",
+        "important": "Informations de Santé Importantes",
+        "intro": "Slow Spot est conçue uniquement pour le bien-être général et la relaxation. L'Application N'est PAS destinée à :",
+        "items": [
+          "Diagnostiquer, traiter, guérir ou prévenir une maladie ou condition de santé",
+          "Remplacer un avis médical professionnel, un diagnostic ou un traitement",
+          "Se substituer à une thérapie, un conseil ou un traitement de santé mentale"
+        ],
+        "consult": "Si vous avez des conditions médicales, des problèmes de santé mentale ou prenez des médicaments, veuillez consulter un professionnel de santé qualifié avant d'utiliser des pratiques de méditation.",
+        "stop": "Si vous ressentez un inconfort, de l'anxiété ou des effets indésirables pendant la méditation, arrêtez immédiatement et consultez un professionnel de santé."
+      },
+      "ip": {
+        "title": "6. Propriété Intellectuelle",
+        "ownership": "L'Application, y compris tout le contenu, les fonctionnalités et la fonctionnalité (y compris mais sans s'y limiter le texte, les graphiques, les logos, les clips audio et les logiciels), est la propriété de Slow Spot et est protégée par les droits d'auteur, les marques et autres lois sur la propriété intellectuelle.",
+        "audio": "Le contenu audio (cloches de méditation, sons ambiants) provient de sources libres de droits sous licence Creative Commons et est utilisé conformément à leurs licences respectives."
+      },
+      "disclaimer": {
+        "title": "7. Exclusion de Garanties",
+        "intro": "L'APPLICATION EST FOURNIE \"EN L'ÉTAT\" ET \"SELON DISPONIBILITÉ\" SANS GARANTIE D'AUCUNE SORTE, EXPRESSE OU IMPLICITE, Y COMPRIS MAIS SANS S'Y LIMITER :",
+        "items": [
+          "Garanties implicites de qualité marchande",
+          "Adéquation à un usage particulier",
+          "Non-contrefaçon",
+          "Exactitude ou fiabilité du contenu"
+        ],
+        "note": "Nous ne garantissons pas que l'Application sera ininterrompue, sans erreur ou exempte de virus ou autres composants nuisibles."
+      },
+      "liability": {
+        "title": "8. Limitation de Responsabilité",
+        "intro": "DANS LA MESURE MAXIMALE PERMISE PAR LA LOI, SLOW SPOT ET SES DÉVELOPPEURS NE SERONT PAS RESPONSABLES DE TOUT DOMMAGE INDIRECT, ACCESSOIRE, SPÉCIAL, CONSÉCUTIF OU PUNITIF, Y COMPRIS MAIS SANS S'Y LIMITER :",
+        "items": [
+          "Perte de profits, données ou clientèle",
+          "Interruption de service ou dommage à l'appareil",
+          "Blessures personnelles ou détresse émotionnelle",
+          "Toute autre perte immatérielle"
+        ],
+        "limit": "Notre responsabilité totale pour toute réclamation découlant de l'utilisation de l'Application ne dépassera pas le montant que vous avez payé pour l'Application (le cas échéant)."
+      },
+      "indemnification": {
+        "title": "9. Indemnisation",
+        "content": "Vous acceptez d'indemniser et de dégager de toute responsabilité Slow Spot, ses développeurs et affiliés de toute réclamation, dommage, perte ou dépense découlant de votre utilisation de l'Application ou de votre violation de ces Conditions."
+      },
+      "modifications": {
+        "title": "10. Modifications de l'Application",
+        "content": "Nous nous réservons le droit de modifier, suspendre ou interrompre l'Application à tout moment sans préavis. Nous pouvons également mettre à jour ces Conditions de temps en temps. L'utilisation continue de l'Application après les modifications constitue une acceptation des Conditions modifiées."
+      },
+      "termination": {
+        "title": "11. Résiliation",
+        "content": "Vous pouvez cesser d'utiliser l'Application à tout moment en la désinstallant de votre appareil. Nous pouvons résilier ou suspendre votre accès à l'Application à notre seule discrétion, sans préavis, pour une conduite que nous estimons violer ces Conditions ou être nuisible à d'autres utilisateurs ou à nous."
+      },
+      "governing": {
+        "title": "12. Droit Applicable",
+        "content": "Ces Conditions seront régies et interprétées conformément aux lois de Pologne, sans égard à ses dispositions sur les conflits de lois. Tout litige découlant de ces Conditions ou de l'utilisation de l'Application sera résolu devant les tribunaux de Pologne."
+      },
+      "severability": {
+        "title": "13. Divisibilité",
+        "content": "Si une disposition de ces Conditions est jugée inapplicable ou invalide, cette disposition sera limitée ou éliminée dans la mesure minimale nécessaire, et les dispositions restantes resteront pleinement en vigueur."
+      },
+      "entireAgreement": {
+        "title": "14. Intégralité de l'Accord",
+        "content": "Ces Conditions, ainsi que notre Politique de Confidentialité, constituent l'intégralité de l'accord entre vous et Slow Spot concernant votre utilisation de l'Application."
+      },
+      "contact": {
+        "title": "15. Coordonnées",
+        "intro": "Si vous avez des questions concernant ces Conditions, veuillez nous contacter :",
+        "email": "Email :",
+        "website": "Site web :"
+      },
+      "appStore": {
+        "title": "16. Conditions des Boutiques d'Applications",
+        "content": "Si vous avez téléchargé l'Application depuis l'Apple App Store ou Google Play Store, vous acceptez également leurs conditions d'utilisation respectives. En cas de conflit entre ces Conditions et les conditions de la boutique d'applications, les conditions de la boutique d'applications prévaudront pour les questions relatives à la distribution de l'application."
+      }
+    }
+  }
+}

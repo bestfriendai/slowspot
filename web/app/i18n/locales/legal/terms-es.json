@@ -1,0 +1,124 @@
+{
+  "termsPage": {
+    "title": "Términos de Servicio",
+    "lastUpdated": "Última actualización: 27 de noviembre de 2024",
+    "summary": {
+      "title": "Resumen Rápido",
+      "items": [
+        "Gratis para práctica de meditación personal",
+        "No se requiere cuenta",
+        "Tu contenido permanece en tu dispositivo",
+        "Usa responsablemente y a tu discreción",
+        "No es sustituto de consejo médico profesional"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "1. Aceptación de los Términos",
+        "content": "Al descargar, instalar o usar la aplicación móvil Slow Spot (\"Aplicación\"), aceptas estar sujeto a estos Términos de Servicio (\"Términos\"). Si no estás de acuerdo con estos Términos, por favor no uses la Aplicación."
+      },
+      "description": {
+        "title": "2. Descripción del Servicio",
+        "intro": "Slow Spot es una aplicación de meditación y mindfulness que proporciona:",
+        "items": [
+          "Sesiones de meditación guiadas y no guiadas",
+          "Sonidos ambientales para relajación",
+          "Seguimiento de progreso y estadísticas",
+          "Temporizador de meditación personalizable",
+          "Citas inspiradoras y enseñanzas de sabiduría",
+          "Recordatorios de meditación (opcional)"
+        ],
+        "offline": "La Aplicación opera completamente sin conexión y no requiere conexión a internet ni cuenta de usuario."
+      },
+      "license": {
+        "title": "3. Licencia de Uso",
+        "intro": "Sujeto a estos Términos, te otorgamos una licencia limitada, no exclusiva, intransferible y revocable para usar la Aplicación para tu práctica de meditación personal y no comercial.",
+        "restrictions": "NO puedes:",
+        "items": [
+          "Copiar, modificar o distribuir la Aplicación",
+          "Realizar ingeniería inversa, descompilar o desensamblar la Aplicación",
+          "Usar la Aplicación con fines comerciales sin permiso",
+          "Eliminar avisos de derechos de autor o propiedad",
+          "Transferir la licencia a otra persona"
+        ]
+      },
+      "userContent": {
+        "title": "4. Contenido del Usuario",
+        "content": "Cualquier contenido que crees dentro de la Aplicación (sesiones personalizadas, notas personales, etc.) permanece tuyo y se almacena solo en tu dispositivo. No accedemos, recopilamos ni almacenamos tu contenido personal."
+      },
+      "health": {
+        "title": "5. Descargo de Responsabilidad de Salud",
+        "important": "Información de Salud Importante",
+        "intro": "Slow Spot está diseñada solo para fines de bienestar general y relajación. La Aplicación NO está destinada a:",
+        "items": [
+          "Diagnosticar, tratar, curar o prevenir ninguna enfermedad o condición de salud",
+          "Reemplazar consejo médico profesional, diagnóstico o tratamiento",
+          "Sustituir terapia, consejería o tratamiento de salud mental"
+        ],
+        "consult": "Si tienes alguna condición médica, problemas de salud mental o estás tomando medicamentos, por favor consulta con un profesional de la salud calificado antes de usar prácticas de meditación.",
+        "stop": "Si experimentas incomodidad, ansiedad o efectos adversos durante la meditación, detente inmediatamente y consulta a un profesional de la salud."
+      },
+      "ip": {
+        "title": "6. Propiedad Intelectual",
+        "ownership": "La Aplicación, incluyendo todo el contenido, características y funcionalidad (incluyendo pero no limitado a texto, gráficos, logos, clips de audio y software), es propiedad de Slow Spot y está protegida por derechos de autor, marcas registradas y otras leyes de propiedad intelectual.",
+        "audio": "El contenido de audio (campanas de meditación, sonidos ambientales) proviene de fuentes libres de regalías con licencia Creative Commons y se usa de acuerdo con sus respectivas licencias."
+      },
+      "disclaimer": {
+        "title": "7. Descargo de Garantías",
+        "intro": "LA APLICACIÓN SE PROPORCIONA \"TAL CUAL\" Y \"SEGÚN DISPONIBILIDAD\" SIN GARANTÍAS DE NINGÚN TIPO, YA SEAN EXPRESAS O IMPLÍCITAS, INCLUYENDO PERO NO LIMITADO A:",
+        "items": [
+          "Garantías implícitas de comerciabilidad",
+          "Idoneidad para un propósito particular",
+          "No infracción",
+          "Precisión o confiabilidad del contenido"
+        ],
+        "note": "No garantizamos que la Aplicación sea ininterrumpida, libre de errores o libre de virus u otros componentes dañinos."
+      },
+      "liability": {
+        "title": "8. Limitación de Responsabilidad",
+        "intro": "EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEY, SLOW SPOT Y SUS DESARROLLADORES NO SERÁN RESPONSABLES DE NINGÚN DAÑO INDIRECTO, INCIDENTAL, ESPECIAL, CONSECUENTE O PUNITIVO, INCLUYENDO PERO NO LIMITADO A:",
+        "items": [
+          "Pérdida de beneficios, datos o buena voluntad",
+          "Interrupción del servicio o daño del dispositivo",
+          "Lesiones personales o angustia emocional",
+          "Cualquier otra pérdida intangible"
+        ],
+        "limit": "Nuestra responsabilidad total por cualquier reclamación derivada del uso de la Aplicación no excederá la cantidad que pagaste por la Aplicación (si la hubiera)."
+      },
+      "indemnification": {
+        "title": "9. Indemnización",
+        "content": "Aceptas indemnizar y mantener indemne a Slow Spot, sus desarrolladores y afiliados de cualquier reclamación, daño, pérdida o gasto derivado de tu uso de la Aplicación o violación de estos Términos."
+      },
+      "modifications": {
+        "title": "10. Modificaciones de la Aplicación",
+        "content": "Nos reservamos el derecho de modificar, suspender o descontinuar la Aplicación en cualquier momento sin previo aviso. También podemos actualizar estos Términos de vez en cuando. El uso continuado de la Aplicación después de los cambios constituye aceptación de los Términos modificados."
+      },
+      "termination": {
+        "title": "11. Terminación",
+        "content": "Puedes dejar de usar la Aplicación en cualquier momento desinstalándola de tu dispositivo. Podemos terminar o suspender tu acceso a la Aplicación a nuestra sola discreción, sin previo aviso, por conducta que creamos viola estos Términos o es perjudicial para otros usuarios o nosotros."
+      },
+      "governing": {
+        "title": "12. Ley Aplicable",
+        "content": "Estos Términos se regirán e interpretarán de acuerdo con las leyes de Polonia, sin tener en cuenta sus disposiciones sobre conflictos de leyes. Cualquier disputa derivada de estos Términos o del uso de la Aplicación se resolverá en los tribunales de Polonia."
+      },
+      "severability": {
+        "title": "13. Divisibilidad",
+        "content": "Si alguna disposición de estos Términos se considera inaplicable o inválida, esa disposición se limitará o eliminará en la medida mínima necesaria, y las disposiciones restantes permanecerán en pleno vigor y efecto."
+      },
+      "entireAgreement": {
+        "title": "14. Acuerdo Completo",
+        "content": "Estos Términos, junto con nuestra Política de Privacidad, constituyen el acuerdo completo entre tú y Slow Spot con respecto a tu uso de la Aplicación."
+      },
+      "contact": {
+        "title": "15. Información de Contacto",
+        "intro": "Si tienes alguna pregunta sobre estos Términos, por favor contáctanos:",
+        "email": "Correo electrónico:",
+        "website": "Sitio web:"
+      },
+      "appStore": {
+        "title": "16. Términos de la Tienda de Aplicaciones",
+        "content": "Si descargaste la Aplicación del Apple App Store o Google Play Store, también aceptas sus respectivos términos de servicio. En caso de conflicto entre estos Términos y los términos de la tienda de aplicaciones, los términos de la tienda de aplicaciones prevalecerán para asuntos relacionados con la distribución de la aplicación."
+      }
+    }
+  }
+}

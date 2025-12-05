@@ -1,0 +1,188 @@
+{
+  "privacyPage": {
+    "title": "Datenschutzrichtlinie",
+    "lastUpdated": "Letzte Aktualisierung: 27. November 2024",
+    "summary": {
+      "title": "Zusammenfassung (TL;DR)",
+      "items": [
+        "Ihre Daten bleiben auf Ihrem Gerät",
+        "Keine Konten, keine Anmeldung, kein Tracking",
+        "Keine Analysen, keine Werbung, keine Drittanbieterdienste",
+        "Optionale Kalenderberechtigung nur für Erinnerungen",
+        "Jederzeit durch Deinstallation der App löschbar",
+        "100% offline-kompatibel"
+      ]
+    },
+    "sections": {
+      "introduction": {
+        "title": "Einleitung",
+        "content": "Slow Spot (\"wir\", \"uns\" oder \"unser\") verpflichtet sich zum Schutz Ihrer Privatsphäre. Diese Datenschutzrichtlinie erklärt, wie unsere mobile Meditations-App mit Ihren Informationen umgeht."
+      },
+      "philosophy": {
+        "title": "Unsere Datenschutz-Philosophie",
+        "simple": "Einfache Wahrheit:",
+        "simpleText": "Ihre Daten bleiben auf Ihrem Gerät. Wir sammeln, übertragen oder speichern keine Ihrer persönlichen Informationen auf externen Servern.",
+        "offline": "Slow Spot ist für 100% Offline-Betrieb konzipiert. Alle Ihre Meditationssitzungen, Einstellungen und persönlichen Daten bleiben privat und werden lokal auf Ihrem Gerät gespeichert."
+      },
+      "notCollect": {
+        "title": "Informationen, die wir NICHT sammeln",
+        "intro": "Wir möchten absolut klar machen, was wir NICHT tun:",
+        "items": [
+          "Wir sammeln NICHT Ihren Namen, E-Mail oder persönliche Kennungen",
+          "Wir verfolgen NICHT Ihren Standort",
+          "Wir sammeln NICHT Ihre Meditationsabsichten oder persönlichen Notizen",
+          "Wir verwenden KEINE Analyse- oder Tracking-Dienste",
+          "Wir teilen KEINE Ihrer Daten mit Dritten",
+          "Wir übertragen KEINE Daten an externe Server",
+          "Wir verwenden KEINE Cookies oder ähnliche Tracking-Technologien",
+          "Wir zeigen KEINE Werbung"
+        ]
+      },
+      "localStorage": {
+        "title": "Lokal auf Ihrem Gerät gespeicherte Informationen",
+        "intro": "Die folgenden Informationen werden NUR auf Ihrem Gerät mit sicherem lokalem Speicher gespeichert:",
+        "preferences": {
+          "title": "Benutzereinstellungen",
+          "items": [
+            "Sprachauswahl (Englisch, Polnisch, Spanisch, Deutsch, Französisch, Hindi, Chinesisch)",
+            "Theme-Einstellung (Hell, Dunkel oder System)"
+          ],
+          "purpose": "Um ein personalisiertes Erlebnis zu bieten"
+        },
+        "history": {
+          "title": "Meditationssitzungs-Verlauf",
+          "items": [
+            "Sitzungsdauer und Abschlussdatum",
+            "Sitzungstyp (z.B. Morgenerwachen, Liebende Güte)",
+            "Benutzerdefinierte Sitzungskonfigurationen (wenn Sie eigene Sitzungen erstellen)"
+          ],
+          "purpose": "Um Ihren Meditationsfortschritt zu verfolgen und Serien zu pflegen"
+        },
+        "statistics": {
+          "title": "Fortschrittsstatistiken",
+          "items": [
+            "Gesamtzahl abgeschlossener Sitzungen",
+            "Gesamtminuten meditiert",
+            "Aktuelle und längste Meditationsserien",
+            "Erfolgsfortschritt (z.B. Abzeichen \"10 Sitzungen abgeschlossen\")"
+          ],
+          "purpose": "Um Ihre Meditationsreise zu motivieren und zu feiern"
+        },
+        "calendar": {
+          "title": "Kalenderereignisse (Optional)",
+          "items": [
+            "Meditationserinnerungen (wenn Sie die Kalenderintegration aktivieren)",
+            "Gespeichert in: Der nativen Kalender-App Ihres Geräts"
+          ],
+          "purpose": "Um Ihnen zu helfen, eine regelmäßige Meditationspraxis beizubehalten"
+        }
+      },
+      "permissions": {
+        "title": "Berechtigungen, die wir anfordern",
+        "required": {
+          "title": "Erforderliche Berechtigungen",
+          "content": "Keine. Die App funktioniert ohne erforderliche Berechtigungen."
+        },
+        "optional": {
+          "title": "Optionale Berechtigungen",
+          "intro": "Die folgenden Berechtigungen sind optional und werden nur verwendet, wenn Sie bestimmte Funktionen aktivieren:",
+          "calendar": {
+            "title": "Kalenderzugriff",
+            "why": "Um Meditationserinnerungen in Ihrem Gerätekalender zu planen",
+            "when": "Nur wenn Sie \"Erinnerung planen\" im Profilbildschirm antippen",
+            "what": "Erstellt wiederkehrende Meditationserinnerungen zu Ihrer gewählten Zeit",
+            "disable": "Deaktivieren Sie dies jederzeit durch Löschen der Kalenderereignisse oder Verweigern der Berechtigung"
+          }
+        }
+      },
+      "protection": {
+        "title": "Wie Ihre Daten geschützt werden",
+        "local": {
+          "title": "Nur lokale Speicherung",
+          "content": "Alle Daten werden mit dem sicheren lokalen Speicher Ihres Geräts gespeichert."
+        },
+        "network": {
+          "title": "Keine Netzwerkübertragung",
+          "content": "Die App funktioniert im Flugmodus. Ihre Meditationsdaten verlassen niemals Ihr Gerät."
+        },
+        "noAccount": {
+          "title": "Kein Konto erforderlich",
+          "content": "Sie müssen kein Konto erstellen, keine E-Mail angeben oder sich anmelden. Beginnen Sie sofort mit der Meditation."
+        }
+      },
+      "children": {
+        "title": "Datenschutz für Kinder",
+        "content": "Slow Spot sammelt keine Daten von niemandem, einschließlich Kindern unter 13 Jahren (oder 16 in der EU). Die App ist familienfreundlich und für alle Altersgruppen geeignet."
+      },
+      "rights": {
+        "title": "Ihre Rechte",
+        "access": {
+          "title": "Zugriffsrecht",
+          "intro": "Alle Ihre Daten sind in der App sichtbar:",
+          "items": [
+            "Sehen Sie Ihren Meditationsverlauf im Profilbildschirm",
+            "Sehen Sie Ihre Statistiken und Fortschritte im Profilbildschirm",
+            "Sehen Sie Ihre benutzerdefinierten Sitzungen im Meditationsbildschirm"
+          ]
+        },
+        "delete": {
+          "title": "Recht auf Löschung",
+          "intro": "Sie können Ihre Daten jederzeit löschen:",
+          "items": [
+            "Einzelne Sitzungen: Halten Sie eine benutzerdefinierte Sitzung gedrückt und wählen Sie \"Löschen\"",
+            "Alle App-Daten: Verwenden Sie \"Daten löschen\" in den Einstellungen oder deinstallieren Sie die App"
+          ],
+          "note": "Es gibt kein \"Konto\" zu löschen, da wir Ihre Daten nirgendwo außer auf Ihrem Gerät speichern."
+        }
+      },
+      "thirdParty": {
+        "title": "Drittanbieterdienste",
+        "notUse": {
+          "title": "Wir verwenden NICHT:",
+          "items": [
+            "Analysedienste (kein Google Analytics, Firebase Analytics usw.)",
+            "Werbenetzwerke",
+            "Social Media SDKs",
+            "Cloud-Speicherdienste",
+            "Backend-Server oder APIs"
+          ]
+        },
+        "audio": {
+          "title": "Audio-Inhaltsquellen:",
+          "content": "Die in der App enthaltenen Meditationsglocken und Umgebungsgeräusche stammen aus lizenzfreien Creative Commons (CC0) lizenzierten Inhalten. Diese Dienste haben KEINEN Zugriff auf Ihre App-Nutzung oder persönlichen Daten."
+        }
+      },
+      "legal": {
+        "title": "Rechtliche Konformität",
+        "intro": "Diese Datenschutzrichtlinie entspricht:",
+        "items": [
+          "DSGVO (Datenschutz-Grundverordnung - EU)",
+          "CCPA (California Consumer Privacy Act - USA)",
+          "COPPA (Children's Online Privacy Protection Act - USA)",
+          "Apple App Store Review-Richtlinien",
+          "Google Play Store Entwicklerrichtlinien"
+        ]
+      },
+      "changes": {
+        "title": "Änderungen dieser Datenschutzrichtlinie",
+        "intro": "Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Wenn wir das tun:",
+        "items": [
+          "Aktualisieren wir das Datum \"Letzte Aktualisierung\" oben",
+          "Benachrichtigen wir Sie bei größeren Änderungen per In-App-Nachricht"
+        ]
+      },
+      "contact": {
+        "title": "Kontaktieren Sie uns",
+        "intro": "Wenn Sie Fragen oder Bedenken zu dieser Datenschutzrichtlinie haben:",
+        "email": "E-Mail:",
+        "website": "Website:",
+        "responseTime": "Antwortzeit: Wir bemühen uns, alle Datenschutzanfragen innerhalb von 48 Stunden zu beantworten."
+      },
+      "trust": {
+        "title": "Ihr Vertrauen",
+        "content": "Wir haben Slow Spot mit Datenschutz als Kernprinzip gebaut, nicht als Nachgedanken. Ihre Meditationspraxis ist persönlich und heilig. Wir werden niemals Ihre Privatsphäre für Profit oder Analysen kompromittieren.",
+        "thanks": "Vielen Dank, dass Sie Slow Spot auf Ihrer Meditationsreise vertrauen."
+      }
+    }
+  }
+}

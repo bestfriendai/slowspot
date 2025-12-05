@@ -1,14 +1,17 @@
 name: EAS Update (OTA - Expo Go)
 
-# Szybkie aktualizacje OTA bez rebuildu - idealne do testów UI/UX
-# Testerzy z Expo Go dostaną automatyczną aktualizację
+# Szybkie aktualizacje OTA bez rebuildu - idealne do testow UI/UX
+# Testerzy z Expo Go dostana automatyczna aktualizacje
+# Uruchamia sie PO ZAKONCZENIU semantic-release (gdy nowa wersja zostanie opublikowana)
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Semantic Release"]
+    types:
+      - completed
     branches:
       - main
       - develop
-      - test
   workflow_dispatch:
     inputs:
       message:
@@ -28,6 +31,8 @@ jobs:
   update:
     name: EAS OTA Update
     runs-on: ubuntu-latest
+    # Uruchamia sie tylko gdy workflow_run zakonczyl sie sukcesem LUB workflow_dispatch
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
         working-directory: ./mobile
@@ -50,14 +55,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Determine update branch
+        id: branch
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "branch=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
+            echo "message=${{ github.event.inputs.message }}" >> $GITHUB_OUTPUT
+          else
+            # workflow_run - sprawdz ktory branch wywowal release
+            TRIGGER_BRANCH="${{ github.event.workflow_run.head_branch }}"
+            if [ "$TRIGGER_BRANCH" == "main" ]; then
+              echo "branch=production" >> $GITHUB_OUTPUT
+            else
+              echo "branch=preview" >> $GITHUB_OUTPUT
+            fi
+            echo "message=Auto-update after release" >> $GITHUB_OUTPUT
+          fi
+
       - name: Publish EAS Update
         run: |
-          BRANCH="${{ github.event.inputs.branch || 'preview' }}"
-          MESSAGE="${{ github.event.inputs.message || 'Auto-update from CI' }}"
-
           eas update \
-            --branch $BRANCH \
-            --message "$MESSAGE" \
+            --branch ${{ steps.branch.outputs.branch }} \
+            --message "${{ steps.branch.outputs.message }}" \
             --non-interactive
 
       - name: Generate QR Code for Expo Go
@@ -74,7 +93,7 @@ jobs:
           QR_WEB="https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${WEB_URL_ENCODED}"
 
           # Add to summary
-          echo "## 📱 Expo Go Testing" >> $GITHUB_STEP_SUMMARY
+          echo "## Expo Go Testing" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### QR Code (Direct Link)" >> $GITHUB_STEP_SUMMARY
           echo "![QR Code](${QR_DIRECT})" >> $GITHUB_STEP_SUMMARY
@@ -93,5 +112,5 @@ jobs:
 
       - name: Notify success
         run: |
-          echo "✅ OTA Update published successfully!"
-          echo "Testerzy z Expo Go dostaną automatyczną aktualizację"
+          echo "OTA Update published successfully!"
+          echo "Testerzy z Expo Go dostana automatyczna aktualizacje"

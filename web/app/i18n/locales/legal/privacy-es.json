@@ -1,0 +1,188 @@
+{
+  "privacyPage": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: 27 de noviembre de 2024",
+    "summary": {
+      "title": "Resumen (TL;DR)",
+      "items": [
+        "Tus datos permanecen en tu dispositivo",
+        "Sin cuentas, sin inicio de sesión, sin seguimiento",
+        "Sin análisis, sin anuncios, sin servicios de terceros",
+        "Permiso de calendario opcional solo para recordatorios",
+        "Elimina en cualquier momento desinstalando la aplicación",
+        "100% compatible sin conexión"
+      ]
+    },
+    "sections": {
+      "introduction": {
+        "title": "Introducción",
+        "content": "Slow Spot (\"nosotros\", \"nos\" o \"nuestro\") está comprometido con la protección de tu privacidad. Esta Política de Privacidad explica cómo nuestra aplicación móvil de meditación maneja tu información."
+      },
+      "philosophy": {
+        "title": "Nuestra Filosofía de Privacidad",
+        "simple": "Verdad simple:",
+        "simpleText": "Tus datos permanecen en tu dispositivo. No recopilamos, transmitimos ni almacenamos ninguna de tu información personal en servidores externos.",
+        "offline": "Slow Spot está diseñada para operar 100% sin conexión. Todas tus sesiones de meditación, preferencias y datos personales permanecen privados y almacenados localmente en tu dispositivo."
+      },
+      "notCollect": {
+        "title": "Información que NO Recopilamos",
+        "intro": "Queremos ser absolutamente claros sobre lo que NO hacemos:",
+        "items": [
+          "NO recopilamos tu nombre, correo electrónico ni identificadores personales",
+          "NO rastreamos tu ubicación",
+          "NO recopilamos tus intenciones de meditación ni notas personales",
+          "NO usamos servicios de análisis ni seguimiento",
+          "NO compartimos tus datos con terceros",
+          "NO transmitimos datos a servidores externos",
+          "NO usamos cookies ni tecnologías de seguimiento similares",
+          "NO mostramos publicidad"
+        ]
+      },
+      "localStorage": {
+        "title": "Información Almacenada Localmente en tu Dispositivo",
+        "intro": "La siguiente información se almacena SOLO en tu dispositivo usando almacenamiento local seguro:",
+        "preferences": {
+          "title": "Preferencias del Usuario",
+          "items": [
+            "Selección de idioma (inglés, polaco, español, alemán, francés, hindi, chino)",
+            "Preferencia de tema (Claro, Oscuro o Sistema)"
+          ],
+          "purpose": "Para proporcionar una experiencia personalizada"
+        },
+        "history": {
+          "title": "Historial de Sesiones de Meditación",
+          "items": [
+            "Duración de la sesión y fecha de finalización",
+            "Tipo de sesión (ej., Despertar Matutino, Bondad Amorosa)",
+            "Configuraciones de sesiones personalizadas (si creas sesiones personalizadas)"
+          ],
+          "purpose": "Para rastrear tu progreso de meditación y mantener rachas"
+        },
+        "statistics": {
+          "title": "Estadísticas de Progreso",
+          "items": [
+            "Total de sesiones completadas",
+            "Total de minutos meditados",
+            "Racha actual y más larga de meditación",
+            "Progreso de logros (ej., insignia \"10 sesiones completadas\")"
+          ],
+          "purpose": "Para motivar y celebrar tu viaje de meditación"
+        },
+        "calendar": {
+          "title": "Eventos de Calendario (Opcional)",
+          "items": [
+            "Recordatorios de meditación (si habilitas la integración del calendario)",
+            "Almacenados en: La aplicación de calendario nativa de tu dispositivo"
+          ],
+          "purpose": "Para ayudarte a mantener una práctica de meditación consistente"
+        }
+      },
+      "permissions": {
+        "title": "Permisos que Solicitamos",
+        "required": {
+          "title": "Permisos Requeridos",
+          "content": "Ninguno. La aplicación funciona sin permisos requeridos."
+        },
+        "optional": {
+          "title": "Permisos Opcionales",
+          "intro": "Los siguientes permisos son opcionales y solo se usan si eliges habilitar funciones específicas:",
+          "calendar": {
+            "title": "Acceso al Calendario",
+            "why": "Para programar recordatorios de meditación en el calendario de tu dispositivo",
+            "when": "Solo cuando tocas \"Programar Recordatorio\" en la pantalla de Perfil",
+            "what": "Crea recordatorios de meditación recurrentes a la hora que elijas",
+            "disable": "Desactiva esto en cualquier momento eliminando los eventos del calendario o denegando el permiso"
+          }
+        }
+      },
+      "protection": {
+        "title": "Cómo se Protegen tus Datos",
+        "local": {
+          "title": "Solo Almacenamiento Local",
+          "content": "Todos los datos se almacenan usando el almacenamiento local seguro de tu dispositivo."
+        },
+        "network": {
+          "title": "Sin Transmisión de Red",
+          "content": "La aplicación funciona en modo avión. Tus datos de meditación nunca salen de tu dispositivo."
+        },
+        "noAccount": {
+          "title": "No se Requiere Cuenta",
+          "content": "No necesitas crear una cuenta, proporcionar un correo electrónico ni iniciar sesión. Comienza a meditar inmediatamente."
+        }
+      },
+      "children": {
+        "title": "Privacidad de los Niños",
+        "content": "Slow Spot no recopila datos de nadie, incluidos niños menores de 13 años (o 16 en la UE). La aplicación es apta para familias y adecuada para todas las edades."
+      },
+      "rights": {
+        "title": "Tus Derechos",
+        "access": {
+          "title": "Derecho de Acceso",
+          "intro": "Todos tus datos son visibles dentro de la aplicación:",
+          "items": [
+            "Ve tu historial de meditación en la pantalla de Perfil",
+            "Ve tus estadísticas y progreso en la pantalla de Perfil",
+            "Ve tus sesiones personalizadas en la pantalla de Meditación"
+          ]
+        },
+        "delete": {
+          "title": "Derecho de Eliminación",
+          "intro": "Puedes eliminar tus datos en cualquier momento:",
+          "items": [
+            "Sesiones individuales: Mantén presionada una sesión personalizada y selecciona \"Eliminar\"",
+            "Todos los datos de la aplicación: Usa \"Borrar Datos\" en Configuración o desinstala la aplicación"
+          ],
+          "note": "No hay \"cuenta\" que eliminar porque no almacenamos tus datos en ningún lugar excepto en tu dispositivo."
+        }
+      },
+      "thirdParty": {
+        "title": "Servicios de Terceros",
+        "notUse": {
+          "title": "NO Usamos:",
+          "items": [
+            "Servicios de análisis (sin Google Analytics, Firebase Analytics, etc.)",
+            "Redes publicitarias",
+            "SDKs de redes sociales",
+            "Servicios de almacenamiento en la nube",
+            "Servidores backend ni APIs"
+          ]
+        },
+        "audio": {
+          "title": "Fuentes de Contenido de Audio:",
+          "content": "Las campanas de meditación y sonidos ambientales incluidos en la aplicación provienen de contenido libre de regalías con licencia Creative Commons (CC0). Estos servicios NO tienen acceso al uso de tu aplicación ni a tus datos personales."
+        }
+      },
+      "legal": {
+        "title": "Cumplimiento Legal",
+        "intro": "Esta Política de Privacidad cumple con:",
+        "items": [
+          "RGPD (Reglamento General de Protección de Datos - UE)",
+          "CCPA (California Consumer Privacy Act - EE.UU.)",
+          "COPPA (Children's Online Privacy Protection Act - EE.UU.)",
+          "Directrices de Revisión del App Store de Apple",
+          "Política para Desarrolladores de Google Play Store"
+        ]
+      },
+      "changes": {
+        "title": "Cambios en esta Política de Privacidad",
+        "intro": "Podemos actualizar esta Política de Privacidad de vez en cuando. Cuando lo hagamos:",
+        "items": [
+          "Actualizaremos la fecha de \"Última actualización\" en la parte superior",
+          "Te notificaremos mediante un mensaje en la aplicación para cambios importantes"
+        ]
+      },
+      "contact": {
+        "title": "Contáctanos",
+        "intro": "Si tienes preguntas o inquietudes sobre esta Política de Privacidad:",
+        "email": "Correo electrónico:",
+        "website": "Sitio web:",
+        "responseTime": "Tiempo de respuesta: Nos esforzamos por responder a todas las consultas de privacidad dentro de 48 horas."
+      },
+      "trust": {
+        "title": "Tu Confianza",
+        "content": "Construimos Slow Spot con la privacidad como principio fundamental, no como un añadido. Tu práctica de meditación es personal y sagrada. Nunca comprometeremos tu privacidad por ganancias o análisis.",
+        "thanks": "Gracias por confiar en Slow Spot para tu viaje de meditación."
+      }
+    }
+  }
+}

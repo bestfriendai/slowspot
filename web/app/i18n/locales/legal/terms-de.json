@@ -1,0 +1,124 @@
+{
+  "termsPage": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Letzte Aktualisierung: 27. November 2024",
+    "summary": {
+      "title": "Kurze Zusammenfassung",
+      "items": [
+        "Kostenlos für persönliche Meditationspraxis",
+        "Kein Konto erforderlich",
+        "Ihre Inhalte bleiben auf Ihrem Gerät",
+        "Verantwortungsvoll und nach eigenem Ermessen nutzen",
+        "Kein Ersatz für professionellen medizinischen Rat"
+      ]
+    },
+    "sections": {
+      "acceptance": {
+        "title": "1. Annahme der Bedingungen",
+        "content": "Durch das Herunterladen, Installieren oder Verwenden der mobilen Anwendung Slow Spot (\"App\") erklären Sie sich mit diesen Nutzungsbedingungen (\"Bedingungen\") einverstanden. Wenn Sie diesen Bedingungen nicht zustimmen, verwenden Sie die App bitte nicht."
+      },
+      "description": {
+        "title": "2. Beschreibung des Dienstes",
+        "intro": "Slow Spot ist eine Meditations- und Achtsamkeitsanwendung, die bietet:",
+        "items": [
+          "Geführte und ungeführte Meditationssitzungen",
+          "Umgebungsgeräusche zur Entspannung",
+          "Fortschrittsverfolgung und Statistiken",
+          "Anpassbarer Meditationstimer",
+          "Inspirierende Zitate und Weisheitslehren",
+          "Meditationserinnerungen (optional)"
+        ],
+        "offline": "Die App funktioniert vollständig offline und erfordert keine Internetverbindung oder Benutzerkonto."
+      },
+      "license": {
+        "title": "3. Nutzungslizenz",
+        "intro": "Vorbehaltlich dieser Bedingungen gewähren wir Ihnen eine begrenzte, nicht-exklusive, nicht übertragbare, widerrufliche Lizenz zur Nutzung der App für Ihre persönliche, nicht-kommerzielle Meditationspraxis.",
+        "restrictions": "Sie dürfen NICHT:",
+        "items": [
+          "Die App kopieren, modifizieren oder verteilen",
+          "Die App reverse-engineeren, dekompilieren oder disassemblieren",
+          "Die App ohne Genehmigung für kommerzielle Zwecke nutzen",
+          "Urheberrechts- oder Eigentumshinweise entfernen",
+          "Die Lizenz an eine andere Person übertragen"
+        ]
+      },
+      "userContent": {
+        "title": "4. Benutzerinhalte",
+        "content": "Alle Inhalte, die Sie in der App erstellen (benutzerdefinierte Sitzungen, persönliche Notizen usw.), bleiben Ihr Eigentum und werden nur auf Ihrem Gerät gespeichert. Wir greifen nicht auf Ihre persönlichen Inhalte zu, sammeln oder speichern sie nicht."
+      },
+      "health": {
+        "title": "5. Gesundheitshaftungsausschluss",
+        "important": "Wichtige Gesundheitsinformationen",
+        "intro": "Slow Spot ist nur für allgemeines Wohlbefinden und Entspannung konzipiert. Die App ist NICHT dazu bestimmt:",
+        "items": [
+          "Krankheiten oder Gesundheitszustände zu diagnostizieren, behandeln, heilen oder verhindern",
+          "Professionellen medizinischen Rat, Diagnose oder Behandlung zu ersetzen",
+          "Therapie, Beratung oder psychische Gesundheitsbehandlung zu ersetzen"
+        ],
+        "consult": "Wenn Sie gesundheitliche Probleme, psychische Beschwerden haben oder Medikamente einnehmen, konsultieren Sie bitte vor der Anwendung von Meditationspraktiken einen qualifizierten Arzt.",
+        "stop": "Wenn Sie während der Meditation Unbehagen, Angst oder negative Auswirkungen verspüren, hören Sie sofort auf und konsultieren Sie einen Arzt."
+      },
+      "ip": {
+        "title": "6. Geistiges Eigentum",
+        "ownership": "Die App, einschließlich aller Inhalte, Funktionen und Funktionalitäten (einschließlich, aber nicht beschränkt auf Text, Grafiken, Logos, Audioclips und Software), ist Eigentum von Slow Spot und durch Urheberrecht, Markenrecht und andere geistige Eigentumsgesetze geschützt.",
+        "audio": "Audioinhalte (Meditationsglocken, Umgebungsgeräusche) stammen aus lizenzfreien Creative Commons-lizenzierten Quellen und werden gemäß deren jeweiligen Lizenzen verwendet."
+      },
+      "disclaimer": {
+        "title": "7. Gewährleistungsausschluss",
+        "intro": "DIE APP WIRD \"WIE BESEHEN\" UND \"WIE VERFÜGBAR\" OHNE JEGLICHE GEWÄHRLEISTUNG BEREITGESTELLT, WEDER AUSDRÜCKLICH NOCH STILLSCHWEIGEND, EINSCHLIESSLICH, ABER NICHT BESCHRÄNKT AUF:",
+        "items": [
+          "Stillschweigende Gewährleistung der Marktgängigkeit",
+          "Eignung für einen bestimmten Zweck",
+          "Nichtverletzung von Rechten Dritter",
+          "Genauigkeit oder Zuverlässigkeit der Inhalte"
+        ],
+        "note": "Wir garantieren nicht, dass die App ununterbrochen, fehlerfrei oder frei von Viren oder anderen schädlichen Komponenten ist."
+      },
+      "liability": {
+        "title": "8. Haftungsbeschränkung",
+        "intro": "IM MAXIMAL GESETZLICH ZULÄSSIGEN UMFANG HAFTEN SLOW SPOT UND SEINE ENTWICKLER NICHT FÜR INDIREKTE, ZUFÄLLIGE, BESONDERE, FOLGE- ODER STRAFSCHÄDEN, EINSCHLIESSLICH, ABER NICHT BESCHRÄNKT AUF:",
+        "items": [
+          "Verlust von Gewinnen, Daten oder Geschäftswert",
+          "Dienstunterbrechung oder Geräteschäden",
+          "Personenschäden oder emotionale Belastung",
+          "Sonstige immaterielle Verluste"
+        ],
+        "limit": "Unsere Gesamthaftung für Ansprüche aus der Nutzung der App übersteigt nicht den Betrag, den Sie für die App bezahlt haben (falls überhaupt)."
+      },
+      "indemnification": {
+        "title": "9. Freistellung",
+        "content": "Sie erklären sich damit einverstanden, Slow Spot, seine Entwickler und verbundene Unternehmen von allen Ansprüchen, Schäden, Verlusten oder Kosten freizustellen, die aus Ihrer Nutzung der App oder Verletzung dieser Bedingungen entstehen."
+      },
+      "modifications": {
+        "title": "10. Änderungen der App",
+        "content": "Wir behalten uns das Recht vor, die App jederzeit ohne Vorankündigung zu ändern, auszusetzen oder einzustellen. Wir können diese Bedingungen auch von Zeit zu Zeit aktualisieren. Die weitere Nutzung der App nach Änderungen gilt als Annahme der geänderten Bedingungen."
+      },
+      "termination": {
+        "title": "11. Kündigung",
+        "content": "Sie können die Nutzung der App jederzeit durch Deinstallation von Ihrem Gerät beenden. Wir können Ihren Zugang zur App nach eigenem Ermessen und ohne Vorankündigung beenden oder aussetzen, wenn wir der Meinung sind, dass Ihr Verhalten gegen diese Bedingungen verstößt oder anderen Nutzern oder uns schadet."
+      },
+      "governing": {
+        "title": "12. Anwendbares Recht",
+        "content": "Diese Bedingungen unterliegen dem polnischen Recht und werden nach diesem ausgelegt, ohne Berücksichtigung von Kollisionsnormen. Streitigkeiten aus diesen Bedingungen oder der Nutzung der App werden vor polnischen Gerichten beigelegt."
+      },
+      "severability": {
+        "title": "13. Salvatorische Klausel",
+        "content": "Sollte eine Bestimmung dieser Bedingungen für undurchsetzbar oder ungültig befunden werden, wird diese Bestimmung auf das erforderliche Minimum beschränkt oder beseitigt, und die übrigen Bestimmungen bleiben in vollem Umfang wirksam."
+      },
+      "entireAgreement": {
+        "title": "14. Vollständige Vereinbarung",
+        "content": "Diese Bedingungen bilden zusammen mit unserer Datenschutzrichtlinie die gesamte Vereinbarung zwischen Ihnen und Slow Spot bezüglich der Nutzung der App."
+      },
+      "contact": {
+        "title": "15. Kontaktinformationen",
+        "intro": "Wenn Sie Fragen zu diesen Bedingungen haben, kontaktieren Sie uns bitte:",
+        "email": "E-Mail:",
+        "website": "Website:"
+      },
+      "appStore": {
+        "title": "16. App Store Bedingungen",
+        "content": "Wenn Sie die App aus dem Apple App Store oder Google Play Store heruntergeladen haben, stimmen Sie auch deren jeweiligen Nutzungsbedingungen zu. Bei Konflikten zwischen diesen Bedingungen und den App-Store-Bedingungen gelten die App-Store-Bedingungen für Fragen der App-Verteilung."
+      }
+    }
+  }
+}
