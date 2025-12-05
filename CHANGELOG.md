@@ -1,3 +1,9 @@
+## [1.8.3](https://github.com/Slow-Spot/app/compare/v1.8.2...v1.8.3) (2025-12-05)
+
+### Bug Fixes
+
+* **mobile:** auto-recreate default session when list is empty ([e14768f](https://github.com/Slow-Spot/app/commit/e14768fea8a938082e85589a20988d8dbd4b87a5))
+
 ## [1.8.2](https://github.com/Slow-Spot/app/compare/v1.8.1...v1.8.2) (2025-12-05)
 
 ### Bug Fixes
