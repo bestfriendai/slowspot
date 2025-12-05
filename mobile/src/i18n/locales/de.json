@@ -973,8 +973,6 @@
     "ambientNature": "Natur",
     "ambientOcean": "Ozean",
     "ambientForest": "Wald",
-    "ambient432hz": "432 Hz",
-    "ambient528hz": "528 Hz",
     "saveSession": "Sitzung speichern",
     "updateSession": "Sitzung aktualisieren",
     "saveAndStart": "Speichern und Starten",
@@ -1011,11 +1009,7 @@
       "ocean": "Ozean",
       "oceanDesc": "Rhythmische Wellen zur tiefen Entspannung",
       "forest": "Wald",
-      "forestDesc": "Friedliche Waldatmosphäre",
-      "432hz": "432 Hz",
-      "432hzDesc": "Harmonieton • Reduziert Angst natürlich",
-      "528hz": "528 Hz",
-      "528hzDesc": "Liebesfrequenz • Fördert inneren Frieden"
+      "forestDesc": "Friedliche Waldatmosphäre"
     },
     "breathing": {
       "none": "Ohne Anleitung",

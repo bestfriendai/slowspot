@@ -53,8 +53,6 @@ const getAmbientSoundName = (sound: string | undefined, t: any): string => {
     'nature': t('custom.ambientNature', 'Natura'),
     'ocean': t('custom.ambientOcean', 'Ocean'),
     'forest': t('custom.ambientForest', 'Las'),
-    '432hz': t('custom.ambient432hz', '432 Hz'),
-    '528hz': t('custom.ambient528hz', '528 Hz'),
   };
   return sounds[sound] || sound;
 };

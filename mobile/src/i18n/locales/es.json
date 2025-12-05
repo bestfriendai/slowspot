@@ -724,8 +724,6 @@
     "ambientNature": "Naturaleza",
     "ambientOcean": "Océano",
     "ambientForest": "Bosque",
-    "ambient432hz": "432 Hz",
-    "ambient528hz": "528 Hz",
     "intervalBell": "Campana de Intervalo",
     "intervalBellDescription": "Recordatorio suave durante tu sesión",
     "intervalBellHint": "Momento de atención durante la sesión",
@@ -755,11 +753,7 @@
       "ocean": "Océano",
       "oceanDesc": "Olas rítmicas para relajación profunda",
       "forest": "Bosque",
-      "forestDesc": "Ambiente forestal tranquilo",
-      "432hz": "432 Hz",
-      "432hzDesc": "Tono de armonía • Reduce la ansiedad naturalmente",
-      "528hz": "528 Hz",
-      "528hzDesc": "Frecuencia del amor • Promueve paz interior"
+      "forestDesc": "Ambiente forestal tranquilo"
     },
     "voiceGuidance": "Guía de Voz",
     "voiceGuidanceDescription": "Guía hablada durante la meditación",

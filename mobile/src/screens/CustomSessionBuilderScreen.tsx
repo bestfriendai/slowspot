@@ -146,8 +146,6 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
     { id: 'nature', icon: 'leaf-outline' as const, label: t('custom.sounds.nature'), color: iconColors.emerald },
     { id: 'ocean', icon: 'water-outline' as const, label: t('custom.sounds.ocean'), color: iconColors.sky },
     { id: 'forest', icon: 'flower-outline' as const, label: t('custom.sounds.forest'), color: iconColors.teal },
-    { id: '432hz', icon: 'musical-notes-outline' as const, label: t('custom.sounds.432hz'), color: iconColors.indigo },
-    { id: '528hz', icon: 'radio-outline' as const, label: t('custom.sounds.528hz'), color: iconColors.rose },
   ];
 
   // Breathing pattern options with scientific descriptions

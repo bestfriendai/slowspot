@@ -34,7 +34,7 @@ export interface BreathingTiming {
 }
 
 /** Available ambient sound options */
-export type AmbientSound = 'silence' | 'nature' | 'ocean' | 'forest' | '432hz' | '528hz';
+export type AmbientSound = 'silence' | 'nature' | 'ocean' | 'forest';
 
 /** Haptic feedback configuration */
 export interface HapticSettings {
@@ -86,8 +86,6 @@ const AUDIO = {
     nature: require('../../assets/sounds/ambient/nature.mp3'),
     ocean: require('../../assets/sounds/ambient/ocean.mp3'),
     forest: require('../../assets/sounds/ambient/forest.mp3'),
-    '432hz': require('../../assets/sounds/ambient/432hz.mp3'),
-    '528hz': require('../../assets/sounds/ambient/528hz.mp3'),
   },
 } as const;
 
@@ -135,10 +133,8 @@ const getAmbientAsset = (sound: AmbientSound): number | undefined => {
 };
 
 /** Get frequency for ambient sound */
-const getAmbientFrequency = (sound: AmbientSound): number => {
-  if (sound === '432hz') return 432;
-  if (sound === '528hz') return 528;
-  return 432; // Default
+const getAmbientFrequency = (_sound: AmbientSound): number => {
+  return 440; // Standard tuning frequency
 };
 
 /** Convert SessionConfig to full CustomSession object */

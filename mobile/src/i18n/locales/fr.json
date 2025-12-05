@@ -974,8 +974,6 @@
     "ambientNature": "Nature",
     "ambientOcean": "Océan",
     "ambientForest": "Forêt",
-    "ambient432hz": "432 Hz",
-    "ambient528hz": "528 Hz",
     "noSound": "Pas de Son",
     "rain": "Pluie",
     "ocean": "Océan",
@@ -1022,11 +1020,7 @@
       "ocean": "Océan",
       "oceanDesc": "Vagues rythmiques pour relaxation profonde",
       "forest": "Forêt",
-      "forestDesc": "Ambiance forestière paisible",
-      "432hz": "432 Hz",
-      "432hzDesc": "Ton d'harmonie • Réduit l'anxiété naturellement",
-      "528hz": "528 Hz",
-      "528hzDesc": "Fréquence d'amour • Favorise la paix intérieure"
+      "forestDesc": "Ambiance forestière paisible"
     },
     "voiceGuidance": "Guidage Vocal",
     "voiceGuidanceDescription": "Conseils vocaux pendant la méditation",

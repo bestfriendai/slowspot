@@ -973,8 +973,6 @@
     "ambientNature": "自然",
     "ambientOcean": "海洋",
     "ambientForest": "森林",
-    "ambient432hz": "432 Hz",
-    "ambient528hz": "528 Hz",
     "saveSession": "保存课程",
     "updateSession": "更新课程",
     "saveAndStart": "保存并开始",
@@ -1011,11 +1009,7 @@
       "ocean": "海洋",
       "oceanDesc": "节奏海浪带来深度放松",
       "forest": "森林",
-      "forestDesc": "宁静的森林氛围",
-      "432hz": "432 Hz",
-      "432hzDesc": "和谐之音 • 自然减轻焦虑",
-      "528hz": "528 Hz",
-      "528hzDesc": "爱的频率 • 促进内心平静"
+      "forestDesc": "宁静的森林氛围"
     },
     "breathing": {
       "none": "无指导",

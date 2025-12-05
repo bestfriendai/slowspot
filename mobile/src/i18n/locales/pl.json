@@ -821,11 +821,7 @@
       "ocean": "Ocean",
       "oceanDesc": "Rytmiczne fale do głębokiej relaksacji",
       "forest": "Las",
-      "forestDesc": "Spokojna atmosfera leśna",
-      "432hz": "432 Hz",
-      "432hzDesc": "Ton harmonii • Naturalnie redukuje lęk",
-      "528hz": "528 Hz",
-      "528hzDesc": "Częstotliwość miłości • Wspiera wewnętrzny spokój"
+      "forestDesc": "Spokojna atmosfera leśna"
     },
     "awakeningChime": "Dzwonek przebudzenia",
     "awakeningChimeSubtitle": "Delikatny dźwięk sygnalizujący koniec sesji",
@@ -835,8 +831,6 @@
     "ambientNature": "Natura",
     "ambientOcean": "Ocean",
     "ambientForest": "Las",
-    "ambient432hz": "432 Hz",
-    "ambient528hz": "528 Hz",
     "saveSession": "Zapisz sesję",
     "updateSession": "Aktualizuj sesję",
     "saveAndStart": "Zapisz i rozpocznij",
