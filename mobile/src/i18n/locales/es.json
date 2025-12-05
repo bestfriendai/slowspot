@@ -737,8 +737,8 @@
     "wakeUpChime": "Campana Final",
     "wakeUpChimeDescription": "Suave timbre al final de tu sesión",
     "wakeUpChimeHint": "Señal suave al final",
-    "vibration": "Vibración",
-    "vibrationHint": "Vibrar con las campanas",
+    "vibration": "Háptica (Vibración)",
+    "vibrationHint": "Guía táctil para las fases de respiración",
     "hideCountdown": "Ocultar temporizador",
     "hideCountdownHint": "Para meditación sin distracciones",
     "sounds": {

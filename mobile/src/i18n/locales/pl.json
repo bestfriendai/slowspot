@@ -803,8 +803,8 @@
     "wakeUpChime": "Dzwonek końcowy",
     "wakeUpChimeDescription": "Delikatny dźwięk sygnalizujący koniec sesji",
     "wakeUpChimeHint": "Delikatny sygnał na koniec",
-    "vibration": "Wibracje",
-    "vibrationHint": "Wibracje przy dzwonkach",
+    "vibration": "Haptyka (Wibracje)",
+    "vibrationHint": "Dotykowe prowadzenie dla faz oddechowych",
     "hideCountdown": "Ukryj zegar",
     "hideCountdownHint": "Dla medytacji bez rozpraszania",
     "sounds": {

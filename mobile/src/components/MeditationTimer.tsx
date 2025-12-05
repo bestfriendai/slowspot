@@ -73,30 +73,141 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   // Uses both prop and global settings
   const isHapticEnabled = vibrationEnabled && settings.hapticEnabled;
   const lastBreathingPhaseRef = useRef<string>('');
+  const hapticIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hapticPulseCountRef = useRef<number>(0);
 
-  const triggerBreathingHaptic = useCallback((phase: string) => {
+  /**
+   * Enhanced haptic feedback system for breathing phases
+   *
+   * Accessibility feature: Provides tactile guidance for users who:
+   * - Are visually impaired
+   * - Meditate with closed eyes
+   * - Prefer kinesthetic learning
+   *
+   * Haptic patterns:
+   * - INHALE: Rising intensity pulses (Light → Medium → Heavy)
+   *   Simulates the feeling of lungs expanding
+   * - HOLD: Soft, steady pulses at regular intervals
+   *   Gentle reminder to maintain breath retention
+   * - EXHALE: Decreasing intensity pulses (Heavy → Medium → Light)
+   *   Follows the natural release of breath
+   * - REST: Very light, occasional pulses
+   *   Subtle presence without distraction
+   */
+  const stopContinuousHaptic = useCallback(() => {
+    if (hapticIntervalRef.current) {
+      clearInterval(hapticIntervalRef.current);
+      hapticIntervalRef.current = null;
+    }
+    hapticPulseCountRef.current = 0;
+  }, []);
+
+  const startContinuousHaptic = useCallback((phase: string, phaseDuration: number) => {
+    if (!isHapticEnabled) return;
+
+    // Stop any existing haptic pattern
+    stopContinuousHaptic();
+
+    // Calculate pulse interval based on phase duration
+    // Aim for 3-6 pulses per phase for comfortable feedback
+    const pulseCount = Math.max(3, Math.min(6, Math.floor(phaseDuration / 1000)));
+    const pulseInterval = Math.floor(phaseDuration / pulseCount);
+
+    hapticPulseCountRef.current = 0;
+
+    const executeHapticPulse = () => {
+      hapticPulseCountRef.current++;
+      const progress = hapticPulseCountRef.current / pulseCount; // 0 to 1
+
+      switch (phase) {
+        case 'inhale':
+          // Rising intensity: Light → Medium → Heavy
+          // Simulates lungs expanding, building energy
+          if (progress < 0.33) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          } else if (progress < 0.66) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          } else {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+          }
+          break;
+
+        case 'hold':
+          // Steady, soft pulses - calm presence
+          // Like a heartbeat reminder to stay present
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+          break;
+
+        case 'exhale':
+          // Decreasing intensity: Heavy → Medium → Light
+          // Follows natural release and relaxation
+          if (progress < 0.33) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+          } else if (progress < 0.66) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          } else {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          }
+          break;
+
+        case 'rest':
+          // Very gentle, occasional reminder
+          // Only pulse every other time to be less intrusive
+          if (hapticPulseCountRef.current % 2 === 0) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+          }
+          break;
+      }
+    };
+
+    // Trigger initial pulse immediately
+    executeHapticPulse();
+
+    // Set up interval for remaining pulses
+    if (pulseCount > 1) {
+      hapticIntervalRef.current = setInterval(() => {
+        if (hapticPulseCountRef.current < pulseCount) {
+          executeHapticPulse();
+        } else {
+          stopContinuousHaptic();
+        }
+      }, pulseInterval);
+    }
+  }, [isHapticEnabled, stopContinuousHaptic]);
+
+  const triggerBreathingHaptic = useCallback((phase: string, phaseDuration?: number) => {
     if (!isHapticEnabled) return;
 
     // Only trigger if phase actually changed
     if (phase === lastBreathingPhaseRef.current) return;
     lastBreathingPhaseRef.current = phase;
 
-    switch (phase) {
-      case 'inhale':
-        // Gentle rising haptic for inhale
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        break;
-      case 'hold':
-      case 'rest':
-        // Soft haptic for hold phases
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
-        break;
-      case 'exhale':
-        // Medium haptic for exhale
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        break;
+    // Use continuous haptic if duration is provided and long enough
+    if (phaseDuration && phaseDuration >= 1500) {
+      startContinuousHaptic(phase, phaseDuration);
+    } else {
+      // Fallback to single pulse for very short phases
+      switch (phase) {
+        case 'inhale':
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          break;
+        case 'hold':
+        case 'rest':
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+          break;
+        case 'exhale':
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          break;
+      }
     }
-  }, [isHapticEnabled]);
+  }, [isHapticEnabled, startContinuousHaptic]);
+
+  // Cleanup haptic interval on unmount
+  useEffect(() => {
+    return () => {
+      stopContinuousHaptic();
+    };
+  }, [stopContinuousHaptic]);
 
   // Keep screen awake during meditation
   useKeepAwake();
@@ -324,7 +435,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
       const animateBreathing = () => {
         // INHALE - grow but stay inside the ring
         setBreathingPhase('inhale');
-        triggerBreathingHaptic('inhale');
+        triggerBreathingHaptic('inhale', inhaleDuration);
         breathingScale.value = withTiming(0.95, {
           duration: inhaleDuration,
           easing: Easing.inOut(Easing.ease),
@@ -342,13 +453,13 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
           // HOLD 1 - maintain (only if duration > 0)
           if (hold1Duration > 0) {
             setBreathingPhase('hold');
-            triggerBreathingHaptic('hold');
+            triggerBreathingHaptic('hold', hold1Duration);
           }
 
           timeoutId = setTimeout(() => {
             // EXHALE - shrink
             setBreathingPhase('exhale');
-            triggerBreathingHaptic('exhale');
+            triggerBreathingHaptic('exhale', exhaleDuration);
             breathingScale.value = withTiming(0.7, {
               duration: exhaleDuration,
               easing: Easing.inOut(Easing.ease),
@@ -366,7 +477,7 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
               // REST / HOLD 2 (only if duration > 0)
               if (hold2Duration > 0) {
                 setBreathingPhase('rest');
-                triggerBreathingHaptic('rest');
+                triggerBreathingHaptic('rest', hold2Duration);
               }
 
               timeoutId = setTimeout(() => {
