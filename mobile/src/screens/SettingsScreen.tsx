@@ -72,7 +72,17 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
   onRestartOnboarding,
 }) => {
   const { t, i18n } = useTranslation();
-  const { currentTheme, settings, setHighContrastMode, setLargerTextMode } = usePersonalization();
+  const {
+    currentTheme,
+    settings,
+    systemSettings,
+    effectiveAnimationsEnabled,
+    effectiveFontScale,
+    setHighContrastMode,
+    setLargerTextMode,
+    setFollowSystemReduceMotion,
+    setFollowSystemFontSize,
+  } = usePersonalization();
 
   // Modal states
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
@@ -198,7 +208,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         showsVerticalScrollIndicator={false}
       >
         <Animated.Text
-          entering={settings.animationsEnabled ? screenElementAnimation(0) : undefined}
+          entering={effectiveAnimationsEnabled ? screenElementAnimation(0) : undefined}
           style={[styles.title, dynamicStyles.title]}
         >
           {t('settings.title')}
@@ -206,7 +216,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
 
         {/* Profile Card */}
         {onNavigateToProfile && (
-          <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(1) : undefined}>
+          <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(1) : undefined}>
           <GradientCard
             gradient={themeGradients.card.whiteCard}
             style={[styles.card, dynamicStyles.cardShadow]}
@@ -233,7 +243,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
 
         {/* Personalization Card */}
         {onNavigateToPersonalization && (
-          <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(2) : undefined}>
+          <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(2) : undefined}>
           <GradientCard
             gradient={themeGradients.card.whiteCard}
             style={[styles.card, dynamicStyles.cardShadow]}
@@ -259,7 +269,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         )}
 
         {/* Language Selection Card */}
-        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(3) : undefined}>
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(3) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -314,7 +324,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         </Animated.View>
 
         {/* Theme Selection Card */}
-        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(4) : undefined}>
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(4) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -370,7 +380,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         </Animated.View>
 
         {/* Accessibility Card */}
-        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(5) : undefined}>
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(5) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -390,6 +400,62 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
             </View>
           </View>
           <View style={styles.accessibilityOptions}>
+            {/* Follow System Reduce Motion */}
+            <View style={[styles.accessibilityOption, { backgroundColor: dynamicStyles.optionBg }]}>
+              <View style={styles.accessibilityOptionContent}>
+                <Ionicons name="flash-off" size={20} color={currentTheme.primary} />
+                <View style={styles.accessibilityOptionText}>
+                  <Text style={[styles.accessibilityOptionTitle, dynamicStyles.cardTitle]}>
+                    {t('settings.followSystemReduceMotion', 'Follow System Reduce Motion')}
+                  </Text>
+                  <Text style={[styles.accessibilityOptionDesc, dynamicStyles.cardDescription]}>
+                    {t('settings.followSystemReduceMotionDescription', 'Respect device accessibility setting for reduced motion')}
+                    {systemSettings.reduceMotionEnabled && (
+                      <Text style={{ color: currentTheme.primary, fontWeight: '600' }}>
+                        {' '}({t('settings.systemEnabled', 'System: ON')})
+                      </Text>
+                    )}
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={settings.followSystemReduceMotion}
+                onValueChange={(value) => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setFollowSystemReduceMotion(value);
+                }}
+                trackColor={{ false: colors.neutral.gray[300], true: `${currentTheme.primary}80` }}
+                thumbColor={settings.followSystemReduceMotion ? currentTheme.primary : colors.neutral.white}
+              />
+            </View>
+            {/* Follow System Font Size */}
+            <View style={[styles.accessibilityOption, { backgroundColor: dynamicStyles.optionBg }]}>
+              <View style={styles.accessibilityOptionContent}>
+                <Ionicons name="resize" size={20} color={currentTheme.primary} />
+                <View style={styles.accessibilityOptionText}>
+                  <Text style={[styles.accessibilityOptionTitle, dynamicStyles.cardTitle]}>
+                    {t('settings.followSystemFontSize', 'Follow System Font Size')}
+                  </Text>
+                  <Text style={[styles.accessibilityOptionDesc, dynamicStyles.cardDescription]}>
+                    {t('settings.followSystemFontSizeDescription', 'Scale text according to device settings')}
+                    {systemSettings.systemFontScale !== 1 && (
+                      <Text style={{ color: currentTheme.primary, fontWeight: '600' }}>
+                        {' '}({t('settings.systemScale', 'Scale')}: {(systemSettings.systemFontScale * 100).toFixed(0)}%)
+                      </Text>
+                    )}
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={settings.followSystemFontSize}
+                onValueChange={(value) => {
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                  setFollowSystemFontSize(value);
+                }}
+                trackColor={{ false: colors.neutral.gray[300], true: `${currentTheme.primary}80` }}
+                thumbColor={settings.followSystemFontSize ? currentTheme.primary : colors.neutral.white}
+              />
+            </View>
             {/* High Contrast Mode */}
             <View style={[styles.accessibilityOption, { backgroundColor: dynamicStyles.optionBg }]}>
               <View style={styles.accessibilityOptionContent}>
@@ -423,6 +489,11 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
                   </Text>
                   <Text style={[styles.accessibilityOptionDesc, dynamicStyles.cardDescription]}>
                     {t('settings.largerTextModeDescription')}
+                    {effectiveFontScale !== 1 && (
+                      <Text style={{ color: currentTheme.primary, fontWeight: '600' }}>
+                        {' '}({t('settings.effectiveScale', 'Effective')}: {(effectiveFontScale * 100).toFixed(0)}%)
+                      </Text>
+                    )}
                   </Text>
                 </View>
               </View>
@@ -440,8 +511,101 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         </GradientCard>
         </Animated.View>
 
+        {/* System Info Card */}
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(6) : undefined}>
+        <GradientCard
+          gradient={themeGradients.card.whiteCard}
+          style={[styles.card, dynamicStyles.cardShadow]}
+          isDark={isDark}
+        >
+          <View style={styles.cardRow}>
+            <View style={[styles.iconBox, { backgroundColor: `${currentTheme.primary}20` }]}>
+              <Ionicons name="phone-portrait" size={24} color={currentTheme.primary} />
+            </View>
+            <View style={styles.cardTextContainer}>
+              <Text style={[styles.cardTitle, dynamicStyles.cardTitle]}>
+                {t('settings.systemInfo', 'System Information')}
+              </Text>
+              <Text style={[styles.cardDescription, dynamicStyles.cardDescription]}>
+                {t('settings.systemInfoDescription', 'Detected device settings')}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.systemInfoGrid}>
+            <View style={[styles.systemInfoItem, { backgroundColor: dynamicStyles.optionBg }]}>
+              <Ionicons name="time" size={18} color={currentTheme.primary} />
+              <View style={styles.systemInfoText}>
+                <Text style={[styles.systemInfoLabel, dynamicStyles.cardDescription]}>
+                  {t('settings.timezone', 'Timezone')}
+                </Text>
+                <Text style={[styles.systemInfoValue, dynamicStyles.cardTitle]}>
+                  {systemSettings.timezoneAbbreviation}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.systemInfoItem, { backgroundColor: dynamicStyles.optionBg }]}>
+              <Ionicons name="globe" size={18} color={currentTheme.primary} />
+              <View style={styles.systemInfoText}>
+                <Text style={[styles.systemInfoLabel, dynamicStyles.cardDescription]}>
+                  {t('settings.region', 'Region')}
+                </Text>
+                <Text style={[styles.systemInfoValue, dynamicStyles.cardTitle]}>
+                  {systemSettings.regionCode || systemSettings.languageCode.toUpperCase()}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.systemInfoItem, { backgroundColor: dynamicStyles.optionBg }]}>
+              <Ionicons name="thermometer" size={18} color={currentTheme.primary} />
+              <View style={styles.systemInfoText}>
+                <Text style={[styles.systemInfoLabel, dynamicStyles.cardDescription]}>
+                  {t('settings.temperatureUnit', 'Temperature')}
+                </Text>
+                <Text style={[styles.systemInfoValue, dynamicStyles.cardTitle]}>
+                  {systemSettings.temperatureUnit === 'celsius' ? '°C' : '°F'}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.systemInfoItem, { backgroundColor: dynamicStyles.optionBg }]}>
+              <Ionicons name="speedometer" size={18} color={currentTheme.primary} />
+              <View style={styles.systemInfoText}>
+                <Text style={[styles.systemInfoLabel, dynamicStyles.cardDescription]}>
+                  {t('settings.measurementSystem', 'Units')}
+                </Text>
+                <Text style={[styles.systemInfoValue, dynamicStyles.cardTitle]}>
+                  {systemSettings.measurementSystem === 'metric' ? t('settings.metric', 'Metric') : t('settings.imperial', 'Imperial')}
+                </Text>
+              </View>
+            </View>
+            <View style={[styles.systemInfoItem, { backgroundColor: dynamicStyles.optionBg }]}>
+              <Ionicons name="time-outline" size={18} color={currentTheme.primary} />
+              <View style={styles.systemInfoText}>
+                <Text style={[styles.systemInfoLabel, dynamicStyles.cardDescription]}>
+                  {t('settings.timeFormat', 'Time Format')}
+                </Text>
+                <Text style={[styles.systemInfoValue, dynamicStyles.cardTitle]}>
+                  {systemSettings.uses24HourClock ? '24h' : '12h'}
+                </Text>
+              </View>
+            </View>
+            {systemSettings.isRTL && (
+              <View style={[styles.systemInfoItem, { backgroundColor: dynamicStyles.optionBg }]}>
+                <Ionicons name="swap-horizontal" size={18} color={currentTheme.primary} />
+                <View style={styles.systemInfoText}>
+                  <Text style={[styles.systemInfoLabel, dynamicStyles.cardDescription]}>
+                    {t('settings.textDirection', 'Text Direction')}
+                  </Text>
+                  <Text style={[styles.systemInfoValue, dynamicStyles.cardTitle]}>
+                    RTL
+                  </Text>
+                </View>
+              </View>
+            )}
+          </View>
+        </GradientCard>
+        </Animated.View>
+
         {/* Data & Privacy Card */}
-        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(6) : undefined}>
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(7) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -486,7 +650,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         </Animated.View>
 
         {/* Legal & Support Card - Required for App Store / Google Play */}
-        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(7) : undefined}>
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(8) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -559,7 +723,7 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         </Animated.View>
 
         {/* About Card - At the very bottom */}
-        <Animated.View entering={settings.animationsEnabled ? screenElementAnimation(8) : undefined}>
+        <Animated.View entering={effectiveAnimationsEnabled ? screenElementAnimation(9) : undefined}>
         <GradientCard
           gradient={themeGradients.card.whiteCard}
           style={[styles.card, dynamicStyles.cardShadow]}
@@ -936,5 +1100,28 @@ const styles = StyleSheet.create({
   accessibilityOptionDesc: {
     fontSize: theme.typography.fontSizes.xs,
     marginTop: 2,
+  },
+  // System Info section
+  systemInfoGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: theme.spacing.md,
+    gap: theme.spacing.sm,
+  },
+  systemInfoItem: {
+    width: '48%',
+    padding: theme.spacing.sm,
+    borderRadius: theme.borderRadius.md,
+  },
+  systemInfoText: {
+    gap: 2,
+  },
+  systemInfoLabel: {
+    fontSize: theme.typography.fontSizes.xs,
+    opacity: 0.7,
+  },
+  systemInfoValue: {
+    fontSize: theme.typography.fontSizes.sm,
+    fontWeight: '500',
   },
 });

@@ -3,11 +3,19 @@
  *
  * Manages user customization preferences for app styling.
  * Allows users to change primary colors, accent colors, and themes.
+ * Also integrates with system-level accessibility settings.
  */
 
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logger } from '../utils/logger';
+import {
+  useReducedMotion,
+  useSystemFontScale,
+  useRTL,
+  useLocaleSettings,
+  useTimezone,
+} from '../hooks/useSystemSettings';
 
 const PERSONALIZATION_STORAGE_KEY = '@slow_spot_personalization';
 
@@ -313,6 +321,9 @@ export interface PersonalizationSettings {
   // Accessibility options
   highContrastMode: boolean;
   largerTextMode: boolean;
+  // System preference overrides
+  followSystemReduceMotion: boolean; // When true, respects system reduce motion setting
+  followSystemFontSize: boolean; // When true, respects system font scale
 }
 
 // Default settings
@@ -323,6 +334,8 @@ const DEFAULT_SETTINGS: PersonalizationSettings = {
   animationsEnabled: true,
   highContrastMode: false,
   largerTextMode: false,
+  followSystemReduceMotion: true, // Respect system accessibility by default
+  followSystemFontSize: true, // Respect system font size by default
 };
 
 // Helper function to generate gradient from primary color
@@ -357,9 +370,34 @@ interface ThemeData {
   category?: string;
 }
 
+// System settings interface
+export interface SystemSettingsInfo {
+  reduceMotionEnabled: boolean;
+  systemFontScale: number;
+  isRTL: boolean;
+  timezone: string;
+  timezoneOffset: number;
+  timezoneAbbreviation: string;
+  locale: string;
+  languageCode: string;
+  regionCode: string | null;
+  uses24HourClock: boolean;
+  temperatureUnit: 'celsius' | 'fahrenheit';
+  measurementSystem: 'metric' | 'us' | 'uk';
+  currencyCode: string | null;
+  currencySymbol: string | null;
+  decimalSeparator: string;
+  groupingSeparator: string;
+}
+
 interface PersonalizationContextType {
   settings: PersonalizationSettings;
   currentTheme: ThemeData;
+  systemSettings: SystemSettingsInfo;
+  // Computed values that combine user + system preferences
+  effectiveAnimationsEnabled: boolean;
+  effectiveFontScale: number;
+  // Setters
   setColorTheme: (theme: ColorThemeKey) => Promise<void>;
   setCustomTheme: (primary: string, name?: string) => Promise<void>;
   setHapticEnabled: (enabled: boolean) => Promise<void>;
@@ -367,8 +405,15 @@ interface PersonalizationContextType {
   setAnimationsEnabled: (enabled: boolean) => Promise<void>;
   setHighContrastMode: (enabled: boolean) => Promise<void>;
   setLargerTextMode: (enabled: boolean) => Promise<void>;
+  setFollowSystemReduceMotion: (enabled: boolean) => Promise<void>;
+  setFollowSystemFontSize: (enabled: boolean) => Promise<void>;
   resetToDefaults: () => Promise<void>;
   isLoading: boolean;
+  // Formatting helpers from locale
+  formatNumber: (num: number, decimals?: number) => string;
+  formatCurrency: (amount: number) => string;
+  formatDate: (date: Date, options?: Intl.DateTimeFormatOptions) => string;
+  formatTime: (date: Date) => string;
 }
 
 const PersonalizationContext = createContext<PersonalizationContextType | undefined>(undefined);
@@ -377,18 +422,83 @@ export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = 
   const [settings, setSettings] = useState<PersonalizationSettings>(DEFAULT_SETTINGS);
   const [isLoading, setIsLoading] = useState(true);
 
+  // System settings hooks
+  const systemReduceMotion = useReducedMotion();
+  const systemFontScale = useSystemFontScale();
+  const rtlInfo = useRTL();
+  const timezoneInfo = useTimezone();
+  const localeInfo = useLocaleSettings();
+
+  // Combine system settings into a single object
+  const systemSettings: SystemSettingsInfo = useMemo(() => ({
+    reduceMotionEnabled: systemReduceMotion,
+    systemFontScale,
+    isRTL: rtlInfo.isRTL,
+    timezone: timezoneInfo.timezone,
+    timezoneOffset: timezoneInfo.offset,
+    timezoneAbbreviation: timezoneInfo.abbreviation,
+    locale: localeInfo.locale,
+    languageCode: localeInfo.languageCode,
+    regionCode: localeInfo.regionCode,
+    uses24HourClock: localeInfo.uses24HourClock,
+    temperatureUnit: localeInfo.temperatureUnit,
+    measurementSystem: localeInfo.measurementSystem,
+    currencyCode: localeInfo.currencyCode,
+    currencySymbol: localeInfo.currencySymbol,
+    decimalSeparator: localeInfo.decimalSeparator,
+    groupingSeparator: localeInfo.groupingSeparator,
+  }), [
+    systemReduceMotion,
+    systemFontScale,
+    rtlInfo.isRTL,
+    timezoneInfo,
+    localeInfo,
+  ]);
+
+  // Computed effective values that combine user + system preferences
+  const effectiveAnimationsEnabled = useMemo(() => {
+    // If following system and system has reduce motion enabled, disable animations
+    if (settings.followSystemReduceMotion && systemReduceMotion) {
+      return false;
+    }
+    // Otherwise, use user's animation preference
+    return settings.animationsEnabled;
+  }, [settings.followSystemReduceMotion, settings.animationsEnabled, systemReduceMotion]);
+
+  const effectiveFontScale = useMemo(() => {
+    let scale = 1.0;
+
+    // Apply system font scale if following system
+    if (settings.followSystemFontSize) {
+      scale *= systemFontScale;
+    }
+
+    // Apply user's larger text preference
+    if (settings.largerTextMode) {
+      scale *= 1.2;
+    }
+
+    // Cap at 1.5x to prevent UI breaking
+    return Math.min(scale, 1.5);
+  }, [settings.followSystemFontSize, settings.largerTextMode, systemFontScale]);
+
   // Load settings on mount
   useEffect(() => {
     const loadSettings = async () => {
       try {
         const stored = await AsyncStorage.getItem(PERSONALIZATION_STORAGE_KEY);
         if (stored) {
-          const parsed = JSON.parse(stored) as PersonalizationSettings;
+          const parsed = JSON.parse(stored) as Partial<PersonalizationSettings>;
+          // Merge with defaults to handle new fields
+          const mergedSettings: PersonalizationSettings = {
+            ...DEFAULT_SETTINGS,
+            ...parsed,
+          };
           // Validate that the stored theme exists or is custom
-          if (parsed.colorTheme === 'custom' && parsed.customTheme) {
-            setSettings(parsed);
-          } else if (parsed.colorTheme && parsed.colorTheme !== 'custom' && COLOR_THEMES[parsed.colorTheme as keyof typeof COLOR_THEMES]) {
-            setSettings(parsed);
+          if (mergedSettings.colorTheme === 'custom' && mergedSettings.customTheme) {
+            setSettings(mergedSettings);
+          } else if (mergedSettings.colorTheme && mergedSettings.colorTheme !== 'custom' && COLOR_THEMES[mergedSettings.colorTheme as keyof typeof COLOR_THEMES]) {
+            setSettings(mergedSettings);
           }
         }
       } catch (error) {
@@ -456,6 +566,16 @@ export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = 
     await saveSettings({ ...settings, largerTextMode: enabled });
   }, [settings, saveSettings]);
 
+  // Set follow system reduce motion
+  const setFollowSystemReduceMotion = useCallback(async (enabled: boolean) => {
+    await saveSettings({ ...settings, followSystemReduceMotion: enabled });
+  }, [settings, saveSettings]);
+
+  // Set follow system font size
+  const setFollowSystemFontSize = useCallback(async (enabled: boolean) => {
+    await saveSettings({ ...settings, followSystemFontSize: enabled });
+  }, [settings, saveSettings]);
+
   // Reset to defaults
   const resetToDefaults = useCallback(async () => {
     await saveSettings(DEFAULT_SETTINGS);
@@ -485,6 +605,9 @@ export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = 
       value={{
         settings,
         currentTheme,
+        systemSettings,
+        effectiveAnimationsEnabled,
+        effectiveFontScale,
         setColorTheme,
         setCustomTheme,
         setHapticEnabled,
@@ -492,8 +615,14 @@ export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = 
         setAnimationsEnabled,
         setHighContrastMode,
         setLargerTextMode,
+        setFollowSystemReduceMotion,
+        setFollowSystemFontSize,
         resetToDefaults,
         isLoading,
+        formatNumber: localeInfo.formatNumber,
+        formatCurrency: localeInfo.formatCurrency,
+        formatDate: localeInfo.formatDate,
+        formatTime: localeInfo.formatTime,
       }}
     >
       {children}
@@ -570,9 +699,49 @@ export const useAccessibilityColors = (isDark: boolean) => {
 };
 
 // Hook to get text size multiplier for larger text mode
+// Now uses effectiveFontScale which combines user preference with system font scale
 export const useTextSizeMultiplier = () => {
-  const { settings } = usePersonalization();
-  return settings.largerTextMode ? 1.2 : 1.0;
+  const { effectiveFontScale } = usePersonalization();
+  return effectiveFontScale;
+};
+
+// Hook to check if animations should be enabled
+// Combines user preference with system reduce motion setting
+export const useEffectiveAnimations = () => {
+  const { effectiveAnimationsEnabled } = usePersonalization();
+  return effectiveAnimationsEnabled;
+};
+
+// Hook to get system settings
+export const useSystemSettingsInfo = () => {
+  const { systemSettings } = usePersonalization();
+  return systemSettings;
+};
+
+// Hook for RTL-aware styles
+export const useRTLStyles = () => {
+  const { systemSettings } = usePersonalization();
+  return {
+    isRTL: systemSettings.isRTL,
+    direction: systemSettings.isRTL ? 'rtl' : 'ltr',
+    textAlign: systemSettings.isRTL ? 'right' : 'left',
+    flexDirection: systemSettings.isRTL ? 'row-reverse' : 'row',
+  } as const;
+};
+
+// Hook for locale-aware formatting
+export const useLocaleFormatting = () => {
+  const { formatNumber, formatCurrency, formatDate, formatTime, systemSettings } = usePersonalization();
+  return {
+    formatNumber,
+    formatCurrency,
+    formatDate,
+    formatTime,
+    locale: systemSettings.locale,
+    uses24HourClock: systemSettings.uses24HourClock,
+    temperatureUnit: systemSettings.temperatureUnit,
+    measurementSystem: systemSettings.measurementSystem,
+  };
 };
 
 export default PersonalizationContext;
