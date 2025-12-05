@@ -3659,6 +3659,15 @@ html.light .subpage-feedback-text {
   color: var(--slate-600);
 }
 
+html.light .subpage-feedback-button {
+  background: linear-gradient(135deg, var(--lavender-primary), var(--lavender-light));
+  color: white;
+}
+
+html.light .subpage-feedback-button:hover {
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
 /* Light Mode - App Info */
 html.light .subpage-app-info-title {
   color: var(--slate-800);
@@ -3689,6 +3698,48 @@ html.light .subpage-inline-link:hover {
 /* Light Mode - Footer Separator */
 html.light .subpage-footer-separator {
   color: var(--slate-400);
+}
+
+/* Light Mode - Subpage Full Footer */
+html.light .subpage-footer-full {
+  background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+  border-top-color: var(--slate-200);
+}
+
+html.light .subpage-footer-brand-name {
+  color: var(--slate-800);
+}
+
+html.light .subpage-footer-brand-tagline {
+  color: var(--slate-500);
+}
+
+html.light .subpage-footer-link-title {
+  color: var(--slate-700);
+}
+
+html.light .subpage-footer-link-list .subpage-footer-link {
+  color: var(--slate-500);
+}
+
+html.light .subpage-footer-link-list .subpage-footer-link:hover {
+  color: var(--lavender-primary);
+}
+
+html.light .subpage-footer-bottom {
+  border-top-color: var(--slate-200);
+}
+
+html.light .subpage-footer-copyright {
+  color: var(--slate-500);
+}
+
+html.light .subpage-footer-tagline-bottom {
+  color: var(--slate-400);
+}
+
+html.light .subpage-brand-accent {
+  color: var(--lavender-primary);
 }
 
 /* ==========================================================================
