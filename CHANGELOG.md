@@ -1,3 +1,19 @@
+## [1.7.0](https://github.com/Slow-Spot/app/compare/v1.6.0...v1.7.0) (2025-12-05)
+
+### Features
+
+* expand ambient sounds to 8 options with 2x4 grid layout ([488b289](https://github.com/Slow-Spot/app/commit/488b289f39d1aa808384a8c1c7c8643060634d9b))
+
+### Bug Fixes
+
+* correct pipeline order and version sync for all languages ([e12a31b](https://github.com/Slow-Spot/app/commit/e12a31bdafc0e64da30a4a2230c4e19292668b3f))
+* **web:** replace Chinese quotes with standard guillemets in support-zh.json ([40b6c2e](https://github.com/Slow-Spot/app/commit/40b6c2e07cad6b201b6e38e54871c4e7a048ea79))
+
+### Code Refactoring
+
+* clean up codebase with consistent naming conventions ([856bead](https://github.com/Slow-Spot/app/commit/856bead197271e2bd051576922d7e362a923d272))
+* remove pseudoscientific 432Hz/528Hz ambient sound options ([87fb86d](https://github.com/Slow-Spot/app/commit/87fb86d50539f0f0a82538ece654fda1d0cc14dc))
+
 ## [1.6.0](https://github.com/Slow-Spot/app/compare/v1.5.0...v1.6.0) (2025-12-05)
 
 ### Features
