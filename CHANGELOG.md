@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/Slow-Spot/app/compare/v1.0.3...v1.0.4) (2025-12-06)
+
+### Bug Fixes
+
+* update app icons to new lotus design with gradient ([7476b5d](https://github.com/Slow-Spot/app/commit/7476b5d016fdd0316ac94f18d9410eb7008ead4b))
+
 ## [1.0.3](https://github.com/Slow-Spot/app/compare/v1.0.2...v1.0.3) (2025-12-06)
 
 ### Bug Fixes
