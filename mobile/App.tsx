@@ -24,7 +24,7 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { MeditationScreen } from './src/screens/MeditationScreen';
 import { QuotesScreen } from './src/screens/QuotesScreen';
 import { SettingsScreen, THEME_STORAGE_KEY, ThemeMode } from './src/screens/SettingsScreen';
-import { CustomSessionBuilderScreen, CustomSessionConfig } from './src/screens/CustomSessionBuilderScreen';
+import { CustomSessionBuilderScreen, SessionConfig } from './src/screens/CustomSessionBuilderScreen';
 import { ProfileScreen } from './src/screens/ProfileScreen';
 import InstructionsScreen from './src/screens/InstructionsScreen';
 import { PersonalizationScreen } from './src/screens/PersonalizationScreen';
@@ -49,7 +49,7 @@ function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [themeMode, setThemeMode] = useState<ThemeMode>('system');
   const [editSessionId, setEditSessionId] = useState<string | undefined>();
-  const [editSessionConfig, setEditSessionConfig] = useState<CustomSessionConfig | undefined>();
+  const [editSessionConfig, setEditSessionConfig] = useState<SessionConfig | undefined>();
   const [activeMeditationState, setActiveMeditationState] = useState<ActiveMeditationState | null>(null);
   const [sessionRefreshKey, setSessionRefreshKey] = useState(0);
   const [appIsReady, setAppIsReady] = useState(false);
@@ -180,7 +180,7 @@ function AppContent() {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
   };
 
-  const handleStartCustomSession = (config: CustomSessionConfig) => {
+  const handleStartCustomSession = (config: SessionConfig) => {
     // Navigate to meditation screen with the custom session config
     // Note: Saving is handled by CustomSessionBuilderScreen when user explicitly saves
     logger.log('Starting custom session:', config.name || 'unnamed');
@@ -188,7 +188,7 @@ function AppContent() {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
   };
 
-  const handleEditSession = (sessionId: string, sessionConfig: CustomSessionConfig) => {
+  const handleEditSession = (sessionId: string, sessionConfig: SessionConfig) => {
     setEditSessionId(sessionId);
     setEditSessionConfig(sessionConfig);
     setCurrentScreen('custom');

@@ -6,7 +6,7 @@ import { logger } from '../utils/logger';
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { View, Text, ScrollView, StyleSheet, Pressable, Animated, TextInput, TouchableOpacity, Modal } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import LinearGradient from 'expo-linear-gradient';
 import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 import Reanimated, {
   useAnimatedStyle,
@@ -975,6 +975,7 @@ const AnimatedBreathingCircle: React.FC<{
 };
 
 const StepProgress: React.FC<{ currentStep: string; t: any; isDark?: boolean }> = ({ currentStep, t, isDark }) => {
+  const { currentTheme } = usePersonalization();
   const steps = ['overview', 'setup', 'breathing', 'intention'];
   const currentIndex = steps.indexOf(currentStep);
 

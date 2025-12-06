@@ -3,10 +3,8 @@ name: EAS Preview Build (Test Deployment)
 on:
   push:
     branches:
-      - develop
-      - test
       - 'feature/**'
-      - 'claude/**'
+      - 'fix/**'
   workflow_dispatch:
     inputs:
       platform:
