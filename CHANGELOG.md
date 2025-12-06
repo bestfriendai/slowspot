@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/Slow-Spot/app/compare/v1.0.0...v1.0.1) (2025-12-06)
+
+### Bug Fixes
+
+* resolve LinearGradient import and TypeScript issues ([3511ba5](https://github.com/Slow-Spot/app/commit/3511ba5180cd40d92511093a9b407422cdd8bd09))
+
 ## 1.0.0 (2025-12-06)
 
 ### Features
