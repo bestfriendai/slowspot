@@ -175,12 +175,13 @@ export const backgrounds = {
 };
 
 // Text colors with hierarchy
+// Note: secondary uses gray[700] for better contrast on light backgrounds
 export const textColors = {
   primary: neutralColors.charcoal[200],
-  secondary: neutralColors.gray[600],
-  tertiary: neutralColors.gray[500],
+  secondary: neutralColors.gray[700],  // #48484A - better contrast than gray[600]
+  tertiary: neutralColors.gray[600],   // #636366 - moved from secondary
   inverse: neutralColors.white,
-  disabled: neutralColors.gray[400],
+  disabled: neutralColors.gray[500],   // #8E8E93 - visible but muted
   accent: accentColors.blue[600],
   link: accentColors.blue[600],
 };
