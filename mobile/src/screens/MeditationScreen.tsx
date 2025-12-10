@@ -34,6 +34,8 @@ interface MeditationScreenProps {
   onNavigateToCustom?: () => void;
   activeMeditationState: ActiveMeditationState | null;
   onMeditationStateChange: (state: ActiveMeditationState | null) => void;
+  pendingSessionConfig?: CustomSession['config'] | null;
+  onClearPendingSession?: () => void;
 }
 
 // Helper function to generate chime points from custom session config
@@ -64,7 +66,9 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
   onEditSession,
   onNavigateToCustom,
   activeMeditationState,
-  onMeditationStateChange
+  onMeditationStateChange,
+  pendingSessionConfig,
+  onClearPendingSession
 }) => {
   const { t, i18n } = useTranslation();
   const { currentTheme, settings } = usePersonalization();
@@ -100,6 +104,28 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
   useEffect(() => {
     loadSessions();
   }, [i18n.language]);
+
+  // Handle pending session config from CustomSessionBuilder "Start Session" button
+  useEffect(() => {
+    if (pendingSessionConfig) {
+      // Create a temporary session from the config
+      const tempSession: CustomSession = {
+        id: `temp-${Date.now()}`,
+        name: pendingSessionConfig.name || t('custom.quickSession', 'Quick Session'),
+        description: t('custom.quickSessionDescription', 'Session started from builder'),
+        duration: pendingSessionConfig.durationMinutes * 60,
+        isCustom: true,
+        config: pendingSessionConfig,
+      };
+
+      // Start the session immediately
+      setSelectedSession(tempSession);
+      setFlowState('intention');
+
+      // Clear the pending config so it doesn't re-trigger
+      onClearPendingSession?.();
+    }
+  }, [pendingSessionConfig, onClearPendingSession, t]);
 
   // Refresh sessions when returning to list view (e.g., after saving a session)
   useEffect(() => {

@@ -81,22 +81,10 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const hapticPulseCountRef = useRef<number>(0);
 
   /**
-   * Enhanced haptic feedback system for breathing phases
+   * Haptic feedback for breathing phase transitions
    *
-   * Accessibility feature: Provides tactile guidance for users who:
-   * - Are visually impaired
-   * - Meditate with closed eyes
-   * - Prefer kinesthetic learning
-   *
-   * Haptic patterns:
-   * - INHALE: Rising intensity pulses (Light → Medium → Heavy)
-   *   Simulates the feeling of lungs expanding
-   * - HOLD: Soft, steady pulses at regular intervals
-   *   Gentle reminder to maintain breath retention
-   * - EXHALE: Decreasing intensity pulses (Heavy → Medium → Light)
-   *   Follows the natural release of breath
-   * - REST: Very light, occasional pulses
-   *   Subtle presence without distraction
+   * Simple: one pulse at each phase change (inhale, hold, exhale, rest)
+   * to signal the user when to change their breathing.
    */
   const stopContinuousHaptic = useCallback(() => {
     if (hapticIntervalRef.current) {
@@ -106,105 +94,25 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
     hapticPulseCountRef.current = 0;
   }, []);
 
-  const startContinuousHaptic = useCallback((phase: string, phaseDuration: number) => {
-    if (!isBreathingHapticEnabled) return;
+  // Trigger a single haptic pulse at phase transition
+  // Simple: one pulse per phase change to signal what to do next
+  const triggerPhaseTransitionHaptic = useCallback(() => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  }, []);
 
-    // Stop any existing haptic pattern
-    stopContinuousHaptic();
-
-    // Calculate pulse interval based on phase duration
-    // Aim for 3-6 pulses per phase for comfortable feedback
-    const pulseCount = Math.max(3, Math.min(6, Math.floor(phaseDuration / 1000)));
-    const pulseInterval = Math.floor(phaseDuration / pulseCount);
-
-    hapticPulseCountRef.current = 0;
-
-    const executeHapticPulse = () => {
-      hapticPulseCountRef.current++;
-      const progress = hapticPulseCountRef.current / pulseCount; // 0 to 1
-
-      switch (phase) {
-        case 'inhale':
-          // Rising intensity: Light → Medium → Heavy
-          // Simulates lungs expanding, building energy
-          if (progress < 0.33) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          } else if (progress < 0.66) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          } else {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-          }
-          break;
-
-        case 'hold':
-          // Steady, soft pulses - calm presence
-          // Like a heartbeat reminder to stay present
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
-          break;
-
-        case 'exhale':
-          // Decreasing intensity: Heavy → Medium → Light
-          // Follows natural release and relaxation
-          if (progress < 0.33) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-          } else if (progress < 0.66) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          } else {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          }
-          break;
-
-        case 'rest':
-          // Very gentle, occasional reminder
-          // Only pulse every other time to be less intrusive
-          if (hapticPulseCountRef.current % 2 === 0) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
-          }
-          break;
-      }
-    };
-
-    // Trigger initial pulse immediately
-    executeHapticPulse();
-
-    // Set up interval for remaining pulses
-    if (pulseCount > 1) {
-      hapticIntervalRef.current = setInterval(() => {
-        if (hapticPulseCountRef.current < pulseCount) {
-          executeHapticPulse();
-        } else {
-          stopContinuousHaptic();
-        }
-      }, pulseInterval);
-    }
-  }, [isBreathingHapticEnabled, stopContinuousHaptic]);
-
-  const triggerBreathingHaptic = useCallback((phase: string, phaseDuration?: number) => {
+  const triggerBreathingHaptic = useCallback((phase: string, _phaseDuration?: number) => {
     if (!isBreathingHapticEnabled) return;
 
     // Only trigger if phase actually changed
     if (phase === lastBreathingPhaseRef.current) return;
     lastBreathingPhaseRef.current = phase;
 
-    // Use continuous haptic if duration is provided and long enough
-    if (phaseDuration && phaseDuration >= 1500) {
-      startContinuousHaptic(phase, phaseDuration);
-    } else {
-      // Fallback to single pulse for very short phases
-      switch (phase) {
-        case 'inhale':
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-          break;
-        case 'hold':
-        case 'rest':
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
-          break;
-        case 'exhale':
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-          break;
-      }
-    }
-  }, [isBreathingHapticEnabled, startContinuousHaptic]);
+    // Stop any existing continuous haptic (cleanup from old implementation)
+    stopContinuousHaptic();
+
+    // Trigger single haptic pulse at phase transition
+    triggerPhaseTransitionHaptic(phase);
+  }, [isBreathingHapticEnabled, stopContinuousHaptic, triggerPhaseTransitionHaptic]);
 
   // Cleanup haptic interval on unmount
   useEffect(() => {

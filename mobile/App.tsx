@@ -59,6 +59,8 @@ function AppContent() {
   // Modal state for meditation exit confirmation
   const [showExitMeditationModal, setShowExitMeditationModal] = useState(false);
   const [pendingScreen, setPendingScreen] = useState<Screen | null>(null);
+  // Temporary session config for immediate start from custom builder
+  const [pendingSessionConfig, setPendingSessionConfig] = useState<SessionConfig | null>(null);
   const systemColorScheme = useColorScheme();
   const insets = useSafeAreaInsets();
 
@@ -184,8 +186,13 @@ function AppContent() {
     // Navigate to meditation screen with the custom session config
     // Note: Saving is handled by CustomSessionBuilderScreen when user explicitly saves
     logger.log('Starting custom session:', config.name || 'unnamed');
+    setPendingSessionConfig(config);
     setCurrentScreen('meditation');
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+  };
+
+  const handleClearPendingSession = () => {
+    setPendingSessionConfig(null);
   };
 
   const handleEditSession = (sessionId: string, sessionConfig: SessionConfig) => {
@@ -224,6 +231,8 @@ function AppContent() {
             onNavigateToCustom={() => setCurrentScreen('custom')}
             activeMeditationState={activeMeditationState}
             onMeditationStateChange={setActiveMeditationState}
+            pendingSessionConfig={pendingSessionConfig}
+            onClearPendingSession={handleClearPendingSession}
           />
         );
       case 'quotes':
