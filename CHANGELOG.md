@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/Slow-Spot/app/compare/v1.0.5...v1.0.6) (2025-12-10)
+
+### Bug Fixes
+
+* simplify breathing haptics and fix session start navigation ([6f1a8ba](https://github.com/Slow-Spot/app/commit/6f1a8ba25e41bf6ae12b554810e7f79cb5438447))
+
 ## [1.0.5](https://github.com/Slow-Spot/app/compare/v1.0.4...v1.0.5) (2025-12-06)
 
 ### Bug Fixes
