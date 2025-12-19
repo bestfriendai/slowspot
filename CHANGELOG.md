@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Slow-Spot/app/compare/v1.0.7...v1.1.0) (2025-12-19)
+
+### Features
+
+* redesign about section with credits, sync all translations ([ad2e5cb](https://github.com/Slow-Spot/app/commit/ad2e5cb28a570952ef755ea84193b8c16e48343a))
+
 ## [1.0.7](https://github.com/Slow-Spot/app/compare/v1.0.6...v1.0.7) (2025-12-10)
 
 ### Bug Fixes
