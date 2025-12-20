@@ -385,8 +385,18 @@
     }
   },
   "cookieBanner": {
-    "message": "We use cookies only to remember your preferences. No tracking, no analytics.",
-    "accept": "Accept",
-    "learnMore": "Learn more"
+    "message": "We use cookies to remember your preferences and analyze website traffic to improve your experience.",
+    "customize": "Customize",
+    "necessaryOnly": "Necessary Only",
+    "acceptAll": "Accept All",
+    "learnMore": "Learn more",
+    "customizeDescription": "Choose which cookies you want to allow. You can change these settings at any time.",
+    "necessaryCookies": "Necessary Cookies",
+    "required": "Required",
+    "necessaryDescription": "These cookies are essential for the website to function properly, including remembering your language preference.",
+    "analyticsCookies": "Analytics Cookies",
+    "analyticsDescription": "Help us understand how visitors use our website so we can improve it. Data is anonymized.",
+    "back": "Back",
+    "savePreferences": "Save Preferences"
   }
 }

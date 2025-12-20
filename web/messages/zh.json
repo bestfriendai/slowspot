@@ -137,9 +137,19 @@
     }
   },
   "cookieBanner": {
-    "message": "我们仅使用 Cookie 来记住您的偏好。无跟踪，无分析。",
-    "accept": "接受",
-    "learnMore": "了解更多"
+    "message": "我们使用 Cookie 来记住您的偏好并分析网站流量，以改善您的体验。",
+    "customize": "自定义",
+    "necessaryOnly": "仅必要",
+    "acceptAll": "全部接受",
+    "learnMore": "了解更多",
+    "customizeDescription": "选择您要允许的 Cookie。您可以随时更改这些设置。",
+    "necessaryCookies": "必要 Cookie",
+    "required": "必需",
+    "necessaryDescription": "这些 Cookie 对于网站正常运行至关重要，包括记住您的语言偏好。",
+    "analyticsCookies": "分析 Cookie",
+    "analyticsDescription": "帮助我们了解访问者如何使用我们的网站，以便我们进行改进。数据已匿名处理。",
+    "back": "返回",
+    "savePreferences": "保存偏好"
   },
   "supportPage": {
     "title": "支持",

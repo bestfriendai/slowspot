@@ -359,8 +359,18 @@
     }
   },
   "cookieBanner": {
-    "message": "Używamy plików cookie tylko do zapamiętywania Twoich preferencji. Bez śledzenia, bez analityki.",
-    "accept": "Akceptuję",
-    "learnMore": "Więcej informacji"
+    "message": "Używamy plików cookie do zapamiętywania Twoich preferencji i analizy ruchu na stronie w celu poprawy Twojego doświadczenia.",
+    "customize": "Dostosuj",
+    "necessaryOnly": "Tylko niezbędne",
+    "acceptAll": "Akceptuj wszystkie",
+    "learnMore": "Więcej informacji",
+    "customizeDescription": "Wybierz, które pliki cookie chcesz zezwolić. Możesz zmienić te ustawienia w dowolnym momencie.",
+    "necessaryCookies": "Niezbędne pliki cookie",
+    "required": "Wymagane",
+    "necessaryDescription": "Te pliki cookie są niezbędne do prawidłowego działania strony, w tym zapamiętywania Twoich preferencji językowych.",
+    "analyticsCookies": "Analityczne pliki cookie",
+    "analyticsDescription": "Pomagają nam zrozumieć, jak odwiedzający korzystają z naszej strony, abyśmy mogli ją ulepszyć. Dane są anonimizowane.",
+    "back": "Wstecz",
+    "savePreferences": "Zapisz preferencje"
   }
 }

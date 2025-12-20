@@ -137,9 +137,19 @@
     }
   },
   "cookieBanner": {
-    "message": "Nous utilisons des cookies uniquement pour mémoriser vos préférences. Pas de suivi, pas d'analyse.",
-    "accept": "Accepter",
-    "learnMore": "En savoir plus"
+    "message": "Nous utilisons des cookies pour mémoriser vos préférences et analyser le trafic du site afin d'améliorer votre expérience.",
+    "customize": "Personnaliser",
+    "necessaryOnly": "Uniquement nécessaires",
+    "acceptAll": "Tout accepter",
+    "learnMore": "En savoir plus",
+    "customizeDescription": "Choisissez quels cookies vous souhaitez autoriser. Vous pouvez modifier ces paramètres à tout moment.",
+    "necessaryCookies": "Cookies nécessaires",
+    "required": "Requis",
+    "necessaryDescription": "Ces cookies sont essentiels au bon fonctionnement du site web, y compris la mémorisation de votre préférence de langue.",
+    "analyticsCookies": "Cookies analytiques",
+    "analyticsDescription": "Nous aident à comprendre comment les visiteurs utilisent notre site web afin de l'améliorer. Les données sont anonymisées.",
+    "back": "Retour",
+    "savePreferences": "Enregistrer les préférences"
   },
   "supportPage": {
     "title": "Assistance",

@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing, type Locale } from '@/i18n/routing';
 import { CookieBanner } from './components/CookieBanner';
+import { GoogleAnalytics } from '../components/GoogleAnalytics';
 import '../globals.css';
 
 type Props = {
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider messages={messages}>
       {children}
       <CookieBanner />
+      <GoogleAnalytics />
     </NextIntlClientProvider>
   );
 }
