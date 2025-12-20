@@ -7,24 +7,6 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "privacy": "public",
-    "primaryCategory": "HEALTH_AND_FITNESS",
-    "privacyManifests": {
-      "NSPrivacyAccessedAPITypes": [
-        {
-          "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
-          "NSPrivacyAccessedAPITypeReasons": [
-            "CA92.1"
-          ]
-        },
-        {
-          "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
-          "NSPrivacyAccessedAPITypeReasons": [
-            "C617.1"
-          ]
-        }
-      ]
-    },
     "runtimeVersion": {
       "policy": "appVersion"
     },
@@ -39,6 +21,18 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.slowspot.app",
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
+            "NSPrivacyAccessedAPITypeReasons": ["C617.1"]
+          }
+        ]
+      },
       "infoPlist": {
         "UIBackgroundModes": [
           "audio"
@@ -63,11 +57,6 @@
         "backgroundColor": "#8B5CF6"
       },
       "edgeToEdgeEnabled": true,
-      "enableDangerousExperimentalLeanBuilds": false,
-      "notification": {
-        "icon": "./assets/notification-icon.png",
-        "color": "#8B5CF6"
-      },
       "permissions": [],
       "blockedPermissions": [
         "android.permission.RECORD_AUDIO",
