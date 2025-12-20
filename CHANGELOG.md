@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/Slow-Spot/app/compare/v1.2.1...v1.3.0) (2025-12-20)
+
+### Features
+
+* **web:** add GA4 analytics with GDPR-compliant cookie consent ([4a62c85](https://github.com/Slow-Spot/app/commit/4a62c85299cb76da28af43f42c5b25793530697f))
+
 ## [1.2.1](https://github.com/Slow-Spot/app/compare/v1.2.0...v1.2.1) (2025-12-20)
 
 ### Bug Fixes
