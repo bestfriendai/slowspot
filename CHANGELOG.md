@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/Slow-Spot/app/compare/v1.1.1...v1.1.2) (2025-12-20)
+
+### Bug Fixes
+
+* app store compliance audit fixes ([8ab86e9](https://github.com/Slow-Spot/app/commit/8ab86e9417c99f8dc88e653b753592974a1d60ff))
+
 ## [1.1.1](https://github.com/Slow-Spot/app/compare/v1.1.0...v1.1.1) (2025-12-19)
 
 ### Bug Fixes
