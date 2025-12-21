@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/Slow-Spot/app/compare/v1.3.3...v1.4.0) (2025-12-21)
+
+### Features
+
+* **mobile:** configure Apple App Store Connect API for auto-submit ([0f2a9c3](https://github.com/Slow-Spot/app/commit/0f2a9c3436b0c841b4768e3460161403adf439a4))
+
 ## [1.3.3](https://github.com/Slow-Spot/app/compare/v1.3.2...v1.3.3) (2025-12-21)
 
 ### Bug Fixes
