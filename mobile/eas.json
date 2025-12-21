@@ -77,6 +77,9 @@
       "ios": {
         "appleId": "leszekszpunar@gmail.com",
         "appleTeamId": "QQHRMJ6B78",
+        "ascApiKeyPath": "./AuthKey_W3TGVKY5Z6.p8",
+        "ascApiKeyIssuerId": "7fbde26f-7ea0-4e56-8d1e-23174a411710",
+        "ascApiKeyId": "W3TGVKY5Z6",
         "sku": "com.iteon.slowspot"
       },
       "android": {
