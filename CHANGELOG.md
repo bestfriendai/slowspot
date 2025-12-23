@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/Slow-Spot/app/compare/v1.5.5...v1.6.0) (2025-12-23)
+
+### Features
+
+* **mobile:** enable R8/ProGuard for smaller APK and better crash reports ([351c940](https://github.com/Slow-Spot/app/commit/351c940432282fc102ad531728f4e14121fafdbe))
+
 ## [1.5.5](https://github.com/Slow-Spot/app/compare/v1.5.4...v1.5.5) (2025-12-21)
 
 ### Bug Fixes
