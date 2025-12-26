@@ -83,6 +83,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -113,6 +118,7 @@ jobs:
           echo "📝 Syncing Android metadata to Google Play..."
           bundle exec fastlane supply \
             --json_key google-play-key.json \
+            --package_name com.slowspot.app \
             --metadata_path ./fastlane/metadata/android \
             --skip_upload_apk \
             --skip_upload_aab \
