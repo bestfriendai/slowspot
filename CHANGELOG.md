@@ -1,3 +1,9 @@
+## [1.8.2](https://github.com/Slow-Spot/app/compare/v1.8.1...v1.8.2) (2025-12-26)
+
+### Bug Fixes
+
+* **release:** add credential files for store submission ([9949a19](https://github.com/Slow-Spot/app/commit/9949a19a1719bdd0bc39b793549c30e61a5288e3))
+
 ## [1.8.1](https://github.com/Slow-Spot/app/compare/v1.8.0...v1.8.1) (2025-12-26)
 
 ### Bug Fixes
