@@ -120,11 +120,21 @@ jobs:
           echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
           echo "🍎 iOS Build ID: $BUILD_ID"
 
+      - name: Setup App Store Connect API Key
+        if: needs.prepare.outputs.should_submit == 'true'
+        run: |
+          echo "${{ secrets.APP_STORE_CONNECT_API_KEY }}" | base64 -d > AuthKey_W3TGVKY5Z6.p8
+          echo "✅ App Store Connect API Key configured"
+
       - name: Submit to App Store
         if: needs.prepare.outputs.should_submit == 'true'
         run: |
           echo "📤 Submitting iOS to App Store..."
           eas submit --platform ios --profile production --non-interactive --latest
+
+      - name: Cleanup iOS credentials
+        if: always()
+        run: rm -f AuthKey_W3TGVKY5Z6.p8
 
   build-android:
     name: 🤖 Build Android
@@ -169,11 +179,21 @@ jobs:
           echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
           echo "🤖 Android Build ID: $BUILD_ID"
 
+      - name: Setup Google Play Service Account
+        if: needs.prepare.outputs.should_submit == 'true'
+        run: |
+          echo '${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}' > android-service-account.json
+          echo "✅ Google Play Service Account configured"
+
       - name: Submit to Google Play
         if: needs.prepare.outputs.should_submit == 'true'
         run: |
           echo "📤 Submitting Android to Google Play..."
           eas submit --platform android --profile production --non-interactive --latest
+
+      - name: Cleanup Android credentials
+        if: always()
+        run: rm -f android-service-account.json
 
   summary:
     name: 📊 Build Summary
