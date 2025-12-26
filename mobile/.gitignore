@@ -47,3 +47,11 @@ ios-distribution-cert.p12
 # generated native folders
 /ios
 /android
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/README.md
+Gemfile.lock

@@ -1,0 +1,29 @@
+# Fastlane configuration for Slow Spot
+# Used primarily for Google Play metadata sync
+
+default_platform(:android)
+
+platform :android do
+  desc "Sync metadata to Google Play Console"
+  lane :sync_metadata do
+    # Generate metadata from our JSON source
+    sh("node ../scripts/generate-android-metadata.js")
+
+    # Upload metadata to Google Play
+    supply(
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      metadata_path: "./metadata/android"
+    )
+  end
+end
+
+platform :ios do
+  desc "Note: iOS metadata is handled by EAS Metadata"
+  lane :info do
+    UI.message("iOS metadata is managed via EAS Metadata.")
+    UI.message("Run: eas metadata:push --platform ios")
+  end
+end

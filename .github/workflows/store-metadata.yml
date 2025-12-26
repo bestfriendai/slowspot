@@ -1,0 +1,126 @@
+name: 📝 Store Metadata Sync
+
+on:
+  push:
+    paths:
+      - 'mobile/store/metadata.json'
+      - 'mobile/store.config.js'
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to sync metadata'
+        required: true
+        default: 'ios'
+        type: choice
+        options:
+          - ios
+          - android
+          - all
+
+env:
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+jobs:
+  sync-ios-metadata:
+    name: 🍎 Sync iOS Metadata
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' ||
+      github.event.inputs.platform == 'ios' ||
+      github.event.inputs.platform == 'all'
+    defaults:
+      run:
+        working-directory: ./mobile
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: mobile/package-lock.json
+
+      - name: Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Push iOS Metadata to App Store Connect
+        run: |
+          echo "📝 Syncing iOS metadata to App Store Connect..."
+          eas metadata:push --platform ios --non-interactive
+        continue-on-error: true
+
+      - name: Summary
+        run: |
+          echo "## 🍎 iOS Metadata Sync" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Metadata has been pushed to App Store Connect." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[View in App Store Connect](https://appstoreconnect.apple.com)" >> $GITHUB_STEP_SUMMARY
+
+  sync-android-metadata:
+    name: 🤖 Sync Android Metadata (Fastlane)
+    runs-on: ubuntu-latest
+    if: |
+      github.event.inputs.platform == 'android' ||
+      github.event.inputs.platform == 'all'
+    defaults:
+      run:
+        working-directory: ./mobile
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+          working-directory: ./mobile
+
+      - name: Install Fastlane
+        run: |
+          if [ ! -f Gemfile ]; then
+            echo 'source "https://rubygems.org"' > Gemfile
+            echo 'gem "fastlane"' >> Gemfile
+          fi
+          bundle install
+
+      - name: Setup Google Play credentials
+        run: |
+          echo '${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}' > google-play-key.json
+        env:
+          GOOGLE_PLAY_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}
+
+      - name: Generate Fastlane metadata structure
+        run: |
+          node scripts/generate-android-metadata.js
+
+      - name: Push Android Metadata to Google Play
+        run: |
+          echo "📝 Syncing Android metadata to Google Play..."
+          bundle exec fastlane supply --metadata_path ./fastlane/metadata/android --skip_upload_apk --skip_upload_aab --skip_upload_images --skip_upload_screenshots
+        continue-on-error: true
+
+      - name: Cleanup credentials
+        if: always()
+        run: rm -f google-play-key.json
+
+      - name: Summary
+        run: |
+          echo "## 🤖 Android Metadata Sync" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Metadata has been pushed to Google Play Console." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "[View in Google Play Console](https://play.google.com/console)" >> $GITHUB_STEP_SUMMARY

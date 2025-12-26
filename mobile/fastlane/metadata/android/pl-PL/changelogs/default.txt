@@ -1,0 +1,2 @@
+• Poprawiona wydajność i stabilność
+• Poprawki błędów i optymalizacje
