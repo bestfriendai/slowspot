@@ -1,3 +1,9 @@
+## [1.7.0](https://github.com/Slow-Spot/app/compare/v1.6.0...v1.7.0) (2025-12-26)
+
+### Features
+
+* **mobile:** add App Store metadata and fix iOS submit config ([112ee57](https://github.com/Slow-Spot/app/commit/112ee5757f5fc29515fca8b584e5ca6fe697e0ca))
+
 ## [1.6.0](https://github.com/Slow-Spot/app/compare/v1.5.5...v1.6.0) (2025-12-23)
 
 ### Features
