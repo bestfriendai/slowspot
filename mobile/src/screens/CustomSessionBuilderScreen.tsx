@@ -124,6 +124,28 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
   // Audio preview
   const [chimeSound, setChimeSound] = useState<AudioPlayer | null>(null);
 
+  // Real-time validation state
+  const validationErrors = useMemo(() => {
+    const errors: { sessionName?: string; intervalBell?: string } = {};
+
+    // Validate interval bell vs duration
+    if (intervalBellEnabled && intervalBellMinutes >= durationMinutes) {
+      errors.intervalBell = t('custom.intervalWarning', 'Interval must be shorter than session duration');
+    }
+
+    return errors;
+  }, [intervalBellEnabled, intervalBellMinutes, durationMinutes, t]);
+
+  // Check if session can be saved (has name and no critical errors)
+  const canSave = useMemo(() => {
+    return sessionName.trim().length > 0 && !validationErrors.intervalBell;
+  }, [sessionName, validationErrors]);
+
+  // Check if session can be started (no critical errors blocking playback)
+  const canStart = useMemo(() => {
+    return !validationErrors.intervalBell;
+  }, [validationErrors]);
+
   useEffect(() => {
     loadAudio();
 
@@ -224,6 +246,11 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
   });
 
   const handleStartSession = () => {
+    if (!canStart) {
+      // Show validation error via haptic feedback
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+      return;
+    }
     onStartSession(getCurrentConfig());
   };
 
@@ -733,12 +760,17 @@ export const CustomSessionBuilderScreen: React.FC<CustomSessionBuilderScreenProp
             onPress={handleStartSession}
             gradient={themeGradients.button.primary}
             style={styles.actionButton}
+            disabled={!canStart}
           />
 
           {sessionName.trim().length > 0 && (
-            <Pressable onPress={handleSaveSession} style={styles.saveButton}>
-              <Ionicons name="bookmark-outline" size={18} color={currentTheme.primary} />
-              <Text style={[styles.saveButtonText, { color: currentTheme.primary }]}>
+            <Pressable
+              onPress={handleSaveSession}
+              style={[styles.saveButton, !canSave && styles.saveButtonDisabled]}
+              disabled={!canSave}
+            >
+              <Ionicons name="bookmark-outline" size={18} color={canSave ? currentTheme.primary : colors.text.tertiary} />
+              <Text style={[styles.saveButtonText, { color: canSave ? currentTheme.primary : colors.text.tertiary }]}>
                 {(editSessionId || localEditSessionId) ? t('custom.updateSession', 'Update Session') : t('custom.saveSession', 'Save Session')}
               </Text>
             </Pressable>
@@ -1022,5 +1054,8 @@ const styles = StyleSheet.create({
   saveButtonText: {
     fontSize: theme.typography.fontSizes.md,
     fontWeight: theme.typography.fontWeights.medium,
+  },
+  saveButtonDisabled: {
+    opacity: 0.5,
   },
 });

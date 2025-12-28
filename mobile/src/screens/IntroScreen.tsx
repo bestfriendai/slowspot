@@ -630,7 +630,11 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+    >
       <LinearGradient
         colors={['#FAFBFC', '#F0F2F5', '#E8ECF0']}
         style={StyleSheet.absoluteFillObject}
@@ -752,7 +756,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ onDone }) => {
           </AnimatedPressable>
         </Animated.View>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

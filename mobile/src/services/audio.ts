@@ -31,6 +31,8 @@ export interface AudioTrack {
 class AudioEngine {
   private tracks: Map<AudioLayer, AudioPlayer> = new Map();
   private isInitialized = false;
+  // Cancellation tokens for fade operations - prevents orphaned loops
+  private fadeAbortControllers: Map<AudioLayer, AbortController> = new Map();
 
   async initialize() {
     if (this.isInitialized) return;
@@ -154,6 +156,13 @@ class AudioEngine {
     const player = this.tracks.get(layer);
     if (!player) return;
 
+    // Cancel any existing fade operation for this layer
+    this.cancelFade(layer);
+
+    // Create new abort controller for this fade operation
+    const abortController = new AbortController();
+    this.fadeAbortControllers.set(layer, abortController);
+
     const steps = 20;
     const stepDuration = duration / steps;
 
@@ -162,21 +171,39 @@ class AudioEngine {
       await this.setVolume(layer, 0);
       await this.play(layer);
 
-      // Gradually increase volume
+      // Gradually increase volume (with cancellation check)
       for (let i = 0; i <= steps; i++) {
+        if (abortController.signal.aborted) {
+          logger.log(`Fade in cancelled for ${layer}`);
+          return;
+        }
         const volume = (i / steps) * targetVolume;
         await this.setVolume(layer, volume);
         await new Promise((resolve) => setTimeout(resolve, stepDuration));
       }
       logger.log(`Faded in ${layer} track`);
     } catch (error) {
-      logger.error(`Failed to fade in ${layer}:`, error);
+      if (!abortController.signal.aborted) {
+        logger.error(`Failed to fade in ${layer}:`, error);
+      }
+    } finally {
+      // Clean up abort controller if it's still ours
+      if (this.fadeAbortControllers.get(layer) === abortController) {
+        this.fadeAbortControllers.delete(layer);
+      }
     }
   }
 
   async fadeOut(layer: AudioLayer, duration: number = 2000) {
     const player = this.tracks.get(layer);
     if (!player) return;
+
+    // Cancel any existing fade operation for this layer
+    this.cancelFade(layer);
+
+    // Create new abort controller for this fade operation
+    const abortController = new AbortController();
+    this.fadeAbortControllers.set(layer, abortController);
 
     const steps = 20;
     const stepDuration = duration / steps;
@@ -185,8 +212,12 @@ class AudioEngine {
       // Get current volume
       const currentVolume = player.volume || 1.0;
 
-      // Gradually decrease volume
+      // Gradually decrease volume (with cancellation check)
       for (let i = steps; i >= 0; i--) {
+        if (abortController.signal.aborted) {
+          logger.log(`Fade out cancelled for ${layer}`);
+          return;
+        }
         const volume = (i / steps) * currentVolume;
         await this.setVolume(layer, volume);
         await new Promise((resolve) => setTimeout(resolve, stepDuration));
@@ -195,8 +226,32 @@ class AudioEngine {
       await this.stop(layer);
       logger.log(`Faded out ${layer} track`);
     } catch (error) {
-      logger.error(`Failed to fade out ${layer}:`, error);
+      if (!abortController.signal.aborted) {
+        logger.error(`Failed to fade out ${layer}:`, error);
+      }
+    } finally {
+      // Clean up abort controller if it's still ours
+      if (this.fadeAbortControllers.get(layer) === abortController) {
+        this.fadeAbortControllers.delete(layer);
+      }
     }
+  }
+
+  // Cancel any active fade operation for a layer
+  private cancelFade(layer: AudioLayer) {
+    const controller = this.fadeAbortControllers.get(layer);
+    if (controller) {
+      controller.abort();
+      this.fadeAbortControllers.delete(layer);
+    }
+  }
+
+  // Cancel all active fade operations
+  private cancelAllFades() {
+    for (const [layer, controller] of this.fadeAbortControllers) {
+      controller.abort();
+    }
+    this.fadeAbortControllers.clear();
   }
 
   async playAll() {
@@ -214,6 +269,8 @@ class AudioEngine {
   }
 
   async stopAll() {
+    // Cancel all active fade operations first to prevent orphaned loops
+    this.cancelAllFades();
     const layers = Array.from(this.tracks.keys());
     for (const layer of layers) {
       await this.stop(layer);
@@ -223,6 +280,9 @@ class AudioEngine {
   async unloadTrack(layer: AudioLayer) {
     const player = this.tracks.get(layer);
     if (!player) return;
+
+    // Cancel any active fade operation for this layer
+    this.cancelFade(layer);
 
     try {
       // Release the player to free resources
@@ -236,6 +296,8 @@ class AudioEngine {
 
   async cleanup() {
     logger.log('Cleaning up audio engine...');
+    // Cancel all active fade operations first to prevent orphaned loops
+    this.cancelAllFades();
     const layers = Array.from(this.tracks.keys());
     for (const layer of layers) {
       await this.unloadTrack(layer);

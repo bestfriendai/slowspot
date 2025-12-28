@@ -8,6 +8,12 @@ import { logger } from '../utils/logger';
 
 const STORAGE_KEY = 'shown_quotes';
 
+// Maximum number of quote IDs to store per language (prevents unbounded growth)
+const MAX_HISTORY_PER_LANGUAGE = 500;
+
+// Maximum number of languages to track (prevents storage bloat from old/unused languages)
+const MAX_LANGUAGES = 10;
+
 export interface QuoteHistory {
   [languageCode: string]: number[]; // Map of language -> array of shown quote IDs
 }
@@ -30,6 +36,7 @@ export const getShownQuotes = async (languageCode: string): Promise<number[]> =>
 
 /**
  * Mark a quote as shown for a specific language
+ * Automatically enforces storage limits to prevent unbounded growth
  */
 export const markQuoteAsShown = async (
   languageCode: string,
@@ -46,6 +53,27 @@ export const markQuoteAsShown = async (
     // Add quote ID if not already in history
     if (!history[languageCode].includes(quoteId)) {
       history[languageCode].push(quoteId);
+
+      // Enforce per-language limit (remove oldest entries if exceeded)
+      if (history[languageCode].length > MAX_HISTORY_PER_LANGUAGE) {
+        const excess = history[languageCode].length - MAX_HISTORY_PER_LANGUAGE;
+        history[languageCode] = history[languageCode].slice(excess);
+        logger.log(`Trimmed ${excess} old quote IDs from ${languageCode} history`);
+      }
+    }
+
+    // Enforce language limit (remove least recently used languages)
+    const languageKeys = Object.keys(history);
+    if (languageKeys.length > MAX_LANGUAGES) {
+      // Remove languages with fewest entries (least active)
+      const sortedBySize = languageKeys.sort(
+        (a, b) => history[a].length - history[b].length
+      );
+      const toRemove = sortedBySize.slice(0, languageKeys.length - MAX_LANGUAGES);
+      for (const lang of toRemove) {
+        delete history[lang];
+        logger.log(`Removed inactive language history: ${lang}`);
+      }
     }
 
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(history));

@@ -11,6 +11,25 @@ const SESSIONS_KEY = 'completed_sessions';
 const IMPORTED_STREAK_KEY = 'imported_streak';
 
 /**
+ * Get local date string in YYYY-MM-DD format
+ * This ensures streak calculations use the user's local timezone
+ */
+const getLocalDateString = (date: Date = new Date()): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+/**
+ * Parse ISO date string to local date string
+ */
+const isoToLocalDateString = (isoString: string): string => {
+  const date = new Date(isoString);
+  return getLocalDateString(date);
+};
+
+/**
  * Imported streak data from another meditation app
  */
 export interface ImportedStreakData {
@@ -90,26 +109,23 @@ export const getCompletedSessions = async (): Promise<CompletedSession[]> => {
 };
 
 /**
- * Get unique dates when user meditated (YYYY-MM-DD format)
+ * Get unique dates when user meditated (YYYY-MM-DD format in local timezone)
  */
 const getUniqueMeditationDates = (sessions: CompletedSession[]): string[] => {
-  const dates = sessions.map((s) => {
-    const date = new Date(s.date);
-    return date.toISOString().split('T')[0]; // YYYY-MM-DD
-  });
+  const dates = sessions.map((s) => isoToLocalDateString(s.date));
 
   // Remove duplicates and sort
   return [...new Set(dates)].sort();
 };
 
 /**
- * Calculate current meditation streak
+ * Calculate current meditation streak (using local timezone)
  */
 export const calculateCurrentStreak = (sessions: CompletedSession[]): number => {
   if (sessions.length === 0) return 0;
 
   const uniqueDates = getUniqueMeditationDates(sessions);
-  const today = new Date().toISOString().split('T')[0];
+  const today = getLocalDateString();
 
   let streak = 0;
   let currentDate = new Date();
@@ -119,7 +135,7 @@ export const calculateCurrentStreak = (sessions: CompletedSession[]): number => 
     const meditationDate = uniqueDates[i];
     const checkDate = new Date(currentDate);
     checkDate.setDate(checkDate.getDate() - streak);
-    const expectedDate = checkDate.toISOString().split('T')[0];
+    const expectedDate = getLocalDateString(checkDate);
 
     if (meditationDate === expectedDate) {
       streak++;
@@ -127,7 +143,7 @@ export const calculateCurrentStreak = (sessions: CompletedSession[]): number => 
       // Haven't meditated today, check if yesterday
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1);
-      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const yesterdayStr = getLocalDateString(yesterday);
 
       if (meditationDate === yesterdayStr) {
         streak = 1;
