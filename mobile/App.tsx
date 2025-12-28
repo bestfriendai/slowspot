@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { logger } from './src/utils/logger';
 import { AnimatedScreenContainer } from './src/components/AnimatedScreenContainer';
 import { AppModal } from './src/components/AppModal';
+import { ErrorBoundary } from './src/components/ErrorBoundary';
 
 // Keep the splash screen visible while we load resources
 SplashScreen.preventAutoHideAsync();
@@ -395,18 +396,18 @@ function AppContent() {
       {/* Exit Meditation Confirmation Modal */}
       <AppModal
         visible={showExitMeditationModal}
-        title={t('meditation.endSessionTitle', 'Zakończyć sesję?')}
-        message={t('meditation.endSessionMessage', 'Twój postęp zostanie zapisany. Czy na pewno chcesz zakończyć medytację?')}
+        title={t('meditation.endSessionTitle', 'End Session?')}
+        message={t('meditation.endSessionMessage', 'Your progress will be saved. Are you sure you want to end the meditation?')}
         icon="pause-circle-outline"
         onDismiss={handleCancelExitMeditation}
         buttons={[
           {
-            text: t('meditation.endSessionCancel', 'Kontynuuj'),
+            text: t('meditation.endSessionCancel', 'Continue'),
             style: 'cancel',
             onPress: handleCancelExitMeditation,
           },
           {
-            text: t('meditation.endSessionConfirm', 'Zakończ'),
+            text: t('meditation.endSessionConfirm', 'End'),
             style: 'destructive',
             onPress: handleConfirmExitMeditation,
           },
@@ -419,13 +420,15 @@ function AppContent() {
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.gestureRoot}>
-      <SafeAreaProvider>
-        <UserProfileProvider>
-          <PersonalizationProvider>
-            <AppContent />
-          </PersonalizationProvider>
-        </UserProfileProvider>
-      </SafeAreaProvider>
+      <ErrorBoundary>
+        <SafeAreaProvider>
+          <UserProfileProvider>
+            <PersonalizationProvider>
+              <AppContent />
+            </PersonalizationProvider>
+          </UserProfileProvider>
+        </SafeAreaProvider>
+      </ErrorBoundary>
     </GestureHandlerRootView>
   );
 }
