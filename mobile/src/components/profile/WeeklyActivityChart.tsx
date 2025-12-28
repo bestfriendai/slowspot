@@ -8,7 +8,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { GradientCard } from '../GradientCard';
-import theme from '../../theme';
+import theme, { getThemeGradients } from '../../theme';
+
+// Type for theme gradients returned by getThemeGradients
+type ThemeGradients = ReturnType<typeof getThemeGradients>;
 
 interface WeeklyActivityData {
   dayKey: string;
@@ -21,11 +24,7 @@ interface WeeklyActivityData {
 interface WeeklyActivityChartProps {
   weeklyActivity: WeeklyActivityData[];
   primaryColor: string;
-  themeGradients: {
-    card: {
-      whiteCard: readonly [string, string];
-    };
-  };
+  themeGradients: ThemeGradients;
   isDark: boolean;
   colors: {
     text: {

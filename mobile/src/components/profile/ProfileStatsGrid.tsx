@@ -9,18 +9,17 @@ import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
 import { GradientCard } from '../GradientCard';
 import { ResponsiveGrid } from '../ResponsiveGrid';
-import theme from '../../theme';
+import theme, { getThemeGradients } from '../../theme';
+
+// Type for theme gradients returned by getThemeGradients
+type ThemeGradients = ReturnType<typeof getThemeGradients>;
 
 interface ProfileStatsGridProps {
   totalSessions: number;
   totalMinutes: number;
   currentStreak: number;
   longestStreak: number;
-  themeGradients: {
-    card: {
-      whiteCard: readonly [string, string];
-    };
-  };
+  themeGradients: ThemeGradients;
   isDark: boolean;
   colors: {
     text: {
@@ -50,11 +49,7 @@ interface StatCardProps {
   suffix?: string;
   iconColor: string;
   iconBg: string;
-  themeGradients: {
-    card: {
-      whiteCard: readonly [string, string];
-    };
-  };
+  themeGradients: ThemeGradients;
   isDark: boolean;
   colors: {
     text: {

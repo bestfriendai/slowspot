@@ -17,17 +17,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { GradientCard } from '../GradientCard';
 import { MoodIcon, getMoodColors } from '../MoodIcon';
 import { CompletedSession } from '../../services/progressTracker';
-import theme from '../../theme';
+import theme, { getThemeGradients } from '../../theme';
+
+// Type for theme gradients returned by getThemeGradients
+type ThemeGradients = ReturnType<typeof getThemeGradients>;
 
 interface SessionDetailsModalProps {
   session: CompletedSession | null;
   visible: boolean;
   primaryColor: string;
-  themeGradients: {
-    card: {
-      whiteCard: readonly [string, string];
-    };
-  };
+  themeGradients: ThemeGradients;
   isDark: boolean;
   colors: {
     text: {

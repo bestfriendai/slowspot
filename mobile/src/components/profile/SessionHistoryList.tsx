@@ -11,7 +11,10 @@ import * as Haptics from 'expo-haptics';
 import { GradientCard } from '../GradientCard';
 import { MoodIcon } from '../MoodIcon';
 import { CompletedSession } from '../../services/progressTracker';
-import theme from '../../theme';
+import theme, { getThemeGradients } from '../../theme';
+
+// Type for theme gradients returned by getThemeGradients
+type ThemeGradients = ReturnType<typeof getThemeGradients>;
 
 interface GroupedSessions {
   today: CompletedSession[];
@@ -24,11 +27,7 @@ interface SessionHistoryListProps {
   sessions: CompletedSession[];
   visibleCount: number;
   primaryColor: string;
-  themeGradients: {
-    card: {
-      whiteCard: readonly [string, string];
-    };
-  };
+  themeGradients: ThemeGradients;
   isDark: boolean;
   colors: {
     text: {
