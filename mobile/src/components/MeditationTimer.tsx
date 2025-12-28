@@ -525,7 +525,14 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
   const svgOffset = 25; // Center offset
 
   return (
-    <Pressable style={styles.container} onPress={handleScreenTouch}>
+    <Pressable
+      style={styles.container}
+      onPress={handleScreenTouch}
+      accessibilityLabel={t('accessibility.meditationScreen', 'Meditation in progress')}
+      accessibilityHint={controlsVisible
+        ? t('accessibility.tapToHideControls', 'Tap screen to enter focus mode')
+        : t('accessibility.tapToShowControls', 'Tap screen to show controls')}
+    >
       {/* Top controls - Audio & Ambient - Animated for Focus Mode */}
       <Animated.View style={[styles.topControls, controlsAnimatedStyle]}>
         <TouchableOpacity
@@ -536,7 +543,9 @@ export const MeditationTimer: React.FC<MeditationTimerProps> = ({
             setAudioEnabled(newState);
             if (onAudioToggle) onAudioToggle(newState);
           }}
-          accessibilityLabel={audioEnabled ? 'Audio enabled' : 'Audio disabled'}
+          accessibilityRole="button"
+          accessibilityLabel={audioEnabled ? t('accessibility.audioEnabled', 'Audio enabled') : t('accessibility.audioDisabled', 'Audio disabled')}
+          accessibilityHint={audioEnabled ? t('accessibility.muteAudioHint', 'Tap to mute audio') : t('accessibility.unmuteAudioHint', 'Tap to unmute audio')}
         >
           {/* Subtle glow ring behind icon when enabled */}
           {audioEnabled && (

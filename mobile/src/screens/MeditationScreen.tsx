@@ -137,14 +137,23 @@ export const MeditationScreen: React.FC<MeditationScreenProps> = ({
   }, [flowState]);
 
   // Cleanup audio when component unmounts or user navigates away
+  // Uses mounted flag to prevent race conditions with async cleanup
   useEffect(() => {
+    let isMounted = true;
+
     return () => {
+      isMounted = false;
       // Stop and cleanup audio to prevent background playback
+      // Only cleanup if we were actually mounted (prevents double cleanup)
       audioEngine.stopAll().catch((error) => {
-        logger.error('Failed to stop audio on unmount:', error);
+        if (isMounted) {
+          logger.error('Failed to stop audio on unmount:', error);
+        }
       });
       audioEngine.cleanup().catch((error) => {
-        logger.error('Failed to cleanup audio on unmount:', error);
+        if (isMounted) {
+          logger.error('Failed to cleanup audio on unmount:', error);
+        }
       });
     };
   }, []);
